@@ -1772,11 +1772,14 @@
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--glass-border);
       border-radius: 9px;
-      padding: 11px;
+      padding: 10px;
       margin-bottom: 8px;
       cursor: pointer;
       transition: var(--transition);
       backdrop-filter: blur(8px);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
     }
 
     .k-item:hover {
@@ -1786,26 +1789,54 @@
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     }
 
+    .k-item-thumb {
+      width: 62px;
+      height: 62px;
+      object-fit: cover;
+      border-radius: 7px;
+      flex-shrink: 0;
+      display: block;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .k-item-body {
+      flex: 1;
+      min-width: 0;
+    }
+
     .k-item-id {
       font-family: var(--font-mono);
-      font-size: 10px;
-      color: rgba(196, 30, 58, 0.8);
-      margin-bottom: 5px;
+      font-size: 9.5px;
+      color: rgba(196, 30, 58, 0.85);
+      margin-bottom: 3px;
     }
 
     .k-item-title {
       font-size: 12px;
       font-weight: 600;
-      margin-bottom: 7px;
+      margin-bottom: 6px;
+      line-height: 1.35;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .k-item-pills {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
     }
 
     .k-item-meta {
-      font-size: 11px;
+      font-size: 10.5px;
       color: var(--text-muted);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-top: 7px;
+      gap: 5px;
+      margin-top: 5px;
+      flex-wrap: wrap;
     }
 
     /* ─ FORM PANEL ─ */
@@ -2469,11 +2500,6 @@
               <circle cx="12" cy="12" r="2.2"></circle>
               <path d="M12 3v3M21 12h-3M12 21v-3M3 12h3"></path>
             </svg></span><span>Client Servicing</span></button>
-        <button class="role-btn" data-role="client" onclick="selectRole(this,'client')"><span class="role-icon"><svg
-              viewBox="0 0 24 24">
-              <rect x="4" y="7" width="16" height="12" rx="2"></rect>
-              <path d="M4 11h16M8 7V5h8v2"></path>
-            </svg></span><span>Client</span></button>
         <button class="role-btn" data-role="teamlead" onclick="selectRole(this,'teamlead')"><span class="role-icon"><svg
               viewBox="0 0 24 24">
               <path d="M5 20h14"></path>
@@ -2685,10 +2711,6 @@
       cs: {
         label: 'Client Servicing', user: 'Jason Ranji', initials: 'JR',
         nav: [{ s: 'Main', items: [{ ico: 'chart', lbl: 'Dashboard', pg: 'cs-dash', b: null }, { ico: 'briefcase', lbl: 'All Projects', pg: 'cs-projects', b: null }, { ico: 'clipboard', lbl: 'Job Queue', pg: 'cs-queue', b: '2' }, { ico: 'package', lbl: 'Ready to Deliver', pg: 'cs-deliver', b: '1' }, { ico: 'refresh', lbl: 'Amendments', pg: 'cs-amend', b: '1' }] }, { s: 'Clients', items: [{ ico: 'users', lbl: 'Client Records', pg: 'cs-clients', b: null }] }]
-      },
-      client: {
-        label: 'Client', user: 'Ravi Textiles', initials: 'RT',
-        nav: [{ s: 'Portal', items: [{ ico: 'home', lbl: 'My Dashboard', pg: 'client-dash', b: null }, { ico: 'plus', lbl: 'Request Quote', pg: 'client-quote', b: null }, { ico: 'clipboard', lbl: 'My Jobs', pg: 'client-jobs', b: null }, { ico: 'user', lbl: 'My Profile', pg: 'client-profile', b: null }] }]
       },
       teamlead: {
         label: 'Team Lead', user: 'Ankit Mehta', initials: 'AM',
@@ -3137,94 +3159,6 @@
         </tbody></table>
       </div>`,
 
-        'client-dash': `
-      <div class="greeting-hero">
-        <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
-        <div class="greeting-title">Good ${getGreeting()}, Ravi</div>
-        <div class="greeting-sub">Track your orders and request new quotes from your dashboard.</div>
-      </div>
-      <div class="stats-grid">
-        <div class="stat-card blue"><div class="stat-label">Active Jobs</div><div class="stat-value" style="color:#93c5fd">3</div></div>
-        <div class="stat-card amber"><div class="stat-label">Pending Quotes</div><div class="stat-value" style="color:#fcd34d">1</div></div>
-        <div class="stat-card green"><div class="stat-label">Completed</div><div class="stat-value" style="color:#86efac">9</div></div>
-        <div class="stat-card crimson"><div class="stat-label">This Month</div><div class="stat-value" style="color:#ff8a95;font-size:22px">$84K</div></div>
-      </div>
-      <div class="two-col">
-        <div><div class="sec-header"><div class="sec-title">My Jobs</div><span class="sec-action" onclick="navigateTo('client-jobs')">View all →</span></div>${jobTable(JOBS.filter(j => j.clientId === 'C001'))}</div>
-        <div>
-          <div class="panel">
-            <div class="panel-title">Quick Actions</div>
-            <button class="btn btn-crimson" style="width:100%;margin-bottom:9px;justify-content:center;" onclick="navigateTo('client-quote')">${icon('plus', 'btn-ico')}<span>Request New Quote</span></button>
-            <button class="btn btn-outline" style="width:100%;margin-bottom:9px;justify-content:center;" onclick="showToast('Downloading delivered files...','info')">${icon('download', 'btn-ico')}<span>Download Latest Files</span></button>
-            <button class="btn btn-outline" style="width:100%;justify-content:center;" onclick="showToast('Modification request opened','info')">${icon('refresh', 'btn-ico')}<span>Request Modification</span></button>
-          </div>
-          <div class="panel">
-            <div id="pricing-chart"></div>
-          </div>
-        </div>
-      </div>`,
-
-        'client-quote': `
-      <div class="form-panel">
-        <div class="fp-title">${icon('clipboard', 'panel-ico')}<span>Request New Quote / Job Card</span></div>
-        <div class="form-row">
-          <div class="fg"><label class="fl">Order Type *</label><select class="fi"><option>Artwork</option><option>Digitizing</option><option>Digitizing + Sewout</option><option>Sewout</option></select></div>
-          <div class="fg"><label class="fl">Design Name *</label><input class="fi" value="Winter Collection Print" placeholder="e.g. Summer Collection Logo"></div>
-        </div>
-        <div class="form-row">
-          <div class="fg"><label class="fl">Process Type</label><select class="fi"><option>Screen Printing</option><option>Digital Printing</option><option>Offset Printing</option><option>Others</option></select></div>
-          <div class="fg"><label class="fl">No. of Colors</label><input class="fi" type="number" value="4"></div>
-        </div>
-        <div class="fg"><label class="fl">Description / Brief</label><textarea class="fi fi-ta" placeholder="Describe your requirements...">4-color CMYK print for winter collection. Primary brand blue (#1E3A5F). Avoid white backgrounds on outer panels.</textarea></div>
-        <div class="fg"><label class="fl">Upload Reference Files</label>
-          <div class="upload-zone" onclick="showToast('File picker opened (demo)','info')">
-            <div class="upload-ico">${icon('folder')}</div>
-            <div class="upload-txt">Drop files here or <strong>browse</strong><br><span style="font-size:11px;color:var(--text-faint)">PDF, AI, PSD, PNG, SVG, JPG — max 500 MB per file</span></div>
-          </div>
-        </div>
-        <div style="display:flex;gap:9px;justify-content:flex-end;">
-          <button class="btn btn-outline" onclick="showToast('Draft saved!','success')">${icon('save', 'btn-ico')}<span>Save Draft</span></button>
-          <button class="btn btn-crimson" onclick="submitQuote()">${icon('send', 'btn-ico')}<span>Submit Quote Request</span></button>
-        </div>
-      </div>`,
-
-        'client-jobs': `
-      <div class="sec-header"><div class="sec-title">Delivered Jobs</div><span class="sec-action">Latest delivered work</span></div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;">
-        ${JOBS.filter(j => j.clientId === 'C001' && j.stage === 'delivered').map(j => `
-          <div class="panel" style="padding:16px;cursor:pointer;" onclick="openJob('${j.id}')">
-            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px;">
-              <div>
-                <div style="font-family:var(--font-mono);font-size:11px;color:var(--crimson);">${j.id}</div>
-                <div style="font-size:14px;font-weight:700;color:var(--text);margin-top:4px;">${j.design}</div>
-              </div>
-              <span class="badge green">Delivered</span>
-            </div>
-            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:12px;background:rgba(255,255,255,0.03);border:1px solid var(--glass-border);border-radius:10px;">
-              <div><div style="font-size:10.5px;font-weight:700;color:var(--text-faint);letter-spacing:0.05em;text-transform:uppercase;">Order Type</div><div style="font-size:12.5px;color:var(--text-muted);font-weight:600;">${j.order}</div></div>
-              <div><div style="font-size:10.5px;font-weight:700;color:var(--text-faint);letter-spacing:0.05em;text-transform:uppercase;">Created</div><div style="font-size:12.5px;color:var(--text-muted);font-weight:600;">${j.created}</div></div>
-              <div><div style="font-size:10.5px;font-weight:700;color:var(--text-faint);letter-spacing:0.05em;text-transform:uppercase;">Assigned To</div><div style="font-size:12.5px;color:var(--text-muted);font-weight:600;">${j.assignedTo}</div></div>
-              <div><div style="font-size:10.5px;font-weight:700;color:var(--text-faint);letter-spacing:0.05em;text-transform:uppercase;">Priority</div><div style="font-size:12.5px;color:var(--text-muted);font-weight:600;">${j.priority}</div></div>
-            </div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;">
-              <button class="btn btn-crimson" style="flex:1 1 130px;justify-content:center;" onclick="event.stopPropagation();showToast('Downloading files for ${j.id}...','success')">${icon('download', 'btn-ico')}<span>Download Files</span></button>
-              <button class="btn btn-outline" style="flex:1 1 130px;justify-content:center;" onclick="event.stopPropagation();showToast('Modification request opened for ${j.id}','info')">${icon('refresh', 'btn-ico')}<span>Request Modification</span></button>
-            </div>
-          </div>`).join('')}
-      </div>`,
-
-        'client-profile': `
-      <div style="max-width:540px;">
-        <div class="form-panel">
-          <div class="fp-title">${icon('user', 'panel-ico')}<span>My Profile — Read Only</span></div>
-          <div style="background:rgba(196,30,58,0.08);border:1px solid rgba(196,30,58,0.2);border-radius:9px;padding:14px;margin-bottom:14px;display:flex;align-items:center;gap:12px;">
-            <div class="prof-av" style="width:44px;height:44px;font-size:16px;border-radius:10px;">RT</div>
-            <div><div style="font-size:15px;font-weight:700;">Ravi Kumar</div><div style="font-size:12px;color:var(--text-muted)">Ravi Textiles Pvt. Ltd. · Client since Apr 2024</div></div>
-          </div>
-          ${[['Client ID', 'C001 (auto-generated)'], ['Client Name', 'Ravi Kumar'], ['Company', 'Ravi Textiles Pvt. Ltd.'], ['Location', 'Hyderabad, Telangana, India'], ['Member Since', 'April 12, 2024']].map(([k, v]) => `<div class="f-row"><div class="f-key">${k}</div><div class="f-val">${v}</div></div>`).join('')}
-          <div style="margin-top:13px;padding:10px 12px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.18);border-radius:7px;font-size:12px;color:var(--text-muted)">${icon('info', 'callout-ico')}<span>To update your profile, please contact Client Servicing.</span></div>
-        </div>
-      </div>`,
 
         'tl-dash': `
       <div class="greeting-hero" style="display:flex; justify-content:space-between; align-items:flex-end;">
@@ -3249,19 +3183,19 @@
       <div class="sec-header"><div class="sec-title">Job Pipeline — Kanban View</div></div>
       <div class="kanban">
         <div class="k-col"><div class="k-col-header"><div class="k-col-title">${icon('inbox', 'panel-ico')}<span>Unassigned</span></div><div class="k-count" style="background:rgba(196,30,58,0.2);color:#ff8a95">2</div></div>
-          <div class="k-item" onclick="openJob('J-2025-0042')"><div class="k-item-id">J-2025-0042</div><div class="k-item-title">Brand Identity Pack</div><span class="badge blue">Artwork</span><div class="k-item-meta"><span>Urban Threads</span><span class="priority-badge normal">Normal</span></div></div>
-          <div class="k-item" onclick="showToast('J-2025-0048 — assign to designer','info')"><div class="k-item-id">J-2025-0048</div><div class="k-item-title">Hoodie Print Design</div><span class="badge blue">Artwork</span><div class="k-item-meta"><span>Star Garments</span><span class="priority-badge rush">Rush</span></div></div>
+          ${(() => { const j42 = JOBS.find(j => j.id === 'J-2025-0042'); return `<div class="k-item" onclick="openJob('J-2025-0042')"><img class="k-item-thumb" src="${jobImage(j42, 0, 200, 200)}" alt="Brand Identity Pack" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.style.display='none'"><div class="k-item-body"><div class="k-item-id">J-2025-0042</div><div class="k-item-title">Brand Identity Pack</div><div class="k-item-pills"><span class="badge blue">Artwork</span><span class="priority-badge normal">Normal</span></div><div class="k-item-meta"><span>Urban Threads</span></div></div></div>`; })()}
+          <div class="k-item" onclick="showToast('J-2025-0048 — assign to designer','info')"><img class="k-item-thumb" src="${jobImage({ id: 'J-2025-0048', client: 'Star Garments', design: 'Hoodie Print Design' }, 0, 200, 200)}" alt="Hoodie Print Design" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.style.display='none'"><div class="k-item-body"><div class="k-item-id">J-2025-0048</div><div class="k-item-title">Hoodie Print Design</div><div class="k-item-pills"><span class="badge blue">Artwork</span><span class="priority-badge rush">Rush</span></div><div class="k-item-meta"><span>Star Garments</span></div></div></div>
         </div>
         <div class="k-col"><div class="k-col-header"><div class="k-col-title">${icon('gear', 'panel-ico')}<span>In Progress</span></div><div class="k-count" style="background:rgba(245,158,11,0.2);color:#fcd34d">3</div></div>
-          <div class="k-item" onclick="openJob('J-2025-0044')"><div class="k-item-id">J-2025-0044</div><div class="k-item-title">Summer Collection Flyer</div><span class="badge amber">Amend</span><div class="k-item-meta"><span>Ravi Textiles</span><span class="priority-badge normal">Normal</span></div></div>
-          <div class="k-item" onclick="openJob('J-2025-0046')"><div class="k-item-id">J-2025-0046</div><div class="k-item-title">Team Jersey Digitizing</div><span class="badge purple">Sr Review</span><div class="k-item-meta"><span>Star Garments</span><span class="priority-badge super-rush">Super Rush</span></div></div>
-          <div class="k-item" onclick="openJob('J-2025-0045')"><div class="k-item-id">J-2025-0045</div><div class="k-item-title">Cap Emblem Full Set</div><span class="badge purple">Sewout</span><div class="k-item-meta"><span>Heritage Caps</span><span class="priority-badge normal">Normal</span></div></div>
+          ${(() => { const j44 = JOBS.find(j => j.id === 'J-2025-0044'); return `<div class="k-item" onclick="openJob('J-2025-0044')"><img class="k-item-thumb" src="${jobImage(j44, 0, 200, 200)}" alt="Summer Collection Flyer" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.style.display='none'"><div class="k-item-body"><div class="k-item-id">J-2025-0044</div><div class="k-item-title">Summer Collection Flyer</div><div class="k-item-pills"><span class="badge amber">Amend</span><span class="priority-badge normal">Normal</span></div><div class="k-item-meta"><span>Ravi Textiles</span></div></div></div>`; })()}
+          ${(() => { const j46 = JOBS.find(j => j.id === 'J-2025-0046'); return `<div class="k-item" onclick="openJob('J-2025-0046')"><img class="k-item-thumb" src="${jobImage(j46, 0, 200, 200)}" alt="Team Jersey Digitizing" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.style.display='none'"><div class="k-item-body"><div class="k-item-id">J-2025-0046</div><div class="k-item-title">Team Jersey Digitizing</div><div class="k-item-pills"><span class="badge purple">Sr Review</span><span class="priority-badge super-rush">Super Rush</span></div><div class="k-item-meta"><span>Star Garments</span></div></div></div>`; })()}
+          ${(() => { const j45 = JOBS.find(j => j.id === 'J-2025-0045'); return `<div class="k-item" onclick="openJob('J-2025-0045')"><img class="k-item-thumb" src="${jobImage(j45, 0, 200, 200)}" alt="Cap Emblem Full Set" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.style.display='none'"><div class="k-item-body"><div class="k-item-id">J-2025-0045</div><div class="k-item-title">Cap Emblem Full Set</div><div class="k-item-pills"><span class="badge purple">Sewout</span><span class="priority-badge normal">Normal</span></div><div class="k-item-meta"><span>Heritage Caps</span></div></div></div>`; })()}
         </div>
         <div class="k-col"><div class="k-col-header"><div class="k-col-title">${icon('search', 'panel-ico')}<span>In QC</span></div><div class="k-count" style="background:rgba(45,212,191,0.15);color:#5eead4">1</div></div>
-          <div class="k-item" onclick="openJob('J-2025-0047')"><div class="k-item-id">J-2025-0047</div><div class="k-item-title">Corporate Logo Set</div><span class="badge teal">In QC</span><div class="k-item-meta"><span>Ravi Textiles</span><span class="priority-badge rush">Rush</span></div></div>
+          ${(() => { const j47 = JOBS.find(j => j.id === 'J-2025-0047'); return `<div class="k-item" onclick="openJob('J-2025-0047')"><img class="k-item-thumb" src="${jobImage(j47, 0, 200, 200)}" alt="Corporate Logo Set" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.style.display='none'"><div class="k-item-body"><div class="k-item-id">J-2025-0047</div><div class="k-item-title">Corporate Logo Set</div><div class="k-item-pills"><span class="badge teal">In QC</span><span class="priority-badge rush">Rush</span></div><div class="k-item-meta"><span>Ravi Textiles</span></div></div></div>`; })()}
         </div>
         <div class="k-col"><div class="k-col-header"><div class="k-col-title">${icon('check-circle', 'panel-ico')}<span>Delivered</span></div><div class="k-count" style="background:rgba(34,197,94,0.15);color:#86efac">2</div></div>
-          ${JOBS.filter(j => j.stage === 'delivered').map(j => `<div class="k-item" onclick="openJob('${j.id}')"><div class="k-item-id">${j.id}</div><div class="k-item-title">${j.design}</div><span class="badge green">Delivered</span><div class="k-item-meta"><span>${j.client}</span></div></div>`).join('')}
+          ${JOBS.filter(j => j.stage === 'delivered').map(j => `<div class="k-item" onclick="openJob('${j.id}')"><img class="k-item-thumb" src="${jobImage(j, 0, 200, 200)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.style.display='none'"><div class="k-item-body"><div class="k-item-id">${j.id}</div><div class="k-item-title">${j.design}</div><div class="k-item-pills"><span class="badge green">Delivered</span></div><div class="k-item-meta"><span>${j.client}</span></div></div></div>`).join('')}
         </div>
       </div>`,
 
