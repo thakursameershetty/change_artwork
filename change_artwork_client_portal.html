@@ -2308,13 +2308,694 @@
     .stat-val {
       animation: countUp 0.5s var(--ease) both;
     }
+
+    /* ════════════════════════════════════════
+   MOBILE BOTTOM NAV
+════════════════════════════════════════ */
+    .mobile-nav {
+      display: none;
+    }
+
+    /* ════════════════════════════════════════
+   MOBILE HAMBURGER
+════════════════════════════════════════ */
+    .hamburger {
+      display: none;
+      width: 38px;
+      height: 38px;
+      border-radius: var(--r);
+      background: none;
+      border: 1.5px solid var(--border);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.18s;
+    }
+
+    .hamburger:hover {
+      border-color: var(--navy);
+      background: var(--navy-soft);
+    }
+
+    .hamburger svg {
+      color: var(--ink-3);
+    }
+
+    /* Sidebar overlay backdrop */
+    .sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(13, 27, 42, 0.55);
+      z-index: 99;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s var(--ease);
+    }
+
+    .sidebar-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* ════════════════════════════════════════
+   RESPONSIVE — TABLET & MOBILE
+════════════════════════════════════════ */
+
+    /* ── Tablet ≤ 1024px ── */
+    @media (max-width: 1024px) {
+      :root {
+        --sidebar: 220px;
+      }
+
+      .ai-bar {
+        width: 180px;
+      }
+
+      .ai-bar:focus-within {
+        width: 210px;
+      }
+
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .col-right {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .col-right>*+* {
+        margin-top: 0;
+      }
+    }
+
+    /* ── Mobile ≤ 768px ── */
+    @media (max-width: 768px) {
+      :root {
+        --topbar: 56px;
+      }
+
+      html {
+        font-size: 14px;
+      }
+
+      /* Body — allow scroll on mobile */
+      body {
+        overflow: auto;
+        height: auto;
+      }
+
+      /* ─ Sidebar becomes a slide-in drawer ─ */
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s var(--ease);
+        z-index: 200;
+        width: 280px;
+        box-shadow: none;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 8px 0 40px rgba(0, 0, 0, 0.2);
+      }
+
+      .sidebar-backdrop {
+        display: block;
+      }
+
+      /* ─ Topbar ─ */
+      .topbar {
+        left: 0;
+        padding: 0 16px;
+        gap: 10px;
+      }
+
+      .ai-bar {
+        display: none;
+      }
+
+      .top-sep {
+        display: none;
+      }
+
+      /* Hide desktop user info in topbar */
+      .topbar>div:last-child {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .page-title {
+        font-size: 15px;
+      }
+
+      .page-sub {
+        display: none;
+      }
+
+      /* ─ Main ─ */
+      .main {
+        margin-left: 0;
+        padding-top: var(--topbar);
+        height: auto;
+        overflow: visible;
+      }
+
+      .content {
+        padding: 16px;
+        padding-bottom: 82px;
+        /* space for bottom nav */
+        overflow: visible;
+      }
+
+      /* ─ Hero ─ */
+      .hero {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        margin-bottom: 18px;
+        padding-bottom: 18px;
+      }
+
+      .hero-greeting {
+        font-size: 24px;
+      }
+
+      .hero-sub {
+        font-size: 12px;
+      }
+
+      .hero-actions {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .hero-actions .btn,
+      .hero-actions select {
+        flex: 1;
+        min-width: 120px;
+        justify-content: center;
+        font-size: 12px;
+        padding: 8px 12px;
+      }
+
+      /* ─ Stats ─ */
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .stat-card {
+        padding: 16px 14px 14px;
+      }
+
+      .stat-val {
+        font-size: 28px;
+      }
+
+      .stat-val.sm {
+        font-size: 18px;
+      }
+
+      .stat-icon {
+        display: none;
+      }
+
+      /* Active jobs card on mobile */
+      .stat-card>div[style*="align-items: center"] {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start !important;
+      }
+
+      /* ─ Two-col layout ─ */
+      .two-col {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .col-right {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .col-right>*+* {
+        margin-top: 0;
+      }
+
+      /* ─ Cards ─ */
+      .card-header {
+        padding: 14px 16px;
+      }
+
+      .card-body {
+        padding: 16px;
+      }
+
+      /* ─ Table/Grid/List jobs ─ */
+      .tbl-ctrl {
+        padding: 10px 14px;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .search-wrap {
+        max-width: 100%;
+        flex: 1;
+        min-width: 0;
+      }
+
+      /* Hide table view button on mobile, default grid */
+      .jobs-root .view-toggle button:last-child {
+        display: none;
+      }
+
+      /* Grid view: 2 cards per row on mobile */
+      .jobs-root[data-view="grid"] .grid-view {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 12px;
+      }
+
+      /* Make grid cards touch-friendly */
+      .jobs-root .jc-body {
+        padding: 10px 12px 12px;
+      }
+
+      .jobs-root .jc-title {
+        font-size: 12px;
+      }
+
+      .jobs-root .jc-desc {
+        display: none;
+        /* hide desc on small cards */
+      }
+
+      .jobs-root .jc-meta {
+        margin-top: 6px;
+        gap: 4px;
+      }
+
+      /* List view on mobile */
+      .jobs-root[data-view="list"] .list-view {
+        padding: 6px 12px 12px;
+      }
+
+      .jobs-root .list-thumb {
+        width: 44px;
+        height: 44px;
+      }
+
+      /* ─ Table view ─ hide and switch to grid on mobile ─ */
+      .jobs-root[data-view="table"] .table-view {
+        display: none;
+      }
+
+      .jobs-root[data-view="table"] .grid-view {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 12px;
+      }
+
+      /* ─ Order Types ─ */
+      .order-types {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .order-type {
+        padding: 12px 10px;
+      }
+
+      .order-type-icon {
+        font-size: 18px;
+        margin-bottom: 6px;
+      }
+
+      /* ─ Form ─ */
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .form-grid.cols-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: 1;
+      }
+
+      /* Quote form buttons */
+      div[style*="justify-content:flex-end"] {
+        flex-direction: column;
+      }
+
+      div[style*="justify-content:flex-end"] .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      /* ─ Profile ─ */
+      div[style*="max-width:560px"],
+      div[style*="max-width:720px"] {
+        max-width: 100%;
+      }
+
+      /* Account summary 3-col on profile */
+      div[style*="grid-template-columns:1fr 1fr 1fr"] {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 8px !important;
+      }
+
+      /* ─ Tracking ─ */
+      .tc-header {
+        padding: 14px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .tc-left {
+        gap: 10px;
+      }
+
+      .tc-right {
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .tc-body {
+        padding: 0 16px 16px;
+      }
+
+      /* Delivered section — stack buttons */
+      .tc-body div[style*="justify-content:space-between"] {
+        flex-direction: column !important;
+        gap: 10px;
+      }
+
+      .tc-body div[style*="gap:8px"]>.btn {
+        flex: 1;
+        justify-content: center;
+      }
+
+      /* ─ Progress steps — horizontal scroll on mobile ─ */
+      .progress-steps {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 4px;
+      }
+
+      .ps-step {
+        min-width: 66px;
+      }
+
+      .ps-lbl {
+        font-size: 9.5px;
+      }
+
+      /* ─ Modal — full-screen on mobile ─ */
+      .overlay {
+        padding: 0;
+        align-items: flex-end;
+      }
+
+      .modal {
+        width: 100%;
+        max-height: 94vh;
+        border-radius: var(--r-xl) var(--r-xl) 0 0;
+        overflow-y: auto;
+        transform: translateY(100%);
+      }
+
+      .overlay.open .modal {
+        transform: translateY(0);
+      }
+
+      .modal-body {
+        padding: 16px;
+      }
+
+      .modal-header {
+        padding: 16px 18px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .modal-job-name {
+        font-size: 16px;
+      }
+
+      /* Modal gallery — 2 cols on mobile */
+      .modal-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      /* Modal grid — stack on mobile */
+      .modal-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .modal-footer {
+        padding: 14px 18px;
+        flex-wrap: wrap;
+        gap: 8px;
+        position: sticky;
+        bottom: 0;
+        background: white;
+        border-top: 1px solid var(--border);
+      }
+
+      .modal-footer .btn {
+        flex: 1;
+        justify-content: center;
+        font-size: 12px;
+      }
+
+      /* ─ Notification panel ─ */
+      .notif-panel {
+        width: 100%;
+        right: 0;
+        border-radius: 0 0 var(--r-xl) var(--r-xl);
+      }
+
+      /* ─ Section divider ─ */
+      .sec-divider-label {
+        font-size: 14px;
+      }
+
+      /* ─ Toast ─ */
+      #toast {
+        left: 16px;
+        right: 16px;
+        bottom: 90px;
+        /* above bottom nav */
+        min-width: unset;
+        max-width: unset;
+      }
+
+      /* ─ Quick action cards in grid ─ */
+      .card-body[style*="flex-direction:column"] {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .qa-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 12px;
+      }
+
+      /* ─ Mini bars ─ */
+      .mb-label {
+        width: 70px;
+        font-size: 11px;
+      }
+
+      /* ─ AI QC grid in modal — 2 col on mobile ─ */
+      div[style*="grid-template-columns:repeat(4,1fr)"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+      }
+    }
+
+    /* ── Very small phones ≤ 390px ── */
+    @media (max-width: 390px) {
+      .stats-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .stat-val {
+        font-size: 24px;
+      }
+
+      .stat-val.sm {
+        font-size: 16px;
+      }
+
+      .hero-greeting {
+        font-size: 20px;
+      }
+
+      .jobs-root[data-view="grid"] .grid-view {
+        grid-template-columns: 1fr;
+      }
+
+      .jobs-root[data-view="table"] .grid-view {
+        grid-template-columns: 1fr;
+      }
+
+      .order-types {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* ════════════════════════════════════════
+   MOBILE BOTTOM NAV
+════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 150;
+        background: var(--white);
+        border-top: 1px solid var(--border);
+        padding: 0 4px;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.07);
+      }
+
+      .mn-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 4px 8px;
+        cursor: pointer;
+        transition: all 0.18s var(--ease);
+        border-top: 2px solid transparent;
+        user-select: none;
+        position: relative;
+        gap: 3px;
+        min-height: 54px;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .mn-item svg {
+        width: 20px;
+        height: 20px;
+        color: var(--ink-4);
+        transition: all 0.18s;
+        flex-shrink: 0;
+      }
+
+      .mn-label {
+        font-size: 9.5px;
+        font-weight: 600;
+        color: var(--ink-4);
+        transition: all 0.18s;
+        letter-spacing: 0.01em;
+        white-space: nowrap;
+      }
+
+      .mn-item.active {
+        border-top-color: var(--crimson);
+      }
+
+      .mn-item.active svg {
+        color: var(--crimson);
+      }
+
+      .mn-item.active .mn-label {
+        color: var(--crimson);
+      }
+
+      .mn-badge {
+        position: absolute;
+        top: 7px;
+        right: calc(50% - 14px);
+        background: var(--crimson);
+        color: white;
+        font-size: 8px;
+        font-weight: 700;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid white;
+      }
+
+      /* ─ Pull-down handle for mobile modal ─ */
+      .modal-pull-handle {
+        display: flex;
+        justify-content: center;
+        padding: 10px 0 0;
+        background: var(--off);
+      }
+
+      .modal-pull-handle::after {
+        content: '';
+        width: 36px;
+        height: 4px;
+        background: var(--border-md);
+        border-radius: 99px;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .mobile-nav {
+        display: none;
+      }
+
+      .hamburger {
+        display: none;
+      }
+
+      .sidebar-backdrop {
+        display: none !important;
+      }
+
+      .modal-pull-handle {
+        display: none;
+      }
+    }
   </style>
 </head>
 
 <body>
 
+  <!-- ══════════════ SIDEBAR BACKDROP ══════════════ -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="closeSidebar()"></div>
+
   <!-- ══════════════ SIDEBAR ══════════════ -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <div class="brand">
       <img class="brand-logo-img" src="https://changeartwork.com/images/logo/site-logo/ch-logo.png" alt="CHANGE!">
       <div class="brand-stripe">
@@ -2398,6 +3079,15 @@
 
   <!-- ══════════════ TOPBAR ══════════════ -->
   <header class="topbar">
+    <!-- Hamburger: mobile only -->
+    <button class="hamburger" onclick="toggleSidebar()" title="Open menu" aria-label="Open menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    </button>
     <div class="page-heading">
       <div class="page-title" id="topbar-title">Dashboard</div>
       <div class="page-sub" id="topbar-sub">Welcome back, Ravi</div>
@@ -2463,6 +3153,60 @@
   <div class="main">
     <div class="content" id="content"></div>
   </div>
+
+  <!-- ══════════════ MOBILE BOTTOM NAV ══════════════ -->
+  <nav class="mobile-nav" id="mobile-nav">
+    <div class="mn-item active" data-page="dashboard"
+      onclick="go('dashboard', document.querySelector('[data-page=dashboard]')); setMobileNav(this)" id="mn-dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7" />
+        <rect x="14" y="3" width="7" height="7" />
+        <rect x="14" y="14" width="7" height="7" />
+        <rect x="3" y="14" width="7" height="7" />
+      </svg>
+      <span class="mn-label">Home</span>
+    </div>
+    <div class="mn-item" data-page="jobs"
+      onclick="go('jobs', document.querySelector('[data-page=jobs]')); setMobileNav(this)" id="mn-jobs">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line x1="16" y1="13" x2="8" y2="13" />
+        <line x1="16" y1="17" x2="8" y2="17" />
+      </svg>
+      <span class="mn-label">My Jobs</span>
+      <span class="mn-badge">3</span>
+    </div>
+    <div class="mn-item" data-page="quote"
+      onclick="go('quote', document.querySelector('[data-page=quote]')); setMobileNav(this)" id="mn-quote">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="8" x2="12" y2="16" />
+        <line x1="8" y1="12" x2="16" y2="12" />
+      </svg>
+      <span class="mn-label">Quote</span>
+    </div>
+    <div class="mn-item" data-page="tracking"
+      onclick="go('tracking', document.querySelector('[data-page=tracking]')); setMobileNav(this)" id="mn-tracking">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+      </svg>
+      <span class="mn-label">Delivered</span>
+    </div>
+    <div class="mn-item" data-page="profile"
+      onclick="go('profile', document.querySelector('[data-page=profile]')); setMobileNav(this)" id="mn-profile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+      <span class="mn-label">Profile</span>
+    </div>
+  </nav>
 
   <!-- ══════════════ NOTIF PANEL ══════════════ -->
   <div class="notif-panel" id="notif-panel">
@@ -2583,6 +3327,12 @@
       div.innerHTML = PAGES[page]();
       document.getElementById('content').appendChild(div);
       afterRender(page);
+      // Scroll to top on navigation
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Close sidebar on mobile after navigation
+      if (window.innerWidth <= 768) closeSidebar();
+      // Sync bottom nav
+      syncMobileNav(page);
     }
 
     /* ──── PAGES ──── */
@@ -3089,7 +3839,9 @@
       if (!j) return;
       const steps = ['CS Review', 'Approved', 'Assigned', 'In Work', 'QC Review', 'CS Delivery'];
       const images = jobImages(j, 3);
+      const isMobile = window.innerWidth <= 768;
       document.getElementById('modal-body').innerHTML = `
+    ${isMobile ? '<div class="modal-pull-handle"></div>' : ''}
     <div class="modal-header">
       <div class="modal-header-left">
         <div class="modal-job-id">${j.id} &nbsp;·&nbsp; ${j.ref}</div>
@@ -3196,10 +3948,14 @@
         }
     </div>`;
       document.getElementById('overlay').classList.add('open');
+      if (window.innerWidth <= 768) {
+        document.body.style.overflow = 'hidden';
+      }
     }
     function closeModal(e) {
       if (e && e.target !== document.getElementById('overlay')) return;
       document.getElementById('overlay').classList.remove('open');
+      document.body.style.overflow = '';
     }
 
     /* ──── NOTIFICATIONS ──── */
@@ -3373,9 +4129,50 @@
       }, 80);
     }
 
+    /* ──── MOBILE SIDEBAR ──── */
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('sidebar-backdrop');
+      const isOpen = sidebar.classList.contains('open');
+      if (isOpen) {
+        closeSidebar();
+      } else {
+        sidebar.classList.add('open');
+        backdrop.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('sidebar-backdrop');
+      sidebar.classList.remove('open');
+      backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* ──── MOBILE BOTTOM NAV SYNC ──── */
+    function setMobileNav(el) {
+      // handled by syncMobileNav via go()
+    }
+
+    function syncMobileNav(page) {
+      document.querySelectorAll('.mn-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.page === page);
+      });
+    }
+
     /* ──── INIT ──── */
     buildNotifs();
     go('dashboard', document.querySelector('[data-page=dashboard]'));
+    syncMobileNav('dashboard');
+
+    // Restore scrolling if overlay is closed
+    document.getElementById('overlay').addEventListener('click', function (e) {
+      if (e.target === this) {
+        document.body.style.overflow = '';
+      }
+    });
   </script>
 </body>
 
