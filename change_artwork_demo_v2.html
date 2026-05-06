@@ -70,6 +70,10 @@
       background: var(--navy);
     }
 
+    body.mobile-scroll {
+      overflow: auto;
+    }
+
     html[data-theme="light"] {
       color-scheme: light;
       --navy: #eef3fb;
@@ -2465,6 +2469,511 @@
         box-shadow: 0 0 0 8px rgba(196, 30, 58, 0.08)
       }
     }
+
+    /* ═══════════════════════════════════════════
+   MOBILE HAMBURGER BUTTON
+═══════════════════════════════════════════ */
+    .mob-menu-btn {
+      display: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--glass-border);
+      color: var(--text);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: var(--transition);
+      z-index: 10;
+    }
+
+    .mob-menu-btn:hover {
+      background: rgba(196, 30, 58, 0.12);
+      border-color: rgba(196, 30, 58, 0.4);
+    }
+
+    /* ─ SIDEBAR OVERLAY BACKDROP ─ */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 198;
+      background: rgba(0, 0, 0, 0.52);
+    }
+
+    .sidebar-overlay.open {
+      display: block;
+    }
+
+    /* ═══════════════════════════════════════════
+   MOBILE BOTTOM NAV
+═══════════════════════════════════════════ */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      background: rgba(6, 12, 24, 0.96);
+      backdrop-filter: var(--glass-blur-heavy);
+      -webkit-backdrop-filter: var(--glass-blur-heavy);
+      border-top: 1px solid var(--glass-border-bright);
+      padding: 6px 0 env(safe-area-inset-bottom, 6px);
+      box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
+      touch-action: manipulation;
+    }
+
+    .mob-nav-inner {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-around;
+    }
+
+    .mob-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      flex: 1;
+      padding: 10px 4px 6px;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      transition: color 0.15s ease, transform 0.12s ease;
+      min-height: 58px;
+      border-radius: 0;
+      color: var(--text-faint);
+      position: relative;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+      pointer-events: all;
+    }
+
+    .mob-nav-item:active {
+      transform: scale(0.92);
+      color: var(--crimson);
+    }
+
+    .mob-nav-item.active {
+      color: var(--crimson);
+    }
+
+    .mob-nav-item.active::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 20%;
+      right: 20%;
+      height: 2px;
+      background: var(--crimson);
+      border-radius: 0 0 3px 3px;
+    }
+
+    .mob-nav-icon {
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mob-nav-icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .mob-nav-label {
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    .mob-nav-badge {
+      position: absolute;
+      top: 5px;
+      right: calc(50% - 18px);
+      background: var(--crimson);
+      color: white;
+      font-size: 8px;
+      font-weight: 700;
+      min-width: 14px;
+      height: 14px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 3px;
+    }
+
+    /* ═══════════════════════════════════════════
+   MOBILE RESPONSIVE BREAKPOINTS
+═══════════════════════════════════════════ */
+    @media (max-width: 768px) {
+
+      /* ── Body & App Shell ── */
+      body {
+        overflow: auto;
+        overflow-x: hidden;
+      }
+
+      #app {
+        height: auto;
+        min-height: 100dvh;
+        flex-direction: column;
+      }
+
+      #app.visible {
+        display: flex;
+      }
+
+      /* ── Sidebar becomes a slide-in drawer ── */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 200;
+        transform: translateX(-100%);
+        transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+        width: 260px;
+        overflow-y: auto;
+        box-shadow: 8px 0 40px rgba(0, 0, 0, 0.6);
+      }
+
+      .sidebar.mob-open {
+        transform: translateX(0);
+      }
+
+      /* ── Hamburger ── */
+      .mob-menu-btn {
+        display: inline-flex;
+      }
+
+      /* ── Topbar mobile ── */
+      .topbar {
+        height: 54px;
+        padding: 0 14px;
+        gap: 10px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        flex-shrink: 0;
+      }
+
+      .ai-bar {
+        display: none;
+      }
+
+      .topbar-divider {
+        display: none;
+      }
+
+      .topbar-user {
+        display: none;
+      }
+
+      .topbar-title-wrap {
+        flex: 1;
+      }
+
+      .topbar-title {
+        font-size: 15px;
+        letter-spacing: 0.04em;
+      }
+
+      /* ── Main area ── */
+      .main {
+        width: 100%;
+        flex: 1;
+        min-height: 0;
+        overflow: visible;
+      }
+
+      /* ── Content area ── */
+      .content-area {
+        overflow-y: visible;
+        padding: 14px 14px 80px;
+      }
+
+      /* ── Bottom nav visible ── */
+      .mobile-bottom-nav {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ── Greeting hero ── */
+      .greeting-hero {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px;
+        padding: 14px 0 10px;
+      }
+
+      .greeting-title {
+        font-size: 26px;
+      }
+
+      .greeting-sub {
+        font-size: 12px;
+      }
+
+      /* ── Stats grid: 2 columns ── */
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .stat-value {
+        font-size: 26px;
+      }
+
+      /* ── Two-col layouts: stack ── */
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      /* ── Panels ── */
+      .panel {
+        padding: 14px;
+        margin-bottom: 12px;
+      }
+
+      /* ── Kanban: horizontal scroll ── */
+      .kanban {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        gap: 10px;
+        padding-bottom: 8px;
+      }
+
+      .kanban::-webkit-scrollbar {
+        height: 3px;
+      }
+
+      .k-col {
+        min-width: 220px;
+        flex-shrink: 0;
+        scroll-snap-align: start;
+      }
+
+      /* ── Tables: horizontal scroll ── */
+      .tbl-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      table {
+        min-width: 560px;
+      }
+
+      /* ── Table top controls ── */
+      .tbl-top {
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 10px 12px;
+      }
+
+      .tbl-search {
+        min-width: 0;
+        font-size: 14px;
+        padding: 9px 12px;
+      }
+
+      /* ── View toggle ── */
+      .jobs-root .view-toggle {
+        flex-shrink: 0;
+      }
+
+      /* ── Job grid ── */
+      .jobs-root[data-view="grid"] .grid-view {
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 10px;
+        padding: 10px 0;
+      }
+
+      .jc-img img {
+        height: 110px;
+      }
+
+      /* ── Modals ── */
+      .modal-overlay {
+        padding: 0;
+        align-items: flex-end;
+      }
+
+      .modal {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 18px 18px 0 0;
+        max-height: 92dvh;
+        overflow-y: auto;
+      }
+
+      .modal-gallery {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .modal-gallery img {
+        height: 110px;
+      }
+
+      .modal-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .modal-body {
+        padding: 14px 16px;
+      }
+
+      .modal-top {
+        padding: 14px 16px;
+      }
+
+      .modal-actions {
+        padding: 12px 16px;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .modal-actions .btn {
+        flex: 1;
+        justify-content: center;
+        min-width: 80px;
+      }
+
+      /* ── AI scores ── */
+      .ai-scores {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      /* ── Notif panel ── */
+      .notif-panel {
+        width: min(320px, 94vw);
+        top: 54px;
+      }
+
+      /* ── Toast ── */
+      #toast {
+        bottom: 74px;
+        right: 12px;
+        left: 12px;
+        max-width: none;
+        min-width: 0;
+      }
+
+      /* ── Form panels ── */
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .form-panel {
+        padding: 16px;
+      }
+
+      /* ── Pills ── */
+      .pills {
+        gap: 6px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 4px;
+      }
+
+      .pill {
+        flex-shrink: 0;
+        white-space: nowrap;
+        padding: 6px 14px;
+        font-size: 12px;
+      }
+
+      /* ── Reason grid ── */
+      .reason-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      /* ── Workflow steps ─ shrink on mobile ── */
+      .wf-steps {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .wf-step {
+        min-width: 60px;
+      }
+
+      /* ── Login ── */
+      .login-card {
+        padding: 28px 20px;
+        border-radius: 16px;
+      }
+
+      .role-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      /* ── Sec header stack ── */
+      .sec-header {
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      /* ── Mini bar label ── */
+      .mb-label {
+        width: 80px;
+        font-size: 11px;
+      }
+
+      /* ── Admin reports 3-col → 1 ── */
+      .stats-grid[style*="3"] {
+        grid-template-columns: 1fr;
+      }
+
+      /* ── Reports table selects ── */
+      select.fi {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-value {
+        font-size: 22px;
+      }
+
+      .greeting-title {
+        font-size: 22px;
+      }
+
+      .role-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-gallery img {
+        height: 140px;
+      }
+    }
   </style>
 </head>
 
@@ -2526,8 +3035,11 @@
   </div>
 
   <!-- ═══════════════ APP ═══════════════ -->
+  <!-- SIDEBAR OVERLAY (mobile) -->
+  <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeMobSidebar()"></div>
+
   <div id="app">
-    <!-- SIDEBAR -->
+    <!-- SIDEBAR (desktop fixed, mobile slide-in drawer) -->
     <aside class="sidebar">
       <div class="sidebar-brand">
         <img class="brand-logo-img" src="https://changeartwork.com/images/logo/site-logo/ch-logo.png" alt="CHANGE!">
@@ -2560,7 +3072,14 @@
 
     <!-- MAIN -->
     <div class="main">
-      <div class="topbar">
+      <div class="topbar" id="main-topbar">
+        <!-- Hamburger (mobile only) -->
+        <button class="mob-menu-btn" id="mob-menu-btn" onclick="openMobSidebar()" aria-label="Open menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round">
+            <path d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
         <div class="topbar-title-wrap">
           <div class="topbar-title" id="topbar-title">Dashboard</div>
         </div>
@@ -2598,6 +3117,9 @@
       <div class="content-area" id="content-area"></div>
     </div>
   </div>
+
+  <!-- MOBILE BOTTOM NAV -->
+  <nav class="mobile-bottom-nav" id="mobile-bottom-nav" aria-label="Mobile navigation"></nav>
 
   <!-- NOTIF PANEL -->
   <div class="notif-panel" id="notif-panel">
@@ -2944,6 +3466,18 @@
       }
     }
 
+    /* ────────── MOBILE SIDEBAR DRAWER ────────── */
+    function openMobSidebar() {
+      document.querySelector('.sidebar').classList.add('mob-open');
+      document.getElementById('sidebar-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobSidebar() {
+      document.querySelector('.sidebar').classList.remove('mob-open');
+      document.getElementById('sidebar-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
     /* ──────────── INIT ──────────── */
     function initApp() {
       const cfg = ROLE_CFG[currentRole];
@@ -2967,16 +3501,45 @@
         section.items.forEach(item => {
           const el = document.createElement('div');
           el.className = 'nav-item'; el.dataset.pg = item.pg;
-          el.onclick = () => navigateTo(item.pg);
+          el.onclick = () => { navigateTo(item.pg); closeMobSidebar(); };
           el.innerHTML = `${icon(item.ico, 'nav-ico')}<span>${item.lbl}</span>${item.b ? `<span class="nav-badge">${item.b}</span>` : ''}`;
           s.appendChild(el);
         });
         nav.appendChild(s);
       });
+      buildMobileBottomNav(navCfg);
+    }
+
+    function buildMobileBottomNav(navCfg) {
+      const allItems = navCfg.flatMap(s => s.items);
+      const items = allItems.slice(0, 5);
+      const nav = document.getElementById('mobile-bottom-nav');
+      if (!nav) return;
+      nav.innerHTML = `<div class="mob-nav-inner">${items.map(item => `
+        <div class="mob-nav-item" data-pg="${item.pg}">
+          <div class="mob-nav-icon">${ICONS[item.ico] || ICONS.info}</div>
+          <span class="mob-nav-label">${item.lbl.split(' ')[0]}</span>
+          ${item.b ? `<span class="mob-nav-badge">${item.b}</span>` : ''}
+        </div>`).join('')}</div>`;
+      // Attach proper touch + click listeners for instant, reliable navigation
+      nav.querySelectorAll('.mob-nav-item').forEach(el => {
+        let tapped = false;
+        el.addEventListener('touchstart', (e) => {
+          e.stopPropagation();
+          tapped = true;
+          navigateTo(el.dataset.pg);
+        }, { passive: true });
+        el.addEventListener('click', (e) => {
+          if (tapped) { tapped = false; return; } // already handled by touchstart
+          navigateTo(el.dataset.pg);
+        });
+      });
     }
     function navigateTo(pgId) {
       currentPageId = pgId;
       document.querySelectorAll('.nav-item').forEach(el => el.classList.toggle('active', el.dataset.pg === pgId));
+      // Update mobile bottom nav active state
+      document.querySelectorAll('.mob-nav-item').forEach(el => el.classList.toggle('active', el.dataset.pg === pgId));
       const cfg = ROLE_CFG[currentRole];
       let title = 'Dashboard';
       cfg.nav.forEach(s => s.items.forEach(i => { if (i.pg === pgId) title = i.lbl; }));
@@ -2991,6 +3554,8 @@
         area.appendChild(div);
         afterRender(pgId);
       }
+      // Scroll to top on page change
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     /* ──────────── PAGES ──────────── */
@@ -3697,7 +4262,7 @@
     </div>
     <div class="modal-actions">
       <button class="btn btn-outline" onclick="closeModal()">${icon('close', 'btn-ico')}<span>Close</span></button>
-      <button class="btn btn-outline" onclick="openEditJob('${j.id}')">${icon('edit', 'btn-ico')}<span>Edit Job</span></button>
+      ${(currentRole === 'cs' || currentRole === 'admin') ? `<button class="btn btn-outline" onclick="openEditJob('${j.id}')">${icon('edit', 'btn-ico')}<span>Edit Job</span></button>` : ''}
       
       ${(currentRole === 'admin' || isCS) && j.stage === 'quote' ? `
         <button class="btn btn-red" onclick="showToast('Job rejected','error'); closeModal()">Reject</button>

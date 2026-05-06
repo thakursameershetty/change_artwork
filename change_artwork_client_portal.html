@@ -2895,61 +2895,87 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding: 10px 4px 8px;
+        padding: 8px 4px 10px;
         cursor: pointer;
-        transition: all 0.18s var(--ease);
+        transition: transform 0.12s var(--ease), opacity 0.12s var(--ease);
         border-top: 2px solid transparent;
         user-select: none;
         position: relative;
-        gap: 3px;
-        min-height: 54px;
+        gap: 4px;
+        min-height: 60px;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+        /* Expand tap area beyond visual bounds */
         -webkit-tap-highlight-color: transparent;
       }
 
+      /* Visual press feedback */
+      .mn-item:active {
+        transform: scale(0.88);
+        opacity: 0.75;
+      }
+
       .mn-item svg {
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
         color: var(--ink-4);
-        transition: all 0.18s;
+        transition: color 0.15s, transform 0.15s var(--ease);
         flex-shrink: 0;
       }
 
       .mn-label {
-        font-size: 9.5px;
+        font-size: 10px;
         font-weight: 600;
         color: var(--ink-4);
-        transition: all 0.18s;
+        transition: color 0.15s;
         letter-spacing: 0.01em;
         white-space: nowrap;
       }
 
+      /* Active pill indicator */
+      .mn-item.active::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 28px;
+        height: 3px;
+        border-radius: 0 0 3px 3px;
+        background: var(--crimson);
+        transition: width 0.2s var(--ease);
+      }
+
       .mn-item.active {
-        border-top-color: var(--crimson);
+        border-top-color: transparent;
       }
 
       .mn-item.active svg {
         color: var(--crimson);
+        transform: translateY(-1px);
       }
 
       .mn-item.active .mn-label {
         color: var(--crimson);
+        font-weight: 700;
       }
 
       .mn-badge {
         position: absolute;
-        top: 7px;
-        right: calc(50% - 14px);
+        top: 6px;
+        right: calc(50% - 16px);
         background: var(--crimson);
         color: white;
         font-size: 8px;
         font-weight: 700;
-        width: 14px;
-        height: 14px;
+        width: 15px;
+        height: 15px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         border: 2px solid white;
+        pointer-events: none;
       }
 
       /* ─ Pull-down handle for mobile modal ─ */
@@ -3156,8 +3182,7 @@
 
   <!-- ══════════════ MOBILE BOTTOM NAV ══════════════ -->
   <nav class="mobile-nav" id="mobile-nav">
-    <div class="mn-item active" data-page="dashboard"
-      onclick="go('dashboard', document.querySelector('[data-page=dashboard]')); setMobileNav(this)" id="mn-dashboard">
+    <div class="mn-item active" data-page="dashboard" id="mn-dashboard">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
         stroke-linejoin="round">
         <rect x="3" y="3" width="7" height="7" />
@@ -3167,8 +3192,7 @@
       </svg>
       <span class="mn-label">Home</span>
     </div>
-    <div class="mn-item" data-page="jobs"
-      onclick="go('jobs', document.querySelector('[data-page=jobs]')); setMobileNav(this)" id="mn-jobs">
+    <div class="mn-item" data-page="jobs" id="mn-jobs">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
         stroke-linejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -3179,8 +3203,7 @@
       <span class="mn-label">My Jobs</span>
       <span class="mn-badge">3</span>
     </div>
-    <div class="mn-item" data-page="quote"
-      onclick="go('quote', document.querySelector('[data-page=quote]')); setMobileNav(this)" id="mn-quote">
+    <div class="mn-item" data-page="quote" id="mn-quote">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
         stroke-linejoin="round">
         <circle cx="12" cy="12" r="10" />
@@ -3189,16 +3212,14 @@
       </svg>
       <span class="mn-label">Quote</span>
     </div>
-    <div class="mn-item" data-page="tracking"
-      onclick="go('tracking', document.querySelector('[data-page=tracking]')); setMobileNav(this)" id="mn-tracking">
+    <div class="mn-item" data-page="tracking" id="mn-tracking">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
         stroke-linejoin="round">
         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
       </svg>
       <span class="mn-label">Delivered</span>
     </div>
-    <div class="mn-item" data-page="profile"
-      onclick="go('profile', document.querySelector('[data-page=profile]')); setMobileNav(this)" id="mn-profile">
+    <div class="mn-item" data-page="profile" id="mn-profile">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
         stroke-linejoin="round">
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -4151,9 +4172,9 @@
       document.body.style.overflow = '';
     }
 
-    /* ──── MOBILE BOTTOM NAV SYNC ──── */
+    /* ──── MOBILE BOTTOM NAV ──── */
     function setMobileNav(el) {
-      // handled by syncMobileNav via go()
+      // no-op: handled by syncMobileNav inside go()
     }
 
     function syncMobileNav(page) {
@@ -4161,6 +4182,36 @@
         item.classList.toggle('active', item.dataset.page === page);
       });
     }
+
+    // Wire up mobile bottom nav with touch-first event handling
+    (function initMobileNav() {
+      document.querySelectorAll('#mobile-nav .mn-item').forEach(function (item) {
+        var navPage = item.dataset.page;
+        var fired = false;
+
+        // touchstart: fire immediately, mark as handled
+        item.addEventListener('touchstart', function (e) {
+          fired = true;
+          // Immediate visual feedback
+          item.style.transition = 'transform 0.08s, opacity 0.08s';
+          // Navigate right away on touch
+          var sidebarNavEl = document.querySelector('.nav-item[data-page="' + navPage + '"]');
+          go(navPage, sidebarNavEl);
+        }, { passive: true });
+
+        // touchend: reset flag after a short delay to block the ghost click
+        item.addEventListener('touchend', function (e) {
+          setTimeout(function () { fired = false; }, 350);
+        }, { passive: true });
+
+        // click: only fires on desktop (where touchstart didn't run)
+        item.addEventListener('click', function (e) {
+          if (fired) return; // already handled by touchstart
+          var sidebarNavEl = document.querySelector('.nav-item[data-page="' + navPage + '"]');
+          go(navPage, sidebarNavEl);
+        });
+      });
+    })();
 
     /* ──── INIT ──── */
     buildNotifs();
