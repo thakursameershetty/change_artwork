@@ -1,0 +1,3881 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHANGE!</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════
+   ROOT VARIABLES
+═══════════════════════════════════════════ */
+    :root {
+      --crimson: #C41E3A;
+      --crimson-bright: #E02040;
+      --crimson-dim: #8B1429;
+      --crimson-glow: rgba(196, 30, 58, 0.18);
+      --navy: #0A1628;
+      --navy-mid: #0D1E3A;
+      --navy-light: #132448;
+      --gold: #D4A843;
+      --gold-dim: rgba(212, 168, 67, 0.15);
+
+      /* Enhanced Premium Glass Variables */
+      --glass-bg: rgba(16, 25, 43, 0.35);
+      --glass-bg-light: rgba(20, 30, 50, 0.25);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-border-bright: rgba(255, 255, 255, 0.22);
+      --glass-blur: blur(28px);
+      --glass-blur-heavy: blur(48px);
+      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+      --text: rgba(255, 255, 255, 0.92);
+      --text-muted: rgba(180, 195, 225, 0.6);
+      --text-faint: rgba(120, 140, 180, 0.4);
+
+      --green: #22C55E;
+      --amber: #F59E0B;
+      --blue: #3B82F6;
+      --purple: #A855F7;
+      --teal: #2DD4BF;
+
+      --font-head: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+      --sidebar-w: 230px;
+      --radius: 12px;
+      --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 14px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text);
+      min-height: 100vh;
+      overflow: hidden;
+      background: var(--navy);
+    }
+
+    html[data-theme="light"] {
+      color-scheme: light;
+      --navy: #eef3fb;
+      --navy-mid: #f7fafe;
+      --navy-light: #dde8f6;
+      --glass-bg: rgba(255, 255, 255, 0.74);
+      --glass-bg-light: rgba(255, 255, 255, 0.6);
+      --glass-border: rgba(15, 23, 42, 0.08);
+      --glass-border-bright: rgba(15, 23, 42, 0.14);
+      --glass-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+      --text: rgba(15, 23, 42, 0.94);
+      --text-muted: rgba(51, 65, 85, 0.72);
+      --text-faint: rgba(71, 85, 105, 0.42);
+    }
+
+    html[data-theme="light"] body {
+      background: #eef3fb;
+    }
+
+    html[data-theme="light"] .flag-overlay {
+      background: linear-gradient(180deg, rgba(245, 248, 252, 0.24) 0%, rgba(229, 236, 246, 0.54) 100%);
+      backdrop-filter: blur(1px);
+    }
+
+    html[data-theme="light"] .flag-grain {
+      opacity: 0.02;
+    }
+
+    html[data-theme="light"] .topbar-title,
+    html[data-theme="light"] .greeting-title,
+    html[data-theme="light"] .sec-title,
+    html[data-theme="light"] .fp-title,
+    html[data-theme="light"] .modal-title,
+    html[data-theme="light"] .k-col-title {
+      color: #101827;
+    }
+
+    html[data-theme="light"] .login-sub,
+    html[data-theme="light"] .user-role-txt,
+    html[data-theme="light"] .topbar-username,
+    html[data-theme="light"] .np-title,
+    html[data-theme="light"] .panel-title,
+    html[data-theme="light"] .m-sec-title {
+      color: rgba(51, 65, 85, 0.76);
+    }
+
+    /* ═══════════════════════════════════════════
+   BACKGROUND IMAGE
+═══════════════════════════════════════════ */
+    #flag-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image: url("MacBook Air - 29.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    /* Dark cinematic overlay to keep glass panels and text readable */
+    .flag-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+          rgba(10, 22, 40, 0.4) 0%,
+          rgba(5, 10, 22, 0.75) 100%);
+      backdrop-filter: blur(2px);
+    }
+
+    /* Subtle noise for a premium tactile feel */
+    .flag-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* Hide the old CSS flag elements */
+    .flag-stripes,
+    .flag-canton,
+    .flag-stars,
+    .flag-vignette {
+      display: none;
+    }
+
+    /* ═══════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════ */
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--crimson);
+    }
+
+    /* ═══════════════════════════════════════════
+   LOGIN
+═══════════════════════════════════════════ */
+    #login-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s, transform 0.5s;
+    }
+
+    .login-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur-heavy);
+      -webkit-backdrop-filter: var(--glass-blur-heavy);
+      border: 1px solid var(--glass-border);
+      border-top: 1px solid var(--glass-border-bright);
+      border-radius: 18px;
+      padding: 44px 38px;
+      width: 460px;
+      max-width: 95vw;
+      position: relative;
+      box-shadow: var(--glass-shadow);
+      animation: loginAppear 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes loginAppear {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .brand-logo-img {
+      display: block;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--crimson), var(--crimson-dim));
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px var(--crimson-glow);
+    }
+
+    .brand-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .brand-mark .brand-logo-img {
+      width: 132px;
+      height: 34px;
+    }
+
+    .login-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .login-sub {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .lbl {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 7px;
+    }
+
+    .inp {
+      width: 100%;
+      padding: 11px 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 13px;
+      outline: none;
+      transition: var(--transition);
+      margin-bottom: 16px;
+    }
+
+    .inp:focus {
+      border-color: var(--crimson);
+      background: rgba(196, 30, 58, 0.06);
+      box-shadow: 0 0 0 3px var(--crimson-glow);
+    }
+
+    .role-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .role-btn {
+      padding: 11px 13px;
+      border-radius: 9px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      backdrop-filter: blur(8px);
+    }
+
+    .role-btn:hover {
+      border-color: rgba(196, 30, 58, 0.4);
+      color: var(--text);
+      background: rgba(196, 30, 58, 0.07);
+    }
+
+    .role-btn.active {
+      border-color: var(--crimson);
+      color: white;
+      background: linear-gradient(135deg, rgba(196, 30, 58, 0.2), rgba(196, 30, 58, 0.1));
+      box-shadow: 0 0 0 1px rgba(196, 30, 58, 0.15) inset, 0 4px 16px var(--crimson-glow);
+    }
+
+    .role-icon,
+    .nav-ico,
+    .toast-ico,
+    .n-ico,
+    .stat-ico,
+    .panel-ico,
+    .callout-ico,
+    .modal-ico,
+    .filter-ico,
+    .empty-ico,
+    .btn-ico,
+    .ui-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .role-icon,
+    .nav-ico,
+    .toast-ico,
+    .n-ico,
+    .stat-ico,
+    .panel-ico,
+    .callout-ico,
+    .modal-ico,
+    .filter-ico,
+    .empty-ico,
+    .btn-ico {
+      width: 16px;
+      height: 16px;
+    }
+
+    .ui-icon svg,
+    .role-icon svg,
+    .nav-ico svg,
+    .toast-ico svg,
+    .n-ico svg,
+    .stat-ico svg,
+    .panel-ico svg,
+    .callout-ico svg,
+    .modal-ico svg,
+    .filter-ico svg,
+    .empty-ico svg,
+    .btn-ico svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(135deg, var(--crimson), var(--crimson-dim));
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 9px;
+      color: white;
+      font-family: var(--font-head);
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 24px var(--crimson-glow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-login::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 32px rgba(196, 30, 58, 0.4);
+    }
+
+    .btn-login:hover::before {
+      left: 100%;
+    }
+
+    /* ═══════════════════════════════════════════
+   APP SHELL
+═══════════════════════════════════════════ */
+    #app {
+      display: none;
+      height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+
+    #app.visible {
+      display: flex;
+    }
+
+    /* ═══════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════ */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      background: rgba(8, 14, 28, 0.45);
+      backdrop-filter: var(--glass-blur-heavy);
+      -webkit-backdrop-filter: var(--glass-blur-heavy);
+      border-right: 1px solid var(--glass-border);
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sidebar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, transparent 0%, var(--crimson) 30%, var(--gold) 70%, transparent 100%);
+      opacity: 0.25;
+    }
+
+    .sidebar::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: -60px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(196, 30, 58, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .sidebar-brand {
+      padding: 20px 16px 16px;
+      border-bottom: 1px solid var(--glass-border);
+      position: relative;
+    }
+
+    .brand-logo {
+      font-family: var(--font-head);
+      font-size: 26px;
+      letter-spacing: 0.08em;
+      color: white;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .sidebar-brand .brand-logo-img {
+      width: 138px;
+      height: 36px;
+    }
+
+    .brand-logo span {
+      color: var(--crimson);
+    }
+
+    .brand-flag-strip {
+      display: flex;
+      gap: 0;
+      height: 3px;
+      margin-top: 10px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .brand-flag-strip div {
+      flex: 1;
+    }
+
+    .role-pill {
+      margin: 12px 12px 0;
+      padding: 8px 12px;
+      background: linear-gradient(135deg, rgba(196, 30, 58, 0.12), rgba(10, 26, 58, 0.3));
+      border: 1px solid rgba(196, 30, 58, 0.25);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .role-pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--crimson);
+      animation: pulse 2s infinite;
+      flex-shrink: 0;
+    }
+
+    .role-pill-text {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: rgba(255, 100, 100, 0.9);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-section {
+      padding: 14px 10px 4px;
+    }
+
+    .nav-section-lbl {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--text-faint);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0 8px;
+      margin-bottom: 5px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      margin-bottom: 2px;
+      color: var(--text-muted);
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      border: 1px solid transparent;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border-color: var(--glass-border);
+    }
+
+    .nav-item.active {
+      background: linear-gradient(135deg, rgba(196, 30, 58, 0.18), rgba(196, 30, 58, 0.08));
+      color: white;
+      border-color: rgba(196, 30, 58, 0.3);
+      box-shadow: 0 2px 12px rgba(196, 30, 58, 0.1);
+    }
+
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 3px;
+      background: linear-gradient(180deg, var(--crimson), var(--crimson-dim));
+      border-radius: 0 2px 2px 0;
+    }
+
+    .nav-ico {
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      background: var(--crimson);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 20px;
+    }
+
+    .nav-badge.amber {
+      background: var(--amber);
+      color: #000;
+    }
+
+    .sidebar-bottom {
+      margin-top: auto;
+      padding: 14px;
+      border-top: 1px solid var(--glass-border);
+      background: rgba(0, 0, 0, 0.15);
+    }
+
+    .user-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-av {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--crimson), var(--crimson-dim));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-size: 13px;
+      color: white;
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 2px 12px var(--crimson-glow);
+    }
+
+    .user-name-txt {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .user-role-txt {
+      font-size: 10.5px;
+      color: var(--text-muted);
+    }
+
+    .exit-btn {
+      margin-left: auto;
+      padding: 5px 9px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      font-size: 11px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .exit-btn:hover {
+      border-color: rgba(196, 30, 58, 0.5);
+      color: var(--crimson);
+    }
+
+    /* ═══════════════════════════════════════════
+   MAIN AREA
+═══════════════════════════════════════════ */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ─ TOPBAR ─ */
+    .topbar {
+      height: 58px;
+      flex-shrink: 0;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 14px;
+    }
+
+    .topbar-title {
+      font-family: var(--font-head);
+      font-size: 20px;
+      letter-spacing: 0.06em;
+      flex: 1;
+      color: white;
+    }
+
+    .topbar-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-weight: 400;
+      margin-top: 1px;
+    }
+
+    .topbar-title-wrap {
+      flex: 1;
+    }
+
+    /* ─ ASK AI BAR ─ */
+    .ai-bar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 30px;
+      padding: 0 6px 0 14px;
+      width: 220px;
+      transition: var(--transition);
+    }
+
+    .ai-bar:focus-within {
+      border-color: var(--crimson);
+      background: rgba(196, 30, 58, 0.07);
+      width: 260px;
+      box-shadow: 0 0 0 3px var(--crimson-glow);
+    }
+
+    .ai-input {
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 12px;
+      flex: 1;
+      padding: 8px 0;
+    }
+
+    .ai-input::placeholder {
+      color: var(--text-faint);
+    }
+
+    .ai-mic {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--crimson);
+      border: none;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+
+    .ai-mic:hover {
+      background: var(--crimson-bright);
+    }
+
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      position: relative;
+      backdrop-filter: blur(8px);
+    }
+
+    .icon-btn:hover {
+      border-color: rgba(196, 30, 58, 0.5);
+      color: white;
+      background: rgba(196, 30, 58, 0.12);
+    }
+
+    .notif-dot {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--crimson);
+      border: 1.5px solid rgba(6, 12, 24, 0.8);
+    }
+
+    .topbar-user {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px 5px 5px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .topbar-user:hover {
+      border-color: rgba(196, 30, 58, 0.4);
+    }
+
+    .topbar-av {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--crimson), var(--crimson-dim));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-size: 11px;
+      color: white;
+    }
+
+    .topbar-username {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .topbar-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--glass-border);
+    }
+
+    /* ─ CONTENT ─ */
+    .content-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 22px 24px;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ─ GREETING HERO ─ */
+    .greeting-hero {
+      padding: 20px 0 14px;
+    }
+
+    .greeting-date {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .greeting-title {
+      font-family: var(--font-head);
+      font-size: 36px;
+      letter-spacing: 0.04em;
+      color: white;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .greeting-sub {
+      font-size: 12.5px;
+      color: var(--text-muted);
+    }
+
+    /* ═══════════════════════════════════════════
+   PREMIUM GLASS PANELS
+═══════════════════════════════════════════ */
+    .panel,
+    .tbl-wrap,
+    .k-col,
+    .form-panel,
+    .g-card,
+    .stat-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-top: 1px solid var(--glass-border-bright);
+      border-radius: var(--radius);
+      box-shadow: var(--glass-shadow);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .panel:hover,
+    .tbl-wrap:hover,
+    .form-panel:hover,
+    .g-card:hover {
+      border-color: var(--glass-border-bright);
+    }
+
+    /* ─ STAT CARDS ─ */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      padding: 18px 16px;
+      cursor: default;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--glass-border-bright);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      bottom: 0;
+      border-radius: var(--radius) 0 0 var(--radius);
+    }
+
+    .stat-card.crimson::after {
+      background: linear-gradient(180deg, var(--crimson), var(--crimson-dim));
+    }
+
+    .stat-card.gold::after {
+      background: linear-gradient(180deg, var(--gold), rgba(212, 168, 67, 0.4));
+    }
+
+    .stat-card.teal::after {
+      background: linear-gradient(180deg, var(--teal), rgba(45, 212, 191, 0.4));
+    }
+
+    .stat-card.green::after {
+      background: linear-gradient(180deg, var(--green), rgba(34, 197, 94, 0.4));
+    }
+
+    .stat-card.blue::after {
+      background: linear-gradient(180deg, var(--blue), rgba(59, 130, 246, 0.4));
+    }
+
+    .stat-card.purple::after {
+      background: linear-gradient(180deg, var(--purple), rgba(168, 85, 247, 0.4));
+    }
+
+    .stat-card.amber::after {
+      background: linear-gradient(180deg, var(--amber), rgba(245, 158, 11, 0.4));
+    }
+
+    .stat-label {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      padding-left: 8px;
+    }
+
+    .stat-value {
+      font-family: var(--font-head);
+      font-size: 32px;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      margin-bottom: 5px;
+      padding-left: 8px;
+    }
+
+    .stat-delta {
+      font-size: 11px;
+      color: var(--text-muted);
+      padding-left: 8px;
+    }
+
+    .stat-delta.up {
+      color: #4ade80;
+    }
+
+    .stat-delta.down {
+      color: #f87171;
+    }
+
+    .stat-ico {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      font-size: 20px;
+      opacity: 0.15;
+    }
+
+    /* ─ SECTION HEADER ─ */
+    .sec-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .sec-title {
+      font-family: var(--font-head);
+      font-size: 17px;
+      letter-spacing: 0.04em;
+      color: white;
+    }
+
+    .sec-action {
+      font-size: 11.5px;
+      color: var(--crimson);
+      cursor: pointer;
+      font-weight: 600;
+      transition: opacity 0.2s;
+    }
+
+    .sec-action:hover {
+      opacity: 0.7;
+    }
+
+    /* ─ TABLE ─ */
+    .tbl-top {
+      display: flex;
+      align-items: center;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--glass-border);
+      gap: 8px;
+    }
+
+    .tbl-search {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      border-radius: 6px;
+      padding: 7px 12px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 12px;
+      outline: none;
+    }
+
+    .tbl-search:focus {
+      border-color: var(--crimson);
+    }
+
+    .tbl-search::placeholder {
+      color: var(--text-faint);
+    }
+
+    /* Jobs view controls: grid / list / table */
+    .jobs-root .view-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px;
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .jobs-root .view-toggle button {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 6px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .jobs-root .view-toggle button.on {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16);
+    }
+
+    .jobs-root .grid-view,
+    .jobs-root .list-view,
+    .jobs-root .table-view {
+      display: none;
+    }
+
+    .jobs-root[data-view="grid"] .grid-view {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 12px;
+      padding: 12px 0;
+    }
+
+    .jobs-root[data-view="list"] .list-view {
+      display: block;
+      padding: 8px 0;
+    }
+
+    .jobs-root[data-view="table"] .table-view {
+      display: block;
+    }
+
+    .job-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.03));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-top-color: rgba(255, 255, 255, 0.18);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      backdrop-filter: blur(18px) saturate(150%);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14), 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+    }
+
+    .job-card:hover {
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.08) inset;
+    }
+
+    .jc-img {
+      position: relative;
+    }
+
+    .jc-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 35%, rgba(10, 22, 40, 0.1));
+      pointer-events: none;
+    }
+
+    .jc-img img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      display: block;
+      background: rgba(0, 0, 0, 0.06);
+    }
+
+    .jc-body {
+      padding: 13px 12px 12px;
+    }
+
+    .jc-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .jc-desc {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.45;
+      margin-bottom: 6px;
+    }
+
+    .jc-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .list-item {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 10px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.035);
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+    }
+
+    .list-item:hover {
+      background: rgba(255, 255, 255, 0.055);
+    }
+
+    .list-thumb img {
+      width: 72px;
+      height: 72px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .list-body {
+      flex: 1;
+    }
+
+    .job-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .job-thumb {
+      width: 44px;
+      height: 44px;
+      object-fit: cover;
+      border-radius: 8px;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.06);
+    }
+
+    .table-preview {
+      width: 88px;
+      height: 62px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.06);
+    }
+
+    /* Ensure job card body is a column so actions can sit at the bottom */
+    .jc-body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 13px 12px 14px;
+      min-height: 140px;
+    }
+
+    .job-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .job-actions {
+      margin-top: auto;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .job-actions .btn {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+
+    .list-body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .filter-chip {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-muted);
+      font-size: 11px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-chip:hover,
+    .filter-chip.on {
+      border-color: rgba(196, 30, 58, 0.5);
+      color: var(--crimson);
+      background: var(--crimson-glow);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead th {
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-faint);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      background: rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid var(--glass-border);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      transition: background 0.15s;
+      cursor: pointer;
+    }
+
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    tbody td {
+      padding: 11px 14px;
+      font-size: 12.5px;
+    }
+
+    /* ─ BADGES ─ */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .badge::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .badge.crimson {
+      background: rgba(196, 30, 58, 0.18);
+      color: #ff8a95;
+      border: 1px solid rgba(196, 30, 58, 0.25);
+    }
+
+    .badge.crimson::before {
+      background: #ff8a95;
+    }
+
+    .badge.blue {
+      background: rgba(59, 130, 246, 0.15);
+      color: #93c5fd;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .badge.blue::before {
+      background: #93c5fd;
+    }
+
+    .badge.teal {
+      background: rgba(45, 212, 191, 0.12);
+      color: #5eead4;
+      border: 1px solid rgba(45, 212, 191, 0.2);
+    }
+
+    .badge.teal::before {
+      background: #5eead4;
+    }
+
+    .badge.amber {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .badge.amber::before {
+      background: #fcd34d;
+    }
+
+    .badge.green {
+      background: rgba(34, 197, 94, 0.15);
+      color: #86efac;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .badge.green::before {
+      background: #86efac;
+    }
+
+    .badge.red {
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.2);
+    }
+
+    .badge.red::before {
+      background: #fca5a5;
+    }
+
+    .badge.purple {
+      background: rgba(168, 85, 247, 0.15);
+      color: #d8b4fe;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+    }
+
+    .badge.purple::before {
+      background: #d8b4fe;
+    }
+
+    .badge.gray {
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text-muted);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .badge.gray::before {
+      background: var(--text-muted);
+    }
+
+    .priority-badge {
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .priority-badge.normal {
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text-muted);
+    }
+
+    .priority-badge.rush {
+      background: rgba(245, 158, 11, 0.18);
+      color: #fcd34d;
+    }
+
+    .priority-badge.super-rush {
+      background: rgba(196, 30, 58, 0.2);
+      color: #ff8a95;
+    }
+
+    /* ─ TWO COL ─ */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 16px;
+    }
+
+    .panel {
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .panel-title {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .panel-title::before {
+      content: '';
+      width: 3px;
+      height: 12px;
+      background: var(--crimson);
+      border-radius: 2px;
+    }
+
+    /* ─ MINI BARS ─ */
+    .mini-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .mini-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mb-label {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      width: 90px;
+      flex-shrink: 0;
+    }
+
+    .mb-track {
+      flex: 1;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .mb-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mb-val {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--text);
+      width: 36px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* ─ ACTIVITY ─ */
+    .act-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .act-item:last-child {
+      border-bottom: none;
+    }
+
+    .act-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    .act-text {
+      font-size: 12px;
+      color: var(--text);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .act-time {
+      font-size: 10px;
+      color: var(--text-faint);
+      margin-top: 2px;
+    }
+
+    /* ─ WORKFLOW STEPS ─ */
+    .wf-steps {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 14px;
+    }
+
+    .wf-step {
+      flex: 1;
+      min-width: 80px;
+      text-align: center;
+      position: relative;
+    }
+
+    .wf-step::before {
+      content: '';
+      position: absolute;
+      top: 13px;
+      left: 50%;
+      right: -50%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.08);
+      z-index: 0;
+    }
+
+    .wf-step:last-child::before {
+      display: none;
+    }
+
+    .wf-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      margin: 0 auto 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s;
+    }
+
+    .wf-step.done .wf-dot {
+      background: var(--crimson);
+      border-color: var(--crimson);
+      box-shadow: 0 0 0 4px var(--crimson-glow);
+    }
+
+    .wf-step.done::before {
+      background: linear-gradient(90deg, var(--crimson), rgba(196, 30, 58, 0.4));
+    }
+
+    .wf-step.cur .wf-dot {
+      border-color: var(--crimson);
+      background: rgba(196, 30, 58, 0.15);
+      animation: pulseDot 2s infinite;
+    }
+
+    .wf-lbl {
+      font-size: 9.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .wf-step.done .wf-lbl,
+    .wf-step.cur .wf-lbl {
+      color: var(--text);
+    }
+
+    /* ─ AI QC ─ */
+    .ai-report {
+      background: linear-gradient(135deg, rgba(10, 26, 58, 0.6), rgba(8, 14, 28, 0.4));
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      backdrop-filter: blur(12px);
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .ai-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .ai-tag {
+      background: linear-gradient(135deg, var(--crimson), var(--crimson-dim));
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 0.06em;
+    }
+
+    .ai-scores {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    .ai-sc {
+      text-align: center;
+    }
+
+    .ai-sc-lbl {
+      font-size: 9px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .ai-sc-bar {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+
+    .ai-sc-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.9s ease;
+    }
+
+    .ai-sc-val {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .ai-verdict {
+      margin-top: 12px;
+      padding: 8px 12px;
+      border-radius: 7px;
+      font-size: 12px;
+    }
+
+    .ai-verdict.pass {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      color: #86efac;
+    }
+
+    .ai-verdict.flag {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      color: #fcd34d;
+    }
+
+    /* ─ KANBAN ─ */
+    .kanban {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .k-col {
+      padding: 13px;
+    }
+
+    .k-col-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 11px;
+    }
+
+    .k-col-title {
+      font-family: var(--font-head);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: white;
+    }
+
+    .k-count {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .k-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      border-radius: 9px;
+      padding: 11px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      backdrop-filter: blur(8px);
+    }
+
+    .k-item:hover {
+      border-color: rgba(196, 30, 58, 0.4);
+      transform: translateY(-1px);
+      background: rgba(196, 30, 58, 0.06);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .k-item-id {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(196, 30, 58, 0.8);
+      margin-bottom: 5px;
+    }
+
+    .k-item-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 7px;
+    }
+
+    .k-item-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 7px;
+    }
+
+    /* ─ FORM PANEL ─ */
+    .form-panel {
+      padding: 22px;
+    }
+
+    .fp-title {
+      font-family: var(--font-head);
+      font-size: 17px;
+      letter-spacing: 0.04em;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--glass-border);
+      color: white;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .fg {
+      margin-bottom: 12px;
+    }
+
+    .fl {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .fi {
+      width: 100%;
+      padding: 10px 13px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 12.5px;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .fi:focus {
+      border-color: var(--crimson);
+      background: rgba(196, 30, 58, 0.06);
+      box-shadow: 0 0 0 3px var(--crimson-glow);
+    }
+
+    .fi-ta {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .upload-zone {
+      border: 2px dashed rgba(255, 255, 255, 0.1);
+      border-radius: 9px;
+      padding: 22px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .upload-zone:hover {
+      border-color: rgba(196, 30, 58, 0.5);
+      background: var(--crimson-glow);
+    }
+
+    .upload-ico {
+      font-size: 26px;
+      margin-bottom: 7px;
+    }
+
+    .upload-txt {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .upload-txt strong {
+      color: var(--crimson);
+    }
+
+    /* ─ MODAL ─ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(3, 6, 15, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 36px 20px;
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: rgba(8, 14, 30, 0.9);
+      backdrop-filter: var(--glass-blur-heavy);
+      -webkit-backdrop-filter: var(--glass-blur-heavy);
+      border: 1px solid var(--glass-border-bright);
+      border-radius: 16px;
+      width: 840px;
+      max-width: 100%;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+      transform: translateY(20px);
+      transition: transform 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .modal::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--crimson), var(--gold), transparent);
+    }
+
+    .modal-overlay.open .modal {
+      transform: translateY(0);
+    }
+
+    .modal-top {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: linear-gradient(135deg, rgba(196, 30, 58, 0.08), rgba(10, 26, 58, 0.3));
+    }
+
+    .modal-job-id {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--crimson);
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .modal-title {
+      font-family: var(--font-head);
+      font-size: 19px;
+      letter-spacing: 0.03em;
+      color: white;
+    }
+
+    .modal-tags {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .modal-close {
+      margin-left: auto;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+
+    .modal-close:hover {
+      border-color: var(--crimson);
+      color: var(--crimson);
+    }
+
+    .modal-body {
+      padding: 20px 22px;
+    }
+
+    .modal-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .modal-gallery img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      display: block;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.06);
+    }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .m-sec-title {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 11px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .f-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .f-row:last-child {
+      border-bottom: none;
+    }
+
+    .f-key {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .f-val {
+      font-size: 12px;
+      color: var(--text);
+      font-weight: 500;
+      text-align: right;
+      max-width: 60%;
+    }
+
+    .f-val.mono {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--crimson);
+    }
+
+    .modal-actions {
+      padding: 14px 22px;
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .btn {
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-crimson {
+      background: linear-gradient(135deg, var(--crimson), var(--crimson-dim));
+      color: white;
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 16px var(--crimson-glow);
+    }
+
+    .btn-crimson:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(196, 30, 58, 0.4);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--glass-border);
+      color: var(--text-muted);
+    }
+
+    .btn-outline:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--text);
+    }
+
+    .btn-red {
+      background: rgba(239, 68, 68, 0.12);
+      border-color: rgba(239, 68, 68, 0.25);
+      color: #fca5a5;
+    }
+
+    .btn-red:hover {
+      background: rgba(239, 68, 68, 0.2);
+    }
+
+    .btn-green {
+      background: rgba(34, 197, 94, 0.12);
+      border-color: rgba(34, 197, 94, 0.25);
+      color: #86efac;
+    }
+
+    .btn-green:hover {
+      background: rgba(34, 197, 94, 0.2);
+    }
+
+    /* ─ NOTIF PANEL ─ */
+    .notif-panel {
+      position: fixed;
+      top: 58px;
+      right: 0;
+      width: 320px;
+      background: rgba(8, 14, 30, 0.95);
+      backdrop-filter: var(--glass-blur-heavy);
+      -webkit-backdrop-filter: var(--glass-blur-heavy);
+      border-left: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+      border-radius: 0 0 0 14px;
+      z-index: 400;
+      box-shadow: -8px 12px 40px rgba(0, 0, 0, 0.5);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .notif-panel.open {
+      transform: translateX(0);
+    }
+
+    .np-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .np-title {
+      font-family: var(--font-head);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+
+    .mark-all {
+      font-size: 11px;
+      color: var(--crimson);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .notif-list {
+      max-height: 420px;
+      overflow-y: auto;
+    }
+
+    .n-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      gap: 10px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .n-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .n-item.unread {
+      background: rgba(196, 30, 58, 0.06);
+    }
+
+    .n-ico {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .n-text {
+      font-size: 11.5px;
+      line-height: 1.5;
+      color: var(--text);
+    }
+
+    .n-time {
+      font-size: 10px;
+      color: var(--text-faint);
+      margin-top: 2px;
+    }
+
+    /* ─ PILLS ─ */
+    .pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.04);
+      font-size: 11.5px;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+      backdrop-filter: blur(8px);
+    }
+
+    .pill:hover,
+    .pill.active {
+      border-color: rgba(196, 30, 58, 0.5);
+      color: var(--crimson);
+      background: var(--crimson-glow);
+    }
+
+    /* ─ REFERENCE CODE ─ */
+    .ref-code {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--crimson);
+      background: rgba(196, 30, 58, 0.1);
+      padding: 2px 7px;
+      border-radius: 4px;
+      border: 1px solid rgba(196, 30, 58, 0.15);
+    }
+
+    /* ─ CALLOUT ─ */
+    .callout {
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      backdrop-filter: blur(8px);
+    }
+
+    .callout.info {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      color: #93c5fd;
+    }
+
+    .callout.amber {
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      color: #fcd34d;
+    }
+
+    .callout.success {
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      color: #86efac;
+    }
+
+    /* ─ REJECTION ─ */
+    .reject-sec {
+      background: rgba(196, 30, 58, 0.06);
+      border: 1px solid rgba(196, 30, 58, 0.18);
+      border-radius: 9px;
+      padding: 15px;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .reject-sec.vis {
+      display: block;
+    }
+
+    .reason-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin-bottom: 11px;
+    }
+
+    .reason-chip {
+      padding: 7px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .reason-chip:hover,
+    .reason-chip.on {
+      border-color: rgba(196, 30, 58, 0.5);
+      color: #fca5a5;
+      background: rgba(196, 30, 58, 0.12);
+    }
+
+    /* ─ PROFILE ─ */
+    .prof-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .prof-av {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--crimson), var(--crimson-dim));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-head);
+      font-weight: 700;
+      font-size: 12px;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    /* ─ TOAST ─ */
+    #toast {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      z-index: 900;
+      background: rgba(8, 14, 30, 0.95);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border-bright);
+      border-radius: 10px;
+      padding: 13px 18px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      min-width: 280px;
+      max-width: 360px;
+    }
+
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    #toast.success {
+      border-left: 3px solid var(--green);
+    }
+
+    #toast.error {
+      border-left: 3px solid #ef4444;
+    }
+
+    #toast.info {
+      border-left: 3px solid var(--crimson);
+    }
+
+    .toast-ico {
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    .toast-txt {
+      font-size: 12.5px;
+    }
+
+    /* ─ ANIMATIONS ─ */
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.35
+      }
+    }
+
+    @keyframes pulseDot {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 4px rgba(196, 30, 58, 0.15)
+      }
+
+      50% {
+        box-shadow: 0 0 0 8px rgba(196, 30, 58, 0.08)
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══ FLAG BACKGROUND ═══ -->
+  <div id="flag-bg">
+    <div class="flag-stripes"></div>
+    <div class="flag-canton"></div>
+    <div class="flag-stars" id="flag-stars"></div>
+    <div class="flag-overlay"></div>
+    <div class="flag-vignette"></div>
+    <div class="flag-grain"></div>
+  </div>
+
+  <!-- ═══════════════ LOGIN ═══════════════ -->
+  <div id="login-screen">
+    <div class="login-card">
+      <div class="brand-mark">
+        <div>
+          <img class="brand-logo-img" src="https://changeartwork.com/images/logo/site-logo/ch-logo.png" alt="CHANGE!">
+        </div>
+      </div>
+      <div class="login-title">Welcome Back</div>
+      <div class="login-sub">Select your role to access the platform</div>
+      <label class="lbl">Email Address</label>
+      <input class="inp" type="email" value="demo@changeartwork.com" readonly>
+      <label class="lbl" style="margin-bottom:8px;">Select Your Role</label>
+      <div class="role-grid">
+        <button class="role-btn active" data-role="cs" onclick="selectRole(this,'cs')"><span class="role-icon"><svg
+              viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="7"></circle>
+              <circle cx="12" cy="12" r="2.2"></circle>
+              <path d="M12 3v3M21 12h-3M12 21v-3M3 12h3"></path>
+            </svg></span><span>Client Servicing</span></button>
+        <button class="role-btn" data-role="client" onclick="selectRole(this,'client')"><span class="role-icon"><svg
+              viewBox="0 0 24 24">
+              <rect x="4" y="7" width="16" height="12" rx="2"></rect>
+              <path d="M4 11h16M8 7V5h8v2"></path>
+            </svg></span><span>Client</span></button>
+        <button class="role-btn" data-role="teamlead" onclick="selectRole(this,'teamlead')"><span class="role-icon"><svg
+              viewBox="0 0 24 24">
+              <path d="M5 20h14"></path>
+              <path d="M6 17l2-8 4 5 4-5 2 8"></path>
+              <path d="M7 9l5-5 5 5"></path>
+            </svg></span><span>Team Lead</span></button>
+        <button class="role-btn" data-role="designer" onclick="selectRole(this,'designer')"><span class="role-icon"><svg
+              viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="8"></circle>
+              <path d="M12 4c2.4 1.9 3.8 4.5 3.8 7.3S14.4 18 12 20c-2.4-2-3.8-4.8-3.8-8.7S9.6 5.9 12 4Z"></path>
+            </svg></span><span>Designer</span></button>
+        <button class="role-btn" data-role="qc" onclick="selectRole(this,'qc')"><span class="role-icon"><svg
+              viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="8"></circle>
+              <path d="m8 12 2.4 2.4L16 8"></path>
+            </svg></span><span>QC Reviewer</span></button>
+        <button class="role-btn" data-role="admin" onclick="selectRole(this,'admin')"><span class="role-icon"><svg
+              viewBox="0 0 24 24">
+              <path d="M12 3l2.1 4.3 4.7.7-3.4 3.3.8 4.7-4.2-2.2-4.2 2.2.8-4.7-3.4-3.3 4.7-.7z"></path>
+            </svg></span><span>Admin</span></button>
+      </div>
+      <button class="btn-login" onclick="login()">ENTER PLATFORM →</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════ APP ═══════════════ -->
+  <div id="app">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <img class="brand-logo-img" src="https://changeartwork.com/images/logo/site-logo/ch-logo.png" alt="CHANGE!">
+        <div class="brand-flag-strip">
+          <div style="background:var(--crimson)"></div>
+          <div style="background:rgba(255,255,255,0.7)"></div>
+          <div style="background:var(--crimson)"></div>
+          <div style="background:rgba(255,255,255,0.7)"></div>
+          <div style="background:var(--crimson)"></div>
+          <div style="background:#1a2a5e"></div>
+          <div style="background:#1a2a5e"></div>
+        </div>
+      </div>
+      <div class="role-pill">
+        <div class="role-pill-dot"></div>
+        <div class="role-pill-text" id="role-pill-text">CS</div>
+      </div>
+      <nav id="sidebar-nav"></nav>
+      <div class="sidebar-bottom">
+        <div class="user-row">
+          <div class="user-av" id="u-av">PS</div>
+          <div>
+            <div class="user-name-txt" id="u-name">Priya Sharma</div>
+            <div class="user-role-txt" id="u-role">Client Servicing</div>
+          </div>
+          <button class="exit-btn" onclick="logout()">← Exit</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="main">
+      <div class="topbar">
+        <div class="topbar-title-wrap">
+          <div class="topbar-title" id="topbar-title">Dashboard</div>
+        </div>
+        <!-- ASK AI -->
+        <div class="ai-bar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--crimson)" stroke-width="2.5"
+            style="flex-shrink:0;margin-right:6px">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+          </svg>
+          <input class="ai-input" placeholder="Ask AI..." id="ai-input" onkeydown="handleAI(event)">
+          <button class="ai-mic" onclick="showToast('Voice input activated (demo)','info')"><span class="btn-ico"><svg
+                viewBox="0 0 24 24">
+                <path d="M12 14a3 3 0 0 0 3-3V7a3 3 0 0 0-6 0v4a3 3 0 0 0 3 3Z"></path>
+                <path d="M6 11a6 6 0 0 0 12 0"></path>
+                <path d="M12 17v3"></path>
+              </svg></span></button>
+        </div>
+        <div class="topbar-divider"></div>
+        <button class="icon-btn" onclick="toggleNotif()" title="Notifications"><span class="btn-ico"><svg
+              viewBox="0 0 24 24">
+              <path d="M6 17h12l-1.2-1.7A4 4 0 0 1 16 12V9a4 4 0 1 0-8 0v3a4 4 0 0 1-.8 2.3z"></path>
+              <path d="M10 19a2 2 0 0 0 4 0"></path>
+            </svg></span><span class="notif-dot"></span></button>
+        <button class="icon-btn" id="theme-toggle" onclick="toggleTheme()" title="Switch to light mode"><span
+            class="btn-ico"><svg viewBox="0 0 24 24">
+              <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"></path>
+            </svg></span></button>
+        <div class="topbar-divider"></div>
+        <div class="topbar-user" onclick="showRoleSwitch()">
+          <div class="topbar-av" id="topbar-av">PS</div>
+          <span class="topbar-username" id="topbar-username">Jason Ranji</span>
+        </div>
+      </div>
+      <div class="content-area" id="content-area"></div>
+    </div>
+  </div>
+
+  <!-- NOTIF PANEL -->
+  <div class="notif-panel" id="notif-panel">
+    <div class="np-header">
+      <div class="np-title">Notifications</div>
+      <span class="mark-all" onclick="markAllRead()">Mark all read</span>
+    </div>
+    <div class="notif-list" id="notif-list"></div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" id="modal-content"></div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast"><span class="toast-ico" id="toast-ico"></span><span class="toast-txt" id="toast-txt"></span></div>
+
+  <script>
+    /* ──────────── FLAG STARS ──────────── */
+    (function buildStars() {
+      const c = document.getElementById('flag-stars');
+      // 50 stars in alternating rows: 6-5-6-5... pattern
+      // Simplified: fill 9 rows × 11 cols = 99 cells, show 50
+      const pattern = [6, 5, 6, 5, 6, 5, 6, 5, 6];
+      let html = '';
+      pattern.forEach((count, row) => {
+        for (let col = 0; col < 11; col++) {
+          const show = col < count;
+          html += `<div class="star" style="opacity:${show ? 0.42 : 0}">${show ? '★' : ''}</div>`;
+        }
+      });
+      c.innerHTML = html;
+    })();
+
+    /* ──────────── DATA ──────────── */
+    const JOBS = [
+      { id: 'J-2025-0047', ref: '04-30-2025-C001-047-A', client: 'Ravi Textiles', clientId: 'C001', design: 'Corporate Logo Set', summary: 'Logo lockups, export-ready vectors, and brand-safe color checks.', order: 'Artwork', project: 'Live', complexity: 'Complex', process: 'Screen Printing', priority: 'Rush', eta: '8h', status: 'In QC', stage: 'qc', assignedTo: 'Kavya Reddy', subType: 'Senior', notes: 'Refer to brand guidelines. Use Pantone 286C for navy. All text must be vectorised.', colors: 4, created: '2025-04-30 09:15', aiScore: { colour: 88, align: 92, res: 85, brief: 90 }, images: ['images/J-2025-0047-1.jpg', 'images/J-2025-0047-2.jpg'], negotiation: { status: 'pending_agency', clientOffer: 12000, agencyOffer: null, finalPrice: null } },
+      { id: 'J-2025-0046', ref: '04-29-2025-C002-046', client: 'Star Garments', clientId: 'C002', design: 'Team Jersey Digitizing', summary: 'Tight-deadline embroidery setup with a full color count.', order: 'Digitizing', project: 'Live', complexity: 'Super Complex', process: null, priority: 'Super Rush', eta: '6h', status: 'Senior Review', stage: 'senior', assignedTo: 'Arjun Patel', subType: 'Junior', notes: '8-color embroidery. Tight deadline. 450 pieces.', placement: 'Left Chest', width: 4.5, height: 3.2, fabric: 'Cotton Blend', colors: 8, created: '2025-04-29 14:30', aiScore: null, images: ['images/J-2025-0046-1.jpg'], negotiation: { status: 'pending_client', clientOffer: 8500, agencyOffer: 9500, finalPrice: null } },
+      { id: 'J-2025-0045', ref: '04-28-2025-C003-045', client: 'Heritage Caps', clientId: 'C003', design: 'Cap Emblem Full Set', summary: 'Cap emblem artwork prepared for sewout and fit checks.', order: 'Digitizing + Sewout', project: 'Live', complexity: 'Medium', process: null, priority: 'Normal', eta: '12h', status: 'Sewout', stage: 'sewout', assignedTo: 'Meena Das', subType: 'Senior', notes: '3D puff effect on "H". Sewout required.', placement: 'Front of Cap', width: 3.0, height: 2.5, fabric: 'Wool Blend', colors: 3, created: '2025-04-28 11:00', aiScore: null, images: ['images/J-2025-0045-1.jpg'], negotiation: { status: 'approved', clientOffer: 4500, agencyOffer: 5000, finalPrice: 5000 } },
+      { id: 'J-2025-0044', ref: '04-27-2025-C001-044', client: 'Ravi Textiles', clientId: 'C001', design: 'Summer Collection Flyer', summary: 'Flyer revision with warmer product image tones.', order: 'Artwork', project: 'Amend', complexity: 'Simple', process: 'Digital Printing', priority: 'Normal', eta: '4h', status: 'In Production', stage: 'junior', assignedTo: 'Rahul Nair', subType: 'Junior', notes: 'Client requested color tone adjustment on product images.', colors: 2, created: '2025-04-27 10:20', aiScore: null, images: ['images/J-2025-0044-1.jpg'], negotiation: { status: 'pending_agency', clientOffer: 12000, agencyOffer: null, finalPrice: null } },
+      { id: 'J-2025-0043', ref: '04-26-2025-C004-043', client: 'Blue Label Co.', clientId: 'C004', design: 'Polo Shirt Digitize', summary: 'Clean 2-color sleeve digitizing with delivery-ready files.', order: 'Digitizing', project: 'Live', complexity: 'Simple', process: null, priority: 'Rush', eta: '5h', status: 'Delivered', stage: 'delivered', assignedTo: 'Arjun Patel', subType: 'Senior', notes: 'Simple 2-color sleeve design.', placement: 'Sleeve', width: 2.0, height: 2.0, fabric: 'Pique Cotton', colors: 2, created: '2025-04-26 08:45', aiScore: { colour: 95, align: 97, res: 92, brief: 96 }, images: ['images/J-2025-0043-1.jpg', 'images/J-2025-0043-2.jpg'], negotiation: { status: 'pending_agency', clientOffer: 12000, agencyOffer: null, finalPrice: null } },
+      { id: 'J-2025-0042', ref: '04-25-2025-C005-042-A', client: 'Urban Threads', clientId: 'C005', design: 'Brand Identity Pack', summary: 'Full brand package covering stationery and packaging.', order: 'Artwork', project: 'Quote', complexity: 'Super Complex', process: 'Offset Printing', priority: 'Normal', eta: '16h', status: 'Quote Submitted', stage: 'quote', assignedTo: null, subType: null, notes: 'Full brand package including stationery and packaging design.', colors: 5, created: '2025-04-25 16:00', aiScore: null, clientPrice: 150, adminPrice: null, agreedPrice: null },
+      { id: 'J-2025-0041', ref: '04-24-2025-C002-041', client: 'Star Garments', clientId: 'C002', design: 'School Uniform Badge', summary: 'Uniform badge digitizing with QC-approved stitch counts.', order: 'Digitizing + Sewout', project: 'Live', complexity: 'Medium', process: null, priority: 'Normal', eta: '10h', status: 'Delivered', stage: 'delivered', assignedTo: 'Meena Das', subType: 'Senior', notes: '450 pieces batch. Uniform quality required.', placement: 'Left Chest', width: 3.5, height: 3.5, fabric: 'Polyester', colors: 4, created: '2025-04-24 09:00', stitchCount: 12480, aiScore: { colour: 91, align: 93, res: 89, brief: 94 }, negotiation: { status: 'pending_agency', clientOffer: 12000, agencyOffer: null, finalPrice: null } },
+    ];
+
+    const NOTIFS = [
+      { ico: 'check-circle', bg: 'rgba(34,197,94,0.15)', text: 'J-2025-0043 passed QC and was delivered to Blue Label Co.', time: '2m ago', read: false },
+      { ico: 'refresh', bg: 'rgba(245,158,11,0.15)', text: 'J-2025-0044 returned — client requested color revision.', time: '18m ago', read: false },
+      { ico: 'clipboard', bg: 'rgba(59,130,246,0.15)', text: 'New job J-2025-0042 submitted by Urban Threads.', time: '1h ago', read: false },
+      { ico: 'warning', bg: 'rgba(196,30,58,0.15)', text: 'J-2025-0046 ETA in 2h — Senior review still pending.', time: '2h ago', read: true },
+      { ico: 'bot', bg: 'rgba(196,30,58,0.1)', text: 'AI QC report ready for J-2025-0047 — Score: 89/100, PASS.', time: '3h ago', read: true },
+    ];
+
+    let currentDashRange = 'This Month';
+
+    // Comprehensive mock data for all internal roles
+    const DASH_METRICS = {
+      'This Month': {
+        cs: {
+          pending: 2, inProd: 4, ready: 1, delivered: 3, sub1: '↑ 1 new today', sub2: '3 on track', sub3: 'QC approved', sub4: '↑ vs yesterday',
+          orderSplit: { orders: 7, art: 75, artVal: 5, dig: 17, digVal: 1, sew: 8, sewVal: 1 },
+          trend: [{ v: 1, h: 30 }, { v: 2, h: 50 }, { v: 1, h: 20 }, { v: 4, h: 80 }, { v: 5, h: 100 }]
+        },
+        tl: { unassigned: 3, inProg: 5, srReview: 1, comp: 2 },
+        ds: { comp: 34, time: '4.2h', qcRej: '6%', jrRej: '22%' },
+        qc: { pending: 3, app: 4, rej: 1, time: '18m' },
+        admin: { open: 7, inProd: 4, inQc: 1, rev: '2.84L', revSub: '↑ 9%', revSplit: { art: 58, artVal: '1.65L', dig: 30, digVal: '85K', sew: 12, sewVal: '34K' } }
+      },
+      'Last 6 months': {
+        cs: {
+          pending: 12, inProd: 45, ready: 18, delivered: 134, sub1: '↑ 14 this week', sub2: '40 on track', sub3: 'Batch approved', sub4: '↑ 22 vs prev',
+          orderSplit: { orders: 142, art: 60, artVal: 85, dig: 30, digVal: 43, sew: 10, sewVal: 14 },
+          trend: [{ v: 15, h: 25 }, { v: 25, h: 41 }, { v: 12, h: 20 }, { v: 45, h: 75 }, { v: 60, h: 100 }]
+        },
+        tl: { unassigned: 12, inProg: 45, srReview: 14, comp: 134 },
+        ds: { comp: 210, time: '3.8h', qcRej: '4.5%', jrRej: '18%' },
+        qc: { pending: 18, app: 180, rej: 24, time: '15m' },
+        admin: { open: 42, inProd: 45, inQc: 18, rev: '15.4L', revSub: '↑ 18%', revSplit: { art: 65, artVal: '10L', dig: 25, digVal: '3.8L', sew: 10, sewVal: '1.6L' } }
+      },
+      'This year': {
+        cs: {
+          pending: 18, inProd: 65, ready: 24, delivered: 290, sub1: '↑ 20 this week', sub2: '60 on track', sub3: 'Batch approved', sub4: '↑ 45 vs prev',
+          orderSplit: { orders: 320, art: 65, artVal: 208, dig: 25, digVal: 80, sew: 10, sewVal: 32 },
+          trend: [{ v: 30, h: 25 }, { v: 50, h: 41 }, { v: 25, h: 20 }, { v: 90, h: 75 }, { v: 120, h: 100 }]
+        },
+        tl: { unassigned: 18, inProg: 65, srReview: 20, comp: 290 },
+        ds: { comp: 420, time: '3.5h', qcRej: '4%', jrRej: '15%' },
+        qc: { pending: 24, app: 340, rej: 42, time: '14m' },
+        admin: { open: 65, inProd: 65, inQc: 24, rev: '32.1L', revSub: '↑ 24%', revSplit: { art: 70, artVal: '22.5L', dig: 20, digVal: '6.4L', sew: 10, sewVal: '3.2L' } }
+      },
+      'Max': {
+        cs: {
+          pending: 35, inProd: 120, ready: 45, delivered: 950, sub1: 'Lifetime', sub2: 'Lifetime', sub3: 'Lifetime', sub4: 'Lifetime',
+          orderSplit: { orders: 1040, art: 70, artVal: 728, dig: 20, digVal: 208, sew: 10, sewVal: 104 },
+          trend: [{ v: 100, h: 31 }, { v: 150, h: 46 }, { v: 80, h: 25 }, { v: 250, h: 78 }, { v: 320, h: 100 }]
+        },
+        tl: { unassigned: 35, inProg: 120, srReview: 40, comp: 950 },
+        ds: { comp: 1150, time: '3.2h', qcRej: '3.5%', jrRej: '12%' },
+        qc: { pending: 45, app: 1050, rej: 110, time: '12m' },
+        admin: { open: 120, inProd: 120, inQc: 45, rev: '98.5L', revSub: 'Lifetime', revSplit: { art: 75, artVal: '74L', dig: 15, digVal: '14.5L', sew: 10, sewVal: '10L' } }
+      }
+    };
+
+    function updateDashRange(newRange) {
+      currentDashRange = newRange;
+      navigateTo(currentPageId); // Automatically re-renders the active page with fresh data
+    }
+
+    const ROLE_CFG = {
+      cs: {
+        label: 'Client Servicing', user: 'Jason Ranji', initials: 'JR',
+        nav: [{ s: 'Main', items: [{ ico: 'chart', lbl: 'Dashboard', pg: 'cs-dash', b: null }, { ico: 'briefcase', lbl: 'All Projects', pg: 'cs-projects', b: null }, { ico: 'clipboard', lbl: 'Job Queue', pg: 'cs-queue', b: '2' }, { ico: 'package', lbl: 'Ready to Deliver', pg: 'cs-deliver', b: '1' }, { ico: 'refresh', lbl: 'Amendments', pg: 'cs-amend', b: '1' }] }, { s: 'Clients', items: [{ ico: 'users', lbl: 'Client Records', pg: 'cs-clients', b: null }] }]
+      },
+      client: {
+        label: 'Client', user: 'Ravi Textiles', initials: 'RT',
+        nav: [{ s: 'Portal', items: [{ ico: 'home', lbl: 'My Dashboard', pg: 'client-dash', b: null }, { ico: 'plus', lbl: 'Request Quote', pg: 'client-quote', b: null }, { ico: 'clipboard', lbl: 'My Jobs', pg: 'client-jobs', b: null }, { ico: 'user', lbl: 'My Profile', pg: 'client-profile', b: null }] }]
+      },
+      teamlead: {
+        label: 'Team Lead', user: 'Ankit Mehta', initials: 'AM',
+        nav: [{ s: 'Operations', items: [{ ico: 'chart', lbl: 'Dashboard', pg: 'tl-dash', b: null }, { ico: 'inbox', lbl: 'Assignment Queue', pg: 'tl-queue', b: '3' }, { ico: 'users', lbl: 'Team Overview', pg: 'tl-team', b: null }] }]
+      },
+      designer: {
+        label: 'Senior Designer', user: 'Kavya Reddy', initials: 'KR',
+        nav: [{ s: 'Workspace', items: [{ ico: 'palette', lbl: 'My Tasks', pg: 'designer-tasks', b: '2' }, { ico: 'chart', lbl: 'My Analytics', pg: 'designer-analytics', b: null }] }]
+      },
+      qc: {
+        label: 'QC Reviewer', user: 'Suresh Kumar', initials: 'SK',
+        nav: [{ s: 'QC', items: [{ ico: 'search', lbl: 'Review Queue', pg: 'qc-queue', b: '3' }, { ico: 'chart', lbl: 'QC Dashboard', pg: 'qc-dash', b: null }, { ico: 'folder', lbl: 'History', pg: 'qc-history', b: null }] }]
+      },
+      admin: {
+        label: 'Admin', user: 'Deepa Nair', initials: 'DN',
+        nav: [{ s: 'Administration', items: [{ ico: 'chart', lbl: 'Admin Dashboard', pg: 'admin-dash', b: null }, { ico: 'briefcase', lbl: 'All Jobs', pg: 'admin-jobs', b: null }, { ico: 'users', lbl: 'Clients', pg: 'admin-clients', b: null }, { ico: 'lock', lbl: 'User Management', pg: 'admin-users', b: null }, { ico: 'report', lbl: 'Reports', pg: 'admin-reports', b: null }] }]
+      },
+    };
+
+    let currentRole = 'cs', notifOpen = false, currentPageId = '';
+
+    function svgIcon(content, viewBox = '0 0 24 24') {
+      return `<svg viewBox="${viewBox}" aria-hidden="true" focusable="false">${content}</svg>`;
+    }
+    const ICONS = {
+      target: svgIcon('<circle cx="12" cy="12" r="7"></circle><circle cx="12" cy="12" r="2.2"></circle><path d="M12 3v3M21 12h-3M12 21v-3M3 12h3"></path>'),
+      building: svgIcon('<rect x="4" y="7" width="16" height="12" rx="2"></rect><path d="M4 11h16M8 7V5h8v2"></path>'),
+      crown: svgIcon('<path d="M5 20h14"></path><path d="M6 17l2-8 4 5 4-5 2 8"></path><path d="M7 9l5-5 5 5"></path>'),
+      palette: svgIcon('<circle cx="12" cy="12" r="8"></circle><path d="M12 4c2.4 1.9 3.8 4.5 3.8 7.3S14.4 18 12 20c-2.4-2-3.8-4.8-3.8-8.7S9.6 5.9 12 4Z"></path>'),
+      'check-circle': svgIcon('<circle cx="12" cy="12" r="8"></circle><path d="m8 12 2.4 2.4L16 8"></path>'),
+      gear: svgIcon('<circle cx="12" cy="12" r="3"></circle><path d="M19 12a7 7 0 0 0-.1-1l2-1.2-2-3.4-2.2.7a7 7 0 0 0-1.7-1l-.3-2.3H9.3L9 6.1a7 7 0 0 0-1.7 1L5.1 6.4l-2 3.4L5.1 11a7 7 0 0 0 0 2l-2 1.2 2 3.4 2.2-.7a7 7 0 0 0 1.7 1l.3 2.3h5.4l.3-2.3a7 7 0 0 0 1.7-1l2.2.7 2-3.4-2-1.2c.1-.3.1-.7.1-1Z"></path>'),
+      mic: svgIcon('<path d="M12 14a3 3 0 0 0 3-3V7a3 3 0 0 0-6 0v4a3 3 0 0 0 3 3Z"></path><path d="M6 11a6 6 0 0 0 12 0"></path><path d="M12 17v3"></path>'),
+      bell: svgIcon('<path d="M6 17h12l-1.2-1.7A4 4 0 0 1 16 12V9a4 4 0 1 0-8 0v3a4 4 0 0 1-.8 2.3z"></path><path d="M10 19a2 2 0 0 0 4 0"></path>'),
+      moon: svgIcon('<path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"></path>'),
+      sun: svgIcon('<circle cx="12" cy="12" r="4"></circle><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1l2.1-2.1M17 7l2.1-2.1"></path>'),
+      chart: svgIcon('<path d="M5 19V5"></path><path d="M5 19h14"></path><path d="M9 16v-4"></path><path d="M13 16V8"></path><path d="M17 16v-6"></path>'),
+      clipboard: svgIcon('<rect x="7" y="5" width="10" height="14" rx="2"></rect><path d="M9 5h6v2H9z"></path><path d="M9 10h6M9 13h6"></path>'),
+      package: svgIcon('<path d="M12 3 4.5 7v10L12 21l7.5-4V7L12 3Z"></path><path d="M4.5 7 12 11l7.5-4"></path><path d="M12 11v10"></path>'),
+      refresh: svgIcon('<path d="M20 12a8 8 0 0 1-14 5"></path><path d="M4 12a8 8 0 0 1 14-5"></path><path d="M18 4v4h-4"></path><path d="M6 20v-4h4"></path>'),
+      users: svgIcon('<path d="M17 20v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="10.5" cy="8" r="3"></circle><path d="M20 20v-1.5a3.5 3.5 0 0 0-2.5-3.4"></path><path d="M15.5 5.5a2.5 2.5 0 1 1 0 5"></path>'),
+      home: svgIcon('<path d="M4 11.5 12 5l8 6.5"></path><path d="M6 10.5V20h12v-9.5"></path>'),
+      plus: svgIcon('<path d="M12 5v14"></path><path d="M5 12h14"></path>'),
+      user: svgIcon('<circle cx="12" cy="8" r="3.2"></circle><path d="M5 20a7 7 0 0 1 14 0"></path>'),
+      inbox: svgIcon('<path d="M4 6h16v9l-3 4H7l-3-4z"></path><path d="M9 15h6"></path>'),
+      search: svgIcon('<circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.35-4.35"></path>'),
+      folder: svgIcon('<path d="M3 7h6l2 2h10v9H3z"></path>'),
+      briefcase: svgIcon('<rect x="4" y="7" width="16" height="12" rx="2"></rect><path d="M9 7V5h6v2"></path><path d="M4 12h16"></path>'),
+      lock: svgIcon('<rect x="5" y="11" width="14" height="9" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path>'),
+      report: svgIcon('<path d="M6 3h9l3 3v15H6z"></path><path d="M15 3v4h4"></path><path d="M9 12h6M9 16h6M9 8h3"></path>'),
+      download: svgIcon('<path d="M12 4v10"></path><path d="m8 10 4 4 4-4"></path><path d="M5 20h14"></path>'),
+      save: svgIcon('<path d="M5 5h12l2 2v12H5z"></path><path d="M8 5v5h6V5"></path><path d="M8 14h8"></path>'),
+      send: svgIcon('<path d="M21 3 10 14"></path><path d="M21 3 14 21l-4-7-7-4Z"></path>'),
+      info: svgIcon('<circle cx="12" cy="12" r="8"></circle><path d="M12 10v6"></path><path d="M12 7h.01"></path>'),
+      warning: svgIcon('<path d="M12 4 3 20h18z"></path><path d="M12 9v4"></path><path d="M12 16h.01"></path>'),
+      bot: svgIcon('<path d="M9 8V6a3 3 0 0 1 6 0v2"></path><rect x="5" y="8" width="14" height="10" rx="3"></rect><path d="M9 13h.01M15 13h.01M8 18h8"></path>'),
+      close: svgIcon('<path d="m6 6 12 12M18 6 6 18"></path>'),
+      chat: svgIcon('<path d="M20 14a4 4 0 0 1-4 4H9l-5 3 1.5-4.5A4 4 0 0 1 4 14V8a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4z"></path>'),
+      filter: svgIcon('<path d="M4 6h16l-6 7v5l-4 2v-7z"></path>')
+    };
+    function icon(name, className = '') {
+      return `<span class="${className ? `${className} ` : ''}ui-icon" aria-hidden="true">${ICONS[name] || ICONS.info}</span>`;
+    }
+
+    function jobImage(job, index, width, height) {
+      const seed = encodeURIComponent(`${job.id}-${index}-${job.client}-${job.design}`);
+      return `https://picsum.photos/seed/${seed}/${width}/${height}`;
+    }
+
+    function jobImages(job, count = 3) {
+      return Array.from({ length: count }, (_, index) => jobImage(job, index, 900, 700));
+    }
+
+    let pricingRange = 'Last 6 months';
+    const PRICING_SERIES = {
+      'Last Month': { labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'], values: [58600, 64200, 61850, 69500] },
+      'Last 6 months': { labels: ['Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May'], values: [44800, 51200, 54800, 61200, 74800, 84500] },
+      'Last Year': { labels: ['Jun', 'Aug', 'Oct', 'Dec', 'Feb', 'Apr'], values: [38200, 43100, 49200, 55800, 67300, 84500] },
+      Max: { labels: ['2022', '2023', '2024', '2025', '2026'], values: [21400, 32900, 45200, 68300, 84500] },
+    };
+
+    function formatINR(value) {
+      return `$${Number(value).toLocaleString('en-IN')}`;
+    }
+
+    function renderPricingChart(range = pricingRange) {
+      pricingRange = range;
+      const mount = document.getElementById('pricing-chart');
+      if (!mount) return;
+
+      const series = PRICING_SERIES[range] || PRICING_SERIES['Last 6 months'];
+      const values = series.values;
+      const labels = series.labels;
+      const maxValue = Math.max(...values);
+      const minValue = Math.min(...values);
+      const svgWidth = 680;
+      const svgHeight = 220;
+      const left = 44;
+      const right = 644;
+      const top = 22;
+      const bottom = 176;
+      const plotHeight = bottom - top;
+      const step = values.length > 1 ? (right - left) / (values.length - 1) : 0;
+      const denominator = maxValue === minValue ? 1 : (maxValue - minValue);
+      const navy = '#93c5fd';
+      const crimson = '#ff8a95';
+      const border = 'rgba(255,255,255,0.08)';
+      const muted = 'rgba(180,195,225,0.6)';
+
+      const points = values.map((value, index) => ({
+        x: left + (step * index),
+        y: bottom - (((value - minValue) / denominator) * plotHeight),
+      }));
+
+      const linePath = points.map(point => `${point.x},${point.y}`).join(' ');
+      const areaPath = [`M ${points[0].x} ${bottom}`, `L ${points[0].x} ${points[0].y}`, ...points.slice(1).map(point => `L ${point.x} ${point.y}`), `L ${points[points.length - 1].x} ${bottom}`, 'Z'].join(' ');
+      const yTicks = [0.85, 0.6, 0.35, 0.1].map(ratio => {
+        const value = minValue + ((maxValue - minValue) * ratio);
+        const y = bottom - (plotHeight * ratio);
+        return `<g><line x1="${left}" y1="${y}" x2="${right}" y2="${y}" stroke="${border}" stroke-width="1" stroke-dasharray="4 6" /><text x="14" y="${y + 4}" fill="${muted}" font-size="10.5" font-family="var(--font-mono)">${formatINR(Math.round(value))}</text></g>`;
+      }).join('');
+      const pointMarks = points.map((point, index) => `
+    <g>
+      <circle cx="${point.x}" cy="${point.y}" r="7" fill="rgba(10,22,40,0.92)" stroke="${index === points.length - 1 ? crimson : navy}" stroke-width="2" />
+      <circle cx="${point.x}" cy="${point.y}" r="2.6" fill="${index === points.length - 1 ? crimson : navy}" />
+      ${index === points.length - 1 ? `<text x="${point.x}" y="${point.y - 14}" text-anchor="middle" fill="${crimson}" font-size="10.5" font-weight="700" font-family="var(--font-mono)">${formatINR(values[index])}</text>` : ''}
+    </g>`).join('');
+
+      mount.innerHTML = `
+    <div style="background:rgba(255,255,255,0.03);border:1px solid var(--glass-border);border-radius:12px;padding:14px 14px 12px;">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap;">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--text-faint);letter-spacing:0.08em;text-transform:uppercase;">Pricing Trend</div>
+          <div id="pricing-total" style="font-family:var(--font-head);font-size:30px;font-weight:700;color:var(--text);line-height:1;margin-top:8px;">${formatINR(values[values.length - 1])}</div>
+          <div id="pricing-sub" style="font-size:12px;color:var(--text-muted);margin-top:6px;line-height:1.4;">Selected range view of billed project pricing</div>
+        </div>
+        <select id="pricing-range-select" onchange="setPricingRange(this.value)" style="appearance:none;border:1px solid var(--glass-border-bright);background:rgba(255,255,255,0.04);color:var(--text);font-family:var(--font-body);font-size:12px;font-weight:600;padding:9px 34px 9px 12px;border-radius:999px;outline:none;cursor:pointer;">
+          <option${range === 'Last Month' ? ' selected' : ''}>Last Month</option>
+          <option${range === 'Last 6 months' ? ' selected' : ''}>Last 6 months</option>
+          <option${range === 'Last Year' ? ' selected' : ''}>Last Year</option>
+          <option${range === 'Max' ? ' selected' : ''}>Max</option>
+        </select>
+      </div>
+      <svg viewBox="0 0 ${svgWidth} ${svgHeight}" preserveAspectRatio="none" aria-label="Pricing trend chart" style="width:100%;height:220px;display:block;margin-top:14px;">
+        <defs>
+          <linearGradient id="pricingFill" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0%" stop-color="#ff8a95" stop-opacity="0.24" />
+            <stop offset="100%" stop-color="#ff8a95" stop-opacity="0.02" />
+          </linearGradient>
+          <linearGradient id="pricingLine" x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stop-color="#93c5fd" />
+            <stop offset="100%" stop-color="#ff8a95" />
+          </linearGradient>
+        </defs>
+        ${yTicks}
+        <path d="${areaPath}" fill="url(#pricingFill)" />
+        <polyline points="${linePath}" fill="none" stroke="url(#pricingLine)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+        ${pointMarks}
+      </svg>
+      <div style="display:grid;grid-template-columns:repeat(${labels.length},minmax(0,1fr));gap:8px;margin-top:8px;">
+        ${labels.map((label, index) => `<div style="text-align:center;font-size:10.5px;color:${index === labels.length - 1 ? 'var(--crimson)' : 'var(--text-faint)'};font-weight:700;letter-spacing:0.06em;text-transform:uppercase;">${label}</div>`).join('')}
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+        <div style="display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,0.04);border:1px solid var(--glass-border);font-size:11px;font-weight:700;color:var(--text-muted);">Latest <strong style="color:var(--text)">${formatINR(values[values.length - 1])}</strong></div>
+        <div style="display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,0.04);border:1px solid var(--glass-border);font-size:11px;font-weight:700;color:var(--text-muted);">Peak <strong style="color:var(--text)">${formatINR(maxValue)}</strong></div>
+        <div style="display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,0.04);border:1px solid var(--glass-border);font-size:11px;font-weight:700;color:var(--text-muted);">Range <strong style="color:var(--text)">${range}</strong></div>
+      </div>
+    </div>`;
+
+      const totalMount = document.getElementById('pricing-total');
+      if (totalMount) totalMount.textContent = formatINR(values[values.length - 1]);
+      const subMount = document.getElementById('pricing-sub');
+      if (subMount) subMount.textContent = `${range} · ${labels.length} data points`;
+    }
+
+    function setPricingRange(value) {
+      const select = document.getElementById('pricing-range-select');
+      if (select) select.value = value;
+      renderPricingChart(value);
+    }
+
+    function setTheme(theme) {
+      const resolved = theme === 'light' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = resolved;
+      localStorage.setItem('change-artwork-theme', resolved);
+      const btn = document.getElementById('theme-toggle');
+      if (btn) {
+        const nextIcon = resolved === 'light' ? 'sun' : 'moon';
+        btn.innerHTML = `${icon(nextIcon, 'btn-ico')}`;
+        btn.title = resolved === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
+      }
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+      setTheme(current === 'light' ? 'dark' : 'light');
+    }
+
+    function initTheme() {
+      const saved = localStorage.getItem('change-artwork-theme');
+      const preferred = saved || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      setTheme(preferred);
+    }
+
+    initTheme();
+
+    /* ──────────── ROLE SELECT & LOGIN ──────────── */
+    function selectRole(el, role) {
+      document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active'); currentRole = role;
+    }
+    function login() {
+      const ls = document.getElementById('login-screen');
+      ls.style.cssText = 'opacity:0;transform:scale(0.95);transition:all 0.4s ease;';
+      setTimeout(() => { ls.style.display = 'none'; const a = document.getElementById('app'); a.style.display = 'flex'; a.classList.add('visible'); initApp(); }, 380);
+    }
+    function logout() {
+      document.getElementById('app').style.display = 'none';
+      const ls = document.getElementById('login-screen');
+      ls.style.cssText = 'display:flex;opacity:0;transform:scale(0.95);transition:all 0.4s ease;';
+      setTimeout(() => { ls.style.opacity = '1'; ls.style.transform = 'scale(1)'; }, 50);
+    }
+    function showRoleSwitch() {
+      document.getElementById('app').style.display = 'none';
+      const ls = document.getElementById('login-screen');
+      ls.style.cssText = 'display:flex;opacity:1;transform:scale(1);';
+    }
+    function handleAI(e) {
+      if (e.key === 'Enter') {
+        const v = e.target.value.trim();
+        if (v) { showToast(`AI: "${v}" — V2 feature coming soon!`, 'info'); e.target.value = ''; }
+      }
+    }
+
+    /* ──────────── INIT ──────────── */
+    function initApp() {
+      const cfg = ROLE_CFG[currentRole];
+      document.getElementById('role-pill-text').textContent = cfg.label;
+      document.getElementById('u-av').textContent = cfg.initials;
+      document.getElementById('u-name').textContent = cfg.user;
+      document.getElementById('u-role').textContent = cfg.label;
+      document.getElementById('topbar-av').textContent = cfg.initials;
+      document.getElementById('topbar-username').textContent = cfg.user;
+      buildNav(cfg.nav);
+      buildNotifs();
+      navigateTo(cfg.nav[0].items[0].pg);
+    }
+    function buildNav(navCfg) {
+      const nav = document.getElementById('sidebar-nav');
+      nav.innerHTML = '';
+      navCfg.forEach(section => {
+        const s = document.createElement('div');
+        s.className = 'nav-section';
+        s.innerHTML = `<div class="nav-section-lbl">${section.s}</div>`;
+        section.items.forEach(item => {
+          const el = document.createElement('div');
+          el.className = 'nav-item'; el.dataset.pg = item.pg;
+          el.onclick = () => navigateTo(item.pg);
+          el.innerHTML = `${icon(item.ico, 'nav-ico')}<span>${item.lbl}</span>${item.b ? `<span class="nav-badge">${item.b}</span>` : ''}`;
+          s.appendChild(el);
+        });
+        nav.appendChild(s);
+      });
+    }
+    function navigateTo(pgId) {
+      currentPageId = pgId;
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.toggle('active', el.dataset.pg === pgId));
+      const cfg = ROLE_CFG[currentRole];
+      let title = 'Dashboard';
+      cfg.nav.forEach(s => s.items.forEach(i => { if (i.pg === pgId) title = i.lbl; }));
+      document.getElementById('topbar-title').textContent = title;
+      const area = document.getElementById('content-area');
+      area.innerHTML = '';
+      const pages = buildPages();
+      if (pages[pgId]) {
+        const div = document.createElement('div');
+        div.className = 'page active';
+        div.innerHTML = pages[pgId];
+        area.appendChild(div);
+        afterRender(pgId);
+      }
+    }
+
+    /* ──────────── PAGES ──────────── */
+    function buildPages() {
+      return {
+        'cs-dash': `
+      <div class="greeting-hero" style="display:flex; justify-content:space-between; align-items:flex-end;">
+        <div>
+          <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+          <div class="greeting-title">Good ${getGreeting()}, ${ROLE_CFG[currentRole].user.split(' ')[0]}</div>
+          <div class="greeting-sub">Here's what's happening across your production pipeline today.</div>
+        </div>
+        <select class="btn btn-outline" style="padding: 8px 12px; appearance: auto; cursor: pointer; background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--glass-border);" onchange="updateDashRange(this.value)">
+          <option value="This Month" style="color: #000;" ${currentDashRange === 'This Month' ? 'selected' : ''}>This Month</option>
+          <option value="Last 6 months" style="color: #000;" ${currentDashRange === 'Last 6 months' ? 'selected' : ''}>Last 6 months</option>
+          <option value="This year" style="color: #000;" ${currentDashRange === 'This year' ? 'selected' : ''}>This year</option>
+          <option value="Max" style="color: #000;" ${currentDashRange === 'Max' ? 'selected' : ''}>Max</option>
+        </select>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card crimson"><div class="stat-ico">${icon('clipboard')}</div><div class="stat-label">Quote Pending</div><div class="stat-value" style="color:#ff8a95">2</div><div class="stat-delta up">↑ 1 new today</div></div>
+        <div class="stat-card amber"><div class="stat-ico">${icon('gear')}</div><div class="stat-label">In Production</div><div class="stat-value" style="color:#fcd34d">4</div><div class="stat-delta">3 on track</div></div>
+        <div class="stat-card teal"><div class="stat-ico">${icon('check-circle')}</div><div class="stat-label">Ready to Deliver</div><div class="stat-value" style="color:#5eead4">1</div><div class="stat-delta up">QC approved</div></div>
+        <div class="stat-card green"><div class="stat-ico">${icon('package')}</div><div class="stat-label">Delivered</div><div class="stat-value" style="color:#86efac">${DASH_METRICS[currentDashRange].cs.delivered}</div><div class="stat-delta up">${DASH_METRICS[currentDashRange].cs.sub4}</div></div>
+      </div>
+      <div class="two-col">
+        <div>
+          <div class="sec-header"><div class="sec-title">Recent Job Cards</div><span class="sec-action" onclick="navigateTo('cs-queue')">View all →</span></div>
+          ${jobTable(JOBS.slice(0, 5))}
+        </div>
+        <div>
+          <div class="panel" style="position: relative; padding: 20px; overflow: hidden;">
+            <div style="display: flex; align-items: center; gap: 20px;">
+              <div style="position: relative; width: 90px; height: 90px; border-radius: 50%; background: conic-gradient(var(--amber) 0% 66.67%, var(--navy) 66.67% 100%); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                <div style="width: 62px; height: 62px; background: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: inset 0 1px 4px rgba(0,0,0,0.03);">
+                  <span style="font-family: var(--font-head); font-size: 18px; font-weight: 700; color: #000; line-height: 1;">5</span>
+                  <span style="font-size: 8px; font-weight: 700; color: #333; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px;">Active</span>
+                </div>
+              </div>
+              <div style="flex: 1;">
+                <div style="font-size: 12px; color: var(--ink-4); font-weight: 600; text-transform: uppercase; margin-bottom: 10px;">Active Jobs</div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 8px; height: 8px; border-radius: 2px; background: var(--amber);"></div>
+                    <span style="font-size: 12px; color: var(--ink-2); font-weight: 500;">In Production</span>
+                    <span style="font-size: 12px; font-weight: 700; color: var(--ink); margin-left: auto;">4</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 8px; height: 8px; border-radius: 2px; background: var(--navy);"></div>
+                    <span style="font-size: 12px; color: var(--ink-2); font-weight: 500;">In QC</span>
+                    <span style="font-size: 12px; font-weight: 700; color: var(--ink); margin-left: auto;">1</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-title">Order Split</div>
+            <div style="display: flex; align-items: center; gap: 24px; padding: 4px 0;">
+              <div style="position: relative; width: 110px; height: 110px; border-radius: 50%; background: conic-gradient(var(--navy) 0% ${DASH_METRICS[currentDashRange].cs.orderSplit.art}%, var(--crimson) ${DASH_METRICS[currentDashRange].cs.orderSplit.art}% ${DASH_METRICS[currentDashRange].cs.orderSplit.art + DASH_METRICS[currentDashRange].cs.orderSplit.dig}%, var(--amber) ${DASH_METRICS[currentDashRange].cs.orderSplit.art + DASH_METRICS[currentDashRange].cs.orderSplit.dig}% 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+                <div style="width: 74px; height: 74px; background: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: inset 0 2px 6px rgba(0,0,0,0.04);">
+                  <span style="font-family: var(--font-head); font-size: 22px; font-weight: 700; color: #000; line-height: 1;">${DASH_METRICS[currentDashRange].cs.orderSplit.orders}</span>
+                  <span style="font-size: 9px; font-weight: 700; color: #333; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 3px;">Orders</span>
+                </div>
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 10px; height: 10px; border-radius: 3px; background: var(--navy);"></div>
+                    <span style="font-size: 12.5px; color: var(--ink-2); font-weight: 500;">Artwork</span>
+                  </div>
+                  <div style="text-align: right;">
+                    <span style="font-weight: 700; font-size: 13.5px; color: var(--ink);">${DASH_METRICS[currentDashRange].cs.orderSplit.art}%</span>
+                    <span style="font-size: 11px; color: var(--ink-4); margin-left: 4px;">(${DASH_METRICS[currentDashRange].cs.orderSplit.artVal})</span>
+                  </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 10px; height: 10px; border-radius: 3px; background: var(--crimson);"></div>
+                    <span style="font-size: 12.5px; color: var(--ink-2); font-weight: 500;">Digitizing</span>
+                  </div>
+                  <div style="text-align: right;">
+                    <span style="font-weight: 700; font-size: 13.5px; color: var(--ink);">${DASH_METRICS[currentDashRange].cs.orderSplit.dig}%</span>
+                    <span style="font-size: 11px; color: var(--ink-4); margin-left: 4px;">(${DASH_METRICS[currentDashRange].cs.orderSplit.digVal})</span>
+                  </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 10px; height: 10px; border-radius: 3px; background: var(--amber);"></div>
+                    <span style="font-size: 12.5px; color: var(--ink-2); font-weight: 500;">Sewout</span>
+                  </div>
+                  <div style="text-align: right;">
+                    <span style="font-weight: 700; font-size: 13.5px; color: var(--ink);">${DASH_METRICS[currentDashRange].cs.orderSplit.sew}%</span>
+                    <span style="font-size: 11px; color: var(--ink-4); margin-left: 4px;">(${DASH_METRICS[currentDashRange].cs.orderSplit.sewVal})</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-title">Activity Trend</div>
+            <div style="display: flex; align-items: flex-end; gap: 10px; height: 110px; padding-top: 15px; border-bottom: 1px solid var(--border); margin-bottom: 10px;">
+              <div style="flex: 1; background: var(--surface); height: ${DASH_METRICS[currentDashRange].cs.trend[0].h}%; border-radius: 4px 4px 0 0; position: relative;">
+                <div style="position: absolute; top: -18px; width: 100%; text-align: center; font-size: 10.5px; color: var(--ink-4); font-family: var(--f-mono);">${DASH_METRICS[currentDashRange].cs.trend[0].v}</div>
+              </div>
+              <div style="flex: 1; background: var(--surface); height: ${DASH_METRICS[currentDashRange].cs.trend[1].h}%; border-radius: 4px 4px 0 0; position: relative;">
+                <div style="position: absolute; top: -18px; width: 100%; text-align: center; font-size: 10.5px; color: var(--ink-4); font-family: var(--f-mono);">${DASH_METRICS[currentDashRange].cs.trend[1].v}</div>
+              </div>
+              <div style="flex: 1; background: var(--surface); height: ${DASH_METRICS[currentDashRange].cs.trend[2].h}%; border-radius: 4px 4px 0 0; position: relative;">
+                <div style="position: absolute; top: -18px; width: 100%; text-align: center; font-size: 10.5px; color: var(--ink-4); font-family: var(--f-mono);">${DASH_METRICS[currentDashRange].cs.trend[2].v}</div>
+              </div>
+              <div style="flex: 1; background: var(--navy); height: ${DASH_METRICS[currentDashRange].cs.trend[3].h}%; border-radius: 4px 4px 0 0; position: relative; box-shadow: 0 -2px 10px rgba(0,40,104,0.15);">
+                <div style="position: absolute; top: -18px; width: 100%; text-align: center; font-size: 10.5px; color: var(--navy); font-weight: 700; font-family: var(--f-mono);">${DASH_METRICS[currentDashRange].cs.trend[3].v}</div>
+              </div>
+              <div style="flex: 1; background: var(--crimson); height: ${DASH_METRICS[currentDashRange].cs.trend[4].h}%; border-radius: 4px 4px 0 0; position: relative; box-shadow: 0 -2px 10px rgba(178,34,52,0.15);">
+                <div style="position: absolute; top: -18px; width: 100%; text-align: center; font-size: 10.5px; color: var(--crimson); font-weight: 700; font-family: var(--f-mono);">${DASH_METRICS[currentDashRange].cs.trend[4].v}</div>
+              </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 10.5px; color: var(--ink-4); font-weight: 600; text-transform: uppercase;">
+              <span style="flex:1;text-align:center">Mon</span>
+              <span style="flex:1;text-align:center">Tue</span>
+              <span style="flex:1;text-align:center">Wed</span>
+              <span style="flex:1;text-align:center;color:var(--navy)">Thu</span>
+              <span style="flex:1;text-align:center;color:var(--crimson)">Fri</span>
+            </div>
+          </div>
+        </div>
+      </div>`,
+
+        'cs-projects': `
+      <div class="greeting-hero">
+        <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+        <div class="greeting-title">All Projects</div>
+        <div class="greeting-sub">Browse every active, delivered, and amendment job across the CS pipeline.</div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card blue"><div class="stat-label">Total Projects</div><div class="stat-value" style="color:#93c5fd">${JOBS.length}</div></div>
+        <div class="stat-card amber"><div class="stat-label">Open</div><div class="stat-value" style="color:#fcd34d">${JOBS.filter(j => j.stage !== 'delivered').length}</div></div>
+        <div class="stat-card teal"><div class="stat-label">Ready to Deliver</div><div class="stat-value" style="color:#5eead4">${JOBS.filter(j => j.stage === 'qc').length}</div></div>
+        <div class="stat-card crimson"><div class="stat-label">Amendments</div><div class="stat-value" style="color:#ff8a95">${JOBS.filter(j => j.project === 'Amend').length}</div></div>
+      </div>
+      ${jobTable(JOBS)}`,
+
+        'cs-queue': `
+      ${(() => { const csArtworkJobs = JOBS.filter(j => j.order === 'Artwork'); return `<div class="pills"><span class="pill active">All (${csArtworkJobs.length})</span><span class="pill">Quote (${csArtworkJobs.filter(j => j.stage === 'quote').length})</span><span class="pill">In Production (${csArtworkJobs.filter(j => ['junior', 'senior', 'sewout'].includes(j.stage)).length})</span><span class="pill">In QC (${csArtworkJobs.filter(j => j.stage === 'qc').length})</span><span class="pill">Amend (${csArtworkJobs.filter(j => j.project === 'Amend').length})</span></div>`; })()}
+      ${jobTable(JOBS.filter(j => j.order === 'Artwork'))}`,
+
+        'cs-deliver': `
+      <div style="margin-bottom:14px;">${callout('info', 'J-2025-0047 has passed QC and is ready for delivery to Ravi Textiles.')}</div>
+      ${jobTable(JOBS.filter(j => j.stage === 'qc'))}`,
+
+        'cs-amend': `
+      <div style="margin-bottom:14px;">${callout('amber', '1 amendment in progress. Client requested changes after delivery.')}</div>
+      ${jobTable(JOBS.filter(j => j.project === 'Amend'))}`,
+
+        'cs-clients': `
+      <div class="tbl-wrap">
+        <div class="tbl-top"><input class="tbl-search" placeholder="Search clients..." type="text"></div>
+        <table><thead><tr><th>Client ID</th><th>Client Name</th><th>Company</th><th>Contact</th><th>Payment</th><th>Total Jobs</th></tr></thead>
+        <tbody>
+          <tr onclick="showToast('Client record: Ravi Textiles','info')"><td><span class="ref-code">C001</span></td><td><b>Ravi Kumar</b></td><td>Ravi Textiles</td><td>+91 98765 43210</td><td><span class="badge green">Bank Transfer</span></td><td>12</td></tr>
+          <tr onclick="showToast('Client record: Star Garments','info')"><td><span class="ref-code">C002</span></td><td><b>Sunita Patel</b></td><td>Star Garments</td><td>+91 87654 32109</td><td><span class="badge blue">Credit</span></td><td>8</td></tr>
+          <tr onclick="showToast('Client record: Heritage Caps','info')"><td><span class="ref-code">C003</span></td><td><b>Mohammed Ali</b></td><td>Heritage Caps</td><td>+91 76543 21098</td><td><span class="badge amber">Cash</span></td><td>5</td></tr>
+          <tr onclick="showToast('Client record: Blue Label Co.','info')"><td><span class="ref-code">C004</span></td><td><b>Preet Singh</b></td><td>Blue Label Co.</td><td>+91 65432 10987</td><td><span class="badge green">Bank Transfer</span></td><td>3</td></tr>
+          <tr onclick="showToast('Client record: Urban Threads','info')"><td><span class="ref-code">C005</span></td><td><b>Meena Iyer</b></td><td>Urban Threads</td><td>+91 54321 09876</td><td><span class="badge teal">Card</span></td><td>1</td></tr>
+        </tbody></table>
+      </div>`,
+
+        'client-dash': `
+      <div class="greeting-hero">
+        <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+        <div class="greeting-title">Good ${getGreeting()}, Ravi</div>
+        <div class="greeting-sub">Track your orders and request new quotes from your dashboard.</div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card blue"><div class="stat-label">Active Jobs</div><div class="stat-value" style="color:#93c5fd">3</div></div>
+        <div class="stat-card amber"><div class="stat-label">Pending Quotes</div><div class="stat-value" style="color:#fcd34d">1</div></div>
+        <div class="stat-card green"><div class="stat-label">Completed</div><div class="stat-value" style="color:#86efac">9</div></div>
+        <div class="stat-card crimson"><div class="stat-label">This Month</div><div class="stat-value" style="color:#ff8a95;font-size:22px">$84K</div></div>
+      </div>
+      <div class="two-col">
+        <div><div class="sec-header"><div class="sec-title">My Jobs</div><span class="sec-action" onclick="navigateTo('client-jobs')">View all →</span></div>${jobTable(JOBS.filter(j => j.clientId === 'C001'))}</div>
+        <div>
+          <div class="panel">
+            <div class="panel-title">Quick Actions</div>
+            <button class="btn btn-crimson" style="width:100%;margin-bottom:9px;justify-content:center;" onclick="navigateTo('client-quote')">${icon('plus', 'btn-ico')}<span>Request New Quote</span></button>
+            <button class="btn btn-outline" style="width:100%;margin-bottom:9px;justify-content:center;" onclick="showToast('Downloading delivered files...','info')">${icon('download', 'btn-ico')}<span>Download Latest Files</span></button>
+            <button class="btn btn-outline" style="width:100%;justify-content:center;" onclick="showToast('Modification request opened','info')">${icon('refresh', 'btn-ico')}<span>Request Modification</span></button>
+          </div>
+          <div class="panel">
+            <div id="pricing-chart"></div>
+          </div>
+        </div>
+      </div>`,
+
+        'client-quote': `
+      <div class="form-panel">
+        <div class="fp-title">${icon('clipboard', 'panel-ico')}<span>Request New Quote / Job Card</span></div>
+        <div class="form-row">
+          <div class="fg"><label class="fl">Order Type *</label><select class="fi"><option>Artwork</option><option>Digitizing</option><option>Digitizing + Sewout</option><option>Sewout</option></select></div>
+          <div class="fg"><label class="fl">Design Name *</label><input class="fi" value="Winter Collection Print" placeholder="e.g. Summer Collection Logo"></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label class="fl">Process Type</label><select class="fi"><option>Screen Printing</option><option>Digital Printing</option><option>Offset Printing</option><option>Others</option></select></div>
+          <div class="fg"><label class="fl">No. of Colors</label><input class="fi" type="number" value="4"></div>
+        </div>
+        <div class="fg"><label class="fl">Description / Brief</label><textarea class="fi fi-ta" placeholder="Describe your requirements...">4-color CMYK print for winter collection. Primary brand blue (#1E3A5F). Avoid white backgrounds on outer panels.</textarea></div>
+        <div class="fg"><label class="fl">Upload Reference Files</label>
+          <div class="upload-zone" onclick="showToast('File picker opened (demo)','info')">
+            <div class="upload-ico">${icon('folder')}</div>
+            <div class="upload-txt">Drop files here or <strong>browse</strong><br><span style="font-size:11px;color:var(--text-faint)">PDF, AI, PSD, PNG, SVG, JPG — max 500 MB per file</span></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:9px;justify-content:flex-end;">
+          <button class="btn btn-outline" onclick="showToast('Draft saved!','success')">${icon('save', 'btn-ico')}<span>Save Draft</span></button>
+          <button class="btn btn-crimson" onclick="submitQuote()">${icon('send', 'btn-ico')}<span>Submit Quote Request</span></button>
+        </div>
+      </div>`,
+
+        'client-jobs': `
+      <div class="sec-header"><div class="sec-title">Delivered Jobs</div><span class="sec-action">Latest delivered work</span></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;">
+        ${JOBS.filter(j => j.clientId === 'C001' && j.stage === 'delivered').map(j => `
+          <div class="panel" style="padding:16px;cursor:pointer;" onclick="openJob('${j.id}')">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px;">
+              <div>
+                <div style="font-family:var(--font-mono);font-size:11px;color:var(--crimson);">${j.id}</div>
+                <div style="font-size:14px;font-weight:700;color:var(--text);margin-top:4px;">${j.design}</div>
+              </div>
+              <span class="badge green">Delivered</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:12px;background:rgba(255,255,255,0.03);border:1px solid var(--glass-border);border-radius:10px;">
+              <div><div style="font-size:10.5px;font-weight:700;color:var(--text-faint);letter-spacing:0.05em;text-transform:uppercase;">Order Type</div><div style="font-size:12.5px;color:var(--text-muted);font-weight:600;">${j.order}</div></div>
+              <div><div style="font-size:10.5px;font-weight:700;color:var(--text-faint);letter-spacing:0.05em;text-transform:uppercase;">Created</div><div style="font-size:12.5px;color:var(--text-muted);font-weight:600;">${j.created}</div></div>
+              <div><div style="font-size:10.5px;font-weight:700;color:var(--text-faint);letter-spacing:0.05em;text-transform:uppercase;">Assigned To</div><div style="font-size:12.5px;color:var(--text-muted);font-weight:600;">${j.assignedTo}</div></div>
+              <div><div style="font-size:10.5px;font-weight:700;color:var(--text-faint);letter-spacing:0.05em;text-transform:uppercase;">Priority</div><div style="font-size:12.5px;color:var(--text-muted);font-weight:600;">${j.priority}</div></div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;">
+              <button class="btn btn-crimson" style="flex:1 1 130px;justify-content:center;" onclick="event.stopPropagation();showToast('Downloading files for ${j.id}...','success')">${icon('download', 'btn-ico')}<span>Download Files</span></button>
+              <button class="btn btn-outline" style="flex:1 1 130px;justify-content:center;" onclick="event.stopPropagation();showToast('Modification request opened for ${j.id}','info')">${icon('refresh', 'btn-ico')}<span>Request Modification</span></button>
+            </div>
+          </div>`).join('')}
+      </div>`,
+
+        'client-profile': `
+      <div style="max-width:540px;">
+        <div class="form-panel">
+          <div class="fp-title">${icon('user', 'panel-ico')}<span>My Profile — Read Only</span></div>
+          <div style="background:rgba(196,30,58,0.08);border:1px solid rgba(196,30,58,0.2);border-radius:9px;padding:14px;margin-bottom:14px;display:flex;align-items:center;gap:12px;">
+            <div class="prof-av" style="width:44px;height:44px;font-size:16px;border-radius:10px;">RT</div>
+            <div><div style="font-size:15px;font-weight:700;">Ravi Kumar</div><div style="font-size:12px;color:var(--text-muted)">Ravi Textiles Pvt. Ltd. · Client since Apr 2024</div></div>
+          </div>
+          ${[['Client ID', 'C001 (auto-generated)'], ['Client Name', 'Ravi Kumar'], ['Company', 'Ravi Textiles Pvt. Ltd.'], ['Location', 'Hyderabad, Telangana, India'], ['Member Since', 'April 12, 2024']].map(([k, v]) => `<div class="f-row"><div class="f-key">${k}</div><div class="f-val">${v}</div></div>`).join('')}
+          <div style="margin-top:13px;padding:10px 12px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.18);border-radius:7px;font-size:12px;color:var(--text-muted)">${icon('info', 'callout-ico')}<span>To update your profile, please contact Client Servicing.</span></div>
+        </div>
+      </div>`,
+
+        'tl-dash': `
+      <div class="greeting-hero" style="display:flex; justify-content:space-between; align-items:flex-end;">
+        <div>
+          <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+          <div class="greeting-title">Good ${getGreeting()}, Ankit</div>
+          <div class="greeting-sub">Monitor your team's production pipeline below.</div>
+        </div>
+        <select class="btn btn-outline" style="padding: 8px 12px; appearance: auto; cursor: pointer; background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--glass-border);" onchange="updateDashRange(this.value)">
+          <option value="This Month" style="color: #000;" ${currentDashRange === 'This Month' ? 'selected' : ''}>This Month</option>
+          <option value="Last 6 months" style="color: #000;" ${currentDashRange === 'Last 6 months' ? 'selected' : ''}>Last 6 months</option>
+          <option value="This year" style="color: #000;" ${currentDashRange === 'This year' ? 'selected' : ''}>This year</option>
+          <option value="Max" style="color: #000;" ${currentDashRange === 'Max' ? 'selected' : ''}>Max</option>
+        </select>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card crimson"><div class="stat-label">Unassigned</div><div class="stat-value" style="color:#ff8a95">3</div><div class="stat-delta down">Needs assignment</div></div>
+        <div class="stat-card amber"><div class="stat-label">In Progress</div><div class="stat-value" style="color:#fcd34d">5</div></div>
+        <div class="stat-card purple"><div class="stat-label">Senior Review</div><div class="stat-value" style="color:#d8b4fe">1</div></div>
+        <div class="stat-card green"><div class="stat-label">Completed</div><div class="stat-value" style="color:#86efac">${DASH_METRICS[currentDashRange].tl.comp}</div></div>
+      </div>
+      <div class="sec-header"><div class="sec-title">Job Pipeline — Kanban View</div></div>
+      <div class="kanban">
+        <div class="k-col"><div class="k-col-header"><div class="k-col-title">${icon('inbox', 'panel-ico')}<span>Unassigned</span></div><div class="k-count" style="background:rgba(196,30,58,0.2);color:#ff8a95">2</div></div>
+          <div class="k-item" onclick="openJob('J-2025-0042')"><div class="k-item-id">J-2025-0042</div><div class="k-item-title">Brand Identity Pack</div><span class="badge blue">Artwork</span><div class="k-item-meta"><span>Urban Threads</span><span class="priority-badge normal">Normal</span></div></div>
+          <div class="k-item" onclick="showToast('J-2025-0048 — assign to designer','info')"><div class="k-item-id">J-2025-0048</div><div class="k-item-title">Hoodie Print Design</div><span class="badge blue">Artwork</span><div class="k-item-meta"><span>Star Garments</span><span class="priority-badge rush">Rush</span></div></div>
+        </div>
+        <div class="k-col"><div class="k-col-header"><div class="k-col-title">${icon('gear', 'panel-ico')}<span>In Progress</span></div><div class="k-count" style="background:rgba(245,158,11,0.2);color:#fcd34d">3</div></div>
+          <div class="k-item" onclick="openJob('J-2025-0044')"><div class="k-item-id">J-2025-0044</div><div class="k-item-title">Summer Collection Flyer</div><span class="badge amber">Amend</span><div class="k-item-meta"><span>Ravi Textiles</span><span class="priority-badge normal">Normal</span></div></div>
+          <div class="k-item" onclick="openJob('J-2025-0046')"><div class="k-item-id">J-2025-0046</div><div class="k-item-title">Team Jersey Digitizing</div><span class="badge purple">Sr Review</span><div class="k-item-meta"><span>Star Garments</span><span class="priority-badge super-rush">Super Rush</span></div></div>
+          <div class="k-item" onclick="openJob('J-2025-0045')"><div class="k-item-id">J-2025-0045</div><div class="k-item-title">Cap Emblem Full Set</div><span class="badge purple">Sewout</span><div class="k-item-meta"><span>Heritage Caps</span><span class="priority-badge normal">Normal</span></div></div>
+        </div>
+        <div class="k-col"><div class="k-col-header"><div class="k-col-title">${icon('search', 'panel-ico')}<span>In QC</span></div><div class="k-count" style="background:rgba(45,212,191,0.15);color:#5eead4">1</div></div>
+          <div class="k-item" onclick="openJob('J-2025-0047')"><div class="k-item-id">J-2025-0047</div><div class="k-item-title">Corporate Logo Set</div><span class="badge teal">In QC</span><div class="k-item-meta"><span>Ravi Textiles</span><span class="priority-badge rush">Rush</span></div></div>
+        </div>
+        <div class="k-col"><div class="k-col-header"><div class="k-col-title">${icon('check-circle', 'panel-ico')}<span>Delivered</span></div><div class="k-count" style="background:rgba(34,197,94,0.15);color:#86efac">2</div></div>
+          ${JOBS.filter(j => j.stage === 'delivered').map(j => `<div class="k-item" onclick="openJob('${j.id}')"><div class="k-item-id">${j.id}</div><div class="k-item-title">${j.design}</div><span class="badge green">Delivered</span><div class="k-item-meta"><span>${j.client}</span></div></div>`).join('')}
+        </div>
+      </div>`,
+
+        'tl-queue': `
+      <div style="margin-bottom:13px;">${callout('info', '3 jobs awaiting assignment. Select role and sub-type based on order type and complexity.')}</div>
+      <div class="tbl-wrap">
+        <div class="tbl-top"><div style="font-family:var(--font-head);font-size:14px;letter-spacing:0.04em;">Pending Assignment</div></div>
+        <table><thead><tr><th>Job ID</th><th>Design</th><th>Order Type</th><th>Complexity</th><th>Priority</th><th>Assign To</th><th></th></tr></thead>
+        <tbody>
+          <tr><td><span class="ref-code">J-2025-0048</span></td><td>Hoodie Print Design</td><td><span class="badge blue">Artwork</span></td><td><span class="badge gray">Medium</span></td><td><span class="priority-badge rush">Rush</span></td>
+            <td><select class="fi" style="width:160px;padding:6px 10px;font-size:12px;"><option>Junior Designer</option><option>Senior Designer</option></select></td>
+            <td><button class="btn btn-crimson" style="padding:6px 14px;font-size:11px;" onclick="showToast('Job assigned to Junior Designer!','success')">Assign</button></td></tr>
+          <tr><td><span class="ref-code">J-2025-0042</span></td><td>Brand Identity Pack</td><td><span class="badge blue">Artwork</span></td><td><span class="badge red">Super Complex</span></td><td><span class="priority-badge normal">Normal</span></td>
+            <td><select class="fi" style="width:160px;padding:6px 10px;font-size:12px;"><option>Junior Designer</option><option selected>Senior Designer</option></select></td>
+            <td><button class="btn btn-crimson" style="padding:6px 14px;font-size:11px;" onclick="showToast('Job assigned to Senior Designer!','success')">Assign</button></td></tr>
+        </tbody></table>
+      </div>`,
+
+        'tl-team': `
+      <div class="tbl-wrap">
+        <table><thead><tr><th>Team Member</th><th>Role</th><th>Sub-Type</th><th>Active Jobs</th><th>Completion Rate</th><th>Status</th></tr></thead>
+        <tbody>
+          ${[{ n: 'Kavya Reddy', i: 'KR', r: 'Designer', t: 'Senior', j: 2, cr: 94, s: 'Active', sc: 'green' }, { n: 'Rahul Nair', i: 'RN', r: 'Designer', t: 'Junior', j: 1, cr: 78, s: 'In Progress', sc: 'amber' }, { n: 'Arjun Patel', i: 'AP', r: 'Digitator', t: 'Senior', j: 2, cr: 91, s: 'Active', sc: 'green' }, { n: 'Meena Das', i: 'MD', r: 'Digitator', t: 'Senior', j: 1, cr: 89, s: 'In Sewout', sc: 'purple' }].map(u => `
+          <tr onclick="showToast('Viewing ${u.n} profile (demo)','info')">
+            <td><div class="prof-row"><div class="prof-av">${u.i}</div><span style="font-size:12.5px;font-weight:600;">${u.n}</span></div></td>
+            <td>${u.r}</td><td><span class="badge ${u.t === 'Senior' ? 'crimson' : 'blue'}">${u.t}</span></td>
+            <td style="font-family:var(--font-mono)">${u.j}</td>
+            <td><span style="color:${u.cr >= 90 ? '#86efac' : u.cr >= 80 ? '#fcd34d' : '#fca5a5'}">${u.cr}%</span></td>
+            <td><span class="badge ${u.sc}">${u.s}</span></td>
+          </tr>`).join('')}
+        </tbody></table>
+      </div>`,
+
+        'designer-tasks': `
+      <div class="two-col">
+        <div>
+          <div class="sec-header"><div class="sec-title">My Active Tasks</div><span class="badge teal">Senior Designer</span></div>
+          ${jobTable(JOBS.filter(j => j.stage === 'qc' || j.stage === 'senior'))}
+          <div style="margin-top:16px;" class="panel">
+            <div class="panel-title">J-2025-0047 — Workflow Status</div>
+            <div class="wf-steps">
+              ${[['CS', 'Approved'], ['TL', 'Assigned'], ['Jr.', 'Executed'], ['Sr.', 'Reviewed'], ['QC', 'Review'], ['CS', 'Deliver']].map(([r, l], i) => `<div class="wf-step ${i < 4 ? 'done' : i === 4 ? 'cur' : ''}"><div class="wf-dot">${i < 4 ? icon('check-circle', 'btn-ico') : i === 4 ? icon('refresh', 'btn-ico') : ''}</div><div class="wf-lbl">${r}<br><span style="font-size:9px;color:var(--text-faint)">${l}</span></div></div>`).join('')}
+            </div>
+            <div style="padding:9px 13px;background:rgba(196,30,58,0.06);border:1px solid rgba(196,30,58,0.15);border-radius:7px;font-size:12px;color:var(--text-muted)">${icon('lock', 'callout-ico')}<span>Job submitted to QC. You'll be notified if revisions are required.</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="panel">
+            <div class="panel-title">This Week's Stats</div>
+            <div style="font-family:var(--font-head);font-size:28px;letter-spacing:0.03em;color:var(--crimson);margin-bottom:2px">8 <span style="font-size:13px;font-family:var(--font-body);color:var(--text-muted)">jobs completed</span></div>
+            <div style="font-size:11.5px;color:#86efac;margin-bottom:13px">↑ 14% vs last week</div>
+            <div class="mini-bars">
+              <div class="mini-bar"><div class="mb-label">On-time rate</div><div class="mb-track"><div class="mb-fill" style="width:88%;background:var(--green)"></div></div><div class="mb-val">88%</div></div>
+              <div class="mini-bar"><div class="mb-label">QC pass rate</div><div class="mb-track"><div class="mb-fill" style="width:94%;background:var(--crimson)"></div></div><div class="mb-val">94%</div></div>
+              <div class="mini-bar"><div class="mb-label">Jr reject rate</div><div class="mb-track"><div class="mb-fill" style="width:22%;background:var(--amber)"></div></div><div class="mb-val">22%</div></div>
+            </div>
+          </div>
+          <div class="panel"><div class="panel-title">Quick Actions</div>
+            <button class="btn btn-outline" style="width:100%;margin-bottom:8px;justify-content:center;" onclick="showToast('Opening job files...','info')">${icon('folder', 'btn-ico')}<span>View Completed Files</span></button>
+            <button class="btn btn-outline" style="width:100%;justify-content:center;" onclick="showToast('Feedback history opened','info')">${icon('chat', 'btn-ico')}<span>QC Feedback History</span></button>
+          </div>
+        </div>
+      </div>`,
+
+        'designer-analytics': `
+      <div class="sec-header" style="margin-bottom: 16px;">
+        <div class="sec-title">Performance Metrics</div>
+        <select class="btn btn-outline" style="padding: 6px 12px; appearance: auto; cursor: pointer; background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--glass-border);" onchange="updateDashRange(this.value)">
+          <option value="This Month" style="color: #000;" ${currentDashRange === 'This Month' ? 'selected' : ''}>This Month</option>
+          <option value="Last 6 months" style="color: #000;" ${currentDashRange === 'Last 6 months' ? 'selected' : ''}>Last 6 months</option>
+          <option value="This year" style="color: #000;" ${currentDashRange === 'This year' ? 'selected' : ''}>This year</option>
+          <option value="Max" style="color: #000;" ${currentDashRange === 'Max' ? 'selected' : ''}>Max</option>
+        </select>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card green"><div class="stat-label">Completed</div><div class="stat-value" style="color:#86efac">${DASH_METRICS[currentDashRange].ds.comp}</div><div class="stat-delta up">↑ vs last month</div></div>
+        <div class="stat-card crimson"><div class="stat-label">Avg. Time / Job</div><div class="stat-value" style="color:#ff8a95;font-size:24px">${DASH_METRICS[currentDashRange].ds.time}</div></div>
+        <div class="stat-card amber"><div class="stat-label">QC Rejection Rate</div><div class="stat-value" style="color:#fcd34d">${DASH_METRICS[currentDashRange].ds.qcRej}</div><div class="stat-delta">Avg: 12%</div></div>
+        <div class="stat-card purple"><div class="stat-label">Junior Rejections</div><div class="stat-value" style="color:#d8b4fe">${DASH_METRICS[currentDashRange].ds.jrRej}</div></div>
+      </div>
+      <div class="two-col">
+        <div class="panel"><div class="panel-title">Jobs by Category</div><div class="mini-bars">
+          <div class="mini-bar"><div class="mb-label">Artwork</div><div class="mb-track"><div class="mb-fill" style="width:72%;background:var(--crimson)"></div></div><div class="mb-val">72%</div></div>
+          <div class="mini-bar"><div class="mb-label">Screen Print</div><div class="mb-track"><div class="mb-fill" style="width:18%;background:var(--blue)"></div></div><div class="mb-val">18%</div></div>
+          <div class="mini-bar"><div class="mb-label">Offset Print</div><div class="mb-track"><div class="mb-fill" style="width:10%;background:var(--gold)"></div></div><div class="mb-val">10%</div></div>
+        </div></div>
+        <div class="panel"><div class="panel-title">QC Rejection Reasons</div><div class="mini-bars">
+          <div class="mini-bar"><div class="mb-label">Colour</div><div class="mb-track"><div class="mb-fill" style="width:40%;background:#ef4444"></div></div><div class="mb-val">40%</div></div>
+          <div class="mini-bar"><div class="mb-label">Alignment</div><div class="mb-track"><div class="mb-fill" style="width:30%;background:var(--amber)"></div></div><div class="mb-val">30%</div></div>
+          <div class="mini-bar"><div class="mb-label">Resolution</div><div class="mb-track"><div class="mb-fill" style="width:20%;background:var(--blue)"></div></div><div class="mb-val">20%</div></div>
+          <div class="mini-bar"><div class="mb-label">Brief</div><div class="mb-track"><div class="mb-fill" style="width:10%;background:var(--purple)"></div></div><div class="mb-val">10%</div></div>
+        </div></div>
+      </div>`,
+
+        'qc-queue': `
+      <div style="margin-bottom:13px;">${callout('info', '3 jobs pending QC review. AI reports available for all submissions.')}</div>
+      ${jobTable(JOBS.filter(j => j.stage === 'qc' || j.stage === 'sewout').slice(0, 3))}`,
+
+        'qc-dash': `
+      <div class="sec-header" style="margin-bottom: 16px;">
+        <div class="sec-title">QC Overview</div>
+        <select class="btn btn-outline" style="padding: 6px 12px; appearance: auto; cursor: pointer; background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--glass-border);" onchange="updateDashRange(this.value)">
+          <option value="This Month" style="color: #000;" ${currentDashRange === 'This Month' ? 'selected' : ''}>This Month</option>
+          <option value="Last 6 months" style="color: #000;" ${currentDashRange === 'Last 6 months' ? 'selected' : ''}>Last 6 months</option>
+          <option value="This year" style="color: #000;" ${currentDashRange === 'This year' ? 'selected' : ''}>This year</option>
+          <option value="Max" style="color: #000;" ${currentDashRange === 'Max' ? 'selected' : ''}>Max</option>
+        </select>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card amber"><div class="stat-label">Pending Review</div><div class="stat-value" style="color:#fcd34d">3</div></div>
+        <div class="stat-card green"><div class="stat-label">Approved</div><div class="stat-value" style="color:#86efac">4</div></div>
+        <div class="stat-card crimson"><div class="stat-label">Rejected</div><div class="stat-value" style="color:#ff8a95">1</div></div>
+        <div class="stat-card teal"><div class="stat-label">Avg Review Time</div><div class="stat-value" style="color:#5eead4;font-size:22px">${DASH_METRICS[currentDashRange].qc.time}</div></div>
+      </div>
+      <div class="two-col">
+        <div class="panel"><div class="panel-title">Rejection Reasons — This Month</div><div class="mini-bars">
+          <div class="mini-bar"><div class="mb-label">Colour</div><div class="mb-track"><div class="mb-fill" style="width:35%;background:#ef4444"></div></div><div class="mb-val">35%</div></div>
+          <div class="mini-bar"><div class="mb-label">Alignment</div><div class="mb-track"><div class="mb-fill" style="width:28%;background:var(--amber)"></div></div><div class="mb-val">28%</div></div>
+          <div class="mini-bar"><div class="mb-label">Resolution</div><div class="mb-track"><div class="mb-fill" style="width:20%;background:var(--blue)"></div></div><div class="mb-val">20%</div></div>
+          <div class="mini-bar"><div class="mb-label">Stitch Error</div><div class="mb-track"><div class="mb-fill" style="width:12%;background:var(--purple)"></div></div><div class="mb-val">12%</div></div>
+          <div class="mini-bar"><div class="mb-label">Brief Mismatch</div><div class="mb-track"><div class="mb-fill" style="width:5%;background:var(--teal)"></div></div><div class="mb-val">5%</div></div>
+        </div></div>
+        <div class="panel"><div class="panel-title">Rejection Rate — 7 Days</div>
+          <div style="display:flex;align-items:flex-end;gap:7px;height:80px;margin-bottom:6px;">
+            ${[8, 12, 6, 9, 7, 5, 4].map((v, i) => `<div style="flex:1;background:${i === 6 ? 'var(--crimson)' : 'rgba(255,255,255,0.08)'};height:${v * 7}px;border-radius:5px 5px 0 0;transition:height 0.8s ease;"></div>`).join('')}
+          </div>
+          <div style="display:flex;gap:7px;">
+            ${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map(d => `<div style="flex:1;text-align:center;font-size:9px;color:var(--text-faint)">${d}</div>`).join('')}
+          </div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:10px">This week: <span style="color:#86efac;font-weight:700">4%</span> ↓ improved</div>
+        </div>
+      </div>`,
+
+        'qc-history': `${jobTable(JOBS.filter(j => j.stage === 'delivered'))}`,
+
+        'admin-dash': `
+      <div class="greeting-hero" style="display:flex; justify-content:space-between; align-items:flex-end;">
+        <div>
+          <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+          <div class="greeting-title">Good ${getGreeting()}, Deepa</div>
+          <div class="greeting-sub">Platform-wide overview. Full access to all modules.</div>
+        </div>
+        <select class="btn btn-outline" style="padding: 8px 12px; appearance: auto; cursor: pointer; background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--glass-border);" onchange="updateDashRange(this.value)">
+          <option value="This Month" style="color: #000;" ${currentDashRange === 'This Month' ? 'selected' : ''}>This Month</option>
+          <option value="Last 6 months" style="color: #000;" ${currentDashRange === 'Last 6 months' ? 'selected' : ''}>Last 6 months</option>
+          <option value="This year" style="color: #000;" ${currentDashRange === 'This year' ? 'selected' : ''}>This year</option>
+          <option value="Max" style="color: #000;" ${currentDashRange === 'Max' ? 'selected' : ''}>Max</option>
+        </select>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card blue"><div class="stat-label">Open Jobs</div><div class="stat-value" style="color:#93c5fd">7</div></div>
+        <div class="stat-card amber"><div class="stat-label">In Production</div><div class="stat-value" style="color:#fcd34d">4</div></div>
+        <div class="stat-card teal"><div class="stat-label">In QC</div><div class="stat-value" style="color:#5eead4">1</div></div>
+        <div class="stat-card crimson"><div class="stat-label">Revenue (Selected)</div><div class="stat-value" style="color:#ff8a95;font-size:20px">$${DASH_METRICS[currentDashRange].admin.rev}</div><div class="stat-delta up">${DASH_METRICS[currentDashRange].admin.revSub}</div></div>
+      </div>
+      <div class="two-col">
+        <!-- LEFT COLUMN: Jobs Tables -->
+        <div>
+          <!-- NEW: Pending Quotes Section -->
+          <div class="sec-header">
+            <div class="sec-title" style="color: #fcd34d;">New Quote Requests</div>
+          </div>
+          ${jobTable(JOBS.filter(j => j.stage === 'quote'))}
+          
+          <!-- EXISTING: Active Jobs (Pushed Down) -->
+          <div class="sec-header" style="margin-top: 28px;">
+            <div class="sec-title">All Active Jobs</div>
+            <span class="sec-action" onclick="navigateTo('admin-jobs')">View all &rarr;</span>
+          </div>
+          ${jobTable(JOBS.filter(j => j.stage !== 'quote' && j.stage !== 'delivered').slice(0, 4))}
+        </div>
+        <div>
+          <div class="panel" style="position: relative; padding: 20px; overflow: hidden;">
+            <div style="display: flex; align-items: center; gap: 20px;">
+              <div style="position: relative; width: 90px; height: 90px; border-radius: 50%; background: conic-gradient(var(--teal) 0% 50%, var(--amber) 50% 100%); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                <div style="width: 62px; height: 62px; background: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: inset 0 1px 4px rgba(0,0,0,0.03);">
+                  <span style="font-family: var(--font-head); font-size: 18px; font-weight: 700; color: #000; line-height: 1;">8</span>
+                  <span style="font-size: 8px; font-weight: 700; color: #333; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px;">Active</span>
+                </div>
+              </div>
+              <div style="flex: 1;">
+                <div style="font-size: 12px; color: var(--ink-4); font-weight: 600; text-transform: uppercase; margin-bottom: 10px;">Jobs Status</div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 8px; height: 8px; border-radius: 2px; background: var(--teal);"></div>
+                    <span style="font-size: 12px; color: var(--ink-2); font-weight: 500;">In Production</span>
+                    <span style="font-size: 12px; font-weight: 700; color: var(--ink); margin-left: auto;">4</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 8px; height: 8px; border-radius: 2px; background: var(--amber);"></div>
+                    <span style="font-size: 12px; color: var(--ink-2); font-weight: 500;">In QC</span>
+                    <span style="font-size: 12px; font-weight: 700; color: var(--ink); margin-left: auto;">1</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-title">Revenue Split</div>
+            <div style="display: flex; align-items: center; gap: 24px; padding: 4px 0;">
+              <div style="position: relative; width: 110px; height: 110px; border-radius: 50%; background: conic-gradient(var(--crimson) 0% ${DASH_METRICS[currentDashRange].admin.revSplit.art}%, var(--blue) ${DASH_METRICS[currentDashRange].admin.revSplit.art}% ${DASH_METRICS[currentDashRange].admin.revSplit.art + DASH_METRICS[currentDashRange].admin.revSplit.dig}%, var(--gold) ${DASH_METRICS[currentDashRange].admin.revSplit.art + DASH_METRICS[currentDashRange].admin.revSplit.dig}% 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+                <div style="width: 74px; height: 74px; background: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: inset 0 2px 6px rgba(0,0,0,0.04);">
+                  <span style="font-family: var(--font-head); font-size: 20px; font-weight: 700; color: #000; line-height: 1;">$${DASH_METRICS[currentDashRange].admin.rev}</span>
+                  <span style="font-size: 8px; font-weight: 700; color: #333; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 3px;">Period</span>
+                </div>
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 10px; height: 10px; border-radius: 3px; background: var(--crimson);"></div>
+                    <span style="font-size: 12.5px; color: var(--ink-2); font-weight: 500;">Artwork</span>
+                  </div>
+                  <div style="text-align: right;">
+                    <span style="font-weight: 700; font-size: 13.5px; color: var(--ink);">${DASH_METRICS[currentDashRange].admin.revSplit.art}%</span>
+                    <span style="font-size: 11px; color: var(--ink-4); margin-left: 4px;">($${DASH_METRICS[currentDashRange].admin.revSplit.artVal})</span>
+                  </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 10px; height: 10px; border-radius: 3px; background: var(--blue);"></div>
+                    <span style="font-size: 12.5px; color: var(--ink-2); font-weight: 500;">Digitizing</span>
+                  </div>
+                  <div style="text-align: right;">
+                    <span style="font-weight: 700; font-size: 13.5px; color: var(--ink);">${DASH_METRICS[currentDashRange].admin.revSplit.dig}%</span>
+                    <span style="font-size: 11px; color: var(--ink-4); margin-left: 4px;">($${DASH_METRICS[currentDashRange].admin.revSplit.digVal})</span>
+                  </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 10px; height: 10px; border-radius: 3px; background: var(--gold);"></div>
+                    <span style="font-size: 12.5px; color: var(--ink-2); font-weight: 500;">+Sewout</span>
+                  </div>
+                  <div style="text-align: right;">
+                    <span style="font-weight: 700; font-size: 13.5px; color: var(--ink);">${DASH_METRICS[currentDashRange].admin.revSplit.sew}%</span>
+                    <span style="font-size: 11px; color: var(--ink-4); margin-left: 4px;">($${DASH_METRICS[currentDashRange].admin.revSplit.sewVal})</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-title">Weekly Trend</div>
+            <div style="display: flex; align-items: flex-end; gap: 10px; height: 110px; padding-top: 15px; border-bottom: 1px solid var(--border); margin-bottom: 10px;">
+              <div style="flex: 1; background: var(--surface); height: 40%; border-radius: 4px 4px 0 0; position: relative;">
+                <div style="position: absolute; top: -18px; width: 100%; text-align: center; font-size: 10.5px; color: var(--ink-4); font-family: var(--f-mono);">8</div>
+              </div>
+              <div style="flex: 1; background: var(--surface); height: 55%; border-radius: 4px 4px 0 0; position: relative;">
+                <div style="position: absolute; top: -18px; width: 100%; text-align: center; font-size: 10.5px; color: var(--ink-4); font-family: var(--f-mono);">11</div>
+              </div>
+              <div style="flex: 1; background: var(--surface); height: 35%; border-radius: 4px 4px 0 0; position: relative;">
+                <div style="position: absolute; top: -18px; width: 100%; text-align: center; font-size: 10.5px; color: var(--ink-4); font-family: var(--f-mono);">7</div>
+              </div>
+              <div style="flex: 1; background: var(--blue); height: 70%; border-radius: 4px 4px 0 0; position: relative; box-shadow: 0 -2px 10px rgba(59,130,246,0.15);">
+                <div style="position: absolute; top: -18px; width: 100%; text-align: center; font-size: 10.5px; color: var(--blue); font-weight: 700; font-family: var(--f-mono);">14</div>
+              </div>
+              <div style="flex: 1; background: var(--crimson); height: 100%; border-radius: 4px 4px 0 0; position: relative; box-shadow: 0 -2px 10px rgba(178,34,52,0.15);">
+                <div style="position: absolute; top: -18px; width: 100%; text-align: center; font-size: 10.5px; color: var(--crimson); font-weight: 700; font-family: var(--f-mono);">20</div>
+              </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 10.5px; color: var(--ink-4); font-weight: 600; text-transform: uppercase;">
+              <span style="flex:1;text-align:center">Mon</span>
+              <span style="flex:1;text-align:center">Tue</span>
+              <span style="flex:1;text-align:center">Wed</span>
+              <span style="flex:1;text-align:center;color:var(--blue)">Thu</span>
+              <span style="flex:1;text-align:center;color:var(--crimson)">Fri</span>
+            </div>
+          </div>
+        </div>
+      </div>`,
+
+        'admin-projects': `
+      <div class="greeting-hero">
+        <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+        <div class="greeting-title">All Projects</div>
+        <div class="greeting-sub">Cross-functional view of every project in the platform with direct access to edit or open any job.</div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card blue"><div class="stat-label">All Projects</div><div class="stat-value" style="color:#93c5fd">${JOBS.length}</div></div>
+        <div class="stat-card amber"><div class="stat-label">In Production</div><div class="stat-value" style="color:#fcd34d">${JOBS.filter(j => j.stage === 'junior' || j.stage === 'senior' || j.stage === 'sewout').length}</div></div>
+        <div class="stat-card teal"><div class="stat-label">In QC</div><div class="stat-value" style="color:#5eead4">${JOBS.filter(j => j.stage === 'qc').length}</div></div>
+        <div class="stat-card crimson"><div class="stat-label">Delivered</div><div class="stat-value" style="color:#ff8a95">${JOBS.filter(j => j.stage === 'delivered').length}</div></div>
+      </div>
+      ${jobTable(JOBS)}`,
+
+        'admin-jobs': `
+      <div class="pills"><span class="pill active">All (${JOBS.length})</span><span class="pill">Artwork (3)</span><span class="pill">Digitizing (2)</span><span class="pill">+Sewout (2)</span></div>
+      ${jobTable(JOBS)}`,
+
+        'admin-clients': `
+      <div class="sec-header"><div class="sec-title">Client Records</div><button class="btn btn-crimson" onclick="showToast('Create client form (demo)','info')">+ New Client</button></div>
+      <div class="tbl-wrap"><table><thead><tr><th>Client ID</th><th>Name</th><th>Company</th><th>Contact</th><th>Email</th><th>Payment</th><th>Jobs</th><th></th></tr></thead>
+      <tbody>
+        <tr><td><span class="ref-code">C001</span></td><td>Ravi Kumar</td><td>Ravi Textiles</td><td>+91 98765 43210</td><td style="font-family:var(--font-mono);font-size:11px">ravi@ravitextiles.in</td><td>Bank Transfer</td><td>12</td><td><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="showToast('Edit client','info')">Edit</button></td></tr>
+        <tr><td><span class="ref-code">C002</span></td><td>Sunita Patel</td><td>Star Garments</td><td>+91 87654 32109</td><td style="font-family:var(--font-mono);font-size:11px">sunita@stargarments.com</td><td>Credit</td><td>8</td><td><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="showToast('Edit client','info')">Edit</button></td></tr>
+        <tr><td><span class="ref-code">C003</span></td><td>Mohammed Ali</td><td>Heritage Caps</td><td>+91 76543 21098</td><td style="font-family:var(--font-mono);font-size:11px">mhali@heritagecaps.com</td><td>Cash</td><td>5</td><td><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="showToast('Edit client','info')">Edit</button></td></tr>
+        <tr><td><span class="ref-code">C004</span></td><td>Preet Singh</td><td>Blue Label Co.</td><td>+91 65432 10987</td><td style="font-family:var(--font-mono);font-size:11px">preet@bluelabelco.in</td><td>Bank Transfer</td><td>3</td><td><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="showToast('Edit client','info')">Edit</button></td></tr>
+      </tbody></table></div>`,
+
+        'admin-users': `
+      <div class="sec-header"><div class="sec-title">User Management</div><button class="btn btn-crimson" onclick="showToast('Create user (demo)','info')">+ New User</button></div>
+      <div class="tbl-wrap"><table><thead><tr><th>User</th><th>Role</th><th>Sub-Type</th><th>Email</th><th>Status</th><th></th></tr></thead>
+      <tbody>
+        ${[{ n: 'Priya Sharma', i: 'PS', r: 'Client Servicing', t: null, e: 'priya@spotmies.com' }, { n: 'Ankit Mehta', i: 'AM', r: 'Team Lead', t: null, e: 'ankit@spotmies.com' }, { n: 'Kavya Reddy', i: 'KR', r: 'Designer', t: 'Senior', e: 'kavya@spotmies.com' }, { n: 'Rahul Nair', i: 'RN', r: 'Designer', t: 'Junior', e: 'rahul@spotmies.com' }, { n: 'Arjun Patel', i: 'AP', r: 'Digitator', t: 'Senior', e: 'arjun@spotmies.com' }, { n: 'Meena Das', i: 'MD', r: 'Digitator', t: 'Senior', e: 'meena@spotmies.com' }, { n: 'Suresh Kumar', i: 'SK', r: 'QC', t: null, e: 'suresh@spotmies.com' }, { n: 'Deepa Nair', i: 'DN', r: 'Admin', t: null, e: 'deepa@spotmies.com' }].map(u => `
+        <tr onclick="showToast('Edit ${u.n} (demo)','info')">
+          <td><div class="prof-row"><div class="prof-av">${u.i}</div><span style="font-size:12.5px;font-weight:600">${u.n}</span></div></td>
+          <td>${u.r}</td><td>${u.t ? `<span class="badge ${u.t === 'Senior' ? 'crimson' : 'blue'}">${u.t}</span>` : '—'}</td>
+          <td style="font-family:var(--font-mono);font-size:11px">${u.e}</td>
+          <td><span class="badge green">Active</span></td>
+          <td><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="event.stopPropagation();showToast('Edit user','info')">Edit</button></td>
+        </tr>`).join('')}
+      </tbody></table></div>`,
+
+        'admin-reports': `
+      <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="stat-card crimson"><div class="stat-label">Pre-built Reports</div><div class="stat-value" style="color:#ff8a95">9</div></div>
+        <div class="stat-card blue"><div class="stat-label">Scheduled</div><div class="stat-value" style="color:#93c5fd">3</div></div>
+        <div class="stat-card green"><div class="stat-label">Last Export</div><div class="stat-value" style="color:#86efac;font-size:16px">Today 9AM</div></div>
+      </div>
+      <div class="tbl-wrap"><table><thead><tr><th>Report Name</th><th>Category</th><th>Schedule</th><th>Export</th></tr></thead>
+      <tbody>
+        ${[['Revenue by Client', 'Business', 'Weekly'], ['Jobs by Order Type', 'Operations', 'Daily'], ['Designer/Digitator Performance', 'HR', 'Monthly'], ['QC Rejection Rates', 'Quality', 'Weekly'], ['Sewout Stitch Count Summary', 'Production', 'Monthly'], ['CS Delivery Time', 'Service', 'Weekly'], ['Quote Conversion Rate', 'Sales', 'Monthly'], ['Modification Request Rate', 'Client', 'Monthly'], ['Senior Review Rejection Rates', 'Quality', 'Weekly']].map(([n, t, s]) => `
+        <tr><td><b>${n}</b></td><td><span class="badge gray">${t}</span></td><td><span class="badge blue">${s}</span></td>
+        <td><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;margin-right:5px" onclick="showToast('Exporting CSV...','success')">CSV</button><button class="btn btn-outline" style="padding:4px 10px;font-size:11px" onclick="showToast('Generating PDF...','success')">PDF</button></td></tr>`).join('')}
+      </tbody></table></div>`,
+      };
+    }
+
+    /* ──────────── HELPERS ──────────── */
+    function getGreeting() {
+      const h = new Date().getHours();
+      return h < 12 ? 'Morning' : h < 17 ? 'Afternoon' : 'Evening';
+    }
+    function sBadge(s) {
+      const m = { 'In QC': 'teal', 'In Production': 'amber', 'Senior Review': 'purple', 'Sewout': 'purple', 'Delivered': 'green', 'Quote Submitted': 'blue', 'Quote Approved': 'blue', 'Cancelled': 'gray', 'Amend': 'amber', 'In Review': 'purple' };
+      return `<span class="badge ${m[s] || 'gray'}">${s}</span>`;
+    }
+    function oBadge(o) {
+      const m = { 'Artwork': 'blue', 'Digitizing': 'teal', 'Digitizing + Sewout': 'purple', 'Sewout': 'purple' };
+      return `<span class="badge ${m[o] || 'gray'}">${o}</span>`;
+    }
+    function pBadge(p) {
+      const m = { 'Normal': 'normal', 'Rush': 'rush', 'Super Rush': 'super-rush' };
+      return `<span class="priority-badge ${m[p] || 'normal'}">${p}</span>`;
+    }
+    function callout(type, text) {
+      const ico = { info: 'info', amber: 'warning', green: 'check-circle', crimson: 'warning' }[type] || 'info';
+      return `<div class="callout ${type}">${icon(ico, 'callout-ico')}<span>${text}</span></div>`;
+    }
+    function jobActions(id) {
+      const allowed = currentRole === 'cs' || currentRole === 'admin';
+      if (!allowed) return '';
+      return `<div class="job-actions">
+    <button class="btn btn-outline" onclick="event.stopPropagation();openJob('${id}')">View</button>
+    <button class="btn btn-crimson" onclick="event.stopPropagation();openEditJob('${id}')">Edit</button>
+  </div>`;
+    }
+    function jobTable(jobs) {
+      if (!jobs || !jobs.length) return `<div style="text-align:center;padding:40px;color:var(--text-faint)">${icon('inbox', 'empty-ico')}<span style="margin-left:8px;">No jobs found</span></div>`;
+      return `<div class="jobs-root" data-view="grid">
+    <div class="tbl-top">
+      <input class="tbl-search" placeholder="Search jobs, clients, designs..." type="text" oninput="searchJobs(this)">
+      <div class="view-toggle" role="tablist" aria-label="Job views">
+        <button class="on" type="button" onclick="setJobView('grid', this)" title="Grid view">Grid</button>
+        <button type="button" onclick="setJobView('list', this)" title="List view">List</button>
+        <button type="button" onclick="setJobView('table', this)" title="Table view">Table</button>
+      </div>
+    </div>
+
+    <div class="table-view">
+      <table><thead><tr><th>Job ID / Ref</th><th>Design</th><th>Preview</th><th>Client</th><th>Order</th><th>Priority</th><th>Status</th><th>ETA</th><th>Actions</th></tr></thead>
+      <tbody>${jobs.map(j => `<tr onclick="openJob('${j.id}')">
+        <td><div class="job-cell"><img class="job-thumb" src="${jobImage(j, 0, 160, 120)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=160 height=120><rect width=160 height=120 fill=%23f3f4f6/></svg>'"><div><div class="ref-code" style="margin-bottom:2px">${j.id}</div><div style="font-size:9.5px;color:var(--text-faint)">${j.ref}</div></div></div></td>
+        <td style="font-weight:600">${j.design}</td>
+        <td><img class="table-preview" src="${jobImage(j, 1, 220, 160)}" alt="${j.design} preview" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=220 height=160><rect width=220 height=160 fill=%23f3f4f6/></svg>'"></td>
+        <td style="color:var(--text-muted)">${j.client}</td>
+        <td>${oBadge(j.order)}</td>
+        <td>${pBadge(j.priority)}</td>
+        <td>${sBadge(j.status)}</td>
+        <td style="font-family:var(--font-mono);font-size:11.5px;color:var(--text-muted)">${j.eta}</td>
+        <td onclick="event.stopPropagation()">${jobActions(j.id)}</td>
+      </tr>`).join('')}</tbody></table>
+    </div>
+
+    <div class="grid-view">
+      ${jobs.map(j => `<div class="job-card" onclick="openJob('${j.id}')">
+        <div class="jc-img"><img src="${jobImage(j, 2, 400, 300)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=400 height=300><rect width=400 height=300 fill=%23f3f4f6/></svg>'"></div>
+        <div class="jc-body"><div class="jc-title">${j.design}</div><div class="jc-desc">${j.summary}</div><div class="jc-meta">${j.client} · ${oBadge(j.order)} · ${pBadge(j.priority)}</div>${jobActions(j.id)}</div>
+      </div>`).join('')}
+    </div>
+
+    <div class="list-view">
+      ${jobs.map(j => `<div class="list-item" onclick="openJob('${j.id}')">
+        <div class="list-thumb"><img src="${jobImage(j, 3, 120, 120)}" alt="thumb" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=72 height=72><rect width=72 height=72 fill=%23f3f4f6/></svg>'"></div>
+        <div class="list-body"><div style="font-weight:700">${j.design}</div><div style="margin-top:4px;color:var(--text-muted);font-size:11.5px;line-height:1.45">${j.summary}</div><div style="color:var(--text-muted);font-size:12px">${j.client} · ${oBadge(j.order)} · ${sBadge(j.status)}</div>${jobActions(j.id)}</div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-faint)">${j.eta}</div>
+      </div>`).join('')}
+    </div>
+
+  </div>`;
+    }
+
+    function setJobView(view, btn) {
+      const root = btn.closest('.jobs-root');
+      if (!root) return;
+      root.setAttribute('data-view', view);
+      root.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+    }
+
+    function searchJobs(input) {
+      const q = input.value.trim().toLowerCase();
+      const root = input.closest('.jobs-root');
+      if (!root) return;
+      const rows = root.querySelectorAll('.table-view tbody tr');
+      rows.forEach(r => { r.style.display = q ? (r.textContent.toLowerCase().includes(q) ? '' : 'none') : ''; });
+      const cards = root.querySelectorAll('.grid-view .job-card');
+      cards.forEach(c => { c.style.display = q ? (c.textContent.toLowerCase().includes(q) ? '' : 'none') : ''; });
+      const items = root.querySelectorAll('.list-view .list-item');
+      items.forEach(i => { i.style.display = q ? (i.textContent.toLowerCase().includes(q) ? '' : 'none') : ''; });
+    }
+
+    /* ──────────── MODAL ──────────── */
+    function openJob(id) {
+      const j = JOBS.find(x => x.id === id);
+      if (!j) { showToast('Loading job...', 'info'); return; }
+      const overlay = document.getElementById('modal-overlay');
+      const content = document.getElementById('modal-content');
+      const isQC = currentRole === 'qc';
+      const isCS = currentRole === 'cs' || currentRole === 'admin';
+      const hasSewout = j.order.includes('Sewout');
+      const steps = hasSewout ? [['CS', 'Approved'], ['TL', 'Assigned'], ['Jr.', 'Executed'], ['Sr.', 'Reviewed'], ['Sewout', 'Done'], ['QC', 'Review'], ['CS', 'Deliver']] : [['CS', 'Approved'], ['TL', 'Assigned'], ['Jr.', 'Executed'], ['Sr.', 'Reviewed'], ['QC', 'Review'], ['CS', 'Deliver']];
+      const stageIdx = { quote: 0, junior: 2, senior: 3, sewout: 4, qc: hasSewout ? 5 : 4, delivered: hasSewout ? 6 : 5 };
+      const cur = stageIdx[j.stage] ?? 0;
+      const images = jobImages(j, 3);
+      content.innerHTML = `
+    <div class="modal-top">
+      <div style="flex:1">
+        <div class="modal-job-id">${j.id} &nbsp;·&nbsp; ${j.ref}</div>
+        <div class="modal-title">${j.design}</div>
+        <div class="modal-tags">${oBadge(j.order)} ${sBadge(j.status)} <span class="badge ${j.project === 'Amend' ? 'amber' : 'gray'}">${j.project}</span> ${pBadge(j.priority)}</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">${icon('close', 'btn-ico')}</button>
+    </div>
+    <div class="modal-body">
+      <div class="m-sec-title">Job Images</div>
+      <div class="modal-gallery">
+        ${images.map((src, index) => `<img src="${src}" alt="${j.design} image ${index + 1}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=900 height=700><rect width=900 height=700 fill=%23f3f4f6/></svg>'">`).join('')}
+      </div>
+      <div class="wf-steps" style="margin-bottom:16px">
+        ${steps.map(([r, l], i) => `<div class="wf-step ${i < cur ? 'done' : i === cur ? 'cur' : ''}"><div class="wf-dot">${i < cur ? icon('check-circle', 'btn-ico') : i === cur ? icon('refresh', 'btn-ico') : ''}</div><div class="wf-lbl">${r}<br><span style="font-size:9px;color:var(--text-faint)">${l}</span></div></div>`).join('')}
+      </div>
+      <div class="modal-grid">
+        <div>
+          <div class="m-sec-title">Job Details</div>
+          ${[['Client', j.client], ['Client ID', j.clientId], ['Order Type', j.order], ['Complexity', j.complexity], ['Process', j.process || '—'], ['Colors', j.colors], ['Assigned To', j.assignedTo || 'Pending'], ['Sub-Type', j.subType || '—']].map(([k, v]) => `<div class="f-row"><div class="f-key">${k}</div><div class="f-val">${v}</div></div>`).join('')}
+        </div>
+        <div>
+          <div class="m-sec-title">Specifications</div>
+          ${[['ETA', j.eta], ['Created', j.created], ['Reference', j.ref], ...(j.placement ? [['Placement', j.placement], ['Width', j.width + '"'], ['Height', j.height + '"'], ['Fabric', j.fabric]] : []), ...(j.stitchCount ? [['Stitch Count', j.stitchCount.toLocaleString()]] : []), ...(isCS || currentRole === 'admin' ? [['Client Budget', j.clientPrice ? `$${j.clientPrice}` : 'Not provided'], ['Admin Counter', j.adminPrice ? `$${j.adminPrice}` : 'None'], ['Agreed Price', j.agreedPrice ? `$${j.agreedPrice}` : 'Pending']] : []), ...(j.aiScore ? [['AI QC Score', '89/100 — Pass']] : [])].map(([k, v]) => `<div class="f-row"><div class="f-key">${k}</div><div class="f-val ${k === 'Reference' ? 'mono' : ''}">${v}</div></div>`).join('')}
+        </div>
+      </div>
+      ${(currentRole === 'admin' || isCS) && j.stage === 'quote' ? `
+      <div class="m-sec-title" style="color: #fcd34d;">Price Negotiation</div>
+      <div style="background: rgba(245,158,11,0.05); border: 1px solid rgba(245,158,11,0.2); border-radius: 8px; padding: 16px; margin-bottom: 18px;">
+        <div class="f-row" style="border: none; padding-top: 0;">
+          <div class="f-key">Client Proposed Budget</div>
+          <div class="f-val" style="font-size: 16px; font-weight: 700; color: #86efac;">$${j.clientPrice || 'TBD'}</div>
+        </div>
+        
+        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.1);">
+          <label class="fl" style="color: var(--text); margin-bottom: 8px;">Admin Counter-Offer</label>
+          <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+            <input type="number" class="fi" placeholder="Enter new price ($)" id="admin-counter-price" style="width: 180px;">
+          </div>
+          <textarea class="fi fi-ta" placeholder="Add a short description or reasoning for this counter-offer to notify the client..." id="admin-counter-msg" style="min-height: 60px; margin-bottom: 12px;"></textarea>
+          
+          <!-- INLINE SEND COUNTER OFFER BUTTON (YELLOW) -->
+          <div style="text-align: right;">
+            <button class="btn" style="background: rgba(245,158,11,0.15); color: #fcd34d; border: 1px solid rgba(245,158,11,0.3); padding: 8px 16px; font-size: 12px;" onclick="showToast('Counter offer sent to client!','info'); closeModal()">
+              ${icon('refresh', 'btn-ico')}<span>Send Counter Offer</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      ` : ''}
+      <div class="m-sec-title">Notes / Brief</div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid var(--glass-border);border-radius:8px;padding:12px;font-size:12.5px;color:var(--text-muted);margin-bottom:15px;line-height:1.7">${j.notes}</div>
+      ${j.aiScore ? `
+      <div class="m-sec-title">${icon('bot', 'panel-ico')}<span>AI QC Report</span></div>
+      <div class="ai-report">
+        <div class="ai-header"><span class="ai-tag">AI ANALYSIS</span><span style="font-size:12px;color:var(--text-muted)">Auto-generated · First-pass reference only</span></div>
+        <div class="ai-scores">
+          ${[['Colour', j.aiScore.colour, '#ef4444'], ['Alignment', j.aiScore.align, '#3b82f6'], ['Resolution', j.aiScore.res, '#a855f7'], ['Brief', j.aiScore.brief, '#f59e0b'], ['Overall', Math.round((j.aiScore.colour + j.aiScore.align + j.aiScore.res + j.aiScore.brief) / 4), 'var(--crimson)']].map(([l, v, c]) => `
+          <div class="ai-sc"><div class="ai-sc-lbl">${l}</div><div class="ai-sc-bar"><div class="ai-sc-fill" style="width:${v}%;background:${c}"></div></div><div class="ai-sc-val" style="color:${c}">${v}</div></div>`).join('')}
+        </div>
+        <div class="ai-verdict pass">${icon('check-circle', 'callout-ico')}<span>AI Recommendation: <strong>PASS</strong> — Design meets quality standards. Minor colour variance within acceptable tolerance.</span></div>
+      </div>`: ``}
+      ${isQC && j.stage === 'qc' ? `<div id="rej-sec" class="reject-sec"><div style="font-size:13px;font-weight:600;margin-bottom:10px;color:#fca5a5">Select Rejection Reason</div><div class="reason-grid">${['Colour', 'Alignment', 'Resolution', 'Stitch Error', 'Incorrect Brief', 'File Format', 'Other'].map(r => `<div class="reason-chip" onclick="selectReason(this,'${r}')">${r}</div>`).join('')}</div><textarea class="fi fi-ta" placeholder="Add detailed revision notes for the designer/digitator..."></textarea></div>` : ``}
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal()">${icon('close', 'btn-ico')}<span>Close</span></button>
+      <button class="btn btn-outline" onclick="openEditJob('${j.id}')">${icon('edit', 'btn-ico')}<span>Edit Job</span></button>
+      
+      ${(currentRole === 'admin' || isCS) && j.stage === 'quote' ? `
+        <button class="btn btn-red" onclick="showToast('Job rejected','error'); closeModal()">Reject</button>
+        <button class="btn btn-green" onclick="showToast('Client price approved! Routed to CS.','success'); closeModal()">${icon('check-circle', 'btn-ico')}<span>Approve Job</span></button>
+      ` : ''}
+      
+      ${isCS && j.stage === 'qc' ? `<button class="btn btn-crimson" onclick="showToast('Files delivered to client!','success');closeModal()">${icon('package', 'btn-ico')}<span>Deliver to Client</span></button>` : ''}
+      
+      ${isQC && j.stage === 'qc' ? `<button class="btn btn-red" onclick="toggleReject()">Reject</button><button class="btn btn-green" onclick="showToast('Job approved! Routed to CS.','success');closeModal()">${icon('check-circle', 'btn-ico')}<span>Approve</span></button>` : ''}
+      
+      ${currentRole === 'teamlead' && (j.stage === 'quote' || !j.assignedTo) ? `<button class="btn btn-crimson" onclick="showToast('Assignment panel opened (demo)','info')">${icon('user', 'btn-ico')}<span>Assign Job</span></button>` : ''}
+    </div>`;
+      overlay.classList.add('open');
+    }
+    function openEditJob(id) {
+      const j = JOBS.find(x => x.id === id);
+      if (!j) { showToast('Loading job editor...', 'info'); return; }
+      const overlay = document.getElementById('modal-overlay');
+      const content = document.getElementById('modal-content');
+      content.innerHTML = `
+    <div class="modal-top">
+      <div style="flex:1">
+        <div class="modal-job-id">${j.id} &nbsp;·&nbsp; Edit Job</div>
+        <div class="modal-title">${j.design}</div>
+        <div class="modal-tags">${oBadge(j.order)} ${sBadge(j.status)} <span class="badge ${j.project === 'Amend' ? 'amber' : 'gray'}">${j.project}</span> ${pBadge(j.priority)}</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">${icon('close', 'btn-ico')}</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-grid">
+        <div>
+          <div class="m-sec-title">Editable Fields</div>
+          <div style="display:grid;gap:10px;">
+            <label class="fl" style="display:block;">Design Name<input class="fi" value="${j.design}" id="edit-design"></label>
+            <label class="fl" style="display:block;">Priority<select class="fi" id="edit-priority"><option${j.priority === 'Normal' ? ' selected' : ''}>Normal</option><option${j.priority === 'Rush' ? ' selected' : ''}>Rush</option><option${j.priority === 'Super Rush' ? ' selected' : ''}>Super Rush</option></select></label>
+            <label class="fl" style="display:block;">Status<select class="fi" id="edit-status"><option${j.status === 'Quote Submitted' ? ' selected' : ''}>Quote Submitted</option><option${j.status === 'In Production' ? ' selected' : ''}>In Production</option><option${j.status === 'Senior Review' ? ' selected' : ''}>Senior Review</option><option${j.status === 'Sewout' ? ' selected' : ''}>Sewout</option><option${j.status === 'In QC' ? ' selected' : ''}>In QC</option><option${j.status === 'Delivered' ? ' selected' : ''}>Delivered</option></select></label>
+          </div>
+        </div>
+        <div>
+          <div class="m-sec-title">Edit Notes</div>
+          <textarea class="fi fi-ta" id="edit-notes" style="min-height:180px;">${j.notes}</textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="openJob('${j.id}')">${icon('close', 'btn-ico')}<span>Back</span></button>
+      <button class="btn btn-crimson" onclick="showToast('Job saved (demo)','success');closeModal();">${icon('save', 'btn-ico')}<span>Save Job</span></button>
+    </div>`;
+      overlay.classList.add('open');
+    }
+    function closeModal(e) {
+      if (e && e.target !== document.getElementById('modal-overlay')) return;
+      document.getElementById('modal-overlay').classList.remove('open');
+    }
+    function selectReason(el, r) {
+      document.querySelectorAll('.reason-chip').forEach(c => c.classList.remove('on'));
+      el.classList.add('on');
+    }
+    function toggleReject() {
+      const s = document.getElementById('rej-sec');
+      if (s) s.classList.toggle('vis');
+    }
+
+    /* ──────────── NOTIFS ──────────── */
+    function buildNotifs() {
+      document.getElementById('notif-list').innerHTML = NOTIFS.map(n => `
+    <div class="n-item ${n.read ? '' : 'unread'}" onclick="this.classList.remove('unread')">
+      <div class="n-ico" style="background:${n.bg}">${icon(n.ico, 'n-ico')}</div>
+      <div><div class="n-text">${n.text}</div><div class="n-time">${n.time}</div></div>
+    </div>`).join('');
+    }
+    function toggleNotif() {
+      notifOpen = !notifOpen;
+      document.getElementById('notif-panel').classList.toggle('open', notifOpen);
+    }
+    function markAllRead() {
+      document.querySelectorAll('.n-item').forEach(el => el.classList.remove('unread'));
+      showToast('All notifications marked as read', 'info');
+    }
+
+    /* ──────────── TOAST ──────────── */
+    let toastT;
+    function showToast(msg, type = 'info') {
+      const t = document.getElementById('toast');
+      const icons = { success: 'check-circle', error: 'close', info: 'info' };
+      document.getElementById('toast-ico').innerHTML = icon(icons[type] || 'info', 'toast-ico');
+      document.getElementById('toast-txt').textContent = msg;
+      t.className = `show ${type}`;
+      clearTimeout(toastT);
+      toastT = setTimeout(() => t.className = '', 3200);
+    }
+
+    /* ──────────── AFTER RENDER ──────────── */
+    function afterRender(pgId) {
+      setTimeout(() => {
+        document.querySelectorAll('.mb-fill').forEach(el => { const w = el.style.width; el.style.width = '0'; setTimeout(() => el.style.width = w, 60); });
+        document.querySelectorAll('.ai-sc-fill').forEach(el => { const w = el.style.width; el.style.width = '0'; setTimeout(() => el.style.width = w, 200); });
+        if (pgId === 'client-dash') renderPricingChart(pricingRange);
+      }, 60);
+    }
+
+    /* ──────────── MISC ──────────── */
+    function submitQuote() {
+      showToast('Quote submitted! Ref: 05-04-2025-C001-049-A', 'success');
+      setTimeout(() => navigateTo('client-jobs'), 900);
+    }
+    document.addEventListener('click', e => {
+      if (notifOpen && !document.getElementById('notif-panel').contains(e.target) && !e.target.closest('.icon-btn')) {
+        notifOpen = false; document.getElementById('notif-panel').classList.remove('open');
+      }
+    });
+  </script>
+</body>
+
+</html>
