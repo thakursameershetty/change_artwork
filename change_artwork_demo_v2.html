@@ -3232,7 +3232,7 @@
     const ROLE_CFG = {
       cs: {
         label: 'Client Servicing', user: 'Jason Ranji', initials: 'JR',
-        nav: [{ s: 'Main', items: [{ ico: 'chart', lbl: 'Dashboard', pg: 'cs-dash', b: null }, { ico: 'briefcase', lbl: 'All Projects', pg: 'cs-projects', b: null }, { ico: 'clipboard', lbl: 'Job Queue', pg: 'cs-queue', b: '2' }, { ico: 'package', lbl: 'Ready to Deliver', pg: 'cs-deliver', b: '1' }, { ico: 'refresh', lbl: 'Amendments', pg: 'cs-amend', b: '1' }] }, { s: 'Clients', items: [{ ico: 'users', lbl: 'Client Records', pg: 'cs-clients', b: null }] }]
+        nav: [{ s: 'Main', items: [{ ico: 'chart', lbl: 'Dashboard', pg: 'cs-dash', b: null }, { ico: 'inbox', lbl: 'New Jobs', pg: 'cs-new-jobs', b: '3' }, { ico: 'briefcase', lbl: 'All Projects', pg: 'cs-projects', b: null }, { ico: 'clipboard', lbl: 'Job Queue', pg: 'cs-queue', b: '2' }, { ico: 'package', lbl: 'Ready to Deliver', pg: 'cs-deliver', b: '1' }, { ico: 'refresh', lbl: 'Amendments', pg: 'cs-amend', b: '1' }] }, { s: 'Clients', items: [{ ico: 'users', lbl: 'Client Records', pg: 'cs-clients', b: null }] }]
       },
       teamlead: {
         label: 'Team Lead', user: 'Ankit Mehta', initials: 'AM',
@@ -3248,7 +3248,7 @@
       },
       admin: {
         label: 'Admin', user: 'Deepa Nair', initials: 'DN',
-        nav: [{ s: 'Administration', items: [{ ico: 'chart', lbl: 'Admin Dashboard', pg: 'admin-dash', b: null }, { ico: 'briefcase', lbl: 'All Jobs', pg: 'admin-jobs', b: null }, { ico: 'users', lbl: 'Clients', pg: 'admin-clients', b: null }, { ico: 'lock', lbl: 'User Management', pg: 'admin-users', b: null }, { ico: 'report', lbl: 'Reports', pg: 'admin-reports', b: null }] }]
+        nav: [{ s: 'Administration', items: [{ ico: 'chart', lbl: 'Admin Dashboard', pg: 'admin-dash', b: null }, { ico: 'inbox', lbl: 'New Jobs', pg: 'admin-new-jobs', b: '3' }, { ico: 'briefcase', lbl: 'All Jobs', pg: 'admin-jobs', b: null }, { ico: 'users', lbl: 'Clients', pg: 'admin-clients', b: null }, { ico: 'lock', lbl: 'User Management', pg: 'admin-users', b: null }, { ico: 'report', lbl: 'Reports', pg: 'admin-reports', b: null }] }]
       },
     };
 
@@ -3583,7 +3583,15 @@
       </div>
       <div class="two-col">
         <div>
-          <div class="sec-header"><div class="sec-title">Recent Job Cards</div><span class="sec-action" onclick="navigateTo('cs-queue')">View all →</span></div>
+          <div class="sec-header">
+            <div class="sec-title" style="color: #fcd34d;">New Quote Requests</div>
+          </div>
+          ${jobTable(JOBS.filter(j => j.stage === 'quote'))}
+          
+          <div class="sec-header" style="margin-top: 28px;">
+            <div class="sec-title">Recent Job Cards</div>
+            <span class="sec-action" onclick="navigateTo('cs-queue')">View all →</span>
+          </div>
           ${jobTable(JOBS.slice(0, 5))}
         </div>
         <div>
@@ -3684,6 +3692,14 @@
           </div>
         </div>
       </div>`,
+
+        'cs-new-jobs': `
+      <div class="greeting-hero">
+        <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+        <div class="greeting-title">New Jobs</div>
+        <div class="greeting-sub">List of new quote requests and newly assigned jobs.</div>
+      </div>
+      ${jobTable(JOBS.filter(j => j.stage === 'quote'))}`,
 
         'cs-projects': `
       <div class="greeting-hero">
@@ -4044,6 +4060,14 @@
         <div class="stat-card crimson"><div class="stat-label">Delivered</div><div class="stat-value" style="color:#ff8a95">${JOBS.filter(j => j.stage === 'delivered').length}</div></div>
       </div>
       ${jobTable(JOBS)}`,
+
+        'admin-new-jobs': `
+      <div class="greeting-hero">
+        <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+        <div class="greeting-title">New Jobs</div>
+        <div class="greeting-sub">List of new quote requests and newly assigned jobs.</div>
+      </div>
+      ${jobTable(JOBS.filter(j => j.stage === 'quote'))}`,
 
         'admin-jobs': `
       <div class="pills"><span class="pill active">All (${JOBS.length})</span><span class="pill">Artwork (3)</span><span class="pill">Digitizing (2)</span><span class="pill">+Sewout (2)</span></div>
