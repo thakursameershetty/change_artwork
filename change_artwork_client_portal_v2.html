@@ -44,9 +44,9 @@
       --sb-hover-bg: #F2F4F8;
       --sb-active-bg: #EBF0FA;
 
-      --r: 8px;
-      --r-lg: 12px;
-      --r-xl: 16px;
+      --r: 12px;
+      --r-lg: 16px;
+      --r-xl: 20px;
       --f-head: 'Plus Jakarta Sans', system-ui, sans-serif;
       --f-body: 'Plus Jakarta Sans', system-ui, sans-serif;
       --f-mono: 'IBM Plex Mono', monospace;
@@ -67,7 +67,7 @@
     }
 
     html {
-      font-size: 14px;
+      font-size: 17px;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
@@ -541,11 +541,11 @@
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
-      padding: 9px 18px;
-      border-radius: var(--r);
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: var(--r-xl);
       font-family: var(--f-body);
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.18s var(--ease);
@@ -605,13 +605,13 @@
     }
 
     .btn-sm {
-      padding: 6px 13px;
-      font-size: 12px;
+      padding: 8px 16px;
+      font-size: 13px;
     }
 
     .btn-lg {
-      padding: 12px 26px;
-      font-size: 15px;
+      padding: 14px 28px;
+      font-size: 16px;
     }
 
     .btn-bold {
@@ -746,12 +746,12 @@
     .card {
       background: var(--white);
       border: 1px solid var(--border);
-      border-radius: var(--r-lg);
+      border-radius: var(--r-xl);
       overflow: hidden;
     }
 
     .card-header {
-      padding: 16px 20px;
+      padding: 20px 24px;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
@@ -853,8 +853,8 @@
 
     .jobs-root[data-view="grid"] .grid-view {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
       padding: 16px;
     }
 
@@ -1577,10 +1577,10 @@
     textarea {
       background: var(--white);
       border: 1.5px solid var(--border);
-      border-radius: var(--r);
-      padding: 10px 13px;
+      border-radius: var(--r-lg);
+      padding: 12px 16px;
       font-family: var(--f-body);
-      font-size: 13px;
+      font-size: 14px;
       color: var(--ink);
       outline: none;
       transition: border-color 0.18s, box-shadow 0.18s;
@@ -1661,8 +1661,8 @@
 
     .order-type {
       border: 1.5px solid var(--border);
-      border-radius: var(--r-lg);
-      padding: 14px 12px;
+      border-radius: var(--r-xl);
+      padding: 18px 16px;
       cursor: pointer;
       transition: all 0.18s var(--ease);
       text-align: center;
@@ -2441,7 +2441,7 @@
       }
 
       html {
-        font-size: 14px;
+        font-size: 16px;
       }
 
       /* Body — allow scroll on mobile */
@@ -3620,7 +3620,7 @@
     <div id="jobs-table">${jobTable(JOBS)}</div>`,
 
       quote: (page) => `
-    <div style="max-width:720px">
+    <div style="max-width:720px; margin: 0 auto;">
       <div class="card">
         <div class="card-header">
           <div class="card-title">
