@@ -1578,9 +1578,9 @@
       background: var(--white);
       border: 1.5px solid var(--border);
       border-radius: var(--r);
-      padding: 10px 13px;
+      padding: 12px 16px;
       font-family: var(--f-body);
-      font-size: 13px;
+      font-size: 14px;
       color: var(--ink);
       outline: none;
       transition: border-color 0.18s, box-shadow 0.18s;
@@ -3439,6 +3439,8 @@
       border: none;
       box-shadow: var(--nm-inset-sm);
       border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 14px;
       transition: box-shadow 0.2s;
     }
 
@@ -3507,7 +3509,7 @@
 
     .modal {
       background: var(--nm-bg);
-      border: none;
+      border: 1px solid rgba(163, 177, 198, 0.4);
       box-shadow: var(--nm-raised-lg), 0 30px 80px rgba(0, 0, 0, 0.2);
       border-radius: 24px;
     }
@@ -3711,6 +3713,228 @@
     .jc-negotiate-banner {
       background: rgba(217, 119, 6, 0.08);
       border-top: 1px solid rgba(217, 119, 6, 0.15);
+    }
+
+    /* ════════════════════════════════════════
+   SUBMIT CONFIRMATION MODAL — neomorphic
+════════════════════════════════════════ */
+    #confirm-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      background: rgba(163, 177, 198, 0.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.26s var(--ease);
+    }
+
+    #confirm-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .confirm-modal {
+      background: var(--nm-bg);
+      border: 1px solid rgba(163, 177, 198, 0.4);
+      border-radius: 26px;
+      width: 480px;
+      max-width: 100%;
+      box-shadow: var(--nm-raised-lg), 0 30px 80px rgba(0, 0, 0, 0.18);
+      transform: scale(0.95) translateY(12px);
+      transition: transform 0.26s var(--ease);
+      overflow: hidden;
+    }
+
+    #confirm-overlay.open .confirm-modal {
+      transform: scale(1) translateY(0);
+    }
+
+    /* Caution banner */
+    .cm-caution {
+      background: linear-gradient(135deg, rgba(255, 237, 213, 0.7) 0%, rgba(254, 243, 199, 0.7) 100%);
+      border-bottom: 1px solid rgba(217, 119, 6, 0.18);
+      padding: 22px 24px 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .cm-caution-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--nm-bg);
+      box-shadow: 4px 4px 10px rgba(163, 177, 198, 0.5), -4px -4px 10px rgba(255, 255, 255, 0.8), inset 0 0 0 2px rgba(217, 119, 6, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .cm-caution-title {
+      font-family: var(--f-head);
+      font-size: 15px;
+      font-weight: 700;
+      color: #92400E;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .cm-caution-text {
+      font-size: 12.5px;
+      color: #B45309;
+      line-height: 1.55;
+    }
+
+    /* Info note */
+    .cm-note {
+      padding: 18px 24px 0;
+    }
+
+    .cm-note-box {
+      background: var(--nm-bg);
+      box-shadow: var(--nm-inset-sm);
+      border-radius: 14px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .cm-note-icon {
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: var(--navy);
+    }
+
+    .cm-note-text {
+      font-size: 12px;
+      color: var(--ink-2);
+      line-height: 1.6;
+    }
+
+    .cm-note-text strong {
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    /* Type-to-confirm body */
+    .cm-body {
+      padding: 18px 24px 20px;
+    }
+
+    .cm-input-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-4);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .cm-input-hint {
+      font-size: 11.5px;
+      color: var(--ink-4);
+      margin-bottom: 8px;
+    }
+
+    .cm-input-hint code {
+      font-family: var(--f-mono);
+      background: var(--nm-bg);
+      box-shadow: var(--nm-inset-sm);
+      border-radius: 6px;
+      padding: 2px 7px;
+      font-size: 12px;
+      color: var(--ink-2);
+      letter-spacing: 0.03em;
+    }
+
+    #confirm-type-input {
+      background: var(--nm-bg);
+      border: none;
+      box-shadow: var(--nm-inset-sm);
+      border-radius: 14px;
+      padding: 13px 16px;
+      font-family: var(--f-mono);
+      font-size: 14px;
+      color: var(--ink);
+      outline: none;
+      transition: box-shadow 0.2s;
+      width: 100%;
+      letter-spacing: 0.04em;
+    }
+
+    #confirm-type-input:focus {
+      box-shadow: var(--nm-inset), 0 0 0 3px rgba(0, 40, 104, 0.08);
+    }
+
+    #confirm-type-input.valid {
+      box-shadow: var(--nm-inset), 0 0 0 3px rgba(5, 150, 105, 0.15);
+    }
+
+    /* Footer */
+    .cm-footer {
+      padding: 14px 24px 22px;
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      border-top: 1px solid rgba(163, 177, 198, 0.2);
+    }
+
+    /* Confirm button — disabled state */
+    #confirm-submit-btn {
+      background: var(--nm-bg);
+      color: var(--ink-4);
+      border: none;
+      box-shadow: var(--nm-flat);
+      cursor: not-allowed;
+      opacity: 0.5;
+      transition: all 0.22s var(--ease);
+    }
+
+    /* Confirm button — active/ready state */
+    #confirm-submit-btn.ready {
+      background: var(--navy);
+      color: white;
+      cursor: pointer;
+      opacity: 1;
+      box-shadow: 4px 4px 12px rgba(163, 177, 198, 0.4), -4px -4px 12px rgba(255, 255, 255, 0.6), 0 4px 18px rgba(0, 40, 104, 0.3);
+    }
+
+    #confirm-submit-btn.ready:hover {
+      box-shadow: 6px 6px 16px rgba(163, 177, 198, 0.45), -6px -6px 16px rgba(255, 255, 255, 0.65), 0 6px 24px rgba(0, 40, 104, 0.38);
+      transform: translateY(-1px);
+    }
+
+    #confirm-submit-btn.ready:active {
+      box-shadow: var(--nm-inset);
+      transform: none;
+    }
+
+    /* Mobile responsive */
+    @media (max-width: 768px) {
+      #confirm-overlay {
+        align-items: flex-end;
+        padding: 0;
+      }
+
+      .confirm-modal {
+        width: 100%;
+        border-radius: 26px 26px 0 0;
+        transform: translateY(100%);
+      }
+
+      #confirm-overlay.open .confirm-modal {
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
@@ -3950,6 +4174,75 @@
   <!-- ══════════════ MODAL ══════════════ -->
   <div class="overlay" id="overlay" onclick="closeModal(event)">
     <div class="modal" id="modal-body"></div>
+  </div>
+
+  <!-- ══════════════ SUBMIT CONFIRMATION MODAL ══════════════ -->
+  <div id="confirm-overlay">
+    <div class="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="cm-title">
+
+      <!-- Caution Banner -->
+      <div class="cm-caution">
+        <div class="cm-caution-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+        </div>
+        <div>
+          <div class="cm-caution-title" id="cm-title">Confirm Your Submission</div>
+          <div class="cm-caution-text" id="cm-caution-text">You are about to submit a <strong
+              id="cm-type-label">Quote Request</strong>. Once submitted, it will be sent to our team for review and
+            cannot be recalled.</div>
+        </div>
+      </div>
+
+      <!-- Note -->
+      <div class="cm-note">
+        <div class="cm-note-box">
+          <svg class="cm-note-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+          <div class="cm-note-text" id="cm-note-text">
+            <strong>Please note:</strong> Our team will review your request and respond within
+            <strong>2 business hours</strong>. You’ll receive a notification once your submission has been processed.
+            Ensure all design briefs and files are accurate before proceeding.
+          </div>
+        </div>
+      </div>
+
+      <!-- Type to confirm -->
+      <div class="cm-body">
+        <label class="cm-input-label" for="confirm-type-input">Type to confirm</label>
+        <div class="cm-input-hint">Type <code>Submit</code> below to enable the confirm button</div>
+        <input type="text" id="confirm-type-input" placeholder="Submit" autocomplete="off" spellcheck="false"
+          oninput="onConfirmInput(this)" onpaste="event.preventDefault()">
+      </div>
+
+      <!-- Footer -->
+      <div class="cm-footer">
+        <button class="btn btn-outline" onclick="closeConfirmModal()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+          Cancel
+        </button>
+        <button class="btn" id="confirm-submit-btn" disabled onclick="finalizeSubmit()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13" />
+            <polygon points="22 2 15 22 11 13 2 9 22 2" />
+          </svg>
+          <span id="cm-btn-label">Submit Quote</span>
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- ══════════════ TOAST ══════════════ -->
@@ -4281,7 +4574,7 @@
     <div id="jobs-table">${jobTable(JOBS)}</div>`,
 
       quote: (page) => `
-    <div style="max-width:720px">
+    <div style="max-width:720px; margin: 0 auto;">
       <div class="card">
         <div class="card-header">
           <div class="card-title">
@@ -4378,7 +4671,8 @@
               <div class="form-section-num">3</div>
               Upload Reference Files
             </div>
-            <div class="upload-zone" onclick="toast('File picker opened (demo)','info')">
+            <input type="file" id="file-input" style="display:none" multiple onchange="handleFiles(this.files)">
+            <div class="upload-zone" onclick="document.getElementById('file-input').click()">
               <div class="upload-zone-icon">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
               </div>
@@ -4447,7 +4741,7 @@
     </div>`,
 
       profile: () => `
-    <div style="max-width:560px">
+    <div style="max-width:560px; margin: 0 auto;">
       <div class="card">
         <div class="profile-hero">
           <div class="profile-av-lg">RK</div>
@@ -4844,19 +5138,71 @@
       });
     }
 
-    /* ──── SUBMIT QUOTE ──── */
+    function handleFiles(files) {
+      if (files.length > 0) {
+        toast(`${files.length} file(s) selected`, 'success');
+      }
+    }
+
+    /* ──── SUBMIT QUOTE — opens confirmation modal ──── */
+    let _pendingSubmitIsOrder = false;
+
     function submitQuote() {
-      // Basic validation for the new dynamic service field
+      // Validate dynamic service dropdown first
       const serviceTypeSelect = document.getElementById('serviceType');
       if (serviceTypeSelect && serviceTypeSelect.offsetParent !== null && serviceTypeSelect.required && !serviceTypeSelect.value) {
         toast('Please select a specific service.', 'error');
         serviceTypeSelect.focus();
-        serviceTypeSelect.style.borderColor = 'var(--crimson)';
-        setTimeout(() => serviceTypeSelect.style.borderColor = '', 2000);
+        serviceTypeSelect.style.boxShadow = 'var(--nm-inset), 0 0 0 3px rgba(178,34,52,0.2)';
+        setTimeout(() => serviceTypeSelect.style.boxShadow = '', 2000);
         return;
       }
 
       const isOrder = document.querySelector('.nav-item.active')?.dataset.page === 'place_order';
+      _pendingSubmitIsOrder = isOrder;
+
+      // Populate modal text dynamically for Quote vs Order
+      const typeLabel = isOrder ? 'New Order' : 'Quote Request';
+      document.getElementById('cm-type-label').textContent = typeLabel;
+      document.getElementById('cm-caution-text').innerHTML =
+        `You are about to submit a <strong>${typeLabel}</strong>. Once submitted, it will be sent to our team for review and cannot be recalled.`;
+      document.getElementById('cm-note-text').innerHTML = isOrder
+        ? `<strong>Please note:</strong> Placing an order confirms your intent to proceed. Our team will begin work within <strong>2 business hours</strong>. Ensure your design brief, files, and budget details are correct before confirming.`
+        : `<strong>Please note:</strong> Our team will review your quote request and respond within <strong>2 business hours</strong>. You’ll receive a notification once your submission has been processed. Ensure all design briefs and files are accurate before proceeding.`;
+      document.getElementById('cm-btn-label').textContent = isOrder ? 'Submit Order' : 'Submit Quote';
+
+      // Reset input state
+      const inp = document.getElementById('confirm-type-input');
+      inp.value = '';
+      inp.classList.remove('valid');
+      const btn = document.getElementById('confirm-submit-btn');
+      btn.classList.remove('ready');
+      btn.disabled = true;
+
+      // Open modal
+      document.getElementById('confirm-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => inp.focus(), 180);
+    }
+
+    function onConfirmInput(inp) {
+      const ready = inp.value === 'Submit';
+      inp.classList.toggle('valid', ready);
+      const btn = document.getElementById('confirm-submit-btn');
+      btn.classList.toggle('ready', ready);
+      btn.disabled = !ready;
+    }
+
+    function closeConfirmModal() {
+      document.getElementById('confirm-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function finalizeSubmit() {
+      const btn = document.getElementById('confirm-submit-btn');
+      if (btn.disabled) return;
+      closeConfirmModal();
+      const isOrder = _pendingSubmitIsOrder;
       const msg = isOrder
         ? 'Order placed! Ref: 05-05-2025-C001-013-A · We\'ll process it within 2 hours.'
         : 'Quote submitted! Ref: 05-05-2025-C001-013-A · We\'ll respond within 2 hours.';
