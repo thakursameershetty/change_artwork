@@ -2155,6 +2155,135 @@
       background: rgba(0, 0, 0, 0.2);
     }
 
+    /* ═══════════════════════════════════════════
+   LIGHTBOX
+═══════════════════════════════════════════ */
+    .lb-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 700;
+      background: rgba(2, 4, 12, 0.93);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s;
+    }
+    .lb-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .lb-toolbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: linear-gradient(180deg, rgba(2,4,12,0.82) 0%, transparent 100%);
+      z-index: 10;
+    }
+    .lb-counter {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.08em;
+    }
+    .lb-toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .lb-btn {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.75);
+      border-radius: 7px;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1;
+      transition: var(--transition);
+    }
+    .lb-btn:hover {
+      background: rgba(196,30,58,0.22);
+      border-color: var(--crimson);
+      color: white;
+    }
+    .lb-zoom-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      width: 52px;
+    }
+    .lb-close-btn {
+      width: 34px;
+      margin-left: 6px;
+    }
+    .lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(10,22,40,0.6);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: rgba(255,255,255,0.8);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .lb-nav:hover {
+      background: var(--crimson);
+      border-color: var(--crimson);
+      color: white;
+      box-shadow: 0 0 18px var(--crimson-glow);
+    }
+    .lb-prev { left: 18px; }
+    .lb-next { right: 18px; }
+    .lb-nav.lb-hidden { opacity: 0; pointer-events: none; }
+    .lb-stage {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .lb-img {
+      max-width: 88vw;
+      max-height: 82vh;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.7);
+      transition: transform 0.18s cubic-bezier(0.4,0,0.2,1), opacity 0.18s;
+      transform-origin: center center;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .lb-img.lb-fade {
+      opacity: 0;
+      transform: scale(0.94);
+    }
+    .modal-gallery img {
+      cursor: zoom-in;
+    }
+
     .btn {
       padding: 9px 18px;
       border-radius: 8px;
@@ -3177,6 +3306,28 @@
     <div class="modal" id="modal-content"></div>
   </div>
 
+  <!-- Image Lightbox -->
+  <div class="lb-overlay" id="lb-overlay" onclick="lbBgClick(event)">
+    <div class="lb-toolbar">
+      <span class="lb-counter" id="lb-counter">1 / 1</span>
+      <div class="lb-toolbar-actions">
+        <button class="lb-btn" onclick="lbZoom(-1)" title="Zoom out">−</button>
+        <button class="lb-btn lb-zoom-label" id="lb-zoom-label" onclick="lbZoomReset()" title="Reset zoom">100%</button>
+        <button class="lb-btn" onclick="lbZoom(1)" title="Zoom in">+</button>
+        <button class="lb-btn lb-close-btn" onclick="closeLightbox()" title="Close">✕</button>
+      </div>
+    </div>
+    <button class="lb-nav lb-prev" id="lb-prev" onclick="lbNav(-1)">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+    </button>
+    <button class="lb-nav lb-next" id="lb-next" onclick="lbNav(1)">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+    </button>
+    <div class="lb-stage" id="lb-stage">
+      <img class="lb-img" id="lb-img" src="" alt="Preview" draggable="false">
+    </div>
+  </div>
+
   <!-- TOAST -->
   <div id="toast"><span class="toast-ico" id="toast-ico"></span><span class="toast-txt" id="toast-txt"></span></div>
 
@@ -3884,7 +4035,7 @@
         <div>
           <div class="panel" style="position: relative; padding: 20px; overflow: hidden;">
             <div style="display: flex; align-items: center; gap: 20px;">
-              <div style="position: relative; width: 90px; height: 90px; border-radius: 50%; background: conic-gradient(var(--amber) 0% 66.67%, var(--navy) 66.67% 100%); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+              <div style="position: relative; width: 90px; height: 90px; border-radius: 50%; background: conic-gradient(var(--amber) 0% 66.67%, #818cf8 66.67% 100%); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
                 <div style="width: 62px; height: 62px; background: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: inset 0 1px 4px rgba(0,0,0,0.03);">
                   <span style="font-family: var(--font-head); font-size: 18px; font-weight: 700; color: #000; line-height: 1;">5</span>
                   <span style="font-size: 8px; font-weight: 700; color: #333; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px;">Active</span>
@@ -3899,7 +4050,7 @@
                     <span style="font-size: 12px; font-weight: 700; color: var(--ink); margin-left: auto;">4</span>
                   </div>
                   <div style="display: flex; align-items: center; gap: 8px;">
-                    <div style="width: 8px; height: 8px; border-radius: 2px; background: var(--navy);"></div>
+                    <div style="width: 8px; height: 8px; border-radius: 2px; background: #818cf8;"></div>
                     <span style="font-size: 12px; color: var(--ink-2); font-weight: 500;">In QC</span>
                     <span style="font-size: 12px; font-weight: 700; color: var(--ink); margin-left: auto;">1</span>
                   </div>
@@ -4386,7 +4537,7 @@
                     <span style="font-size: 12px; color: var(--ink-2); font-weight: 500;">In Production</span>
                     <span style="font-size: 12px; font-weight: 700; color: var(--ink); margin-left: auto;">4</span>
                   </div>
-                  <div style="display: flex; align-items: center; gap: 8px;"
+                  <div style="display: flex; align-items: center; gap: 8px;">
                     <div style="width: 8px; height: 8px; border-radius: 2px; background: var(--amber);"></div>
                     <span style="font-size: 12px; color: var(--ink-2); font-weight: 500;">In QC</span>
                     <span style="font-size: 12px; font-weight: 700; color: var(--ink); margin-left: auto;">1</span>
@@ -4397,42 +4548,42 @@
           </div>
           <div class="panel">
             <div class="panel-title">Revenue Split</div>
-            <div style="display: flex; align-items: center; gap: 24px; padding: 4px 0;">
-              <div style="position: relative; width: 110px; height: 110px; border-radius: 50%; background: conic-gradient(var(--crimson) 0% ${DASH_METRICS[currentDashRange].admin.revSplit.art}%, var(--blue) ${DASH_METRICS[currentDashRange].admin.revSplit.art}% ${DASH_METRICS[currentDashRange].admin.revSplit.art + DASH_METRICS[currentDashRange].admin.revSplit.dig}%, var(--gold) ${DASH_METRICS[currentDashRange].admin.revSplit.art + DASH_METRICS[currentDashRange].admin.revSplit.dig}% 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
-                <div style="width: 74px; height: 74px; background: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: inset 0 2px 6px rgba(0,0,0,0.04);">
-                  <span style="font-family: var(--font-head); font-size: 20px; font-weight: 700; color: #000; line-height: 1;">$${DASH_METRICS[currentDashRange].admin.rev}</span>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 4px 0;">
+              <div style="position: relative; width: 120px; height: 120px; border-radius: 50%; background: conic-gradient(var(--crimson) 0% ${DASH_METRICS[currentDashRange].admin.revSplit.art}%, var(--blue) ${DASH_METRICS[currentDashRange].admin.revSplit.art}% ${DASH_METRICS[currentDashRange].admin.revSplit.art + DASH_METRICS[currentDashRange].admin.revSplit.dig}%, var(--gold) ${DASH_METRICS[currentDashRange].admin.revSplit.art + DASH_METRICS[currentDashRange].admin.revSplit.dig}% 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(0,0,0,0.18);">
+                <div style="width: 80px; height: 80px; background: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: inset 0 2px 6px rgba(0,0,0,0.06);">
+                  <span style="font-family: var(--font-head); font-size: 17px; font-weight: 700; color: #000; line-height: 1;">$${DASH_METRICS[currentDashRange].admin.rev}</span>
                   <span style="font-size: 8px; font-weight: 700; color: #333; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 3px;">Period</span>
                 </div>
               </div>
-              <div style="flex: 1; display: flex; flex-direction: column; gap: 14px;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div style="width: 100%; display: flex; flex-direction: column; gap: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background: rgba(196,30,58,0.06); border-radius: 8px; border: 1px solid rgba(196,30,58,0.12);">
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <div style="width: 10px; height: 10px; border-radius: 3px; background: var(--crimson);"></div>
                     <span style="font-size: 12.5px; color: var(--ink-2); font-weight: 500;">Artwork</span>
                   </div>
                   <div style="text-align: right;">
                     <span style="font-weight: 700; font-size: 13.5px; color: var(--ink);">${DASH_METRICS[currentDashRange].admin.revSplit.art}%</span>
-                    <span style="font-size: 11px; color: var(--ink-4); margin-left: 4px;">($${DASH_METRICS[currentDashRange].admin.revSplit.artVal})</span>
+                    <span style="font-size: 11px; color: var(--ink-4); margin-left: 6px;">($${DASH_METRICS[currentDashRange].admin.revSplit.artVal})</span>
                   </div>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background: rgba(59,130,246,0.06); border-radius: 8px; border: 1px solid rgba(59,130,246,0.12);">
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <div style="width: 10px; height: 10px; border-radius: 3px; background: var(--blue);"></div>
                     <span style="font-size: 12.5px; color: var(--ink-2); font-weight: 500;">Digitizing</span>
                   </div>
                   <div style="text-align: right;">
                     <span style="font-weight: 700; font-size: 13.5px; color: var(--ink);">${DASH_METRICS[currentDashRange].admin.revSplit.dig}%</span>
-                    <span style="font-size: 11px; color: var(--ink-4); margin-left: 4px;">($${DASH_METRICS[currentDashRange].admin.revSplit.digVal})</span>
+                    <span style="font-size: 11px; color: var(--ink-4); margin-left: 6px;">($${DASH_METRICS[currentDashRange].admin.revSplit.digVal})</span>
                   </div>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; background: rgba(212,168,67,0.06); border-radius: 8px; border: 1px solid rgba(212,168,67,0.12);">
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <div style="width: 10px; height: 10px; border-radius: 3px; background: var(--gold);"></div>
                     <span style="font-size: 12.5px; color: var(--ink-2); font-weight: 500;">+Sewout</span>
                   </div>
                   <div style="text-align: right;">
                     <span style="font-weight: 700; font-size: 13.5px; color: var(--ink);">${DASH_METRICS[currentDashRange].admin.revSplit.sew}%</span>
-                    <span style="font-size: 11px; color: var(--ink-4); margin-left: 4px;">($${DASH_METRICS[currentDashRange].admin.revSplit.sewVal})</span>
+                    <span style="font-size: 11px; color: var(--ink-4); margin-left: 6px;">($${DASH_METRICS[currentDashRange].admin.revSplit.sewVal})</span>
                   </div>
                 </div>
               </div>
@@ -4716,6 +4867,7 @@
       const stageIdx = { quote: 0, junior: 2, senior: 2, sewout: 3, qc: hasSewout ? 4 : 3, delivered: hasSewout ? 5 : 4 };
       const cur = stageIdx[j.stage] ?? 0;
       const images = jobImages(j, 3);
+      _lbImages = images;
       content.innerHTML = `
     <div class="modal-top">
       <div style="flex:1">
@@ -4728,7 +4880,7 @@
     <div class="modal-body">
       <div class="m-sec-title">Job Images</div>
       <div class="modal-gallery">
-        ${images.map((src, index) => `<img src="${src}" alt="${j.design} image ${index + 1}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=900 height=700><rect width=900 height=700 fill=%23f3f4f6/></svg>'">`).join('')}
+        ${images.map((src, index) => `<img src="${src}" alt="${j.design} image ${index + 1}" loading="lazy" referrerpolicy="no-referrer" onclick="openLightbox(${index})" title="Click to preview" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=900 height=700><rect width=900 height=700 fill=%23f3f4f6/></svg>'">`).join('')}
       </div>
       <div class="wf-steps" style="margin-bottom:16px">
         ${steps.map(([r, l], i) => `<div class="wf-step ${i < cur ? 'done' : i === cur ? 'cur' : ''}"><div class="wf-dot">${i < cur ? icon('check-circle', 'btn-ico') : i === cur ? icon('refresh', 'btn-ico') : ''}</div><div class="wf-lbl">${r}<br><span style="font-size:9px;color:var(--text-faint)">${l}</span></div></div>`).join('')}
@@ -5020,6 +5172,91 @@
       if (e && e.target !== document.getElementById('modal-overlay')) return;
       document.getElementById('modal-overlay').classList.remove('open');
     }
+
+    /* ──────────── LIGHTBOX ──────────── */
+    let _lbImages = [];
+    let _lbIndex = 0;
+    let _lbZoom = 1;
+
+    function openLightbox(index) {
+      _lbIndex = index;
+      _lbZoom = 1;
+      const overlay = document.getElementById('lb-overlay');
+      lbRender(false);
+      overlay.classList.add('open');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lb-overlay').classList.remove('open');
+      _lbZoom = 1;
+    }
+
+    function lbBgClick(e) {
+      if (e.target === document.getElementById('lb-overlay') || e.target === document.getElementById('lb-stage')) {
+        closeLightbox();
+      }
+    }
+
+    function lbRender(animate) {
+      const img = document.getElementById('lb-img');
+      const counter = document.getElementById('lb-counter');
+      const prevBtn = document.getElementById('lb-prev');
+      const nextBtn = document.getElementById('lb-next');
+      counter.textContent = `${_lbIndex + 1} / ${_lbImages.length}`;
+      prevBtn.classList.toggle('lb-hidden', _lbIndex === 0);
+      nextBtn.classList.toggle('lb-hidden', _lbIndex === _lbImages.length - 1);
+      lbApplyZoom();
+      if (animate) {
+        img.classList.add('lb-fade');
+        setTimeout(() => {
+          img.src = _lbImages[_lbIndex];
+          img.classList.remove('lb-fade');
+        }, 160);
+      } else {
+        img.src = _lbImages[_lbIndex];
+      }
+    }
+
+    function lbNav(dir) {
+      const next = _lbIndex + dir;
+      if (next < 0 || next >= _lbImages.length) return;
+      _lbIndex = next;
+      _lbZoom = 1;
+      lbRender(true);
+    }
+
+    function lbZoom(dir) {
+      const steps = [0.5, 0.75, 1, 1.25, 1.5, 2, 2.5, 3, 4];
+      const cur = steps.findIndex(s => Math.abs(s - _lbZoom) < 0.01);
+      const next = cur === -1 ? 2 : Math.max(0, Math.min(steps.length - 1, cur + dir));
+      _lbZoom = steps[next];
+      lbApplyZoom();
+    }
+
+    function lbZoomReset() {
+      _lbZoom = 1;
+      lbApplyZoom();
+    }
+
+    function lbApplyZoom() {
+      document.getElementById('lb-img').style.transform = `scale(${_lbZoom})`;
+      document.getElementById('lb-zoom-label').textContent = `${Math.round(_lbZoom * 100)}%`;
+    }
+
+    document.addEventListener('keydown', e => {
+      const lb = document.getElementById('lb-overlay');
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lbNav(-1);
+      if (e.key === 'ArrowRight') lbNav(1);
+      if (e.key === '+' || e.key === '=') lbZoom(1);
+      if (e.key === '-') lbZoom(-1);
+    });
+
+    document.getElementById('lb-stage').addEventListener('wheel', e => {
+      e.preventDefault();
+      lbZoom(e.deltaY < 0 ? 1 : -1);
+    }, { passive: false });
     function selectReason(el, r) {
       document.querySelectorAll('.reason-chip').forEach(c => c.classList.remove('on'));
       el.classList.add('on');
