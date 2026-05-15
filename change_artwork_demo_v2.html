@@ -3244,15 +3244,37 @@
     ];
 
     const TEAM = [
-      { id: 'U001', name: 'Priya Sharma',  initials: 'PS', role: 'cs',              roleLabel: 'Client Servicing',  status: 'available',   jobs: 2 },
-      { id: 'U002', name: 'Rohan Mehta',   initials: 'RM', role: 'cs',              roleLabel: 'Client Servicing',  status: 'busy',        jobs: 4 },
-      { id: 'U003', name: 'Ankit Verma',   initials: 'AV', role: 'tl',              roleLabel: 'Team Lead',         status: 'available',   jobs: 0 },
-      { id: 'U004', name: 'Kavya Reddy',   initials: 'KR', role: 'senior_designer', roleLabel: 'Senior Designer',   status: 'busy',        jobs: 2 },
-      { id: 'U005', name: 'Arjun Patel',   initials: 'AP', role: 'senior_designer', roleLabel: 'Senior Designer',   status: 'available',   jobs: 1 },
-      { id: 'U006', name: 'Rahul Nair',    initials: 'RN', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'in_progress', jobs: 1 },
-      { id: 'U007', name: 'Meena Das',     initials: 'MD', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'available',   jobs: 0 },
-      { id: 'U008', name: 'Suresh Kumar',  initials: 'SK', role: 'qc',              roleLabel: 'QC Reviewer',       status: 'available',   jobs: 3 },
-      { id: 'U009', name: 'Deepa Nair',    initials: 'DN', role: 'admin',           roleLabel: 'Admin',             status: 'available',   jobs: 0 },
+      // Client Servicing (3)
+      { id: 'U001', name: 'Priya Sharma',    initials: 'PS', role: 'cs',              roleLabel: 'Client Servicing',  status: 'available',   jobs: 2 },
+      { id: 'U002', name: 'Rohan Mehta',     initials: 'RM', role: 'cs',              roleLabel: 'Client Servicing',  status: 'busy',        jobs: 4 },
+      { id: 'U010', name: 'Nisha Kapoor',    initials: 'NK', role: 'cs',              roleLabel: 'Client Servicing',  status: 'available',   jobs: 3 },
+      // Team Lead (1)
+      { id: 'U003', name: 'Ankit Verma',     initials: 'AV', role: 'tl',              roleLabel: 'Team Lead',         status: 'available',   jobs: 0 },
+      // Senior Designers (6)
+      { id: 'U004', name: 'Kavya Reddy',     initials: 'KR', role: 'senior_designer', roleLabel: 'Senior Designer',   status: 'busy',        jobs: 2 },
+      { id: 'U005', name: 'Arjun Patel',     initials: 'AP', role: 'senior_designer', roleLabel: 'Senior Designer',   status: 'available',   jobs: 1 },
+      { id: 'U011', name: 'Sneha Joshi',     initials: 'SJ', role: 'senior_designer', roleLabel: 'Senior Designer',   status: 'in_progress', jobs: 3 },
+      { id: 'U012', name: 'Vikram Singh',    initials: 'VS', role: 'senior_designer', roleLabel: 'Senior Designer',   status: 'available',   jobs: 1 },
+      { id: 'U013', name: 'Pooja Iyer',      initials: 'PI', role: 'senior_designer', roleLabel: 'Senior Designer',   status: 'busy',        jobs: 2 },
+      { id: 'U014', name: 'Karthik Balan',   initials: 'KB', role: 'senior_designer', roleLabel: 'Senior Designer',   status: 'available',   jobs: 0 },
+      // Junior Designers (11)
+      { id: 'U006', name: 'Rahul Nair',      initials: 'RN', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'in_progress', jobs: 1 },
+      { id: 'U007', name: 'Meena Das',       initials: 'MD', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'available',   jobs: 0 },
+      { id: 'U015', name: 'Aisha Khan',      initials: 'AK', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'in_progress', jobs: 2 },
+      { id: 'U016', name: 'Dev Sharma',      initials: 'DS', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'available',   jobs: 1 },
+      { id: 'U017', name: 'Tanvi Rao',       initials: 'TR', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'busy',        jobs: 3 },
+      { id: 'U018', name: 'Faisal Ahmed',    initials: 'FA', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'available',   jobs: 0 },
+      { id: 'U019', name: 'Ritika Gupta',    initials: 'RG', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'in_progress', jobs: 1 },
+      { id: 'U020', name: 'Siddharth Rao',   initials: 'SR', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'available',   jobs: 2 },
+      { id: 'U021', name: 'Lakshmi Pillai',  initials: 'LP', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'busy',        jobs: 1 },
+      { id: 'U022', name: 'Nitin Chandra',   initials: 'NC', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'available',   jobs: 0 },
+      { id: 'U023', name: 'Bhavna Tiwari',   initials: 'BT', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'in_progress', jobs: 2 },
+      // QC Reviewers (3)
+      { id: 'U008', name: 'Suresh Kumar',    initials: 'SK', role: 'qc',              roleLabel: 'QC Reviewer',       status: 'available',   jobs: 3 },
+      { id: 'U024', name: 'Divya Menon',     initials: 'DM', role: 'qc',              roleLabel: 'QC Reviewer',       status: 'busy',        jobs: 2 },
+      { id: 'U025', name: 'Harish Babu',     initials: 'HB', role: 'qc',              roleLabel: 'QC Reviewer',       status: 'available',   jobs: 1 },
+      // Admin (1)
+      { id: 'U009', name: 'Deepa Nair',      initials: 'DN', role: 'admin',           roleLabel: 'Admin',             status: 'available',   jobs: 0 },
     ];
 
     const CLIENTS = [
