@@ -3983,8 +3983,9 @@
                 <select><option selected>Normal</option><option>Rush</option><option>Super Rush</option></select>
               </div>
               <div class="form-group">
-                <label>Expected Delivery (hours)</label>
-                <input type="number" value="8" min="2">
+                <label>Your Estimated Turnaround (hours) <span class="req">*</span></label>
+                <input type="number" id="client-eta" value="8" min="2" placeholder="e.g. 8">
+                <div style="font-size:11px;color:var(--ink-4);margin-top:4px;">This helps our team plan your job. CS will confirm the final ETA after review.</div>
               </div>
               <div class="form-group">
                 <label>Target Budget ($)</label>
@@ -4187,6 +4188,7 @@
             <span class="jc-pill id">${j.id}</span>
             <span class="jc-pill order">${j.order}</span>
             <span class="jc-pill ${prioPillClass}">${j.priority}</span>
+            ${j.eta && j.eta !== '—' ? `<span class="jc-pill" style="background:rgba(0,40,104,0.07);color:var(--navy);font-family:var(--f-mono);font-weight:600;">⏱ ${j.eta}</span>` : ''}
           </div>
         </div>
         ${hasNegotiate ? `<div class="jc-negotiate-banner"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Counter-offer received — $${j.adminPrice} · Tap to negotiate</div>` : ''}
@@ -4202,7 +4204,10 @@
           <div style="margin-top:4px;color:var(--ink-4);font-size:11.5px;line-height:1.45">${j.summary}</div>
           <div style="color:var(--ink-4);font-size:12px">${j.id} · ${j.order} · ${j.status}</div>
         </div>
-        <div style="font-family:var(--f-mono);font-size:11px;color:var(--ink-4)">${j.created}</div>
+        <div style="text-align:right;">
+          <div style="font-family:var(--f-mono);font-size:11px;color:var(--ink-4)">${j.created}</div>
+          ${j.eta && j.eta !== '—' ? `<div style="font-family:var(--f-mono);font-size:12px;font-weight:700;color:var(--navy);margin-top:4px;">⏱ ${j.eta}</div>` : ''}
+        </div>
       </div>`).join('')}
     </div>
 
@@ -4243,11 +4248,64 @@
         </div>
       </div>
       <div style="margin-bottom:20px;">
-        <div class="modal-section-title">Production Progress</div>
+        <div class="modal-section-title">Job Status Flow</div>
         <div class="progress-steps">
           ${steps.map((s, i) => `<div class="ps-step ${i < j.stage ? 'done' : i === j.stage ? 'cur' : ''}"><div class="ps-dot">${i < j.stage ? `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>` : i === j.stage ? `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--crimson)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg>` : ''}</div><div class="ps-lbl">${s}</div></div>`).join('')}
         </div>
       </div>
+      ${(() => {
+        const etaRaw = j.eta && j.eta !== '—' ? j.eta : null;
+        const etaNum = etaRaw ? parseFloat(etaRaw) : null;
+        if (!etaNum) return '';
+        const tlH   = Math.round(etaNum * 0.10 * 10) / 10;
+        const dsH   = Math.round(etaNum * 0.65 * 10) / 10;
+        const qcH   = Math.round(etaNum * 0.25 * 10) / 10;
+        const pct = (n) => Math.round(n / etaNum * 100);
+        return `
+      <div style="margin-bottom:20px;">
+        <div class="modal-section-title">Estimated Timeline</div>
+        <div style="background:var(--off);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+            <div>
+              <div style="font-size:10px;font-weight:700;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:4px;">CS Estimated Turnaround</div>
+              <div style="font-size:26px;font-weight:700;color:var(--navy);font-family:var(--f-mono);line-height:1">${etaRaw}</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:10px;color:var(--ink-4);margin-bottom:4px;">Current Stage</div>
+              <span class="badge ${STATUS_MAP[j.status] || 'badge-gray'}">${j.status}</span>
+            </div>
+          </div>
+          <div style="font-size:10.5px;font-weight:700;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;">Time Allocation per Stage</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <div style="display:flex;align-items:center;gap:7px;"><div style="width:8px;height:8px;border-radius:2px;background:var(--navy);"></div><span style="font-size:12px;font-weight:600;color:var(--ink-2);">Team Lead — Review & Assign</span></div>
+                <span style="font-size:12px;font-weight:700;color:var(--navy);font-family:var(--f-mono);">${tlH}h</span>
+              </div>
+              <div style="height:6px;background:var(--border);border-radius:99px;overflow:hidden;"><div style="width:${pct(tlH)}%;height:100%;background:var(--navy);border-radius:99px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <div style="display:flex;align-items:center;gap:7px;"><div style="width:8px;height:8px;border-radius:2px;background:var(--crimson);"></div><span style="font-size:12px;font-weight:600;color:var(--ink-2);">Designer / Digitator — Execution</span></div>
+                <span style="font-size:12px;font-weight:700;color:var(--crimson);font-family:var(--f-mono);">${dsH}h</span>
+              </div>
+              <div style="height:6px;background:var(--border);border-radius:99px;overflow:hidden;"><div style="width:${pct(dsH)}%;height:100%;background:var(--crimson);border-radius:99px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <div style="display:flex;align-items:center;gap:7px;"><div style="width:8px;height:8px;border-radius:2px;background:var(--green);"></div><span style="font-size:12px;font-weight:600;color:var(--ink-2);">QC — Quality Check</span></div>
+                <span style="font-size:12px;font-weight:700;color:var(--green);font-family:var(--f-mono);">${qcH}h</span>
+              </div>
+              <div style="height:6px;background:var(--border);border-radius:99px;overflow:hidden;"><div style="width:${pct(qcH)}%;height:100%;background:var(--green);border-radius:99px;"></div></div>
+            </div>
+          </div>
+          <div style="margin-top:14px;padding:8px 12px;background:rgba(0,40,104,0.04);border:1px solid rgba(0,40,104,0.1);border-radius:var(--r);font-size:11.5px;color:var(--ink-3);display:flex;align-items:center;gap:7px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Timings are estimates set by your CS team and may vary based on job complexity.
+          </div>
+        </div>
+      </div>`;
+      })()}
       <div class="modal-grid">
         <div>
           <div class="modal-section-title">Job Details</div>

@@ -3243,6 +3243,26 @@
       { ico: 'bot', bg: 'rgba(196,30,58,0.1)', text: 'AI QC report ready for J-2025-0047 — Score: 89/100, PASS.', time: '3h ago', read: true },
     ];
 
+    const TEAM = [
+      { id: 'U001', name: 'Priya Sharma',  initials: 'PS', role: 'cs',              roleLabel: 'Client Servicing',  status: 'available',   jobs: 2 },
+      { id: 'U002', name: 'Rohan Mehta',   initials: 'RM', role: 'cs',              roleLabel: 'Client Servicing',  status: 'busy',        jobs: 4 },
+      { id: 'U003', name: 'Ankit Verma',   initials: 'AV', role: 'tl',              roleLabel: 'Team Lead',         status: 'available',   jobs: 0 },
+      { id: 'U004', name: 'Kavya Reddy',   initials: 'KR', role: 'senior_designer', roleLabel: 'Senior Designer',   status: 'busy',        jobs: 2 },
+      { id: 'U005', name: 'Arjun Patel',   initials: 'AP', role: 'senior_designer', roleLabel: 'Senior Designer',   status: 'available',   jobs: 1 },
+      { id: 'U006', name: 'Rahul Nair',    initials: 'RN', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'in_progress', jobs: 1 },
+      { id: 'U007', name: 'Meena Das',     initials: 'MD', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'available',   jobs: 0 },
+      { id: 'U008', name: 'Suresh Kumar',  initials: 'SK', role: 'qc',              roleLabel: 'QC Reviewer',       status: 'available',   jobs: 3 },
+      { id: 'U009', name: 'Deepa Nair',    initials: 'DN', role: 'admin',           roleLabel: 'Admin',             status: 'available',   jobs: 0 },
+    ];
+
+    const CLIENTS = [
+      { id: 'C001', name: 'Ravi Kumar',    company: 'Ravi Textiles',  contact: '+91 98765 43210' },
+      { id: 'C002', name: 'Sunita Patel',  company: 'Star Garments',  contact: '+91 87654 32109' },
+      { id: 'C003', name: 'Mohammed Ali',  company: 'Heritage Caps',  contact: '+91 76543 21098' },
+      { id: 'C004', name: 'Preet Singh',   company: 'Blue Label Co.', contact: '+91 65432 10987' },
+      { id: 'C005', name: 'Meena Iyer',    company: 'Urban Threads',  contact: '+91 54321 09876' },
+    ];
+
     let currentDashRange = 'This Month';
 
     // Comprehensive mock data for all internal roles
@@ -3301,7 +3321,7 @@
     const ROLE_CFG = {
       cs: {
         label: 'Client Servicing', user: 'Jason Ranji', initials: 'JR',
-        nav: [{ s: 'Main', items: [{ ico: 'chart', lbl: 'Dashboard', pg: 'cs-dash', b: null }, { ico: 'inbox', lbl: 'New Jobs', pg: 'cs-new-jobs', b: '3' }, { ico: 'briefcase', lbl: 'All Projects', pg: 'cs-projects', b: null }, { ico: 'clipboard', lbl: 'Job Queue', pg: 'cs-queue', b: '2' }, { ico: 'package', lbl: 'Ready to Deliver', pg: 'cs-deliver', b: '1' }, { ico: 'refresh', lbl: 'Amendments', pg: 'cs-amend', b: '1' }] }, { s: 'Clients', items: [{ ico: 'users', lbl: 'Client Records', pg: 'cs-clients', b: null }] }]
+        nav: [{ s: 'Main', items: [{ ico: 'chart', lbl: 'Dashboard', pg: 'cs-dash', b: null }, { ico: 'inbox', lbl: 'New Quotes', pg: 'cs-new-quotes', b: '3' }, { ico: 'briefcase', lbl: 'New Jobs', pg: 'cs-new-jobs', b: '2' }, { ico: 'folder', lbl: 'All Projects', pg: 'cs-projects', b: null }, { ico: 'clipboard', lbl: 'Job Queue', pg: 'cs-queue', b: null }, { ico: 'package', lbl: 'Ready to Deliver', pg: 'cs-deliver', b: '1' }, { ico: 'refresh', lbl: 'Amendments', pg: 'cs-amend', b: '1' }] }, { s: 'Create', items: [{ ico: 'plus', lbl: 'New Quote', pg: 'cs-create-quote', b: null }, { ico: 'send', lbl: 'Place Order', pg: 'cs-place-order', b: null }] }, { s: 'Clients', items: [{ ico: 'users', lbl: 'Client Records', pg: 'cs-clients', b: null }] }]
       },
       teamlead: {
         label: 'Team Lead', user: 'Ankit Mehta', initials: 'AM',
@@ -3321,7 +3341,7 @@
       },
       admin: {
         label: 'Admin', user: 'Deepa Nair', initials: 'DN',
-        nav: [{ s: 'Administration', items: [{ ico: 'chart', lbl: 'Admin Dashboard', pg: 'admin-dash', b: null }, { ico: 'inbox', lbl: 'New Jobs', pg: 'admin-new-jobs', b: '3' }, { ico: 'briefcase', lbl: 'All Jobs', pg: 'admin-jobs', b: null }, { ico: 'users', lbl: 'Clients', pg: 'admin-clients', b: null }, { ico: 'lock', lbl: 'User Management', pg: 'admin-users', b: null }, { ico: 'report', lbl: 'Reports', pg: 'admin-reports', b: null }] }]
+        nav: [{ s: 'Administration', items: [{ ico: 'chart', lbl: 'Admin Dashboard', pg: 'admin-dash', b: null }, { ico: 'briefcase', lbl: 'New Jobs', pg: 'admin-new-jobs', b: '7' }, { ico: 'inbox', lbl: 'New Quotes', pg: 'admin-new-quotes', b: '6' }, { ico: 'folder', lbl: 'All Jobs', pg: 'admin-jobs', b: null }, { ico: 'users', lbl: 'Clients', pg: 'admin-clients', b: null }, { ico: 'lock', lbl: 'User Management', pg: 'admin-users', b: null }, { ico: 'report', lbl: 'Reports', pg: 'admin-reports', b: null }] }, { s: 'Create', items: [{ ico: 'plus', lbl: 'New Quote', pg: 'admin-create-quote', b: null }, { ico: 'send', lbl: 'Place Order', pg: 'admin-place-order', b: null }] }]
       },
     };
 
@@ -3363,7 +3383,8 @@
       bot: svgIcon('<path d="M9 8V6a3 3 0 0 1 6 0v2"></path><rect x="5" y="8" width="14" height="10" rx="3"></rect><path d="M9 13h.01M15 13h.01M8 18h8"></path>'),
       close: svgIcon('<path d="m6 6 12 12M18 6 6 18"></path>'),
       chat: svgIcon('<path d="M20 14a4 4 0 0 1-4 4H9l-5 3 1.5-4.5A4 4 0 0 1 4 14V8a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4z"></path>'),
-      filter: svgIcon('<path d="M4 6h16l-6 7v5l-4 2v-7z"></path>')
+      filter: svgIcon('<path d="M4 6h16l-6 7v5l-4 2v-7z"></path>'),
+      edit: svgIcon('<path d="M11 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5Z"></path>')
     };
     function icon(name, className = '') {
       return `<span class="${className ? `${className} ` : ''}ui-icon" aria-hidden="true">${ICONS[name] || ICONS.info}</span>`;
@@ -3631,6 +3652,176 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    /* ──────────── CS CREATE QUOTE / PLACE ORDER FORM ──────────── */
+    function csCreateForm(mode) {
+      const isOrder = mode === 'order';
+      const clientOptions = CLIENTS.map(c => `<option value="${c.id}">${c.company} — ${c.name} (${c.id})</option>`).join('');
+      return `
+      <div style="max-width:760px;margin:0 auto;">
+        <div class="greeting-hero" style="padding-bottom:0;">
+          <div class="greeting-title">${isOrder ? 'Place Order on Behalf of Client' : 'Create New Quote for Client'}</div>
+          <div class="greeting-sub">${isOrder ? 'Submit a confirmed order directly into the production pipeline.' : 'Create a quote request and route it to the client for approval.'}</div>
+        </div>
+        <div class="panel" style="margin-top:20px;padding:28px;">
+
+          <!-- SECTION 1: CLIENT -->
+          <div style="margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--glass-border);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+              <div style="width:26px;height:26px;border-radius:50%;background:var(--crimson);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;">1</div>
+              <div style="font-size:13.5px;font-weight:700;color:var(--text);letter-spacing:0.04em;text-transform:uppercase;">Client Details</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+              <div style="grid-column:1/-1;">
+                <label class="fl">Select Existing Client</label>
+                <select class="fi" id="cs-client-select" onchange="csClientSelected(this.value)" style="margin-bottom:10px;">
+                  <option value="">— Search or select an existing client —</option>
+                  ${clientOptions}
+                  <option value="new">+ Enter New Client</option>
+                </select>
+              </div>
+              <div id="cs-new-client-fields" style="display:none;grid-column:1/-1;">
+                <div style="background:rgba(196,30,58,0.04);border:1px dashed rgba(196,30,58,0.25);border-radius:10px;padding:16px;margin-bottom:4px;">
+                  <div style="font-size:11px;font-weight:600;color:var(--crimson);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;">New Client Information</div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                    <div><label class="fl">Client Name <span style="color:var(--crimson)">*</span></label><input class="fi" id="new-client-name" placeholder="e.g. Ravi Kumar"></div>
+                    <div><label class="fl">Company Name <span style="color:var(--crimson)">*</span></label><input class="fi" id="new-client-company" placeholder="e.g. Ravi Textiles Pvt. Ltd."></div>
+                    <div><label class="fl">Contact Number</label><input class="fi" id="new-client-contact" placeholder="+91 98765 43210"></div>
+                    <div><label class="fl">Email Address</label><input class="fi" id="new-client-email" type="email" placeholder="client@company.com"></div>
+                    <div><label class="fl">Location / City</label><input class="fi" id="new-client-city" placeholder="e.g. Hyderabad, Telangana"></div>
+                    <div><label class="fl">Payment Method</label><select class="fi" id="new-client-payment"><option>Bank Transfer</option><option>Credit</option><option>Cash</option><option>Card</option></select></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 2: ORDER TYPE -->
+          <div style="margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--glass-border);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+              <div style="width:26px;height:26px;border-radius:50%;background:var(--crimson);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;">2</div>
+              <div style="font-size:13.5px;font-weight:700;color:var(--text);letter-spacing:0.04em;text-transform:uppercase;">Select Order Type</div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;">
+              ${[['🎨','Artwork','Logo, Vector, Illustration','artwork'],['🧵','Digitizing','Embroidery conversion','digitizing'],['🪡','Swatches','Physical sample review','swatches'],['📦','Patches & Extras','Custom patches, Name drops','extras']].map(([emoji,name,desc,cat],i)=>`
+              <div class="cs-order-type${i===0?' selected':''}" data-cat="${cat}" onclick="csSelectOrderType(this)" style="border:1px solid ${i===0?'var(--crimson)':'var(--glass-border)'};border-radius:10px;padding:14px 10px;text-align:center;cursor:pointer;transition:var(--transition);background:${i===0?'rgba(196,30,58,0.08)':'rgba(255,255,255,0.02)'};">
+                <div style="font-size:22px;margin-bottom:6px;">${emoji}</div>
+                <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px;">${name}</div>
+                <div style="font-size:10.5px;color:var(--text-muted);">${desc}</div>
+              </div>`).join('')}
+            </div>
+            <div>
+              <label class="fl">Specific Service <span style="color:var(--crimson)">*</span></label>
+              <select class="fi" id="cs-service-type">
+                <option value="" disabled selected>Select specific service...</option>
+                <option>Logo Design / Vectorisation</option>
+                <option>Screen Print Artwork</option>
+                <option>Offset / Digital Print Artwork</option>
+                <option>Sublimation Artwork</option>
+                <option>Embroidery Digitizing</option>
+                <option>3D Puff Digitizing</option>
+                <option>Sewout Sample</option>
+                <option>Name Drop / Number Set</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- SECTION 3: JOB DETAILS -->
+          <div style="margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--glass-border);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+              <div style="width:26px;height:26px;border-radius:50%;background:var(--crimson);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;">3</div>
+              <div style="font-size:13.5px;font-weight:700;color:var(--text);letter-spacing:0.04em;text-transform:uppercase;">Job Details</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+              <div><label class="fl">Design Name <span style="color:var(--crimson)">*</span></label><input class="fi" id="cs-design-name" placeholder="e.g. Winter Collection Print"></div>
+              <div><label class="fl">Process Type</label><select class="fi" id="cs-process"><option value="">— Select —</option><option>Screen Printing</option><option>Digital Printing</option><option>Offset Printing</option><option>Sublimation</option><option>Flex Printing</option><option>Others</option></select></div>
+              <div><label class="fl">Design Complexity</label><select class="fi" id="cs-complexity"><option>Simple</option><option selected>Medium</option><option>Super Medium</option><option>Complex</option><option>Super Complex</option></select></div>
+              <div><label class="fl">Priority</label><select class="fi" id="cs-priority"><option selected>Normal</option><option>Rush</option><option>Super Rush</option></select></div>
+              <div><label class="fl">Number of Colors</label><input class="fi" type="number" id="cs-colors" value="4" min="1" max="12"></div>
+              <div><label class="fl">Expected Delivery (hours)</label><input class="fi" type="number" id="cs-eta" value="8" min="2"></div>
+              <div><label class="fl">${isOrder ? 'Agreed Price ($)' : 'Client Budget ($)'} <span style="color:var(--crimson)">*</span></label><input class="fi" type="number" id="cs-budget" placeholder="e.g. 150"></div>
+              <div><label class="fl">${isOrder ? 'Invoice Number' : 'Internal Reference Note'}</label><input class="fi" id="cs-ref-note" placeholder="${isOrder ? 'e.g. INV-2025-001' : 'Optional internal note'}"></div>
+              <div style="grid-column:1/-1;"><label class="fl">Design Brief / Description <span style="color:var(--crimson)">*</span></label><textarea class="fi fi-ta" id="cs-brief" style="min-height:90px;" placeholder="Describe the design requirements, color codes, reference links, and any specific instructions…"></textarea></div>
+            </div>
+          </div>
+
+          <!-- SECTION 4: ASSIGN DESIGNER (CS only — optional at creation) -->
+          <div style="margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--glass-border);">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+              <div style="width:26px;height:26px;border-radius:50%;background:var(--crimson);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;">4</div>
+              <div style="font-size:13.5px;font-weight:700;color:var(--text);letter-spacing:0.04em;text-transform:uppercase;">Assign to Designer <span style="font-size:10px;font-weight:500;color:var(--text-muted);text-transform:none;margin-left:4px;">(Optional — can be assigned later)</span></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+              ${TEAM.filter(m => m.role === 'senior_designer' || m.role === 'jr_designer').map(m => {
+                const statusColor = m.status === 'available' ? 'var(--green)' : m.status === 'busy' ? 'var(--crimson)' : 'var(--amber)';
+                const statusLabel = m.status === 'available' ? 'Available' : m.status === 'busy' ? 'Busy' : 'In Progress';
+                return `<label style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--glass-border);border-radius:8px;cursor:pointer;transition:var(--transition);" onmouseover="this.style.borderColor='rgba(196,30,58,0.4)'" onmouseout="this.style.borderColor='var(--glass-border)'">
+                  <input type="radio" name="cs-assign" value="${m.id}" style="accent-color:var(--crimson);">
+                  <div style="width:30px;height:30px;border-radius:50%;background:rgba(196,30,58,0.15);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--crimson);flex-shrink:0;">${m.initials}</div>
+                  <div style="flex:1;">
+                    <div style="font-size:12.5px;font-weight:600;color:var(--text);">${m.name}</div>
+                    <div style="font-size:11px;color:var(--text-muted);">${m.roleLabel}</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:5px;">
+                    <div style="width:6px;height:6px;border-radius:50%;background:${statusColor};flex-shrink:0;"></div>
+                    <span style="font-size:10.5px;color:${statusColor};">${statusLabel}</span>
+                  </div>
+                </label>`;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- SECTION 5: FILES -->
+          <div style="margin-bottom:24px;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+              <div style="width:26px;height:26px;border-radius:50%;background:var(--crimson);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0;">5</div>
+              <div style="font-size:13.5px;font-weight:700;color:var(--text);letter-spacing:0.04em;text-transform:uppercase;">Upload Reference Files</div>
+            </div>
+            <div onclick="showToast('File upload (demo)','info')" style="border:1.5px dashed rgba(196,30,58,0.3);border-radius:10px;padding:28px;text-align:center;cursor:pointer;transition:var(--transition);" onmouseover="this.style.borderColor='var(--crimson)';this.style.background='rgba(196,30,58,0.04)'" onmouseout="this.style.borderColor='rgba(196,30,58,0.3)';this.style.background='transparent'">
+              ${icon('download', 'panel-ico')}
+              <div style="font-size:13px;font-weight:600;color:var(--text);margin-top:8px;">Drop files here or <span style="color:var(--crimson)">browse</span></div>
+              <div style="font-size:11.5px;color:var(--text-muted);margin-top:4px;">PDF, AI, PSD, PNG, SVG, JPG, DST, EMB — max 500 MB per file</div>
+            </div>
+          </div>
+
+          <!-- ACTIONS -->
+          <div style="display:flex;gap:10px;justify-content:flex-end;padding-top:8px;border-top:1px solid var(--glass-border);">
+            <button class="btn btn-outline" onclick="showToast('Draft saved successfully','success')">${icon('save', 'btn-ico')}<span>Save Draft</span></button>
+            <button class="btn btn-crimson" onclick="csSubmitForm('${mode}')">${icon('send', 'btn-ico')}<span>${isOrder ? 'Submit Order' : 'Submit Quote Request'}</span></button>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    function csClientSelected(val) {
+      const newFields = document.getElementById('cs-new-client-fields');
+      if (newFields) newFields.style.display = val === 'new' ? 'contents' : 'none';
+    }
+
+    function csSelectOrderType(el) {
+      document.querySelectorAll('.cs-order-type').forEach(t => {
+        t.style.border = '1px solid var(--glass-border)';
+        t.style.background = 'rgba(255,255,255,0.02)';
+        t.classList.remove('selected');
+      });
+      el.style.border = '1px solid var(--crimson)';
+      el.style.background = 'rgba(196,30,58,0.08)';
+      el.classList.add('selected');
+    }
+
+    function csSubmitForm(mode) {
+      const clientSelect = document.getElementById('cs-client-select');
+      const designName = document.getElementById('cs-design-name');
+      const budget = document.getElementById('cs-budget');
+      const brief = document.getElementById('cs-brief');
+      if (!clientSelect?.value) { showToast('Please select or enter a client', 'error'); return; }
+      if (!designName?.value) { showToast('Design name is required', 'error'); return; }
+      if (!budget?.value) { showToast('Budget is required', 'error'); return; }
+      if (!brief?.value) { showToast('Design brief is required', 'error'); return; }
+      const newId = 'J-2025-00' + (50 + Math.floor(Math.random() * 10));
+      showToast(`${mode === 'order' ? 'Order' : 'Quote'} ${newId} created successfully!`, 'success');
+      setTimeout(() => navigateTo(mode === 'order' ? 'cs-new-jobs' : 'cs-new-quotes'), 900);
+    }
+
     /* ──────────── PAGES ──────────── */
     function buildPages() {
       return {
@@ -3657,16 +3848,16 @@
       <div class="two-col">
         <div>
           <div class="sec-header">
-            <div class="sec-title" style="color: #fcd34d;">New Quote Requests</div>
+            <div class="sec-title" style="color: #5eead4;">New Jobs</div>
             <span class="sec-action" onclick="navigateTo('cs-new-jobs')">View All →</span>
           </div>
-          ${jobTable(JOBS.filter(j => j.stage === 'quote').slice(0, 4))}
-          
+          ${jobTable(JOBS.filter(j => j.stage !== 'quote' && j.stage !== 'delivered').slice(0, 4))}
+
           <div class="sec-header" style="margin-top: 28px;">
-            <div class="sec-title">Recent Job Cards</div>
-            <span class="sec-action" onclick="navigateTo('cs-queue')">View all →</span>
+            <div class="sec-title" style="color: #fcd34d;">New Quote Requests</div>
+            <span class="sec-action" onclick="navigateTo('cs-new-quotes')">View All →</span>
           </div>
-          ${jobTable(JOBS.slice(0, 4))}
+          ${jobTable(JOBS.filter(j => j.stage === 'quote').slice(0, 4))}
         </div>
         <div>
           <div class="panel" style="position: relative; padding: 20px; overflow: hidden;">
@@ -3767,13 +3958,42 @@
         </div>
       </div>`,
 
-        'cs-new-jobs': `
+        'cs-new-quotes': `
+      <div class="greeting-hero">
+        <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+        <div class="greeting-title">New Quotes</div>
+        <div class="greeting-sub">Incoming quote requests from clients awaiting review and pricing.</div>
+      </div>
+      <div style="margin-bottom:14px;">${callout('info', 'These are quote requests submitted by clients. Review, set pricing and approve to move them into production.')}</div>
+      ${jobTable(JOBS.filter(j => j.stage === 'quote'))}`,
+
+        'cs-new-jobs': (() => {
+          const allJobs = JOBS.filter(j => j.stage !== 'quote' && j.stage !== 'delivered');
+          const inProd   = allJobs.filter(j => j.stage === 'junior');
+          const srRev    = allJobs.filter(j => j.stage === 'senior');
+          const inQc     = allJobs.filter(j => j.stage === 'qc');
+          const sewout   = allJobs.filter(j => j.stage === 'sewout');
+          return `
       <div class="greeting-hero">
         <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
         <div class="greeting-title">New Jobs</div>
-        <div class="greeting-sub">List of new quote requests and newly assigned jobs.</div>
+        <div class="greeting-sub">All active production jobs — track status, assign, and manage the pipeline.</div>
       </div>
-      ${jobTable(JOBS.filter(j => j.stage === 'quote'))}`,
+      <div class="stats-grid" style="margin-bottom:16px;">
+        <div class="stat-card teal"><div class="stat-label">Total Active</div><div class="stat-value" style="color:#5eead4">${allJobs.length}</div></div>
+        <div class="stat-card amber"><div class="stat-label">In Production</div><div class="stat-value" style="color:#fcd34d">${inProd.length}</div></div>
+        <div class="stat-card blue"><div class="stat-label">Senior Review</div><div class="stat-value" style="color:#93c5fd">${srRev.length}</div></div>
+        <div class="stat-card green"><div class="stat-label">In QC</div><div class="stat-value" style="color:#86efac">${inQc.length}</div></div>
+      </div>
+      <div class="pills" id="cs-jobs-pills" style="margin-bottom:16px;">
+        <span class="pill active" onclick="filterJobsPage('cs-jobs-pills','cs-jobs-table','all',this)">All (${allJobs.length})</span>
+        <span class="pill" onclick="filterJobsPage('cs-jobs-pills','cs-jobs-table','In Production',this)">In Production (${inProd.length})</span>
+        <span class="pill" onclick="filterJobsPage('cs-jobs-pills','cs-jobs-table','Senior Review',this)">Senior Review (${srRev.length})</span>
+        <span class="pill" onclick="filterJobsPage('cs-jobs-pills','cs-jobs-table','In QC',this)">In QC (${inQc.length})</span>
+        <span class="pill" onclick="filterJobsPage('cs-jobs-pills','cs-jobs-table','Sewout',this)">Sewout (${sewout.length})</span>
+      </div>
+      <div id="cs-jobs-table">${jobTable(allJobs)}</div>`;
+        })(),
 
         'cs-projects': `
       <div class="greeting-hero">
@@ -3814,6 +4034,9 @@
         </tbody></table>
       </div>`,
 
+
+        'cs-create-quote': csCreateForm('quote'),
+        'cs-place-order': csCreateForm('order'),
 
         'tl-dash': `
       <div class="greeting-hero" style="display:flex; justify-content:space-between; align-items:flex-end;">
@@ -3858,11 +4081,11 @@
         <table><thead><tr><th>Job ID</th><th>Design</th><th>Order Type</th><th>Complexity</th><th>Priority</th><th>Assign To</th><th></th></tr></thead>
         <tbody>
           <tr><td><span class="ref-code">J-2025-0048</span></td><td>Hoodie Print Design</td><td><span class="badge blue">Artwork</span></td><td><span class="badge gray">Medium</span></td><td><span class="priority-badge rush">Rush</span></td>
-            <td><select class="fi" style="width:160px;padding:6px 10px;font-size:12px;"><option>Junior Designer</option><option>Senior Designer</option></select></td>
-            <td><button class="btn btn-crimson" style="padding:6px 14px;font-size:11px;" onclick="showToast('Job assigned to Junior Designer!','success')">Assign</button></td></tr>
+            <td><span style="font-size:12px;color:var(--text-muted);">—</span></td>
+            <td><button class="btn btn-crimson" style="padding:6px 14px;font-size:11px;" onclick="openAssignModal('J-2025-0048')">${icon('user', 'btn-ico')}<span>Assign</span></button></td></tr>
           <tr><td><span class="ref-code">J-2025-0042</span></td><td>Brand Identity Pack</td><td><span class="badge blue">Artwork</span></td><td><span class="badge red">Super Complex</span></td><td><span class="priority-badge normal">Normal</span></td>
-            <td><select class="fi" style="width:160px;padding:6px 10px;font-size:12px;"><option>Junior Designer</option><option selected>Senior Designer</option></select></td>
-            <td><button class="btn btn-crimson" style="padding:6px 14px;font-size:11px;" onclick="showToast('Job assigned to Senior Designer!','success')">Assign</button></td></tr>
+            <td><span style="font-size:12px;color:var(--text-muted);">—</span></td>
+            <td><button class="btn btn-crimson" style="padding:6px 14px;font-size:11px;" onclick="openAssignModal('J-2025-0042')">${icon('user', 'btn-ico')}<span>Assign</span></button></td></tr>
         </tbody></table>
       </div>`,
 
@@ -3894,7 +4117,7 @@
           <div style="margin-top:16px;" class="panel">
             <div class="panel-title">J-2025-0047 — Workflow Status</div>
             <div class="wf-steps">
-              ${[['CS', 'Approved'], ['TL', 'Assigned'], ['Jr.', 'Executed'], ['Sr.', 'Reviewed'], ['QC', 'Review'], ['CS', 'Deliver']].map(([r, l], i) => `<div class="wf-step ${i < 4 ? 'done' : i === 4 ? 'cur' : ''}"><div class="wf-dot">${i < 4 ? icon('check-circle', 'btn-ico') : i === 4 ? icon('refresh', 'btn-ico') : ''}</div><div class="wf-lbl">${r}<br><span style="font-size:9px;color:var(--text-faint)">${l}</span></div></div>`).join('')}
+              ${[['CS', 'Created'], ['TL', 'Assigned'], ['Execution', 'In Progress'], ['QC', 'Review'], ['CS', 'Dispatch']].map(([r, l], i) => `<div class="wf-step ${i < 3 ? 'done' : i === 3 ? 'cur' : ''}"><div class="wf-dot">${i < 3 ? icon('check-circle', 'btn-ico') : i === 3 ? icon('refresh', 'btn-ico') : ''}</div><div class="wf-lbl">${r}<br><span style="font-size:9px;color:var(--text-faint)">${l}</span></div></div>`).join('')}
             </div>
             <div style="padding:9px 13px;background:rgba(196,30,58,0.06);border:1px solid rgba(196,30,58,0.15);border-radius:7px;font-size:12px;color:var(--text-muted)">${icon('lock', 'callout-ico')}<span>Job submitted to QC. You'll be notified if revisions are required.</span></div>
           </div>
@@ -3927,7 +4150,7 @@
           <div class="panel">
             <div class="panel-title">Workflow Status</div>
             <div class="wf-steps">
-              ${[['CS', 'Approved'], ['TL', 'Assigned'], ['Jr.', 'In Progress'], ['TL', 'Review'], ['QC', 'Review'], ['CS', 'Deliver']].map(([r, l], i) => `<div class="wf-step ${i < 2 ? 'done' : i === 2 ? 'cur' : ''}"><div class="wf-dot">${i < 2 ? icon('check-circle', 'btn-ico') : i === 2 ? icon('refresh', 'btn-ico') : ''}</div><div class="wf-lbl">${r}<br><span style="font-size:9px;color:var(--text-faint)">${l}</span></div></div>`).join('')}
+              ${[['CS', 'Created'], ['TL', 'Assigned'], ['Execution', 'In Progress'], ['QC', 'Review'], ['CS', 'Dispatch']].map(([r, l], i) => `<div class="wf-step ${i < 2 ? 'done' : i === 2 ? 'cur' : ''}"><div class="wf-dot">${i < 2 ? icon('check-circle', 'btn-ico') : i === 2 ? icon('refresh', 'btn-ico') : ''}</div><div class="wf-lbl">${r}<br><span style="font-size:9px;color:var(--text-faint)">${l}</span></div></div>`).join('')}
             </div>
             <div style="padding:9px 13px;background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.15);border-radius:7px;font-size:12px;color:var(--text-muted)">Your completed work is sent to the <strong style="color:#93c5fd">Team Lead</strong> for verification before it reaches QC.</div>
           </div>
@@ -4110,19 +4333,19 @@
       <div class="two-col">
         <!-- LEFT COLUMN: Jobs Tables -->
         <div>
-          <!-- NEW: Pending Quotes Section -->
+          <!-- New Jobs Section (production jobs) -->
           <div class="sec-header">
-            <div class="sec-title" style="color: #fcd34d;">New Quote Requests</div>
+            <div class="sec-title" style="color: #5eead4;">New Jobs</div>
             <span class="sec-action" onclick="navigateTo('admin-new-jobs')">View All →</span>
           </div>
-          ${jobTable(JOBS.filter(j => j.stage === 'quote').slice(0, 4))}
-          
-          <!-- EXISTING: Active Jobs (Pushed Down) -->
-          <div class="sec-header" style="margin-top: 28px;">
-            <div class="sec-title">All Active Jobs</div>
-            <span class="sec-action" onclick="navigateTo('admin-jobs')">View all &rarr;</span>
-          </div>
           ${jobTable(JOBS.filter(j => j.stage !== 'quote' && j.stage !== 'delivered').slice(0, 4))}
+
+          <!-- New Quote Requests Section -->
+          <div class="sec-header" style="margin-top: 28px;">
+            <div class="sec-title" style="color: #fcd34d;">New Quote Requests</div>
+            <span class="sec-action" onclick="navigateTo('admin-new-quotes')">View All →</span>
+          </div>
+          ${jobTable(JOBS.filter(j => j.stage === 'quote').slice(0, 4))}
         </div>
         <div>
           <div class="panel" style="position: relative; padding: 20px; overflow: hidden;">
@@ -4141,7 +4364,7 @@
                     <span style="font-size: 12px; color: var(--ink-2); font-weight: 500;">In Production</span>
                     <span style="font-size: 12px; font-weight: 700; color: var(--ink); margin-left: auto;">4</span>
                   </div>
-                  <div style="display: flex; align-items: center; gap: 8px;">
+                  <div style="display: flex; align-items: center; gap: 8px;"
                     <div style="width: 8px; height: 8px; border-radius: 2px; background: var(--amber);"></div>
                     <span style="font-size: 12px; color: var(--ink-2); font-weight: 500;">In QC</span>
                     <span style="font-size: 12px; font-weight: 700; color: var(--ink); margin-left: auto;">1</span>
@@ -4237,13 +4460,63 @@
       </div>
       ${jobTable(JOBS)}`,
 
-        'admin-new-jobs': `
+        'admin-new-jobs': (() => {
+          const allJobs = JOBS.filter(j => j.stage !== 'quote' && j.stage !== 'delivered');
+          const inProd  = allJobs.filter(j => j.stage === 'junior');
+          const srRev   = allJobs.filter(j => j.stage === 'senior');
+          const inQc    = allJobs.filter(j => j.stage === 'qc');
+          const sewout  = allJobs.filter(j => j.stage === 'sewout');
+          return `
       <div class="greeting-hero">
         <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
         <div class="greeting-title">New Jobs</div>
-        <div class="greeting-sub">List of new quote requests and newly assigned jobs.</div>
+        <div class="greeting-sub">All active production jobs across the platform — monitor, assign, and track progress.</div>
       </div>
-      ${jobTable(JOBS.filter(j => j.stage === 'quote'))}`,
+      <div class="stats-grid" style="margin-bottom:16px;">
+        <div class="stat-card teal"><div class="stat-label">Total Active</div><div class="stat-value" style="color:#5eead4">${allJobs.length}</div></div>
+        <div class="stat-card amber"><div class="stat-label">In Production</div><div class="stat-value" style="color:#fcd34d">${inProd.length}</div></div>
+        <div class="stat-card blue"><div class="stat-label">Senior Review</div><div class="stat-value" style="color:#93c5fd">${srRev.length}</div></div>
+        <div class="stat-card green"><div class="stat-label">In QC / Sewout</div><div class="stat-value" style="color:#86efac">${inQc.length + sewout.length}</div></div>
+      </div>
+      <div class="pills" id="admin-jobs-pills" style="margin-bottom:16px;">
+        <span class="pill active" onclick="filterJobsPage('admin-jobs-pills','admin-jobs-table','all',this)">All (${allJobs.length})</span>
+        <span class="pill" onclick="filterJobsPage('admin-jobs-pills','admin-jobs-table','In Production',this)">In Production (${inProd.length})</span>
+        <span class="pill" onclick="filterJobsPage('admin-jobs-pills','admin-jobs-table','Senior Review',this)">Senior Review (${srRev.length})</span>
+        <span class="pill" onclick="filterJobsPage('admin-jobs-pills','admin-jobs-table','In QC',this)">In QC (${inQc.length})</span>
+        <span class="pill" onclick="filterJobsPage('admin-jobs-pills','admin-jobs-table','Sewout',this)">Sewout (${sewout.length})</span>
+      </div>
+      <div id="admin-jobs-table">${jobTable(allJobs)}</div>`;
+        })(),
+
+        'admin-new-quotes': (() => {
+          const allQuotes = JOBS.filter(j => j.stage === 'quote');
+          const artQuotes = allQuotes.filter(j => j.order === 'Artwork');
+          const digQuotes = allQuotes.filter(j => j.order.includes('Digitizing'));
+          const rushQuotes = allQuotes.filter(j => j.priority === 'Rush' || j.priority === 'Super Rush');
+          return `
+      <div class="greeting-hero">
+        <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+        <div class="greeting-title">New Quote Requests</div>
+        <div class="greeting-sub">Incoming quote requests from clients. Review, negotiate pricing, and approve to move into production.</div>
+      </div>
+      <div class="stats-grid" style="margin-bottom:16px;">
+        <div class="stat-card crimson"><div class="stat-label">Total Pending</div><div class="stat-value" style="color:#ff8a95">${allQuotes.length}</div></div>
+        <div class="stat-card blue"><div class="stat-label">Artwork</div><div class="stat-value" style="color:#93c5fd">${artQuotes.length}</div></div>
+        <div class="stat-card teal"><div class="stat-label">Digitizing</div><div class="stat-value" style="color:#5eead4">${digQuotes.length}</div></div>
+        <div class="stat-card amber"><div class="stat-label">Rush / Priority</div><div class="stat-value" style="color:#fcd34d">${rushQuotes.length}</div></div>
+      </div>
+      <div class="pills" id="admin-quotes-pills" style="margin-bottom:16px;">
+        <span class="pill active" onclick="filterJobsPage('admin-quotes-pills','admin-quotes-table','all',this)">All (${allQuotes.length})</span>
+        <span class="pill" onclick="filterJobsPage('admin-quotes-pills','admin-quotes-table','Artwork',this)">Artwork (${artQuotes.length})</span>
+        <span class="pill" onclick="filterJobsPage('admin-quotes-pills','admin-quotes-table','Digitizing',this)">Digitizing (${digQuotes.length})</span>
+        <span class="pill" onclick="filterJobsPage('admin-quotes-pills','admin-quotes-table','Rush',this)">Rush / Priority (${rushQuotes.length})</span>
+      </div>
+      <div style="margin-bottom:14px;">${callout('info', 'Review each quote, set your counter-offer price, and approve to move the job into the production pipeline.')}</div>
+      <div id="admin-quotes-table">${jobTable(allQuotes)}</div>`;
+        })(),
+
+        'admin-create-quote': csCreateForm('quote'),
+        'admin-place-order': csCreateForm('order'),
 
         'admin-jobs': `
       <div class="pills"><span class="pill active">All (${JOBS.length})</span><span class="pill">Artwork (3)</span><span class="pill">Digitizing (2)</span><span class="pill">+Sewout (2)</span></div>
@@ -4374,6 +4647,18 @@
   </div>`;
     }
 
+    function filterJobsPage(pillsId, tableId, filter, clickedPill) {
+      const pillsEl = document.getElementById(pillsId);
+      if (pillsEl) pillsEl.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      if (clickedPill) clickedPill.classList.add('active');
+      const tableEl = document.getElementById(tableId);
+      if (!tableEl) return;
+      const match = (el) => filter === 'all' || el.textContent.includes(filter);
+      tableEl.querySelectorAll('.table-view tbody tr').forEach(r => { r.style.display = match(r) ? '' : 'none'; });
+      tableEl.querySelectorAll('.grid-view .job-card').forEach(c => { c.style.display = match(c) ? '' : 'none'; });
+      tableEl.querySelectorAll('.list-view .list-item').forEach(i => { i.style.display = match(i) ? '' : 'none'; });
+    }
+
     function setJobView(view, btn) {
       const root = btn.closest('.jobs-root');
       if (!root) return;
@@ -4403,8 +4688,10 @@
       const isQC = currentRole === 'qc';
       const isCS = currentRole === 'cs' || currentRole === 'admin';
       const hasSewout = j.order.includes('Sewout');
-      const steps = hasSewout ? [['CS', 'Approved'], ['TL', 'Assigned'], ['Jr.', 'Executed'], ['Sr.', 'Reviewed'], ['Sewout', 'Done'], ['QC', 'Review'], ['CS', 'Deliver']] : [['CS', 'Approved'], ['TL', 'Assigned'], ['Jr.', 'Executed'], ['Sr.', 'Reviewed'], ['QC', 'Review'], ['CS', 'Deliver']];
-      const stageIdx = { quote: 0, junior: 2, senior: 3, sewout: 4, qc: hasSewout ? 5 : 4, delivered: hasSewout ? 6 : 5 };
+      const steps = hasSewout
+        ? [['CS', 'Created'], ['TL', 'Assigned'], ['Execution', j.eta ? `ETA: ${j.eta}` : 'In Progress'], ['Sewout', 'Pending'], ['QC', 'Review'], ['CS', 'Dispatch']]
+        : [['CS', 'Created'], ['TL', 'Assigned'], ['Execution', j.eta ? `ETA: ${j.eta}` : 'In Progress'], ['QC', 'Review'], ['CS', 'Dispatch']];
+      const stageIdx = { quote: 0, junior: 2, senior: 2, sewout: 3, qc: hasSewout ? 4 : 3, delivered: hasSewout ? 5 : 4 };
       const cur = stageIdx[j.stage] ?? 0;
       const images = jobImages(j, 3);
       content.innerHTML = `
@@ -4482,19 +4769,22 @@
         <button class="btn btn-red" onclick="showToast('Job rejected','error'); closeModal()">Reject</button>
         <button class="btn btn-green" onclick="showToast('Client price approved! Routed to CS.','success'); closeModal()">${icon('check-circle', 'btn-ico')}<span>Approve Job</span></button>
       ` : ''}
-      ${isCS && j.stage === 'qc' ? `<button class="btn btn-crimson" onclick="showToast('Files delivered to client!','success');closeModal()">${icon('package', 'btn-ico')}<span>Deliver to Client</span></button>` : ''}
-      ${isQC && j.stage === 'qc' ? `<button class="btn btn-red" onclick="toggleReject()">Reject</button><button class="btn btn-green" onclick="showToast('Job approved! Routed to CS.','success');closeModal()">${icon('check-circle', 'btn-ico')}<span>Approve</span></button>` : ''}
-      ${currentRole === 'teamlead' && (j.stage === 'quote' || !j.assignedTo) ? `<button class="btn btn-crimson" onclick="showToast('Assignment panel opened (demo)','info')">${icon('user', 'btn-ico')}<span>Assign Job</span></button>` : ''}
+      ${(currentRole === 'cs' || currentRole === 'admin') ? `<button class="btn btn-crimson" onclick="closeModal();setTimeout(()=>openAssignModal('${j.id}'),100)">${icon('user', 'btn-ico')}<span>Assign Job</span></button>` : ''}
+      ${isCS && j.stage === 'qc' ? `<button class="btn btn-crimson" onclick="showToast('Files delivered to client!','success');closeModal()">${icon('package', 'btn-ico')}<span>Dispatch to Client</span></button>` : ''}
+      ${isQC && j.stage === 'qc' ? `<button class="btn btn-red" onclick="toggleReject()">Reject</button><button class="btn btn-green" onclick="showToast('Job approved! Routed to CS for dispatch.','success');closeModal()">${icon('check-circle', 'btn-ico')}<span>Approve</span></button>` : ''}
+      ${currentRole === 'teamlead' ? `<button class="btn btn-crimson" onclick="closeModal();setTimeout(()=>openAssignModal('${j.id}'),100)">${icon('user', 'btn-ico')}<span>Assign Job</span></button>` : ''}
       ${currentRole === 'teamlead' && j.subType === 'Junior' && j.stage === 'junior' ? `
         <button class="btn btn-red" onclick="showToast('Sent back to Junior Designer for revisions.','error'); closeModal()">Request Revisions</button>
         <button class="btn btn-green" onclick="showToast('Verified! Submitted to QC.','success'); closeModal()">${icon('check-circle', 'btn-ico')}<span>Submit to QC</span></button>
       ` : ''}
       ${currentRole === 'jr_designer' ? `
+        ${!j.designerETA ? `<button class="btn btn-outline" onclick="openStartJobModal('${j.id}')">${icon('gear', 'btn-ico')}<span>Start Job</span></button>` : `<span style="font-size:11.5px;color:var(--amber);margin-right:8px;">ETA: ${j.designerETA}h</span>`}
         <button class="btn btn-crimson" onclick="showToast('Work submitted to Team Lead for verification!','success'); closeModal()">
           ${icon('send', 'btn-ico')}<span>Submit to Team Lead</span>
         </button>
       ` : ''}
       ${currentRole === 'designer' ? `
+        ${!j.designerETA ? `<button class="btn btn-outline" onclick="openStartJobModal('${j.id}')">${icon('gear', 'btn-ico')}<span>Start Job</span></button>` : `<span style="font-size:11.5px;color:var(--amber);margin-right:8px;">ETA: ${j.designerETA}h</span>`}
         <button class="btn btn-crimson" onclick="showToast('Work submitted directly to QC!','success'); closeModal()">
           ${icon('send', 'btn-ico')}<span>Submit to QC</span>
         </button>
@@ -4508,6 +4798,12 @@
       if (!j) { showToast('Loading job editor...', 'info'); return; }
       const overlay = document.getElementById('modal-overlay');
       const content = document.getElementById('modal-content');
+      const isAdmin = currentRole === 'admin';
+      const pOpts = ['Normal','Rush','Super Rush'].map(p => `<option${j.priority===p?' selected':''}>${p}</option>`).join('');
+      const sOpts = ['Quote Submitted','In Production','Senior Review','Sewout','In QC','Delivered'].map(s => `<option${j.status===s?' selected':''}>${s}</option>`).join('');
+      const cOpts = ['Simple','Medium','Super Medium','Complex','Super Complex'].map(c => `<option${j.complexity===c?' selected':''}>${c}</option>`).join('');
+      const prOpts = ['Screen Printing','Digital Printing','Offset Printing','Sublimation','Flex Printing','Others'].map(p => `<option${j.process===p?' selected':''}>${p}</option>`).join('');
+      const oOpts = ['Artwork','Digitizing','Digitizing + Sewout','Sewout'].map(o => `<option${j.order===o?' selected':''}>${o}</option>`).join('');
       content.innerHTML = `
     <div class="modal-top">
       <div style="flex:1">
@@ -4520,25 +4816,184 @@
     <div class="modal-body">
       <div class="modal-grid">
         <div>
-          <div class="m-sec-title">Editable Fields</div>
+          <div class="m-sec-title">Job Information</div>
           <div style="display:grid;gap:10px;">
-            <label class="fl" style="display:block;">Design Name<input class="fi" value="${j.design}" id="edit-design"></label>
-            <label class="fl" style="display:block;">Priority<select class="fi" id="edit-priority"><option${j.priority === 'Normal' ? ' selected' : ''}>Normal</option><option${j.priority === 'Rush' ? ' selected' : ''}>Rush</option><option${j.priority === 'Super Rush' ? ' selected' : ''}>Super Rush</option></select></label>
-            <label class="fl" style="display:block;">Status<select class="fi" id="edit-status"><option${j.status === 'Quote Submitted' ? ' selected' : ''}>Quote Submitted</option><option${j.status === 'In Production' ? ' selected' : ''}>In Production</option><option${j.status === 'Senior Review' ? ' selected' : ''}>Senior Review</option><option${j.status === 'Sewout' ? ' selected' : ''}>Sewout</option><option${j.status === 'In QC' ? ' selected' : ''}>In QC</option><option${j.status === 'Delivered' ? ' selected' : ''}>Delivered</option></select></label>
+            <div><label class="fl">Design Name</label><input class="fi" value="${j.design}" id="edit-design"></div>
+            <div><label class="fl">Client</label><input class="fi" value="${j.client}" id="edit-client"></div>
+            <div><label class="fl">Order Type</label><select class="fi" id="edit-order">${oOpts}</select></div>
+            <div><label class="fl">Process Type</label><select class="fi" id="edit-process"><option value="">—</option>${prOpts}</select></div>
+            <div><label class="fl">Complexity</label><select class="fi" id="edit-complexity">${cOpts}</select></div>
+            <div><label class="fl">Priority</label><select class="fi" id="edit-priority">${pOpts}</select></div>
+            <div><label class="fl">Status</label><select class="fi" id="edit-status">${sOpts}</select></div>
+            <div><label class="fl">ETA (hours)</label><input class="fi" type="number" value="${j.eta ? j.eta.replace('h','') : ''}" id="edit-eta" min="1"></div>
+            <div><label class="fl">Number of Colors</label><input class="fi" type="number" value="${j.colors || ''}" id="edit-colors" min="1" max="12"></div>
           </div>
         </div>
         <div>
-          <div class="m-sec-title">Edit Notes</div>
-          <textarea class="fi fi-ta" id="edit-notes" style="min-height:180px;">${j.notes}</textarea>
+          <div class="m-sec-title">Pricing ${isAdmin ? '' : '& Notes'}</div>
+          <div style="display:grid;gap:10px;margin-bottom:14px;">
+            <div><label class="fl">Client Budget ($)</label><input class="fi" type="number" value="${j.clientPrice || ''}" id="edit-client-price" placeholder="Client proposed budget"></div>
+            <div><label class="fl">Admin Counter-Offer ($)</label><input class="fi" type="number" value="${j.adminPrice || ''}" id="edit-admin-price" placeholder="Agency counter-offer"></div>
+            <div><label class="fl">Agreed / Final Price ($)</label><input class="fi" type="number" value="${j.agreedPrice || ''}" id="edit-agreed-price" placeholder="Final agreed price"></div>
+          </div>
+          <div class="m-sec-title">Notes / Brief</div>
+          <textarea class="fi fi-ta" id="edit-notes" style="min-height:130px;">${j.notes}</textarea>
         </div>
       </div>
     </div>
     <div class="modal-actions">
       <button class="btn btn-outline" onclick="openJob('${j.id}')">${icon('close', 'btn-ico')}<span>Back</span></button>
-      <button class="btn btn-crimson" onclick="showToast('Job saved (demo)','success');closeModal();">${icon('save', 'btn-ico')}<span>Save Job</span></button>
+      <button class="btn btn-crimson" onclick="saveEditJob('${j.id}')">${icon('save', 'btn-ico')}<span>Save Changes</span></button>
     </div>`;
       overlay.classList.add('open');
     }
+
+    function saveEditJob(id) {
+      const j = JOBS.find(x => x.id === id);
+      if (!j) return;
+      j.design    = document.getElementById('edit-design')?.value || j.design;
+      j.client    = document.getElementById('edit-client')?.value || j.client;
+      j.order     = document.getElementById('edit-order')?.value || j.order;
+      j.process   = document.getElementById('edit-process')?.value || j.process;
+      j.complexity= document.getElementById('edit-complexity')?.value || j.complexity;
+      j.priority  = document.getElementById('edit-priority')?.value || j.priority;
+      j.status    = document.getElementById('edit-status')?.value || j.status;
+      const etaVal= document.getElementById('edit-eta')?.value;
+      if (etaVal) j.eta = etaVal + 'h';
+      const colorsVal = document.getElementById('edit-colors')?.value;
+      if (colorsVal) j.colors = parseInt(colorsVal);
+      const cpVal = document.getElementById('edit-client-price')?.value;
+      if (cpVal) j.clientPrice = parseFloat(cpVal);
+      const apVal = document.getElementById('edit-admin-price')?.value;
+      if (apVal) j.adminPrice = parseFloat(apVal);
+      const agVal = document.getElementById('edit-agreed-price')?.value;
+      if (agVal) j.agreedPrice = parseFloat(agVal);
+      j.notes = document.getElementById('edit-notes')?.value || j.notes;
+      showToast('Job ' + id + ' saved successfully', 'success');
+      setTimeout(() => closeModal(), 400);
+    }
+    function openAssignModal(jobId) {
+      const j = JOBS.find(x => x.id === jobId);
+      if (!j) return;
+      const overlay = document.getElementById('modal-overlay');
+      const content = document.getElementById('modal-content');
+      const roleGroups = [
+        { label: 'Team Lead', roles: ['tl'] },
+        { label: 'Senior Designer', roles: ['senior_designer'] },
+        { label: 'Junior Designer', roles: ['jr_designer'] },
+        { label: 'Client Servicing', roles: ['cs'] },
+        { label: 'QC Reviewer', roles: ['qc'] },
+        { label: 'Admin', roles: ['admin'] },
+      ];
+      const statusColor = { available: 'var(--green)', busy: 'var(--crimson)', in_progress: 'var(--amber)' };
+      const statusLabel = { available: 'Available', busy: 'Busy', in_progress: 'In Progress' };
+      const rows = roleGroups.map(g => {
+        const members = TEAM.filter(m => g.roles.includes(m.role));
+        if (!members.length) return '';
+        return `
+        <div style="margin-bottom:16px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-faint);margin-bottom:8px;padding-left:2px;">${g.label}</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            ${members.map(m => `
+            <label style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--glass-border);border-radius:8px;cursor:pointer;transition:var(--transition);" onmouseover="this.style.borderColor='rgba(196,30,58,0.4)'" onmouseout="this.style.borderColor='var(--glass-border)'">
+              <input type="radio" name="assign-person" value="${m.id}" style="accent-color:var(--crimson);flex-shrink:0;">
+              <div style="width:32px;height:32px;border-radius:50%;background:rgba(196,30,58,0.12);border:1px solid rgba(196,30,58,0.2);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--crimson);flex-shrink:0;">${m.initials}</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:12.5px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${m.name}</div>
+                <div style="font-size:10.5px;color:var(--text-muted);">${m.jobs} active job${m.jobs !== 1 ? 's' : ''}</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;flex-shrink:0;">
+                <div style="width:6px;height:6px;border-radius:50%;background:${statusColor[m.status]};"></div>
+                <span style="font-size:10px;color:${statusColor[m.status]};">${statusLabel[m.status]}</span>
+              </div>
+            </label>`).join('')}
+          </div>
+        </div>`;
+      }).join('');
+      content.innerHTML = `
+    <div class="modal-top">
+      <div style="flex:1">
+        <div class="modal-job-id">${j.id} &nbsp;·&nbsp; Assign Job</div>
+        <div class="modal-title">${j.design}</div>
+        <div class="modal-tags">${oBadge(j.order)} <span class="badge gray">${j.client}</span> ${pBadge(j.priority)}</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">${icon('close', 'btn-ico')}</button>
+    </div>
+    <div class="modal-body">
+      <div style="margin-bottom:14px;padding:10px 14px;background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.2);border-radius:8px;font-size:12px;color:var(--text-muted);">
+        ${icon('info', 'callout-ico')}<span style="margin-left:8px;">Select one team member to assign this job. Their status is shown in real-time.</span>
+      </div>
+      ${rows}
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal()">${icon('close', 'btn-ico')}<span>Cancel</span></button>
+      <button class="btn btn-crimson" onclick="confirmAssign('${jobId}')">${icon('user', 'btn-ico')}<span>Confirm Assignment</span></button>
+    </div>`;
+      overlay.classList.add('open');
+    }
+
+    function confirmAssign(jobId) {
+      const sel = document.querySelector('input[name="assign-person"]:checked');
+      if (!sel) { showToast('Please select a team member to assign', 'error'); return; }
+      const member = TEAM.find(m => m.id === sel.value);
+      if (!member) return;
+      const j = JOBS.find(x => x.id === jobId);
+      if (j) { j.assignedTo = member.name; j.subType = member.role === 'senior_designer' ? 'Senior' : member.role === 'jr_designer' ? 'Junior' : member.roleLabel; }
+      showToast(`Job ${jobId} assigned to ${member.name}`, 'success');
+      setTimeout(() => closeModal(), 400);
+    }
+
+    function openStartJobModal(jobId) {
+      const j = JOBS.find(x => x.id === jobId);
+      if (!j) return;
+      const overlay = document.getElementById('modal-overlay');
+      const content = document.getElementById('modal-content');
+      content.innerHTML = `
+    <div class="modal-top">
+      <div style="flex:1">
+        <div class="modal-job-id">${j.id} &nbsp;·&nbsp; Start Job</div>
+        <div class="modal-title">${j.design}</div>
+        <div class="modal-tags">${oBadge(j.order)} ${pBadge(j.priority)}</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">${icon('close', 'btn-ico')}</button>
+    </div>
+    <div class="modal-body">
+      <div style="padding:16px;background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.18);border-radius:10px;margin-bottom:20px;font-size:12.5px;color:var(--text-muted);line-height:1.6;">
+        ${icon('info', 'callout-ico')}<span style="margin-left:8px;">Before starting, please enter your estimated time to complete this job. This will be visible to CS and the Team Lead.</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+        <div>
+          <label class="fl">Estimated Hours to Complete <span style="color:var(--crimson)">*</span></label>
+          <input class="fi" type="number" id="designer-eta-input" placeholder="e.g. 6" min="0.5" step="0.5" style="font-size:18px;text-align:center;">
+        </div>
+        <div>
+          <label class="fl">Notes / Queries (optional)</label>
+          <textarea class="fi fi-ta" id="designer-start-note" placeholder="Any clarifications needed before starting?" style="min-height:60px;"></textarea>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid var(--glass-border);border-radius:8px;padding:12px;font-size:12px;color:var(--text-muted);">
+        <div class="f-row" style="border:none;padding-top:0;"><div class="f-key">Client</div><div class="f-val">${j.client}</div></div>
+        <div class="f-row" style="border:none;"><div class="f-key">Complexity</div><div class="f-val">${j.complexity}</div></div>
+        <div class="f-row" style="border:none;"><div class="f-key">Priority</div><div class="f-val">${j.priority}</div></div>
+        <div class="f-row" style="border:none;"><div class="f-key">Job ETA (target)</div><div class="f-val">${j.eta}</div></div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal()">${icon('close', 'btn-ico')}<span>Cancel</span></button>
+      <button class="btn btn-crimson" onclick="confirmStartJob('${j.id}')">${icon('gear', 'btn-ico')}<span>Start Job</span></button>
+    </div>`;
+      overlay.classList.add('open');
+    }
+
+    function confirmStartJob(jobId) {
+      const etaInput = document.getElementById('designer-eta-input');
+      if (!etaInput?.value) { showToast('Please enter your estimated hours', 'error'); return; }
+      const j = JOBS.find(x => x.id === jobId);
+      if (j) { j.designerETA = etaInput.value; j.eta = etaInput.value + 'h'; }
+      showToast('Job started! ETA of ' + etaInput.value + 'h recorded.', 'success');
+      setTimeout(() => closeModal(), 400);
+    }
+
     function closeModal(e) {
       if (e && e.target !== document.getElementById('modal-overlay')) return;
       document.getElementById('modal-overlay').classList.remove('open');
