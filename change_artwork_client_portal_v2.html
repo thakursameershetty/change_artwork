@@ -1266,6 +1266,28 @@
       background: var(--ink-4);
     }
 
+    .badge-action {
+      background: #FEF3C7;
+      color: #92400E;
+      border: 1px solid #FCD34D;
+      animation: pulse-action 2s ease-in-out infinite;
+    }
+
+    .badge-action::before {
+      background: #D97706;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-action {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.3); }
+      50% { box-shadow: 0 0 0 4px rgba(217, 119, 6, 0); }
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
     .prio-badge {
       padding: 2px 8px;
       border-radius: 4px;
@@ -3585,7 +3607,7 @@
   <script>
     /* ──── DATA ──── */
     const JOBS = [
-      { id: 'J-2025-0050', ref: '05-06-2025-C001-050', design: 'Winter Collection Print', summary: '4-color CMYK print for winter collection.', order: 'Artwork', project: 'Quote', complexity: 'Medium', process: 'Screen Printing', priority: 'Normal', eta: '8h', status: 'Quote Submitted', stage: 1, notes: '4-color CMYK print for winter collection. Primary brand blue #1E3A5F. Avoid white backgrounds on outer panels.', colors: 4, created: 'May 06, 2025', assignedTo: null, aiScore: null, clientPrice: 150, adminPrice: 180, agreedPrice: null },
+      { id: 'J-2025-0050', ref: '05-06-2025-C001-050', design: 'Winter Collection Print', summary: '4-color CMYK print for winter collection.', order: 'Artwork', project: 'Quote', complexity: 'Medium', process: 'Screen Printing', priority: 'Normal', eta: '8h', status: 'Quote Approved', stage: 1, notes: '4-color CMYK print for winter collection. Primary brand blue #1E3A5F. Avoid white backgrounds on outer panels.', colors: 4, created: 'May 06, 2025', assignedTo: null, aiScore: null, csPrice: 180, agreedPrice: null },
       { id: 'J-2025-0047', ref: '04-30-2025-C001-047-A', design: 'Corporate Logo Set', summary: 'Logo lockups, export-ready vectors, and brand-safe color checks.', order: 'Artwork', project: 'Live', complexity: 'Complex', process: 'Screen Printing', priority: 'Rush', eta: '8h', status: 'In QC', stage: 4, notes: 'Pantone 286C for navy. All text must be vectorised. Refer to attached brand guide.', colors: 4, created: 'Apr 30, 2025', assignedTo: 'Kavya Reddy', aiScore: { colour: 88, align: 92, res: 85, brief: 90 } },
       { id: 'J-2025-0044', ref: '04-27-2025-C001-044', design: 'Summer Collection Flyer', summary: 'Promotional flyer layout with warmer product photography tones.', order: 'Artwork', project: 'Amend', complexity: 'Simple', process: 'Digital Printing', priority: 'Normal', eta: '4h', status: 'In Production', stage: 2, notes: 'Color tone adjustment on product images. Client requested warmer tones.', colors: 2, created: 'Apr 27, 2025', assignedTo: 'Rahul Nair', aiScore: null },
       { id: 'J-2025-0043', ref: '04-26-2025-C001-043', design: 'Winter Jacket Tags', summary: 'Production-ready garment tags with clean print alignment.', order: 'Artwork', project: 'Live', complexity: 'Simple', process: 'Offset Printing', priority: 'Normal', eta: '—', status: 'Delivered', stage: 6, notes: '10,000 units. Standard tag format.', colors: 3, created: 'Apr 26, 2025', assignedTo: 'Kavya Reddy', aiScore: { colour: 95, align: 97, res: 92, brief: 96 } },
@@ -3605,6 +3627,8 @@
       'Delivered': 'badge-green',
       'Senior Review': 'badge-purple',
       'Quote Submitted': 'badge-gray',
+      'Quote Approved': 'badge-action',
+      'Modification Requested': 'badge-amber',
     };
     const ORDER_MAP = {
       'Artwork': 'badge-navy',
@@ -3812,6 +3836,14 @@
               <div class="qa-icon red"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--crimson)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg></div>
               <div><div class="qa-title">Request Modification</div><div class="qa-sub">Revise a delivered job</div></div>
             </div>
+            <div class="qa-card" onclick="toast('Draft: Winter Collection Print — resumed','success'); go('quote', document.querySelector('[data-page=quote]'))" style="border:1.5px dashed var(--border-md);background:var(--off);">
+              <div class="qa-icon" style="background:rgba(217,119,6,0.08);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></div>
+              <div>
+                <div class="qa-title" style="color:#92400E;">Continue Draft</div>
+                <div class="qa-sub" style="color:#B45309;">Winter Collection Print · Saved 2 min ago</div>
+              </div>
+              <div style="margin-left:auto;background:#FEF3C7;color:#92400E;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;border:1px solid #FCD34D;white-space:nowrap;">1 Draft</div>
+            </div>
           </div>
         </div>
         <div class="card">
@@ -3959,14 +3991,14 @@
             </div>
             <div class="form-grid">
               <div class="form-group">
-                <label>Proposed Budget ($)</label>
-                <input type="number" id="quote-budget" placeholder="e.g. 150">
-              </div>
-              <div class="form-group">
                 <label>Design Name <span class="req">*</span></label>
                 <input type="text" value="Winter Collection Print" placeholder="e.g. Summer Logo Set">
               </div>
               <div class="form-group">
+                <label>Client PO / Reference No.</label>
+                <input type="text" placeholder="e.g. PO-2025-0042 (optional)">
+              </div>
+              <div class="form-group" id="field-process-type">
                 <label>Process Type</label>
                 <select><option>Screen Printing</option><option>Digital Printing</option><option>Offset Printing</option><option>Others</option></select>
               </div>
@@ -3985,15 +4017,49 @@
               <div class="form-group">
                 <label>Your Estimated Turnaround (hours) <span class="req">*</span></label>
                 <input type="number" id="client-eta" value="8" min="2" placeholder="e.g. 8">
-                <div style="font-size:11px;color:var(--ink-4);margin-top:4px;">This helps our team plan your job. CS will confirm the final ETA after review.</div>
+                <div style="font-size:11px;color:var(--ink-4);margin-top:4px;">CS will confirm the final ETA after review.</div>
               </div>
               <div class="form-group">
-                <label>Target Budget ($)</label>
-                <input type="number" placeholder="Enter your proposed price">
+                <label>Proposed Budget ($) <span style="font-weight:400;color:var(--ink-4)">(optional)</span></label>
+                <input type="number" id="quote-budget" placeholder="e.g. 150">
               </div>
+
+              <!-- Digitizing-only fields (hidden by default) -->
+              <div id="digitizing-fields" style="display:none;">
+                <div class="form-group">
+                  <label>Placement <span class="req">*</span></label>
+                  <select id="field-placement"><option value="" disabled selected>Select placement…</option><option>Cap</option><option>Front of Cap</option><option>Back of Cap</option><option>Side of Cap</option><option>Visor</option><option>Beanie Cap</option><option>Towel</option><option>Bags</option><option>Left Chest</option><option>Sleeve</option><option>Pocket</option><option>Full Back</option><option>Full Front</option><option>Back Yoke</option><option>Other</option></select>
+                </div>
+                <div class="form-group">
+                  <label>Width (inches) <span class="req">*</span></label>
+                  <input type="number" id="field-width" step="0.1" min="0.1" placeholder="e.g. 4.5">
+                </div>
+                <div class="form-group">
+                  <label>Height (inches) <span class="req">*</span></label>
+                  <input type="number" id="field-height" step="0.1" min="0.1" placeholder="e.g. 3.0">
+                </div>
+                <div class="form-group">
+                  <label>Fabric</label>
+                  <input type="text" id="field-fabric" placeholder="e.g. Polo shirt, cotton twill">
+                </div>
+                <div class="form-group">
+                  <label>Sewout Required</label>
+                  <div style="display:flex;gap:12px;margin-top:4px;">
+                    <label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:400;cursor:pointer;"><input type="radio" name="sewout-required" value="yes"> Yes</label>
+                    <label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:400;cursor:pointer;"><input type="radio" name="sewout-required" value="no" checked> No</label>
+                  </div>
+                </div>
+              </div>
+
               <div class="form-group full">
                 <label>Design Brief / Description <span class="req">*</span></label>
                 <textarea placeholder="Describe your design requirements, color codes, reference links, and any specific instructions…">4-color CMYK print for winter collection. Primary brand blue #1E3A5F. Avoid white backgrounds on outer panels. All text must remain legible at 8pt.</textarea>
+              </div>
+              <div class="form-group full">
+                <label>Expected Output File Formats</label>
+                <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;">
+                  ${['PDF','EPS','AI','CDR','Others'].map(fmt => `<label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:400;cursor:pointer;padding:6px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);"><input type="checkbox" value="${fmt}"${fmt==='PDF'?' checked':''}> ${fmt}</label>`).join('')}
+                </div>
               </div>
             </div>
           </div>
@@ -4010,6 +4076,11 @@
               </div>
               <div class="upload-title">Drop files here or <span>browse</span></div>
               <div class="upload-sub">PDF, AI, PSD, PNG, SVG, JPG, DST, EMB — max 500 MB per file</div>
+            </div>
+            <div style="margin-top:10px;">
+              <label style="font-size:11.5px;font-weight:600;color:var(--ink-3);display:block;margin-bottom:5px;">Or link to cloud storage (Google Drive, WeTransfer, Dropbox)</label>
+              <input type="url" placeholder="https://drive.google.com/…" style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;font-family:var(--f-body);outline:none;box-sizing:border-box;background:var(--off);">
+              <div style="font-size:11px;color:var(--ink-4);margin-top:3px;">Use this if your files are too large to upload directly or you prefer sharing from cloud storage.</div>
             </div>
           </div>
 
@@ -4176,11 +4247,11 @@
 
     <div class="grid-view">
       ${jobs.map(j => {
-          const hasNegotiate = !!(j.adminPrice);
+          const hasActionRequired = j.status === 'Quote Approved' && j.csPrice;
           const prioPillClass = j.priority === 'Super Rush' ? 'prio-super-rush' : j.priority === 'Rush' ? 'prio-rush' : '';
-          return `<div class="job-card${hasNegotiate ? ' negotiate' : ''}" onclick="openJob('${j.id}')" style="position:relative;">
+          return `<div class="job-card${hasActionRequired ? ' negotiate' : ''}" onclick="openJob('${j.id}')" style="position:relative;">
         <div class="jc-img"><img src="${jobImage(j, 2, 800, 520)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=800 height=520><rect width=800 height=520 fill=%23eef2f7/></svg>'"></div>
-        <div style="position:absolute;top:10px;right:10px;z-index:2;"><span class="badge ${STATUS_MAP[j.status] || 'badge-gray'}" style="font-size:10.5px;padding:3px 9px;background:white;box-shadow:0 2px 6px rgba(0,0,0,0.12);">${j.status}</span></div>
+        <div style="position:absolute;top:10px;right:10px;z-index:2;"><span class="badge ${STATUS_MAP[j.status] || 'badge-gray'}" style="font-size:10.5px;padding:3px 9px;background:white;box-shadow:0 2px 6px rgba(0,0,0,0.12);">${hasActionRequired ? 'Action Required' : j.status}</span></div>
         <div class="jc-body">
           <div class="jc-title">${j.design}</div>
           <div class="jc-desc">${j.summary}</div>
@@ -4191,7 +4262,7 @@
             ${j.eta && j.eta !== '—' ? `<span class="jc-pill" style="background:rgba(0,40,104,0.07);color:var(--navy);font-family:var(--f-mono);font-weight:600;">⏱ ${j.eta}</span>` : ''}
           </div>
         </div>
-        ${hasNegotiate ? `<div class="jc-negotiate-banner"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>Counter-offer received — $${j.adminPrice} · Tap to negotiate</div>` : ''}
+        ${hasActionRequired ? `<div class="jc-negotiate-banner" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-top:1px solid #FCD34D;color:#92400E;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Agency price ready — $${j.csPrice} · Tap to confirm &amp; start production</div>` : ''}
       </div>`;
         }).join('')}
     </div>
@@ -4314,74 +4385,51 @@
         <div>
           <div class="modal-section-title">Reference</div>
           ${[['Job ID', j.id], ['Reference No.', j.ref], ['Project Type', j.project], ['Status', j.status]].map(([k, v], i) => `<div class="detail-row"><div class="detail-key">${k}</div><div class="detail-val${i === 1 ? ' mono' : ''}">${v}</div></div>`).join('')}
-          ${j.aiScore ? `<div class="detail-row"><div class="detail-key">AI QC Score</div><div class="detail-val" style="color:var(--green);font-weight:700">${Math.round((j.aiScore.colour + j.aiScore.align + j.aiScore.res + j.aiScore.brief) / 4)}/100 — Pass</div></div>` : ''}
         </div>
       </div>
-      ${j.status === 'Quote Submitted' || j.status === 'Pending Approval' ? `
-      <div class="modal-section-title">Price Negotiation</div>
+      ${j.status === 'Quote Submitted' ? `
+      <div class="modal-section-title">Pricing</div>
       <div style="background:var(--off); border:1px solid var(--border); border-radius:var(--r); padding:16px; margin-bottom:20px;">
-        <div class="detail-row" style="border:none; padding-top:0;">
-          <div class="detail-key">Your Proposed Price</div>
-          <div class="detail-val" style="font-size:14px; font-weight:700; color:var(--ink)">$${j.clientPrice || 'TBD'}</div>
+        <div style="display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink-4);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Your quote is under review. Our CS team will set the price and notify you shortly.
         </div>
-        
-        ${j.adminPrice ? `
-        <div class="detail-row" style="border-top:1px dashed var(--border-md); margin-top:4px;">
-          <div class="detail-key" style="color:var(--crimson)">Admin Counter-Offer</div>
-          <div class="detail-val" style="font-size:14px; font-weight:700; color:var(--crimson)">$${j.adminPrice}</div>
-        </div>
-        
-        <!-- Default Actions -->
-        <div id="client-actions-ui" style="display:flex; gap:10px; margin-top:16px;">
-          <button class="btn btn-primary" onclick="toast('Price of $${j.adminPrice} Approved!','success'); closeModal();">Accept Offer</button>
-          <button class="btn btn-outline" onclick="document.getElementById('client-actions-ui').style.display='none'; document.getElementById('client-counter-ui').style.display='block';">Counter Offer</button>
-        </div>
-        
-        <!-- Hidden Counter-Offer UI -->
-        <div id="client-counter-ui" style="display:none; margin-top:16px; padding-top:16px; border-top:1px dashed var(--border-md);">
-          <label style="font-size:11.5px; font-weight:600; color:var(--ink-3); display:block; margin-bottom:8px;">Your New Counter-Offer ($)</label>
-          <div style="display:flex; gap:10px;">
-            <input type="number" class="fi" id="client-new-price" placeholder="e.g. 165" style="width:140px; padding:8px 12px; border:1px solid var(--border); border-radius:var(--r); outline:none;">
-            <button class="btn btn-primary" onclick="toast('New counter-offer sent!','success'); closeModal();">Submit</button>
-            <button class="btn btn-outline" onclick="document.getElementById('client-counter-ui').style.display='none'; document.getElementById('client-actions-ui').style.display='flex';">Cancel</button>
+      </div>
+      ` : ''}
+      ${j.status === 'Quote Approved' && j.csPrice ? `
+      <div class="modal-section-title">Confirm &amp; Place Job</div>
+      <div style="background:#FFFBEB; border:1.5px solid #FCD34D; border-radius:var(--r); padding:20px; margin-bottom:20px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+          <div>
+            <div style="font-size:11px; font-weight:700; color:#92400E; text-transform:uppercase; letter-spacing:0.07em; margin-bottom:4px;">Agency Quoted Price</div>
+            <div style="font-size:28px; font-weight:800; color:#92400E; font-family:var(--f-head); letter-spacing:-0.02em;">$${j.csPrice}</div>
+            <div style="font-size:11.5px; color:#B45309; margin-top:4px;">Reviewed &amp; set by your Client Servicing team</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
+            <button class="btn btn-primary" style="background:#D97706; border-color:#D97706; font-weight:700;" onclick="confirmPlaceJob('${j.id}', ${j.csPrice})">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Confirm &amp; Start Production
+            </button>
+            <button class="btn btn-outline" style="font-size:11.5px;" onclick="toast('Your CS representative will be notified to discuss pricing.','info'); closeModal();">
+              Discuss with CS
+            </button>
           </div>
         </div>
-        ` : `
-        <div style="margin-top:12px; font-size:12px; color:var(--ink-4); display:flex; align-items:center; gap:6px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Awaiting agency review...
+        <div style="margin-top:14px; padding-top:12px; border-top:1px dashed #FCD34D; font-size:11.5px; color:#B45309; display:flex; align-items:center; gap:6px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Confirming starts production immediately. Your job will be assigned to the team and tracked in My Projects.
         </div>
-        `}
       </div>
       ` : ''}
       <div class="modal-section-title">Brief / Notes</div>
       <div style="background:var(--off);border:1px solid var(--border);border-radius:var(--r);padding:14px;font-size:13px;color:var(--ink-3);line-height:1.7;margin-bottom:16px">${j.notes}</div>
-      ${j.aiScore ? `
-      <div class="modal-section-title">AI QC Report</div>
-      <div style="background:var(--off);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
-          <div style="padding:3px 10px;border-radius:99px;background:var(--navy);color:white;font-size:10px;font-weight:700;letter-spacing:0.06em">AI ANALYSIS</div>
-          <div style="font-size:12px;color:var(--ink-4)">Auto-generated · First-pass reference only</div>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px">
-          ${[['Colour', j.aiScore.colour, '#B22234'], ['Alignment', j.aiScore.align, '#002868'], ['Resolution', j.aiScore.res, '#D97706'], ['Brief', j.aiScore.brief, '#059669']].map(([l, v, c]) => `
-          <div style="text-align:center">
-            <div style="font-size:9.5px;font-weight:700;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">${l}</div>
-            <div style="height:4px;background:var(--surface);border-radius:99px;overflow:hidden;margin-bottom:5px"><div style="width:${v}%;height:100%;background:${c};border-radius:99px;transition:width 0.9s"></div></div>
-            <div style="font-family:var(--f-mono);font-size:13px;font-weight:500;color:${c}">${v}</div>
-          </div>`).join('')}
-        </div>
-        <div style="padding:10px 14px;background:var(--green-lt);border:1px solid rgba(5,150,105,0.2);border-radius:var(--r);font-size:12.5px;color:var(--green);font-weight:500">
-          ✓ AI Recommendation: <strong>PASS</strong> — Meets quality standards. Minor colour variance within acceptable tolerance.
-        </div>
-      </div>` : ''}
 
     </div>
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeModal()">Close</button>
       ${j.status === 'Delivered'
           ? `<button class="btn btn-navy" onclick="toast('Downloading project files…','success');closeModal()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Files</button>
-          <button class="btn btn-primary" onclick="closeModal(); go('quote', document.querySelector('[data-page=quote]'))">Request Modification</button>`
+          <button class="btn btn-primary" onclick="closeModal(); setTimeout(()=>requestModification('${j.id}'),120)">Request Modification</button>`
           : `<button class="btn btn-primary" onclick="toast('You will be notified when status changes','info');closeModal()">Track This Job</button>`
         }
     </div>`;
@@ -4467,6 +4515,16 @@
       el.classList.add('selected');
       const category = el.getAttribute('data-category');
       updateSubServices(category);
+      toggleDigitizingFields(category);
+    }
+
+    function toggleDigitizingFields(category) {
+      const digitizingFields = document.getElementById('digitizing-fields');
+      const processTypeField = document.getElementById('field-process-type');
+      if (!digitizingFields) return;
+      const isDigitizing = category === 'digitizing';
+      digitizingFields.style.display = isDigitizing ? 'contents' : 'none';
+      if (processTypeField) processTypeField.style.display = isDigitizing ? 'none' : '';
     }
 
     function updateSubServices(category) {
@@ -4609,8 +4667,82 @@
       toast(`Downloading files for ${id}…`, 'success');
     }
 
+    function confirmPlaceJob(jobId, price) {
+      closeModal();
+      const job = JOBS.find(j => j.id === jobId);
+      if (job) {
+        job.status = 'In Production';
+        job.project = 'Live';
+        job.stage = 2;
+        job.agreedPrice = price;
+      }
+      toast(`Job confirmed! $${price} agreed — your job is now In Production.`, 'success');
+      setTimeout(() => go('jobs', document.querySelector('[data-page=jobs]')), 1000);
+    }
+
     function requestModification(id) {
-      go('quote', document.querySelector('[data-page=quote]'));
+      const job = JOBS.find(j => j.id === id);
+      if (!job) return;
+      openModificationModal(job);
+    }
+
+    function openModificationModal(job) {
+      const overlay = document.getElementById('overlay');
+      overlay.querySelector('.modal').innerHTML = `
+      <div class="modal-header">
+        <div>
+          <div class="modal-title">Request Modification</div>
+          <div class="modal-sub">${job.design} · ${job.id}</div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="background:#EBF0FA;border:1px solid rgba(0,40,104,0.15);border-radius:var(--r);padding:12px 14px;margin-bottom:20px;font-size:12.5px;color:var(--navy);display:flex;align-items:flex-start;gap:8px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Your CS team will receive this request, reopen the job, and route it back through the production workflow. A new delivery will be made once revisions pass QC.
+        </div>
+        <div class="modal-grid">
+          <div><div class="detail-row"><div class="detail-key">Original Job</div><div class="detail-val mono">${job.id}</div></div></div>
+          <div><div class="detail-row"><div class="detail-key">Reference No.</div><div class="detail-val mono">${job.ref}</div></div></div>
+        </div>
+        <div class="modal-section-title" style="margin-top:4px;">What needs to change?</div>
+        <div class="form-group" style="margin-bottom:16px;">
+          <label style="font-size:11.5px;font-weight:600;color:var(--ink-3);display:block;margin-bottom:6px;">Description of Changes Required <span style="color:var(--crimson)">*</span></label>
+          <textarea id="mod-description" style="width:100%;min-height:110px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;font-family:var(--f-body);resize:vertical;outline:none;box-sizing:border-box;" placeholder="Describe exactly what needs to be modified — color changes, alignment fixes, size adjustments, etc."></textarea>
+        </div>
+        <div class="form-group" style="margin-bottom:4px;">
+          <label style="font-size:11.5px;font-weight:600;color:var(--ink-3);display:block;margin-bottom:6px;">Attach New Reference Files (optional)</label>
+          <div style="border:1.5px dashed var(--border-md);border-radius:var(--r);padding:16px;text-align:center;cursor:pointer;background:var(--off);" onclick="toast('File picker — functional in production build','info')">
+            <div style="font-size:12.5px;color:var(--ink-4);">Drop files or <span style="color:var(--navy);font-weight:600;text-decoration:underline;">browse</span></div>
+            <div style="font-size:11px;color:var(--ink-5);margin-top:4px;">PDF, AI, PSD, PNG — max 500 MB</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="submitModificationRequest('${job.id}')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Submit Modification Request
+        </button>
+      </div>`;
+      overlay.classList.add('open');
+      if (window.innerWidth <= 768) document.body.style.overflow = 'hidden';
+    }
+
+    function submitModificationRequest(jobId) {
+      const desc = document.getElementById('mod-description');
+      if (!desc || !desc.value.trim()) {
+        toast('Please describe what needs to be changed.', 'error');
+        if (desc) { desc.style.borderColor = 'var(--crimson)'; setTimeout(() => desc.style.borderColor = '', 2000); }
+        return;
+      }
+      const job = JOBS.find(j => j.id === jobId);
+      if (job) { job.status = 'Modification Requested'; job.stage = 7; }
+      closeModal();
+      toast(`Modification request sent for ${jobId}. Your CS team will be in touch shortly.`, 'success');
+      setTimeout(() => go('jobs', document.querySelector('[data-page=jobs]')), 1000);
     }
 
     /* ──── TOAST ──── */

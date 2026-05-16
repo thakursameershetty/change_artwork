@@ -4027,10 +4027,10 @@
           ${jobTable(JOBS.filter(j => j.stage !== 'quote' && j.stage !== 'delivered').slice(0, 4))}
 
           <div class="sec-header" style="margin-top: 28px;">
-            <div class="sec-title" style="color: #fcd34d;">New Quote Requests</div>
+            <div class="sec-title" style="color: #ff8a95;">Quotes Pending Your Review</div>
             <span class="sec-action" onclick="navigateTo('cs-new-quotes')">View All →</span>
           </div>
-          ${jobTable(JOBS.filter(j => j.stage === 'quote').slice(0, 4))}
+          ${jobTable(JOBS.filter(j => j.stage === 'quote' && j.status === 'Quote Submitted').slice(0, 4))}
         </div>
         <div>
           <div class="panel" style="position: relative; padding: 20px; overflow: hidden;">
@@ -4131,14 +4131,42 @@
         </div>
       </div>`,
 
-        'cs-new-quotes': `
+        'cs-new-quotes': (() => {
+          const pending = JOBS.filter(j => j.stage === 'quote' && j.status === 'Quote Submitted');
+          const awaitingClient = JOBS.filter(j => j.stage === 'quote' && j.status === 'Quote Approved');
+          return `
       <div class="greeting-hero">
         <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
-        <div class="greeting-title">New Quotes</div>
-        <div class="greeting-sub">Incoming quote requests from clients awaiting review and pricing.</div>
+        <div class="greeting-title">Quote Requests</div>
+        <div class="greeting-sub">Review incoming quotes, set your agency price, and send to the client for confirmation.</div>
       </div>
-      <div style="margin-bottom:14px;">${callout('info', 'These are quote requests submitted by clients. Review, set pricing and approve to move them into production.')}</div>
-      ${jobTable(JOBS.filter(j => j.stage === 'quote'))}`,
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:18px;">
+        <div class="stat-card crimson"><div class="stat-ico">${icon('inbox')}</div><div class="stat-label">Awaiting Your Review</div><div class="stat-value" style="color:#ff8a95">${pending.length}</div><div class="stat-delta down">Open your price &amp; send to client</div></div>
+        <div class="stat-card amber"><div class="stat-ico">${icon('clock')}</div><div class="stat-label">Awaiting Client Confirm</div><div class="stat-value" style="color:#fcd34d">${awaitingClient.length}</div><div class="stat-delta">Price sent — client to confirm</div></div>
+      </div>
+
+      ${pending.length ? `
+      <div class="sec-header" style="margin-bottom:10px;">
+        <div class="sec-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ff8a95" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Pending Your Review &amp; Pricing
+        </div>
+      </div>
+      <div style="margin-bottom:6px;">${callout('info', 'Click a job to open it, review the brief and files, then set your agency price and send it to the client.')}</div>
+      ${jobTable(pending)}
+      ` : `<div style="padding:20px;text-align:center;color:var(--text-muted);font-size:13px;">All caught up — no quotes pending review.</div>`}
+
+      ${awaitingClient.length ? `
+      <div class="sec-header" style="margin-top:22px; margin-bottom:10px;">
+        <div class="sec-title" style="color:#fcd34d;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fcd34d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Price Sent — Awaiting Client Confirmation
+        </div>
+      </div>
+      ${jobTable(awaitingClient)}
+      ` : ''}
+      `;})(),
 
         'cs-new-jobs': (() => {
           const allJobs = JOBS.filter(j => j.stage !== 'quote' && j.stage !== 'delivered');
@@ -4663,29 +4691,33 @@
 
         'admin-new-quotes': (() => {
           const allQuotes = JOBS.filter(j => j.stage === 'quote');
-          const artQuotes = allQuotes.filter(j => j.order === 'Artwork');
-          const digQuotes = allQuotes.filter(j => j.order.includes('Digitizing'));
-          const rushQuotes = allQuotes.filter(j => j.priority === 'Rush' || j.priority === 'Super Rush');
+          const pending = allQuotes.filter(j => j.status === 'Quote Submitted');
+          const awaitingClient = allQuotes.filter(j => j.status === 'Quote Approved');
+          const artQuotes = pending.filter(j => j.order === 'Artwork');
+          const digQuotes = pending.filter(j => j.order.includes('Digitizing'));
+          const rushQuotes = pending.filter(j => j.priority === 'Rush' || j.priority === 'Super Rush');
           return `
       <div class="greeting-hero">
         <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
-        <div class="greeting-title">New Quote Requests</div>
-        <div class="greeting-sub">Incoming quote requests from clients. Review, negotiate pricing, and approve to move into production.</div>
+        <div class="greeting-title">Quote Requests</div>
+        <div class="greeting-sub">Review incoming quotes, set the agency price, and send to the client for confirmation.</div>
       </div>
       <div class="stats-grid" style="margin-bottom:16px;">
-        <div class="stat-card crimson"><div class="stat-label">Total Pending</div><div class="stat-value" style="color:#ff8a95">${allQuotes.length}</div></div>
+        <div class="stat-card crimson"><div class="stat-label">Pending Your Review</div><div class="stat-value" style="color:#ff8a95">${pending.length}</div></div>
+        <div class="stat-card amber"><div class="stat-label">Awaiting Client</div><div class="stat-value" style="color:#fcd34d">${awaitingClient.length}</div></div>
         <div class="stat-card blue"><div class="stat-label">Artwork</div><div class="stat-value" style="color:#93c5fd">${artQuotes.length}</div></div>
         <div class="stat-card teal"><div class="stat-label">Digitizing</div><div class="stat-value" style="color:#5eead4">${digQuotes.length}</div></div>
-        <div class="stat-card amber"><div class="stat-label">Rush / Priority</div><div class="stat-value" style="color:#fcd34d">${rushQuotes.length}</div></div>
       </div>
-      <div class="pills" id="admin-quotes-pills" style="margin-bottom:16px;">
-        <span class="pill active" onclick="filterJobsPage('admin-quotes-pills','admin-quotes-table','all',this)">All (${allQuotes.length})</span>
-        <span class="pill" onclick="filterJobsPage('admin-quotes-pills','admin-quotes-table','Artwork',this)">Artwork (${artQuotes.length})</span>
-        <span class="pill" onclick="filterJobsPage('admin-quotes-pills','admin-quotes-table','Digitizing',this)">Digitizing (${digQuotes.length})</span>
-        <span class="pill" onclick="filterJobsPage('admin-quotes-pills','admin-quotes-table','Rush',this)">Rush / Priority (${rushQuotes.length})</span>
-      </div>
-      <div style="margin-bottom:14px;">${callout('info', 'Review each quote, set your counter-offer price, and approve to move the job into the production pipeline.')}</div>
-      <div id="admin-quotes-table">${jobTable(allQuotes)}</div>`;
+      ${pending.length ? `
+      <div class="sec-header" style="margin-bottom:10px;"><div class="sec-title" style="color:#ff8a95;">Pending Your Review &amp; Pricing</div></div>
+      <div style="margin-bottom:10px;">${callout('info', 'Open a job to review the brief, then set your agency price and send it to the client.')}</div>
+      <div id="admin-quotes-table">${jobTable(pending)}</div>
+      ` : `<div style="padding:20px;text-align:center;color:var(--text-muted);font-size:13px;">All quotes reviewed — none pending.</div>`}
+      ${awaitingClient.length ? `
+      <div class="sec-header" style="margin-top:24px; margin-bottom:10px;"><div class="sec-title" style="color:#fcd34d;">Price Sent — Awaiting Client Confirmation</div></div>
+      ${jobTable(awaitingClient)}
+      ` : ''}
+      `;
         })(),
 
         'admin-create-quote': csCreateForm('quote'),
@@ -4740,7 +4772,7 @@
       return h < 12 ? 'Morning' : h < 17 ? 'Afternoon' : 'Evening';
     }
     function sBadge(s) {
-      const m = { 'In QC': 'teal', 'In Production': 'amber', 'Senior Review': 'purple', 'Sewout': 'purple', 'Delivered': 'green', 'Quote Submitted': 'blue', 'Quote Approved': 'blue', 'Cancelled': 'gray', 'Amend': 'amber', 'In Review': 'purple' };
+      const m = { 'In QC': 'teal', 'In Production': 'amber', 'Senior Review': 'purple', 'Sewout': 'purple', 'Delivered': 'green', 'Quote Submitted': 'blue', 'Quote Approved': 'amber', 'Pending Client Confirm': 'amber', 'Cancelled': 'gray', 'Amend': 'amber', 'In Review': 'purple' };
       return `<span class="badge ${m[s] || 'gray'}">${s}</span>`;
     }
     function oBadge(o) {
@@ -4896,26 +4928,48 @@
         </div>
       </div>
       ${(currentRole === 'admin' || isCS) && j.stage === 'quote' ? `
-      <div class="m-sec-title" style="color: #fcd34d;">Price Negotiation</div>
-      <div style="background: rgba(245,158,11,0.05); border: 1px solid rgba(245,158,11,0.2); border-radius: 8px; padding: 16px; margin-bottom: 18px;">
-        <div class="f-row" style="border: none; padding-top: 0;">
-          <div class="f-key">Client Proposed Budget</div>
-          <div class="f-val" style="font-size: 16px; font-weight: 700; color: #86efac;">$${j.clientPrice || 'TBD'}</div>
+      <div class="m-sec-title" style="color: #fcd34d; margin-top: 4px;">Review &amp; Set Price</div>
+      <div style="background: rgba(245,158,11,0.06); border: 1.5px solid rgba(245,158,11,0.25); border-radius: 10px; padding: 18px; margin-bottom: 18px;">
+
+        <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap; margin-bottom:14px;">
+          <div style="flex:1; min-width:200px;">
+            <div style="font-size:10px; font-weight:700; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px;">Client's Suggested Budget</div>
+            <div style="font-size:22px; font-weight:800; color: ${j.clientPrice ? '#86efac' : 'var(--text-faint)'}; font-family:var(--font-head); letter-spacing:-0.02em;">${j.clientPrice ? '$' + j.clientPrice : 'Not provided'}</div>
+            <div style="font-size:11px; color: rgba(255,255,255,0.35); margin-top:2px;">This is a reference only — you set the final price.</div>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:5px; min-width:220px; flex:1;">
+            <label class="fl" style="color:rgba(255,255,255,0.7);">Agency Price <span style="color:var(--crimson)">*</span></label>
+            <input type="number" class="fi" placeholder="e.g. 250" id="cs-set-price" min="1" style="font-size:16px; font-weight:700; border-color:rgba(245,158,11,0.4);" oninput="validatePriceInput()">
+            <div style="font-size:10.5px; color:rgba(255,255,255,0.35); margin-top:2px;">This price will be shown to the client for confirmation.</div>
+          </div>
         </div>
-        
-        <div style="margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.1);">
-          <label class="fl" style="color: var(--text); margin-bottom: 8px;">Admin Counter-Offer</label>
-          <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-            <input type="number" class="fi" placeholder="Enter new price ($)" id="admin-counter-price" style="width: 180px;">
-          </div>
-          <textarea class="fi fi-ta" placeholder="Add a short description or reasoning for this counter-offer to notify the client..." id="admin-counter-msg" style="min-height: 60px; margin-bottom: 12px;"></textarea>
-          
-          <!-- INLINE SEND COUNTER OFFER BUTTON (YELLOW) -->
-          <div style="text-align: right;">
-            <button class="btn" style="background: rgba(245,158,11,0.15); color: #fcd34d; border: 1px solid rgba(245,158,11,0.3); padding: 8px 16px; font-size: 12px;" onclick="showToast('Counter offer sent to client!','info'); closeModal()">
-              ${icon('refresh', 'btn-ico')}<span>Send Counter Offer</span>
-            </button>
-          </div>
+
+        <div style="margin-bottom:12px;">
+          <label class="fl" style="color:rgba(255,255,255,0.7);">Confirmed ETA (hours) <span style="color:var(--crimson)">*</span></label>
+          <input type="number" class="fi" placeholder="e.g. 8" id="cs-set-eta" min="1" value="${j.eta ? j.eta.replace('h','') : ''}" style="max-width:160px;">
+        </div>
+
+        <div style="margin-bottom:14px;">
+          <label class="fl" style="color:rgba(255,255,255,0.7);">Note to Client <span style="font-weight:400; text-transform:none; font-size:10px;">(optional)</span></label>
+          <textarea class="fi fi-ta" id="cs-price-note" placeholder="e.g. Price includes 3 revisions. Delivery in DST + PDF formats. Rush surcharge applied." style="min-height:60px;"></textarea>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:7px; padding:10px 12px; font-size:11.5px; color:rgba(255,255,255,0.45); display:flex; align-items:flex-start; gap:7px; margin-bottom:14px; line-height:1.6;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(245,158,11,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <span>Once you click <b style="color:rgba(255,255,255,0.75);font-weight:600;">Send Price to Client</b>, the job status changes to <b style="color:#fcd34d;font-weight:600;">Quote Approved</b> and the client receives an in-app notification to confirm and start production.</span>
+        </div>
+
+        <div id="cs-price-error" style="display:none; color:#fca5a5; font-size:12px; margin-bottom:8px; padding:6px 10px; background:rgba(239,68,68,0.1); border-radius:6px;">Please enter a valid agency price before sending.</div>
+
+        <div style="display:flex; gap:10px; justify-content:flex-end;">
+          <button class="btn btn-red btn-sm" onclick="csRejectQuote('${j.id}')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Reject Quote
+          </button>
+          <button class="btn btn-green" id="cs-send-price-btn" onclick="csApproveWithPrice('${j.id}')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            <span>Send Price to Client</span>
+          </button>
         </div>
       </div>
       ` : ''}
@@ -4939,10 +4993,6 @@
       </button>
       <button class="btn btn-outline" onclick="closeModal()">${icon('close', 'btn-ico')}<span>Close</span></button>
       ${(currentRole === 'cs' || currentRole === 'admin') ? `<button class="btn btn-outline" onclick="openEditJob('${j.id}')">${icon('edit', 'btn-ico')}<span>Edit Job</span></button>` : ''}
-      ${(currentRole === 'admin' || isCS) && j.stage === 'quote' ? `
-        <button class="btn btn-red" onclick="showToast('Job rejected','error'); closeModal()">Reject</button>
-        <button class="btn btn-green" onclick="showToast('Client price approved! Routed to CS.','success'); closeModal()">${icon('check-circle', 'btn-ico')}<span>Approve Job</span></button>
-      ` : ''}
       ${(currentRole === 'cs' || currentRole === 'admin') ? `<button class="btn btn-crimson" onclick="closeModal();setTimeout(()=>openAssignModal('${j.id}'),100)">${icon('user', 'btn-ico')}<span>Assign Job</span></button>` : ''}
       ${isCS && j.stage === 'qc' ? `<button class="btn btn-crimson" onclick="showToast('Files delivered to client!','success');closeModal()">${icon('package', 'btn-ico')}<span>Dispatch to Client</span></button>` : ''}
       ${isQC && j.stage === 'qc' ? `<button class="btn btn-red" onclick="toggleReject()">Reject</button><button class="btn btn-green" onclick="showToast('Job approved! Routed to CS for dispatch.','success');closeModal()">${icon('check-circle', 'btn-ico')}<span>Approve</span></button>` : ''}
@@ -5020,6 +5070,59 @@
       <button class="btn btn-crimson" onclick="saveEditJob('${j.id}')">${icon('save', 'btn-ico')}<span>Save Changes</span></button>
     </div>`;
       overlay.classList.add('open');
+    }
+
+    /* ──── CS QUOTE PRICING FLOW ──── */
+    function validatePriceInput() {
+      const inp = document.getElementById('cs-set-price');
+      const errEl = document.getElementById('cs-price-error');
+      if (!inp || !errEl) return;
+      const valid = inp.value && parseFloat(inp.value) > 0;
+      errEl.style.display = 'none';
+      inp.style.borderColor = valid ? 'rgba(34,197,94,0.5)' : 'rgba(245,158,11,0.4)';
+    }
+
+    function csApproveWithPrice(jobId) {
+      const priceEl = document.getElementById('cs-set-price');
+      const etaEl = document.getElementById('cs-set-eta');
+      const noteEl = document.getElementById('cs-price-note');
+      const errEl = document.getElementById('cs-price-error');
+
+      const price = priceEl ? parseFloat(priceEl.value) : null;
+      if (!price || price <= 0) {
+        if (errEl) errEl.style.display = 'block';
+        if (priceEl) { priceEl.style.borderColor = 'rgba(239,68,68,0.6)'; priceEl.focus(); }
+        return;
+      }
+
+      const j = JOBS.find(x => x.id === jobId);
+      if (!j) return;
+
+      j.csPrice = price;
+      j.status = 'Quote Approved';
+      if (etaEl && etaEl.value) j.eta = etaEl.value + 'h';
+
+      closeModal();
+      showToast(`Price $${price} sent to ${j.client} — awaiting client confirmation.`, 'success');
+
+      /* Re-render the current page so the job disappears from quote queue */
+      setTimeout(() => {
+        const activePage = document.querySelector('.nav-item.active')?.dataset.pg;
+        if (activePage) navigateTo(activePage);
+      }, 800);
+    }
+
+    function csRejectQuote(jobId) {
+      const j = JOBS.find(x => x.id === jobId);
+      if (!j) return;
+      j.status = 'Cancelled';
+      j.stage = 'cancelled';
+      closeModal();
+      showToast(`Quote ${jobId} rejected. Client will be notified.`, 'error');
+      setTimeout(() => {
+        const activePage = document.querySelector('.nav-item.active')?.dataset.pg;
+        if (activePage) navigateTo(activePage);
+      }, 800);
     }
 
     function saveEditJob(id) {
