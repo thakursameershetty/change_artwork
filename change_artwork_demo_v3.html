@@ -4547,11 +4547,13 @@
           <option value="Max" style="color: #000;" ${currentDashRange === 'Max' ? 'selected' : ''}>Max</option>
         </select>
       </div>
-      <div class="stats-grid">
+      <div class="stats-grid" style="grid-template-columns:repeat(6,1fr);">
         <div class="stat-card crimson"><div class="stat-label">Unassigned</div><div class="stat-value" style="color:#ff8a95">3</div><div class="stat-delta down">Needs assignment</div></div>
         <div class="stat-card amber"><div class="stat-label">In Progress</div><div class="stat-value" style="color:#fcd34d">5</div></div>
         <div class="stat-card purple"><div class="stat-label">Senior Review</div><div class="stat-value" style="color:#d8b4fe">1</div></div>
         <div class="stat-card green"><div class="stat-label">Completed</div><div class="stat-value" style="color:#86efac">${DASH_METRICS[currentDashRange].tl.comp}</div></div>
+        <div class="stat-card teal"><div class="stat-ico">${icon('send')}</div><div class="stat-label">Dispatched to QC</div><div class="stat-value" style="color:#5eead4">4</div><div class="stat-delta up">Sent for review</div></div>
+        <div class="stat-card blue"><div class="stat-ico">${icon('package')}</div><div class="stat-label">Dispatched to Client</div><div class="stat-value" style="color:#93c5fd">2</div><div class="stat-delta up">CS notified</div></div>
       </div>
       <div class="sec-header"><div class="sec-title">Job Pipeline — Kanban View</div></div>
       <div class="kanban" style="grid-template-columns: repeat(3, 1fr);">
@@ -4819,10 +4821,12 @@
           <option value="Max" style="color: #000;" ${currentDashRange === 'Max' ? 'selected' : ''}>Max</option>
         </select>
       </div>
-      <div class="stats-grid">
+      <div class="stats-grid" style="grid-template-columns:repeat(6,1fr);">
         <div class="stat-card blue"><div class="stat-label">Open Jobs</div><div class="stat-value" style="color:#93c5fd">7</div></div>
         <div class="stat-card amber"><div class="stat-label">In Production</div><div class="stat-value" style="color:#fcd34d">4</div></div>
         <div class="stat-card teal"><div class="stat-label">In QC</div><div class="stat-value" style="color:#5eead4">1</div></div>
+        <div class="stat-card green"><div class="stat-ico">${icon('send')}</div><div class="stat-label">Ready to Deliver by Artist</div><div class="stat-value" style="color:#86efac">3</div><div class="stat-delta up">Awaiting CS dispatch</div></div>
+        <div class="stat-card purple"><div class="stat-ico">${icon('check-circle')}</div><div class="stat-label">Ready to Deliver by QC</div><div class="stat-value" style="color:#c4b5fd">2</div><div class="stat-delta up">QC signed off</div></div>
         <div class="stat-card crimson"><div class="stat-label">Revenue (Selected)</div><div class="stat-value" style="color:#ff8a95;font-size:20px">$${DASH_METRICS[currentDashRange].admin.rev}</div><div class="stat-delta up">${DASH_METRICS[currentDashRange].admin.revSub}</div></div>
       </div>
       <div class="two-col">
