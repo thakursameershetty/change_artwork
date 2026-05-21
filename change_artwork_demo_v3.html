@@ -4304,9 +4304,11 @@
           <option value="Max" style="color: #000;" ${currentDashRange === 'Max' ? 'selected' : ''}>Max</option>
         </select>
       </div>
-      <div class="stats-grid">
+      <div class="stats-grid" style="grid-template-columns:repeat(6,1fr);">
         <div class="stat-card crimson"><div class="stat-ico">${icon('clipboard')}</div><div class="stat-label">Quote Pending</div><div class="stat-value" style="color:#ff8a95">2</div><div class="stat-delta up">↑ 1 new today</div></div>
         <div class="stat-card amber"><div class="stat-ico">${icon('gear')}</div><div class="stat-label">In Production</div><div class="stat-value" style="color:#fcd34d">4</div><div class="stat-delta">3 on track</div></div>
+        <div class="stat-card blue"><div class="stat-ico">${icon('send')}</div><div class="stat-label">Ready to Deliver by Artist</div><div class="stat-value" style="color:#93c5fd">3</div><div class="stat-delta up">Awaiting CS dispatch</div></div>
+        <div class="stat-card purple"><div class="stat-ico">${icon('check-circle')}</div><div class="stat-label">Ready to Deliver by QC</div><div class="stat-value" style="color:#c4b5fd">2</div><div class="stat-delta up">QC signed off</div></div>
         <div class="stat-card teal"><div class="stat-ico">${icon('check-circle')}</div><div class="stat-label">Ready to Deliver</div><div class="stat-value" style="color:#5eead4">1</div><div class="stat-delta up">QC approved</div></div>
         <div class="stat-card green"><div class="stat-ico">${icon('package')}</div><div class="stat-label">Delivered</div><div class="stat-value" style="color:#86efac">${DASH_METRICS[currentDashRange].cs.delivered}</div><div class="stat-delta up">${DASH_METRICS[currentDashRange].cs.sub4}</div></div>
       </div>
