@@ -1,0 +1,5257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHANGE! — Client Portal</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════
+   ROOT VARIABLES — GLASSMORPHISM
+═══════════════════════════════════════════ */
+    :root {
+      --crimson: #C41E3A;
+      --crimson-bright: #E02040;
+      --crimson-dim: #8B1429;
+      --crimson-glow: rgba(196, 30, 58, 0.18);
+      --navy: #0A1628;
+      --navy-mid: #0D1E3A;
+      --navy-light: #132448;
+      --navy-deep: #060E1C;
+      --navy-soft: rgba(196, 30, 58, 0.08);
+      --gold: #D4A843;
+      --gold-dim: rgba(212, 168, 67, 0.15);
+
+      /* Glass Variables */
+      --glass-bg: rgba(16, 25, 43, 0.35);
+      --glass-bg-light: rgba(20, 30, 50, 0.25);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-border-bright: rgba(255, 255, 255, 0.22);
+      --glass-blur: blur(28px);
+      --glass-blur-heavy: blur(48px);
+      --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+      --text: rgba(255, 255, 255, 0.92);
+      --text-muted: rgba(180, 195, 225, 0.6);
+      --text-faint: rgba(120, 140, 180, 0.4);
+
+      --green: #22C55E;
+      --green-lt: rgba(34, 197, 94, 0.12);
+      --amber: #F59E0B;
+      --amber-lt: rgba(245, 158, 11, 0.12);
+      --purple: #A855F7;
+      --purple-lt: rgba(168, 85, 247, 0.12);
+      --teal: #2DD4BF;
+
+      /* Sidebar palette */
+      --sb-bg: rgba(8, 14, 28, 0.45);
+      --sb-border: rgba(255, 255, 255, 0.08);
+      --sb-text: rgba(180, 195, 225, 0.6);
+      --sb-text-muted: rgba(120, 140, 180, 0.4);
+      --sb-hover-bg: rgba(255, 255, 255, 0.05);
+      --sb-active-bg: rgba(196, 30, 58, 0.15);
+
+      /* V5 compatibility aliases */
+      --border: rgba(255, 255, 255, 0.08);
+      --border-md: rgba(255, 255, 255, 0.15);
+      --ink: rgba(255, 255, 255, 0.92);
+      --ink-2: rgba(220, 230, 250, 0.85);
+      --ink-3: rgba(180, 195, 225, 0.6);
+      --ink-4: rgba(120, 140, 180, 0.45);
+      --white: rgba(16, 25, 43, 0.6);
+      --off: rgba(10, 20, 38, 0.3);
+      --surface: rgba(255, 255, 255, 0.04);
+      --crimson-lt: rgba(196, 30, 58, 0.15);
+      --crimson-md: rgba(196, 30, 58, 0.3);
+
+      --r: 12px;
+      --r-lg: 14px;
+      --r-xl: 18px;
+      --f-head: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --f-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --f-mono: 'IBM Plex Mono', monospace;
+      --sidebar: 258px;
+      --topbar: 60px;
+      --ease: cubic-bezier(.4, 0, .2, 1);
+    }
+
+    /* ═══════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: var(--f-body);
+      color: var(--text);
+      height: 100vh;
+      overflow: hidden;
+      background: var(--navy);
+    }
+
+    /* ═══════════════════════════════════════════
+   LIGHT MODE OVERRIDE
+═══════════════════════════════════════════ */
+    html[data-theme="light"] {
+      color-scheme: light;
+      --navy: #eef3fb;
+      --navy-mid: #f7fafe;
+      --navy-light: #dde8f6;
+      --glass-bg: rgba(255, 255, 255, 0.74);
+      --glass-bg-light: rgba(255, 255, 255, 0.6);
+      --glass-border: rgba(15, 23, 42, 0.08);
+      --glass-border-bright: rgba(15, 23, 42, 0.14);
+      --glass-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+      --text: rgba(15, 23, 42, 0.94);
+      --text-muted: rgba(51, 65, 85, 0.72);
+      --text-faint: rgba(71, 85, 105, 0.42);
+      --ink: rgba(15, 23, 42, 0.94);
+      --ink-2: rgba(30, 45, 70, 0.88);
+      --ink-3: rgba(51, 65, 85, 0.72);
+      --ink-4: rgba(71, 85, 105, 0.5);
+      --sb-bg: rgba(255, 255, 255, 0.74);
+      --sb-border: rgba(15, 23, 42, 0.08);
+      --sb-text: rgba(51, 65, 85, 0.72);
+      --sb-hover-bg: rgba(15, 23, 42, 0.04);
+      --sb-active-bg: rgba(196, 30, 58, 0.08);
+      --border: rgba(15, 23, 42, 0.08);
+      --border-md: rgba(15, 23, 42, 0.14);
+      --white: rgba(255, 255, 255, 0.8);
+      --off: rgba(240, 245, 255, 0.6);
+      --surface: rgba(15, 23, 42, 0.04);
+    }
+
+    html[data-theme="light"] body {
+      background: #eef3fb;
+    }
+
+    html[data-theme="light"] .flag-overlay {
+      background: linear-gradient(180deg, rgba(245, 248, 252, 0.24) 0%, rgba(229, 236, 246, 0.54) 100%);
+    }
+
+    html[data-theme="light"] .flag-grain {
+      opacity: 0.02;
+    }
+
+    /* ═══════════════════════════════════════════
+   BACKGROUND IMAGE
+═══════════════════════════════════════════ */
+    #flag-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      background-image: url("MacBook Air - 29.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+
+    .flag-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10, 22, 40, 0.4) 0%, rgba(5, 10, 22, 0.75) 100%);
+      backdrop-filter: blur(2px);
+    }
+
+    .flag-grain {
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════ */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--crimson);
+    }
+
+    /* ═══════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════ */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: var(--sidebar);
+      background: rgba(8, 14, 28, 0.45);
+      backdrop-filter: var(--glass-blur-heavy);
+      -webkit-backdrop-filter: var(--glass-blur-heavy);
+      border-right: 1px solid var(--glass-border);
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.2);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      position: fixed;
+      overflow: hidden;
+    }
+
+    .sidebar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, transparent 0%, var(--crimson) 30%, var(--gold) 70%, transparent 100%);
+      opacity: 0.25;
+    }
+
+    .sidebar::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      left: -60px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(196, 30, 58, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Brand */
+    .brand {
+      padding: 20px 16px 16px;
+      border-bottom: 1px solid var(--glass-border);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-family: var(--f-head);
+      font-size: 26px;
+      letter-spacing: 0.08em;
+      color: white;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .brand-logo-img {
+      display: block;
+      width: 138px;
+      height: 36px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+    }
+
+    .brand-bang {
+      color: var(--crimson);
+    }
+
+    .brand-stripe {
+      display: flex;
+      margin-top: 10px;
+      gap: 0;
+      height: 3px;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .brand-stripe div {
+      flex: 1;
+    }
+
+    /* User card */
+    .user-card {
+      margin: 12px 12px 0;
+      padding: 8px 12px;
+      background: linear-gradient(135deg, rgba(196, 30, 58, 0.12), rgba(10, 26, 58, 0.3));
+      border: 1px solid rgba(196, 30, 58, 0.25);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .user-av {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--crimson), var(--crimson-dim));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--f-head);
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 2px 12px var(--crimson-glow);
+    }
+
+    .user-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+      line-height: 1.2;
+    }
+
+    .user-company {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Nav */
+    .nav {
+      flex: 1;
+      padding: 14px 10px 4px;
+      overflow-y: auto;
+    }
+
+    .nav-label {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--text-faint);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0 8px;
+      margin-bottom: 5px;
+      margin-top: 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      margin-bottom: 2px;
+      color: var(--text-muted);
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      border: 1px solid transparent;
+      user-select: none;
+    }
+
+    .nav-item svg {
+      flex-shrink: 0;
+      color: var(--text-muted);
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      border-color: var(--glass-border);
+    }
+
+    .nav-item:hover svg {
+      color: var(--text);
+    }
+
+    .nav-item.active {
+      background: linear-gradient(135deg, rgba(196, 30, 58, 0.18), rgba(196, 30, 58, 0.08));
+      color: white;
+      border-color: rgba(196, 30, 58, 0.3);
+      box-shadow: 0 2px 12px rgba(196, 30, 58, 0.1);
+      font-weight: 600;
+    }
+
+    .nav-item.active svg {
+      color: white;
+    }
+
+    .nav-item.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 3px;
+      background: linear-gradient(180deg, var(--crimson), var(--crimson-dim));
+      border-radius: 0 2px 2px 0;
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      background: var(--crimson);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 20px;
+    }
+
+    .nav-item.active .nav-badge {
+      background: var(--crimson);
+      color: white;
+    }
+
+    /* Sidebar footer */
+    .sidebar-footer {
+      padding: 14px;
+      border-top: 1px solid var(--glass-border);
+      background: rgba(0, 0, 0, 0.15);
+      flex-shrink: 0;
+    }
+
+    .help-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.22s;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+    }
+
+    .help-btn:hover {
+      background: rgba(196, 30, 58, 0.08);
+      border-color: rgba(196, 30, 58, 0.3);
+      color: var(--text);
+    }
+
+    /* ═══════════════════════════════════════════
+   TOPBAR
+═══════════════════════════════════════════ */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: var(--sidebar);
+      right: 0;
+      height: var(--topbar);
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 14px;
+      z-index: 90;
+    }
+
+    .page-heading {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .page-title {
+      font-family: var(--f-head);
+      font-size: 18px;
+      font-weight: 600;
+      color: white;
+      line-height: 1;
+      letter-spacing: 0.04em;
+    }
+
+    .page-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* AI bar */
+    .ai-bar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 30px;
+      padding: 0 6px 0 14px;
+      width: 230px;
+      transition: all 0.22s var(--ease);
+    }
+
+    .ai-bar:focus-within {
+      border-color: var(--crimson);
+      background: rgba(196, 30, 58, 0.07);
+      width: 270px;
+      box-shadow: 0 0 0 3px var(--crimson-glow);
+    }
+
+    .ai-input {
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-family: var(--f-body);
+      font-size: 12px;
+      flex: 1;
+      padding: 8px 0;
+      width: 100%;
+    }
+
+    .ai-input::placeholder {
+      color: var(--text-faint);
+    }
+
+    .ai-submit {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--crimson);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.18s;
+    }
+
+    .ai-submit:hover {
+      background: var(--crimson-bright);
+    }
+
+    .ai-submit svg {
+      color: white;
+    }
+
+    /* Topbar icons */
+    .top-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.22s;
+      position: relative;
+      flex-shrink: 0;
+      backdrop-filter: blur(8px);
+    }
+
+    .top-icon:hover {
+      border-color: rgba(196, 30, 58, 0.5);
+      color: white;
+      background: rgba(196, 30, 58, 0.12);
+    }
+
+    .top-icon svg {
+      color: var(--text-muted);
+    }
+
+    .notif-pip {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--crimson);
+      border: 1.5px solid rgba(6, 12, 24, 0.8);
+    }
+
+    .top-sep {
+      width: 1px;
+      height: 24px;
+      background: var(--glass-border);
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════
+   MAIN CONTENT
+═══════════════════════════════════════════ */
+    .main {
+      margin-left: var(--sidebar);
+      padding-top: var(--topbar);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      z-index: 1;
+    }
+
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 22px 24px;
+    }
+
+    /* ═══════════════════════════════════════════
+   PAGES
+═══════════════════════════════════════════ */
+    .page {
+      display: none;
+      animation: pageIn 0.28s var(--ease);
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes pageIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ═══════════════════════════════════════════
+   GREETING HERO
+═══════════════════════════════════════════ */
+    .hero {
+      margin-bottom: 22px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .hero-date {
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .hero-greeting {
+      font-family: var(--f-head);
+      font-size: 34px;
+      font-weight: 700;
+      color: white;
+      line-height: 1.05;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-greeting span {
+      color: var(--crimson);
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    /* ═══════════════════════════════════════════
+   BUTTONS
+═══════════════════════════════════════════ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--r-xl);
+      font-family: var(--f-body);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.22s var(--ease);
+      border: 1px solid transparent;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--crimson), var(--crimson-dim));
+      color: white;
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 16px var(--crimson-glow);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(196, 30, 58, 0.4);
+    }
+
+    .btn-navy {
+      background: linear-gradient(135deg, rgba(20, 40, 80, 0.6), rgba(10, 22, 40, 0.8));
+      color: white;
+      border-color: var(--glass-border-bright);
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-navy:hover {
+      border-color: var(--crimson);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--glass-border);
+      color: var(--text-muted);
+    }
+
+    .btn-outline:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      color: var(--text);
+    }
+
+    .btn-ghost {
+      background: none;
+      color: var(--text-muted);
+      border-color: transparent;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+    }
+
+    .btn-sm {
+      padding: 7px 14px;
+      font-size: 12px;
+    }
+
+    .btn-lg {
+      padding: 13px 26px;
+      font-size: 15px;
+    }
+
+    .btn-bold {
+      font-weight: 800;
+      letter-spacing: 0.01em;
+    }
+
+    /* ═══════════════════════════════════════════
+   STATS GRID
+═══════════════════════════════════════════ */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .stat-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-top: 1px solid var(--glass-border-bright);
+      border-radius: var(--r-lg);
+      padding: 18px 16px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.22s var(--ease);
+      cursor: default;
+    }
+
+    .stat-card:hover {
+      border-color: var(--glass-border-bright);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+    }
+
+    .stat-card.c-navy::before {
+      background: linear-gradient(90deg, #3B82F6, #60A5FA);
+    }
+
+    .stat-card.c-red::before {
+      background: linear-gradient(90deg, var(--crimson), var(--crimson-bright));
+    }
+
+    .stat-card.c-green::before {
+      background: linear-gradient(90deg, var(--green), #4ade80);
+    }
+
+    .stat-card.c-amber::before {
+      background: linear-gradient(90deg, var(--amber), #fbbf24);
+    }
+
+    .stat-card.c-purple::before {
+      background: linear-gradient(90deg, var(--purple), #c084fc);
+    }
+
+    .stat-label {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      padding-left: 0;
+    }
+
+    .stat-val {
+      font-family: var(--f-head);
+      font-size: 32px;
+      font-weight: 700;
+      color: white;
+      line-height: 1;
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
+      animation: countUp 0.5s var(--ease) both;
+    }
+
+    .stat-val.sm {
+      font-size: 22px;
+    }
+
+    .stat-delta {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .delta-up {
+      color: #4ade80;
+    }
+
+    .delta-dn {
+      color: #f87171;
+    }
+
+    .stat-icon {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      opacity: 0.12;
+    }
+
+    .stat-icon svg {
+      width: 44px;
+      height: 44px;
+      color: white;
+    }
+
+    /* ═══════════════════════════════════════════
+   TWO COL LAYOUT
+═══════════════════════════════════════════ */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 16px;
+    }
+
+    .col-right>*+* {
+      margin-top: 14px;
+    }
+
+    /* ═══════════════════════════════════════════
+   CARDS (glass panels)
+═══════════════════════════════════════════ */
+    .card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-top: 1px solid var(--glass-border-bright);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      box-shadow: var(--glass-shadow);
+      transition: all 0.22s var(--ease);
+    }
+
+    .card:hover {
+      border-color: var(--glass-border-bright);
+    }
+
+    .card-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.12);
+    }
+
+    .card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-title-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .card-link {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--crimson);
+      cursor: pointer;
+      transition: opacity 0.18s;
+    }
+
+    .card-link:hover {
+      opacity: 0.7;
+    }
+
+    .card-body {
+      padding: 18px;
+    }
+
+    .card-body.np {
+      padding: 0;
+    }
+
+    /* ═══════════════════════════════════════════
+   TABLE
+═══════════════════════════════════════════ */
+    .jobs-root .tbl-ctrl {
+      flex-wrap: wrap;
+    }
+
+    .jobs-root .view-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px;
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .jobs-root .view-toggle button {
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--f-body);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.18s var(--ease);
+    }
+
+    .jobs-root .view-toggle button.on {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16);
+    }
+
+    .tbl-wrap {
+      border-radius: var(--r-lg);
+      border: 1px solid var(--glass-border);
+      overflow: hidden;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+    }
+
+    .jobs-root {
+      --thumb: 42px;
+    }
+
+    .jobs-root .table-view,
+    .jobs-root .grid-view,
+    .jobs-root .list-view {
+      display: none;
+    }
+
+    .jobs-root[data-view="table"] .table-view {
+      display: block;
+    }
+
+    .jobs-root[data-view="grid"] .grid-view {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      padding: 16px;
+    }
+
+    .jobs-root[data-view="list"] .list-view {
+      display: block;
+      padding: 8px 16px 16px;
+    }
+
+    /* Negotiate highlight */
+    .jobs-root .job-card.negotiate {
+      border-color: rgba(245, 158, 11, 0.45);
+      box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.15);
+    }
+
+    .jobs-root .job-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.03));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-top-color: rgba(255, 255, 255, 0.18);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.18s var(--ease);
+      backdrop-filter: blur(18px) saturate(150%);
+      -webkit-backdrop-filter: blur(18px) saturate(150%);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14), 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+    }
+
+    .jobs-root .job-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.08) inset;
+    }
+
+    .jobs-root .jc-img {
+      aspect-ratio: 4 / 3;
+      background: rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .jobs-root .jc-img img,
+    .jobs-root .list-thumb img,
+    .jobs-root .job-thumb,
+    .jobs-root .table-preview,
+    .modal-gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .jobs-root .jc-body {
+      padding: 12px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .jobs-root .jc-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .jobs-root .jc-desc {
+      margin-top: 5px;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .jobs-root .jc-meta {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .jobs-root .jc-negotiate-banner {
+      background: rgba(245, 158, 11, 0.1);
+      border-top: 1px solid rgba(245, 158, 11, 0.2);
+      padding: 7px 14px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #fcd34d;
+    }
+
+    .jc-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 10.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      border: 1px solid var(--glass-border);
+    }
+
+    .jc-pill.id {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: #ff8a95;
+      background: rgba(196, 30, 58, 0.12);
+      border-color: rgba(196, 30, 58, 0.25);
+    }
+
+    .jc-pill.order {
+      color: #93c5fd;
+      background: rgba(59, 130, 246, 0.1);
+      border-color: rgba(59, 130, 246, 0.2);
+    }
+
+    .jc-pill.prio-rush {
+      color: #fcd34d;
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.2);
+    }
+
+    .jc-pill.prio-super-rush {
+      color: #ff8a95;
+      background: rgba(196, 30, 58, 0.15);
+      border-color: rgba(196, 30, 58, 0.25);
+    }
+
+    .jobs-root .list-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.02);
+      backdrop-filter: blur(8px);
+    }
+
+    .jobs-root .list-item:last-child {
+      border-bottom: none;
+    }
+
+    .jobs-root .list-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .jobs-root .list-thumb {
+      width: 54px;
+      height: 54px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(0, 0, 0, 0.2);
+      flex-shrink: 0;
+    }
+
+    .jobs-root .list-body {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .jobs-root .job-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .jobs-root .job-thumb {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      flex-shrink: 0;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .jobs-root .table-preview {
+      width: 88px;
+      height: 62px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .jobs-root .table-view table {
+      table-layout: fixed;
+    }
+
+    .jobs-root .table-view th:nth-child(1) { width: 210px; }
+    .jobs-root .table-view th:nth-child(2) { width: 18%; }
+    .jobs-root .table-view th:nth-child(3) { width: 100px; }
+    .jobs-root .table-view th:nth-child(4),
+    .jobs-root .table-view th:nth-child(5),
+    .jobs-root .table-view th:nth-child(6) { width: 110px; }
+    .jobs-root .table-view th:nth-child(7) { width: 92px; }
+    .jobs-root .table-view th:nth-child(8) { width: 122px; }
+    .jobs-root .table-view td:nth-child(3),
+    .jobs-root .table-view th:nth-child(3) { text-align: center; }
+    .jobs-root .table-view td:nth-child(8) { white-space: nowrap; }
+
+    .tbl-ctrl {
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .search-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--r);
+      padding: 0 12px;
+      max-width: 280px;
+    }
+
+    .search-wrap:focus-within {
+      border-color: var(--crimson);
+      background: rgba(196, 30, 58, 0.06);
+      box-shadow: 0 0 0 3px var(--crimson-glow);
+    }
+
+    .search-wrap svg {
+      color: var(--text-faint);
+      flex-shrink: 0;
+    }
+
+    .search-inp {
+      background: none;
+      border: none;
+      outline: none;
+      padding: 8px 0;
+      font-family: var(--f-body);
+      font-size: 12.5px;
+      color: var(--text);
+      width: 100%;
+    }
+
+    .search-inp::placeholder {
+      color: var(--text-faint);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead tr {
+      background: rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    thead th {
+      padding: 10px 18px;
+      text-align: left;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-faint);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      transition: background 0.12s;
+      cursor: pointer;
+    }
+
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    tbody td {
+      padding: 11px 18px;
+      font-size: 12.5px;
+      color: var(--text);
+      vertical-align: middle;
+    }
+
+    .td-primary {
+      font-weight: 600;
+      color: white;
+    }
+
+    .td-mono {
+      font-family: var(--f-mono);
+      font-size: 11.5px;
+      color: #ff8a95;
+    }
+
+    .td-ref {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: var(--text-faint);
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* ═══════════════════════════════════════════
+   BADGES
+═══════════════════════════════════════════ */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-size: 10.5px;
+      font-weight: 600;
+      white-space: nowrap;
+      letter-spacing: 0.03em;
+    }
+
+    .badge::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .badge-navy {
+      background: rgba(59, 130, 246, 0.15);
+      color: #93c5fd;
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .badge-navy::before {
+      background: #93c5fd;
+    }
+
+    .badge-red {
+      background: rgba(196, 30, 58, 0.18);
+      color: #ff8a95;
+      border: 1px solid rgba(196, 30, 58, 0.25);
+    }
+
+    .badge-red::before {
+      background: #ff8a95;
+    }
+
+    .badge-green {
+      background: rgba(34, 197, 94, 0.15);
+      color: #86efac;
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .badge-green::before {
+      background: #86efac;
+    }
+
+    .badge-amber {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .badge-amber::before {
+      background: #fcd34d;
+    }
+
+    .badge-purple {
+      background: rgba(168, 85, 247, 0.15);
+      color: #d8b4fe;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+    }
+
+    .badge-purple::before {
+      background: #d8b4fe;
+    }
+
+    .badge-gray {
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text-muted);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .badge-gray::before {
+      background: var(--text-muted);
+    }
+
+    .badge-action {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+      animation: pulse-action 2s ease-in-out infinite;
+    }
+
+    .badge-action::before {
+      background: #fcd34d;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-action {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.3); }
+      50% { box-shadow: 0 0 0 4px rgba(245, 158, 11, 0); }
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .prio-badge {
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .prio-normal {
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text-muted);
+    }
+
+    .prio-rush {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fcd34d;
+    }
+
+    .prio-super {
+      background: rgba(196, 30, 58, 0.18);
+      color: #ff8a95;
+    }
+
+    /* ═══════════════════════════════════════════
+   PILLS / FILTER TABS
+═══════════════════════════════════════════ */
+    .filter-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+
+    .filter-pill {
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.03);
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.18s var(--ease);
+      user-select: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .filter-pill:hover {
+      border-color: rgba(196, 30, 58, 0.5);
+      color: var(--crimson);
+    }
+
+    .filter-pill.on {
+      background: rgba(196, 30, 58, 0.18);
+      border-color: rgba(196, 30, 58, 0.4);
+      color: white;
+    }
+
+    /* ═══════════════════════════════════════════
+   PROGRESS STEPS
+═══════════════════════════════════════════ */
+    .progress-steps {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .ps-step {
+      flex: 1;
+      position: relative;
+      text-align: center;
+    }
+
+    .ps-step::before {
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      right: -50%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.08);
+      z-index: 0;
+    }
+
+    .ps-step:last-child::before {
+      display: none;
+    }
+
+    .ps-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      margin: 0 auto 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s;
+    }
+
+    .ps-step.done .ps-dot {
+      background: var(--crimson);
+      border-color: var(--crimson);
+      color: white;
+      box-shadow: 0 0 0 4px var(--crimson-glow);
+    }
+
+    .ps-step.done::before {
+      background: linear-gradient(90deg, var(--crimson), rgba(196, 30, 58, 0.4));
+    }
+
+    .ps-step.cur .ps-dot {
+      border-color: var(--crimson);
+      background: rgba(196, 30, 58, 0.15);
+      color: #ff8a95;
+      animation: pulseDot 2s infinite;
+    }
+
+    .ps-step.cur .ps-lbl {
+      color: #ff8a95;
+      font-weight: 600;
+    }
+
+    .ps-lbl {
+      font-size: 10.5px;
+      color: var(--text-faint);
+      line-height: 1.3;
+    }
+
+    .ps-step.done .ps-lbl {
+      color: var(--text-muted);
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(196, 30, 58, 0.15); }
+      50% { box-shadow: 0 0 0 8px rgba(196, 30, 58, 0.08); }
+    }
+
+    /* ═══════════════════════════════════════════
+   ACTIVITY LIST
+═══════════════════════════════════════════ */
+    .act-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .act-item:last-child {
+      border-bottom: none;
+    }
+
+    .act-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--r);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .act-text {
+      font-size: 12.5px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .act-time {
+      font-size: 10px;
+      color: var(--text-faint);
+      margin-top: 2px;
+    }
+
+    /* ═══════════════════════════════════════════
+   MINI BAR CHART
+═══════════════════════════════════════════ */
+    .mini-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .mb-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mb-label {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      width: 88px;
+      flex-shrink: 0;
+      font-weight: 500;
+    }
+
+    .mb-track {
+      flex: 1;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .mb-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 0.9s var(--ease);
+    }
+
+    .mb-val {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--text);
+      width: 34px;
+      text-align: right;
+    }
+
+    /* ═══════════════════════════════════════════
+   FORM
+═══════════════════════════════════════════ */
+    .form-section {
+      padding-bottom: 22px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .form-section:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    .form-section-title {
+      font-family: var(--f-head);
+      font-size: 15px;
+      font-weight: 600;
+      color: white;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-section-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--crimson), var(--crimson-dim));
+      color: white;
+      font-family: var(--f-body);
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-grid.cols-3 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group.full {
+      grid-column: 1/-1;
+    }
+
+    label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .req {
+      color: var(--crimson);
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    select,
+    textarea {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--r-lg);
+      padding: 11px 14px;
+      font-family: var(--f-body);
+      font-size: 13px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      width: 100%;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--crimson);
+      background: rgba(196, 30, 58, 0.06);
+      box-shadow: 0 0 0 3px var(--crimson-glow);
+    }
+
+    select {
+      cursor: pointer;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+      line-height: 1.6;
+    }
+
+    .upload-zone {
+      border: 2px dashed rgba(255, 255, 255, 0.1);
+      border-radius: var(--r-lg);
+      padding: 28px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.22s var(--ease);
+    }
+
+    .upload-zone:hover {
+      border-color: rgba(196, 30, 58, 0.5);
+      background: var(--crimson-glow);
+    }
+
+    .upload-zone-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--r-lg);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+    }
+
+    .upload-zone-icon svg {
+      color: var(--text-muted);
+    }
+
+    .upload-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .upload-title span {
+      color: var(--crimson);
+    }
+
+    .upload-sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+    }
+
+    /* ═══════════════════════════════════════════
+   ORDER TYPE SELECTOR
+═══════════════════════════════════════════ */
+    .order-types {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .order-type {
+      border: 1px solid var(--glass-border);
+      border-radius: var(--r-xl);
+      padding: 18px 14px;
+      cursor: pointer;
+      transition: all 0.22s var(--ease);
+      text-align: center;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(8px);
+      user-select: none;
+    }
+
+    .order-type:hover {
+      border-color: rgba(196, 30, 58, 0.4);
+      background: rgba(196, 30, 58, 0.07);
+    }
+
+    .order-type.selected {
+      border-color: var(--crimson);
+      background: rgba(196, 30, 58, 0.12);
+      box-shadow: 0 0 0 1px rgba(196, 30, 58, 0.2);
+    }
+
+    .order-type-icon {
+      font-size: 22px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .order-type-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .order-type-desc {
+      font-size: 10.5px;
+      color: var(--text-muted);
+    }
+
+    .order-type.selected .order-type-name {
+      color: white;
+    }
+
+    /* ═══════════════════════════════════════════
+   PROFILE
+═══════════════════════════════════════════ */
+    .profile-hero {
+      background: linear-gradient(135deg, rgba(10, 22, 40, 0.7) 0%, rgba(196, 30, 58, 0.15) 100%);
+      border-radius: var(--r-lg) var(--r-lg) 0 0;
+      padding: 28px 28px 22px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .profile-hero::after {
+      content: '';
+      position: absolute;
+      right: -30px;
+      top: -30px;
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .profile-av-lg {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--crimson), var(--crimson-dim));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--f-head);
+      font-size: 24px;
+      font-weight: 700;
+      color: white;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-name {
+      font-family: var(--f-head);
+      font-size: 22px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-company {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-since {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+      padding: 4px 10px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--glass-border);
+      font-size: 11px;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 1;
+    }
+
+    .pf-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .pf-row:last-child {
+      border-bottom: none;
+    }
+
+    .pf-key {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .pf-val {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text);
+      text-align: right;
+    }
+
+    .pf-val.mono {
+      font-family: var(--f-mono);
+      font-size: 11.5px;
+      color: #93c5fd;
+    }
+
+    .readonly-notice {
+      margin-top: 14px;
+      padding: 11px 13px;
+      background: rgba(196, 30, 58, 0.08);
+      border: 1px solid rgba(196, 30, 58, 0.2);
+      border-radius: var(--r);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 12px;
+      color: #ff8a95;
+    }
+
+    .readonly-notice svg {
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ═══════════════════════════════════════════
+   MODAL
+═══════════════════════════════════════════ */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(3, 6, 15, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 36px 20px;
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s var(--ease);
+    }
+
+    .overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: rgba(8, 14, 30, 0.9);
+      backdrop-filter: var(--glass-blur-heavy);
+      -webkit-backdrop-filter: var(--glass-blur-heavy);
+      border: 1px solid var(--glass-border-bright);
+      border-radius: var(--r-xl);
+      width: 800px;
+      max-width: 100%;
+      box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+      transform: translateY(20px);
+      transition: transform 0.25s var(--ease);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .modal::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--crimson), var(--gold), transparent);
+    }
+
+    .overlay.open .modal {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: linear-gradient(135deg, rgba(196, 30, 58, 0.08), rgba(10, 26, 58, 0.3));
+    }
+
+    .modal-header-left {
+      flex: 1;
+    }
+
+    .modal-job-id {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--crimson);
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .modal-job-name {
+      font-family: var(--f-head);
+      font-size: 19px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 10px;
+    }
+
+    .modal-tags {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .modal-close {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.18s;
+    }
+
+    .modal-close:hover {
+      border-color: var(--crimson);
+      color: var(--crimson);
+    }
+
+    .modal-body {
+      padding: 20px 22px;
+    }
+
+    .modal-gallery-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .modal-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      overflow: hidden;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .modal-gallery img {
+      border-radius: var(--r-lg);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(0, 0, 0, 0.2);
+      cursor: zoom-in;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+      min-height: 0;
+    }
+
+    .modal-gallery img.car-visible {
+      display: block;
+    }
+
+    .car-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+      transition: background 0.15s;
+    }
+
+    .car-btn:hover { background: rgba(0,0,0,0.8); }
+    .car-btn.prev { left: -14px; }
+    .car-btn.next { right: -14px; }
+    .car-btn:disabled { opacity: 0.25; cursor: default; }
+
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .modal-section-title {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 11px;
+      padding-bottom: 7px;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 7px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .detail-key {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .detail-val {
+      font-size: 12px;
+      color: var(--text);
+      font-weight: 500;
+      text-align: right;
+      max-width: 55%;
+    }
+
+    .detail-val.mono {
+      font-family: var(--f-mono);
+      font-size: 11.5px;
+      color: #93c5fd;
+    }
+
+    .modal-footer {
+      padding: 14px 22px;
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    /* ════════════════════════════════════════
+   LIGHTBOX
+════════════════════════════════════════ */
+    .lb-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 700;
+      background: rgba(2, 4, 12, 0.93);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s;
+    }
+
+    .lb-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lb-toolbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: linear-gradient(180deg, rgba(2, 4, 12, 0.82) 0%, transparent 100%);
+      z-index: 10;
+    }
+
+    .lb-counter {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.55);
+      letter-spacing: 0.08em;
+    }
+
+    .lb-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.75);
+      border-radius: 7px;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1;
+      transition: all 0.22s;
+    }
+
+    .lb-btn:hover {
+      background: rgba(196, 30, 58, 0.22);
+      border-color: var(--crimson);
+      color: white;
+    }
+
+    .lb-zoom-label {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      width: 52px;
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(10, 22, 40, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.22s;
+    }
+
+    .lb-nav:hover {
+      background: var(--crimson);
+      border-color: var(--crimson);
+      color: white;
+      box-shadow: 0 0 18px var(--crimson-glow);
+    }
+
+    .lb-prev { left: 18px; }
+    .lb-next { right: 18px; }
+    .lb-nav.lb-hidden { opacity: 0; pointer-events: none; }
+
+    .lb-stage {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .lb-img {
+      max-width: 88vw;
+      max-height: 82vh;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.7);
+      transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.18s;
+      transform-origin: center center;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .lb-img.lb-fade {
+      opacity: 0;
+      transform: scale(0.94);
+    }
+
+    .lb-toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lb-close-btn {
+      margin-left: 6px;
+    }
+
+    /* ═══════════════════════════════════════════
+   NOTIFICATION PANEL
+═══════════════════════════════════════════ */
+    .notif-panel {
+      position: fixed;
+      top: var(--topbar);
+      right: 0;
+      width: 340px;
+      background: rgba(8, 14, 30, 0.95);
+      backdrop-filter: var(--glass-blur-heavy);
+      -webkit-backdrop-filter: var(--glass-blur-heavy);
+      border-left: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+      border-radius: 0 0 0 var(--r-xl);
+      box-shadow: -8px 12px 40px rgba(0, 0, 0, 0.5);
+      z-index: 200;
+      transform: translateX(100%);
+      transition: transform 0.28s var(--ease);
+    }
+
+    .notif-panel.open {
+      transform: translateX(0);
+    }
+
+    .np-head {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .np-title {
+      font-family: var(--f-head);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .np-clear {
+      font-size: 11px;
+      color: var(--crimson);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .np-list {
+      max-height: 420px;
+      overflow-y: auto;
+    }
+
+    .np-item {
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      display: flex;
+      gap: 12px;
+      cursor: pointer;
+      transition: background 0.12s;
+    }
+
+    .np-item:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .np-item.unread {
+      background: rgba(196, 30, 58, 0.06);
+    }
+
+    .np-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--r);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .np-text {
+      font-size: 12.5px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .np-time {
+      font-size: 11px;
+      color: var(--text-faint);
+      margin-top: 3px;
+    }
+
+    /* ═══════════════════════════════════════════
+   TOAST
+═══════════════════════════════════════════ */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      background: rgba(8, 14, 30, 0.95);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border-bright);
+      border-radius: var(--r-lg);
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      min-width: 280px;
+      max-width: 380px;
+      border-left: 3px solid var(--crimson);
+    }
+
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    #toast.success {
+      border-color: var(--green);
+    }
+
+    #toast.error {
+      border-color: #ef4444;
+    }
+
+    #toast.info {
+      border-color: #3b82f6;
+    }
+
+    .toast-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .toast-text {
+      font-size: 12.5px;
+      color: white;
+      font-weight: 500;
+    }
+
+    /* ═══════════════════════════════════════════
+   TRACKING PAGE
+═══════════════════════════════════════════ */
+    .tracking-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      margin-bottom: 12px;
+      transition: all 0.22s;
+    }
+
+    .tracking-card:hover {
+      border-color: var(--glass-border-bright);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .tc-header {
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .tc-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .tc-id {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--crimson);
+    }
+
+    .tc-name {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .tc-client {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .tc-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tc-body {
+      padding: 0 20px 20px;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .tc-steps-wrap {
+      padding-top: 18px;
+    }
+
+    /* ═══════════════════════════════════════════
+   SECTION DIVIDER
+═══════════════════════════════════════════ */
+    .sec-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 22px 0 14px;
+    }
+
+    .sec-divider-label {
+      font-family: var(--f-head);
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      white-space: nowrap;
+    }
+
+    .sec-divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--glass-border);
+    }
+
+    .sec-divider-action {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--crimson);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .sec-divider-action:hover {
+      opacity: 0.7;
+    }
+
+    /* ═══════════════════════════════════════════
+   QUICK ACTION CARD
+═══════════════════════════════════════════ */
+    .qa-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--r-lg);
+      padding: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      cursor: pointer;
+      transition: all 0.22s var(--ease);
+    }
+
+    .qa-card:hover {
+      border-color: rgba(196, 30, 58, 0.4);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .qa-card.highlight {
+      background: linear-gradient(135deg, rgba(196, 30, 58, 0.12), rgba(10, 26, 58, 0.3));
+      border-color: rgba(196, 30, 58, 0.3);
+    }
+
+    .qa-card.highlight .qa-icon {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .qa-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--r);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .qa-icon.navy {
+      background: rgba(59, 130, 246, 0.15);
+    }
+
+    .qa-icon.red {
+      background: rgba(196, 30, 58, 0.15);
+    }
+
+    .qa-icon.green {
+      background: rgba(34, 197, 94, 0.15);
+    }
+
+    .qa-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 3px;
+    }
+
+    .qa-sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ═══════════════════════════════════════════
+   EMPTY STATE
+═══════════════════════════════════════════ */
+    .empty {
+      text-align: center;
+      padding: 48px 20px;
+    }
+
+    .empty-icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+    }
+
+    .empty-text {
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    /* ═══════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════ */
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    /* ═══════════════════════════════════════════
+   MOBILE HAMBURGER
+═══════════════════════════════════════════ */
+    .hamburger {
+      display: none;
+      width: 38px;
+      height: 38px;
+      border-radius: var(--r);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--glass-border);
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.18s;
+    }
+
+    .hamburger:hover {
+      background: rgba(196, 30, 58, 0.12);
+      border-color: rgba(196, 30, 58, 0.4);
+    }
+
+    .hamburger svg {
+      color: var(--text-muted);
+    }
+
+    /* Sidebar overlay backdrop */
+    .sidebar-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.52);
+      z-index: 99;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s var(--ease);
+    }
+
+    .sidebar-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* ═══════════════════════════════════════════
+   MOBILE NAV
+═══════════════════════════════════════════ */
+    .mobile-nav {
+      display: none;
+    }
+
+    /* ═══════════════════════════════════════════
+   SUBMIT CONFIRMATION MODAL
+═══════════════════════════════════════════ */
+    #confirm-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      background: rgba(3, 6, 15, 0.8);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.24s var(--ease);
+    }
+
+    #confirm-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .confirm-modal {
+      background: rgba(8, 14, 30, 0.92);
+      backdrop-filter: var(--glass-blur-heavy);
+      -webkit-backdrop-filter: var(--glass-blur-heavy);
+      border: 1px solid var(--glass-border-bright);
+      border-radius: var(--r-xl);
+      width: 480px;
+      max-width: 100%;
+      box-shadow: 0 24px 72px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+      transform: scale(0.96) translateY(10px);
+      transition: transform 0.24s var(--ease);
+      overflow: hidden;
+    }
+
+    #confirm-overlay.open .confirm-modal {
+      transform: scale(1) translateY(0);
+    }
+
+    .cm-caution {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(196, 30, 58, 0.08));
+      border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+      padding: 20px 24px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .cm-caution-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1.5px solid rgba(245, 158, 11, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .cm-caution-title {
+      font-family: var(--f-head);
+      font-size: 15px;
+      font-weight: 700;
+      color: #fcd34d;
+      margin-bottom: 4px;
+    }
+
+    .cm-caution-text {
+      font-size: 12.5px;
+      color: rgba(252, 211, 77, 0.7);
+      line-height: 1.55;
+    }
+
+    .cm-note {
+      padding: 18px 24px 0;
+    }
+
+    .cm-note-box {
+      background: rgba(196, 30, 58, 0.08);
+      border: 1px solid rgba(196, 30, 58, 0.2);
+      border-radius: var(--r);
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .cm-note-icon {
+      flex-shrink: 0;
+      margin-top: 1px;
+      color: #ff8a95;
+    }
+
+    .cm-note-text {
+      font-size: 12px;
+      color: #ff8a95;
+      line-height: 1.6;
+    }
+
+    .cm-note-text strong {
+      font-weight: 700;
+    }
+
+    .cm-body {
+      padding: 18px 24px 20px;
+    }
+
+    .cm-input-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .cm-input-hint {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .cm-input-hint code {
+      font-family: var(--f-mono);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--glass-border);
+      border-radius: 5px;
+      padding: 1px 6px;
+      font-size: 12px;
+      color: var(--text);
+    }
+
+    #confirm-type-input {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--r-lg);
+      padding: 12px 16px;
+      font-family: var(--f-mono);
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      width: 100%;
+    }
+
+    #confirm-type-input:focus {
+      border-color: var(--crimson);
+      box-shadow: 0 0 0 3px var(--crimson-glow);
+    }
+
+    #confirm-type-input.valid {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+    }
+
+    .cm-footer {
+      padding: 14px 24px 20px;
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    #confirm-submit-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+      border-color: var(--glass-border);
+      cursor: not-allowed;
+      opacity: 0.55;
+      transition: all 0.18s var(--ease);
+    }
+
+    #confirm-submit-btn.ready {
+      background: linear-gradient(135deg, var(--crimson), var(--crimson-dim));
+      border-color: rgba(255, 255, 255, 0.1);
+      color: white;
+      cursor: pointer;
+      opacity: 1;
+      box-shadow: 0 4px 16px var(--crimson-glow);
+    }
+
+    #confirm-submit-btn.ready:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(196, 30, 58, 0.4);
+    }
+
+    /* ═══════════════════════════════════════════
+   TABLET
+═══════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      :root {
+        --sidebar: 220px;
+      }
+
+      .ai-bar {
+        width: 180px;
+      }
+
+      .ai-bar:focus-within {
+        width: 210px;
+      }
+
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .col-right {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+
+      .col-right>*+* {
+        margin-top: 0;
+      }
+    }
+
+    /* ═══════════════════════════════════════════
+   MOBILE
+═══════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      :root {
+        --topbar: 56px;
+      }
+
+      html {
+        font-size: 16px;
+      }
+
+      body {
+        overflow: auto;
+        height: auto;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s var(--ease);
+        z-index: 200;
+        width: 280px;
+        box-shadow: none;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+        box-shadow: 8px 0 40px rgba(0, 0, 0, 0.6);
+      }
+
+      .sidebar-backdrop {
+        display: block;
+      }
+
+      .topbar {
+        left: 0;
+        padding: 0 14px;
+        gap: 10px;
+      }
+
+      .ai-bar {
+        display: none;
+      }
+
+      .top-sep {
+        display: none;
+      }
+
+      .topbar > div:last-child {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .page-title {
+        font-size: 15px;
+      }
+
+      .page-sub {
+        display: none;
+      }
+
+      .main {
+        margin-left: 0;
+        padding-top: var(--topbar);
+        height: auto;
+        overflow: visible;
+      }
+
+      .content {
+        padding: 14px;
+        padding-bottom: 82px;
+        overflow: visible;
+      }
+
+      .hero {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+
+      .hero-greeting {
+        font-size: 24px;
+      }
+
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 16px;
+      }
+
+      .stat-val {
+        font-size: 26px;
+      }
+
+      .stat-icon {
+        display: none;
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .col-right {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .col-right>*+* {
+        margin-top: 0;
+      }
+
+      .card-header {
+        padding: 14px 16px;
+      }
+
+      .card-body {
+        padding: 14px;
+      }
+
+      .tbl-ctrl {
+        padding: 10px 14px;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .search-wrap {
+        max-width: 100%;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .jobs-root .view-toggle button:last-child {
+        display: none;
+      }
+
+      .jobs-root[data-view="grid"] .grid-view {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 12px;
+      }
+
+      .jobs-root[data-view="table"] .table-view {
+        display: none;
+      }
+
+      .jobs-root[data-view="table"] .grid-view {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 12px;
+      }
+
+      .order-types {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .form-grid.cols-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .form-group.full {
+        grid-column: 1;
+      }
+
+      .progress-steps {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 4px;
+      }
+
+      .ps-step {
+        min-width: 66px;
+      }
+
+      .overlay {
+        padding: 0;
+        align-items: flex-end;
+      }
+
+      .modal {
+        width: 100%;
+        max-height: 94vh;
+        border-radius: var(--r-xl) var(--r-xl) 0 0;
+        overflow-y: auto;
+        transform: translateY(100%);
+      }
+
+      .overlay.open .modal {
+        transform: translateY(0);
+      }
+
+      .modal-header {
+        padding: 14px 16px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .modal-job-name {
+        font-size: 16px;
+      }
+
+      .modal-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .car-btn.prev { left: -10px; }
+      .car-btn.next { right: -10px; }
+
+      .modal-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .modal-footer {
+        padding: 12px 16px;
+        flex-wrap: wrap;
+        gap: 8px;
+        position: sticky;
+        bottom: 0;
+      }
+
+      .modal-footer .btn {
+        flex: 1;
+        justify-content: center;
+        font-size: 12px;
+      }
+
+      .notif-panel {
+        width: 100%;
+        border-radius: 0 0 var(--r-xl) var(--r-xl);
+      }
+
+      #toast {
+        left: 16px;
+        right: 16px;
+        bottom: 90px;
+        min-width: unset;
+        max-width: unset;
+      }
+
+      #confirm-overlay {
+        align-items: flex-end;
+        padding: 0;
+      }
+
+      .confirm-modal {
+        width: 100%;
+        border-radius: var(--r-xl) var(--r-xl) 0 0;
+        transform: translateY(100%);
+      }
+
+      #confirm-overlay.open .confirm-modal {
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 150;
+        background: rgba(6, 12, 24, 0.96);
+        backdrop-filter: var(--glass-blur-heavy);
+        -webkit-backdrop-filter: var(--glass-blur-heavy);
+        border-top: 1px solid var(--glass-border-bright);
+        padding: 0 4px;
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.4);
+      }
+
+      .mn-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 4px 10px;
+        cursor: pointer;
+        transition: transform 0.12s var(--ease), opacity 0.12s var(--ease);
+        border-top: 2px solid transparent;
+        user-select: none;
+        position: relative;
+        gap: 4px;
+        min-height: 60px;
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+      }
+
+      .mn-item:active {
+        transform: scale(0.88);
+        opacity: 0.75;
+      }
+
+      .mn-item svg {
+        width: 22px;
+        height: 22px;
+        color: var(--text-faint);
+        transition: color 0.15s;
+        flex-shrink: 0;
+      }
+
+      .mn-label {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--text-faint);
+        transition: color 0.15s;
+        letter-spacing: 0.01em;
+        white-space: nowrap;
+      }
+
+      .mn-item.active::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 28px;
+        height: 3px;
+        border-radius: 0 0 3px 3px;
+        background: var(--crimson);
+      }
+
+      .mn-item.active svg {
+        color: var(--crimson);
+      }
+
+      .mn-item.active .mn-label {
+        color: var(--crimson);
+        font-weight: 700;
+      }
+
+      .mn-badge {
+        position: absolute;
+        top: 6px;
+        right: calc(50% - 16px);
+        background: var(--crimson);
+        color: white;
+        font-size: 8px;
+        font-weight: 700;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid rgba(6, 12, 24, 0.8);
+        pointer-events: none;
+      }
+
+      .modal-pull-handle {
+        display: flex;
+        justify-content: center;
+        padding: 10px 0 0;
+        background: rgba(10, 22, 40, 0.5);
+      }
+
+      .modal-pull-handle::after {
+        content: '';
+        width: 36px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 99px;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .mobile-nav {
+        display: none;
+      }
+
+      .hamburger {
+        display: none;
+      }
+
+      .sidebar-backdrop {
+        display: none !important;
+      }
+
+      .modal-pull-handle {
+        display: none;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .stats-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .stat-val {
+        font-size: 22px;
+      }
+
+      .hero-greeting {
+        font-size: 20px;
+      }
+
+      .jobs-root[data-view="grid"] .grid-view,
+      .jobs-root[data-view="table"] .grid-view {
+        grid-template-columns: 1fr;
+      }
+
+      .order-types {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* ═══════════════════════════════════════════
+       GLOBAL SIZE BUMP
+    ═══════════════════════════════════════════ */
+
+    /* Topbar */
+    .topbar { height: 64px !important; }
+    .main { padding-top: 64px !important; }
+    .page-title { font-size: 20px !important; }
+    .page-sub { font-size: 12.5px !important; }
+    .ai-bar { width: 250px !important; }
+    .ai-input { font-size: 13px !important; }
+    .ai-bar:focus-within { width: 290px !important; }
+
+    /* Sidebar */
+    .nav-item { font-size: 14px !important; padding: 10px 14px !important; }
+    .nav-label { font-size: 10.5px !important; }
+    .nav-badge { font-size: 11px !important; padding: 2px 8px !important; }
+    .user-name { font-size: 13.5px !important; }
+    .user-company { font-size: 11.5px !important; }
+
+    /* Buttons */
+    .btn { font-size: 14px !important; padding: 11px 22px !important; }
+    .btn-sm { font-size: 13px !important; padding: 8px 16px !important; }
+    .btn-lg { font-size: 16px !important; padding: 14px 28px !important; }
+
+    /* Greeting hero */
+    .hero-greeting { font-size: 36px !important; }
+    .hero-sub { font-size: 15px !important; }
+    .hero-date { font-size: 12px !important; }
+
+    /* Stat cards */
+    .stat-label { font-size: 12px !important; }
+    .stat-val { font-size: 34px !important; }
+    .stat-val.sm { font-size: 24px !important; }
+    .stat-delta { font-size: 12.5px !important; }
+
+    /* Cards */
+    .card-title { font-size: 14.5px !important; }
+    .card-link { font-size: 13px !important; }
+    .card-body { padding: 20px !important; }
+
+    /* Tables */
+    thead th { font-size: 11.5px !important; padding: 11px 18px !important; }
+    tbody td { font-size: 13.5px !important; padding: 13px 18px !important; }
+
+    /* Badges */
+    .badge { font-size: 11.5px !important; padding: 3px 10px !important; }
+    .prio-badge { font-size: 11px !important; padding: 3px 8px !important; }
+
+    /* Filter pills */
+    .filter-pill { font-size: 13px !important; padding: 7px 16px !important; }
+
+    /* Form */
+    .form-section-title { font-size: 16px !important; }
+    .form-section-num { width: 26px !important; height: 26px !important; font-size: 12px !important; }
+    label { font-size: 12px !important; }
+    input[type="text"], input[type="email"], input[type="number"], select, textarea {
+      font-size: 14px !important; padding: 12px 14px !important;
+    }
+    .order-type-name { font-size: 13.5px !important; }
+    .order-type-desc { font-size: 12px !important; }
+    .order-type { padding: 20px 16px !important; }
+    .order-type-icon { font-size: 26px !important; }
+
+    /* Quick actions */
+    .qa-title { font-size: 14px !important; }
+    .qa-sub { font-size: 12px !important; }
+
+    /* Section dividers */
+    .sec-divider-label { font-size: 12px !important; }
+    .sec-divider-action { font-size: 13px !important; }
+
+    /* ═══════════════════════════════════════════
+       TWO-PHASE FORM
+    ═══════════════════════════════════════════ */
+    .form-phase-stepper {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 18px 24px 16px;
+      border-bottom: 1px solid var(--glass-border);
+      background: rgba(0,0,0,0.08);
+    }
+
+    .fps-step {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--ink-4);
+      transition: color 0.2s;
+    }
+
+    .fps-step.active {
+      color: var(--text);
+    }
+
+    .fps-step.done {
+      color: var(--green);
+    }
+
+    .fps-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .fps-step.active .fps-num {
+      background: var(--crimson);
+      border-color: var(--crimson);
+      color: white;
+    }
+
+    .fps-step.done .fps-num {
+      background: var(--green);
+      border-color: var(--green);
+      color: white;
+    }
+
+    .fps-connector {
+      flex: 1;
+      height: 2px;
+      background: var(--glass-border);
+      margin: 0 12px;
+      border-radius: 1px;
+      max-width: 60px;
+    }
+
+    .fps-connector.done {
+      background: var(--green);
+    }
+
+    .form-phase {
+      display: none;
+    }
+
+    .form-phase.active {
+      display: block;
+    }
+
+    .phase-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: flex-end;
+      padding-top: 8px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- ═══ FLAG BACKGROUND ═══ -->
+  <div id="flag-bg">
+    <div class="flag-overlay"></div>
+    <div class="flag-grain"></div>
+  </div>
+
+
+  <!-- ══════════════ SIDEBAR BACKDROP ══════════════ -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" onclick="closeSidebar()"></div>
+
+  <!-- ══════════════ SIDEBAR ══════════════ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <img class="brand-logo-img" src="https://changeartwork.com/images/logo/site-logo/ch-logo.png" alt="CHANGE!">
+      <div class="brand-stripe">
+        <div style="background:#B22234;flex:3"></div>
+        <div style="background:#F5F5F5;flex:2"></div>
+        <div style="background:#002868;flex:2"></div>
+      </div>
+    </div>
+
+    <div class="user-card">
+      <div class="user-av">RK</div>
+      <div>
+        <div class="user-name">Ravi Kumar</div>
+        <div class="user-company">Ravi Textiles Pvt. Ltd.</div>
+      </div>
+    </div>
+
+    <nav class="nav" id="sidebar-nav">
+      <div class="nav-label">My Portal</div>
+      <div class="nav-item active" data-page="dashboard" onclick="go('dashboard', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
+        Dashboard
+      </div>
+      <div class="nav-item" data-page="jobs" onclick="go('jobs', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+          <polyline points="14 2 14 8 20 8" />
+          <line x1="16" y1="13" x2="8" y2="13" />
+          <line x1="16" y1="17" x2="8" y2="17" />
+          <polyline points="10 9 9 9 8 9" />
+        </svg>
+        My Projects
+        <span class="nav-badge">3</span>
+      </div>
+      <div class="nav-item" data-page="quote" onclick="go('quote', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="16" />
+          <line x1="8" y1="12" x2="16" y2="12" />
+        </svg>
+        Request Quote
+      </div>
+      <div class="nav-item" data-page="place_order" onclick="go('place_order', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        Place Order
+      </div>
+      <div class="nav-item" data-page="tracking" onclick="go('tracking', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+        </svg>
+        Delivered Projects
+      </div>
+      <div class="nav-label" style="margin-top:14px">Account</div>
+      <div class="nav-item" data-page="profile" onclick="go('profile', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+        My Profile
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="help-btn" onclick="toast('Our team is available Mon–Fri 9am–6pm ET.','info')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+        Need help? Contact CS
+      </button>
+    </div>
+  </aside>
+
+  <!-- ══════════════ TOPBAR ══════════════ -->
+  <header class="topbar">
+    <!-- Hamburger: mobile only -->
+    <button class="hamburger" onclick="toggleSidebar()" title="Open menu" aria-label="Open menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
+    </button>
+    <div class="page-heading">
+      <div class="page-title" id="topbar-title">Dashboard</div>
+      <div class="page-sub" id="topbar-sub">Welcome back, Ravi</div>
+    </div>
+
+    <div class="ai-bar">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+        stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-4);flex-shrink:0;margin-right:6px">
+        <circle cx="11" cy="11" r="8" />
+        <path d="m21 21-4.35-4.35" />
+      </svg>
+      <input class="ai-input" placeholder="Ask AI anything…" onkeydown="handleAsk(event)">
+      <button class="ai-submit" onclick="toast('Ask AI — Coming in V2','info')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13" />
+          <polygon points="22 2 15 22 11 13 2 9 22 2" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="top-sep"></div>
+
+    <div class="top-icon" onclick="toggleNotif()" title="Notifications">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-3)">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+        <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+      </svg>
+      <span class="notif-pip"></span>
+    </div>
+
+    <div class="top-icon" onclick="toast('Dark mode — Coming in V2','info')" title="Toggle theme">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-3)">
+        <circle cx="12" cy="12" r="5" />
+        <line x1="12" y1="1" x2="12" y2="3" />
+        <line x1="12" y1="21" x2="12" y2="23" />
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+        <line x1="1" y1="12" x2="3" y2="12" />
+        <line x1="21" y1="12" x2="23" y2="12" />
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+      </svg>
+    </div>
+
+    <div class="top-sep"></div>
+
+    <div style="display:flex;align-items:center;gap:9px;cursor:pointer;"
+      onclick="go('profile', document.querySelector('[data-page=profile]'))">
+      <div
+        style="width:34px;height:34px;border-radius:50%;background:var(--crimson);display:flex;align-items:center;justify-content:center;font-family:var(--f-head);font-size:12px;font-weight:700;color:white;border:2px solid var(--crimson-md)">
+        RK</div>
+      <div style="line-height:1.2">
+        <div style="font-size:12.5px;font-weight:700;color:var(--ink)">Ravi Kumar</div>
+        <div style="font-size:10.5px;color:var(--ink-4)">Client Portal</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════ MAIN ══════════════ -->
+  <div class="main">
+    <div class="content" id="content"></div>
+  </div>
+
+  <!-- ══════════════ MOBILE BOTTOM NAV ══════════════ -->
+  <nav class="mobile-nav" id="mobile-nav">
+    <div class="mn-item active" data-page="dashboard" id="mn-dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7" />
+        <rect x="14" y="3" width="7" height="7" />
+        <rect x="14" y="14" width="7" height="7" />
+        <rect x="3" y="14" width="7" height="7" />
+      </svg>
+      <span class="mn-label">Home</span>
+    </div>
+    <div class="mn-item" data-page="jobs" id="mn-jobs">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+        <polyline points="14 2 14 8 20 8" />
+        <line x1="16" y1="13" x2="8" y2="13" />
+        <line x1="16" y1="17" x2="8" y2="17" />
+      </svg>
+      <span class="mn-label">My Projects</span>
+      <span class="mn-badge">3</span>
+    </div>
+    <div class="mn-item" data-page="quote" id="mn-quote">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="8" x2="12" y2="16" />
+        <line x1="8" y1="12" x2="16" y2="12" />
+      </svg>
+      <span class="mn-label">Quote</span>
+    </div>
+    <div class="mn-item" data-page="tracking" id="mn-tracking">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+      </svg>
+      <span class="mn-label">Delivered</span>
+    </div>
+    <div class="mn-item" data-page="profile" id="mn-profile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
+      <span class="mn-label">Profile</span>
+    </div>
+  </nav>
+
+  <!-- ══════════════ NOTIF PANEL ══════════════ -->
+  <div class="notif-panel" id="notif-panel">
+    <div class="np-head">
+      <div class="np-title">Notifications</div>
+      <span class="np-clear" onclick="clearNotifs()">Mark all read</span>
+    </div>
+    <div class="np-list" id="np-list"></div>
+  </div>
+
+  <!-- ══════════════ MODAL ══════════════ -->
+  <div class="overlay" id="overlay" onclick="closeModal(event)">
+    <div class="modal" id="modal-body"></div>
+  </div>
+
+  <!-- ══════════════ SUBMIT CONFIRMATION MODAL ══════════════ -->
+  <div id="confirm-overlay">
+    <div class="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="cm-title">
+
+      <!-- Caution Banner -->
+      <div class="cm-caution">
+        <div class="cm-caution-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+        </div>
+        <div>
+          <div class="cm-caution-title" id="cm-title">Confirm Your Submission</div>
+          <div class="cm-caution-text" id="cm-caution-text">You are about to submit a <strong id="cm-type-label">Quote
+              Request</strong>. Once submitted, it will be sent to our team for review and cannot be recalled.</div>
+        </div>
+      </div>
+
+      <!-- Note -->
+      <div class="cm-note">
+        <div class="cm-note-box">
+          <svg class="cm-note-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+          <div class="cm-note-text" id="cm-note-text">
+            <strong>Please note:</strong> Placing an order confirms your intent to proceed. Our team will begin working right away. Ensure your design brief and files are correct before confirming.
+          </div>
+        </div>
+      </div>
+
+      <!-- Type to confirm -->
+      <div class="cm-body">
+        <label class="cm-input-label" for="confirm-type-input">Type to confirm</label>
+        <div class="cm-input-hint">Type <code>Confirm</code> below to enable the confirm button</div>
+        <input type="text" id="confirm-type-input" placeholder="Confirm" autocomplete="off" spellcheck="false"
+          oninput="onConfirmInput(this)" onpaste="event.preventDefault()">
+      </div>
+
+      <!-- Footer -->
+      <div class="cm-footer">
+        <button class="btn btn-outline" onclick="closeConfirmModal()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+          Cancel
+        </button>
+        <button class="btn" id="confirm-submit-btn" disabled onclick="finalizeSubmit()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13" />
+            <polygon points="22 2 15 22 11 13 2 9 22 2" />
+          </svg>
+          <span id="cm-btn-label">Confirm Quote</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════ TOAST ══════════════ -->
+  <div id="toast">
+    <span class="toast-icon" id="t-icon"></span>
+    <span class="toast-text" id="t-text"></span>
+  </div>
+
+  <script>
+    /* ──── DATA ──── */
+    const JOBS = [
+      { id: 'J-2025-0050', ref: '05-06-2025-C001-050', design: 'Winter Collection Print', summary: '4-color CMYK print for winter collection.', order: 'Artwork', project: 'Quote', complexity: 'Medium', process: 'Screen Printing', priority: 'Normal', eta: '8h', status: 'Quote Approved', stage: 1, notes: '4-color CMYK print for winter collection. Primary brand blue #1E3A5F. Avoid white backgrounds on outer panels.', colors: 4, created: 'May 06, 2025', assignedTo: null, aiScore: null, csPrice: 180, agreedPrice: null },
+      { id: 'J-2025-0047', ref: '04-30-2025-C001-047-A', design: 'Corporate Logo Set', summary: 'Logo lockups, export-ready vectors, and brand-safe color checks.', order: 'Artwork', project: 'Live', complexity: 'Complex', process: 'Screen Printing', priority: 'Rush', eta: '8h', status: 'In QC', stage: 4, notes: 'Pantone 286C for navy. All text must be vectorised. Refer to attached brand guide.', colors: 4, created: 'Apr 30, 2025', assignedTo: 'Kavya Reddy', aiScore: { colour: 88, align: 92, res: 85, brief: 90 } },
+      { id: 'J-2025-0044', ref: '04-27-2025-C001-044', design: 'Summer Collection Flyer', summary: 'Promotional flyer layout with warmer product photography tones.', order: 'Artwork', project: 'Amend', complexity: 'Simple', process: 'Digital Printing', priority: 'Normal', eta: '4h', status: 'In Production', stage: 2, notes: 'Color tone adjustment on product images. Client requested warmer tones.', colors: 2, created: 'Apr 27, 2025', assignedTo: 'Rahul Nair', aiScore: null },
+      { id: 'J-2025-0043', ref: '04-26-2025-C001-043', design: 'Winter Jacket Tags', summary: 'Production-ready garment tags with clean print alignment.', order: 'Artwork', project: 'Live', complexity: 'Simple', process: 'Offset Printing', priority: 'Normal', eta: '—', status: 'Delivered', stage: 6, notes: '10,000 units. Standard tag format.', colors: 3, created: 'Apr 26, 2025', assignedTo: 'Kavya Reddy', aiScore: { colour: 95, align: 97, res: 92, brief: 96 } },
+      { id: 'J-2025-0038', ref: '04-18-2025-C001-038', design: 'Brand Style Guide', summary: 'Reference guide covering logos, colors, and typography usage.', order: 'Artwork', project: 'Live', complexity: 'Super Complex', process: 'Digital Printing', priority: 'Normal', eta: '—', status: 'Delivered', stage: 6, notes: 'Complete brand identity including typography, colors, and usage guidelines.', colors: 5, created: 'Apr 18, 2025', assignedTo: 'Kavya Reddy', aiScore: { colour: 91, align: 93, res: 90, brief: 94 } },
+    ];
+
+    const NOTIFS = [
+      { icon: '✅', bg: '#ECFDF5', text: 'Job J-2025-0047 passed QC — ready for delivery from your CS team.', time: '2 min ago', read: false },
+      { icon: '🔁', bg: '#FDF0F2', text: 'J-2025-0044 is in progress — Summer Collection Flyer revision underway.', time: '18 min ago', read: false },
+      { icon: '📋', bg: '#EBF0FA', text: 'Quote approved: Corporate Logo Set is now in production.', time: '2 hours ago', read: true },
+      { icon: '📦', bg: '#ECFDF5', text: 'J-2025-0043 Winter Jacket Tags delivered. Download files in My Projects.', time: 'Yesterday', read: true },
+    ];
+
+    const STATUS_MAP = {
+      'In QC': 'badge-navy',
+      'In Production': 'badge-amber',
+      'Delivered': 'badge-green',
+      'Senior Review': 'badge-purple',
+      'Quote Submitted': 'badge-gray',
+      'Quote Approved': 'badge-action',
+      'Modification Requested': 'badge-amber',
+    };
+    const ORDER_MAP = {
+      'Artwork': 'badge-navy',
+      'Digitizing': 'badge-purple',
+      'Digitizing + Sewout': 'badge-purple',
+    };
+    const PRIO_MAP = {
+      'Normal': 'prio-normal',
+      'Rush': 'prio-rush',
+      'Super Rush': 'prio-super',
+    };
+
+    const serviceMap = {
+      artwork: [
+        "Vector Artwork", "Illustration", "Color Separation", "Cut Contour",
+        "Creative Designs", "Line Art Conversions", "Product / Virtual Mock Ups",
+        "Image Rendering", "Color Correction", "Brochure Designing",
+        "Clipping Path", "Channel Mask", "Business Card Designs",
+        "Packaging Designs", "Product Branding", "Image Manipulation",
+        "Black & White To Color"
+      ],
+      digitizing: [
+        "Embroidery Digitizing", "Embroidery Digitizing Swatches"
+      ],
+      swatches: [], // Empty means no sub-selection
+      extras: [
+        "Custom Embroidery Patches", "Name Drops"
+      ]
+    };
+
+    let currentDashRange = 'This Month';
+
+    // Mock data to simulate the backend response when the date range changes
+    const DASH_METRICS = {
+      'This Month': {
+        del: 9, delSub: '↑ 2 this month',
+        rev: '$8400', revSub: '↑ 9% vs last month',
+        orders: 12, art: 75, artCount: 9, dig: 17, digCount: 2, prt: 8, prtCount: 1,
+        chartMax: 10, chartAvg: 5
+      },
+      'Last 6 months': {
+        del: 48, delSub: '↑ 14 vs prev 6mo',
+        rev: '$52,400', revSub: '↑ 22% vs prev 6mo',
+        orders: 62, art: 65, artCount: 40, dig: 25, digCount: 15, prt: 10, prtCount: 7,
+        chartMax: 65, chartAvg: 30
+      },
+      'This year': {
+        del: 34, delSub: '↑ 8 vs last year',
+        rev: '$31,200', revSub: '↑ 12% vs last year',
+        orders: 45, art: 70, artCount: 31, dig: 20, digCount: 9, prt: 10, prtCount: 5,
+        chartMax: 45, chartAvg: 20
+      },
+      'Max': {
+        del: 142, delSub: 'Lifetime total',
+        rev: '$124,500', revSub: 'Lifetime total',
+        orders: 185, art: 60, artCount: 111, dig: 30, digCount: 55, prt: 10, prtCount: 19,
+        chartMax: 150, chartAvg: 70
+      }
+    };
+
+    function updateDashRange(newRange) {
+      currentDashRange = newRange;
+      // Re-render the dashboard with the new data
+      document.getElementById('content').innerHTML = PAGES.dashboard();
+      afterRender('dashboard');
+    }
+
+    let notifOpen = false;
+    let toastTmr;
+    let jobSearchQuery = '';
+
+    function jobImage(job, index, width, height) {
+      const seed = encodeURIComponent(`${job.id}-${index}-${job.design}`);
+      return `https://picsum.photos/seed/${seed}/${width}/${height}`;
+    }
+
+    function jobImages(job, count = 3) {
+      return Array.from({ length: count }, (_, index) => jobImage(job, index, 900, 700));
+    }
+
+    /* ──── NAVIGATION ──── */
+    function go(page, el) {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+      if (el) el.classList.add('active');
+      const titles = { dashboard: 'Dashboard', jobs: 'My Projects', quote: 'Request Quote', place_order: 'Place Order', tracking: 'Delivered Projects', profile: 'My Profile' };
+      const subs = { dashboard: 'Welcome back, Ravi', jobs: 'All your current and past orders', quote: 'Submit a new quote request', place_order: 'Submit a new order request', tracking: 'Your delivered projects — downloads & modifications', profile: 'Your account information' };
+      document.getElementById('topbar-title').textContent = titles[page] || page;
+      document.getElementById('topbar-sub').textContent = subs[page] || '';
+      document.getElementById('content').innerHTML = '';
+      const div = document.createElement('div');
+      div.className = 'page active';
+      div.innerHTML = PAGES[page](page);
+      document.getElementById('content').appendChild(div);
+      afterRender(page);
+      // Scroll to top on navigation
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // Close sidebar on mobile after navigation
+      if (window.innerWidth <= 768) closeSidebar();
+      // Sync bottom nav
+      syncMobileNav(page);
+    }
+
+    /* ──── PAGES ──── */
+    const PAGES = {
+
+      dashboard: () => {
+        const data = DASH_METRICS[currentDashRange];
+
+        return `
+    <div class="hero">
+      <div>
+        <div class="hero-date">${fmtDate()}</div>
+        <div class="hero-greeting">Good ${greeting()}, <span>Ravi</span></div>
+        <div class="hero-sub">You have 3 active jobs and 1 pending delivery. Here's your overview.</div>
+      </div>
+      <div class="hero-actions">
+        <!-- NEW DROPDOWN ADDED HERE -->
+        <select class="btn btn-outline" style="padding: 8px 12px; appearance: auto; cursor: pointer;" onchange="updateDashRange(this.value)">
+          <option value="This Month" ${currentDashRange === 'This Month' ? 'selected' : ''}>This Month</option>
+          <option value="Last 6 months" ${currentDashRange === 'Last 6 months' ? 'selected' : ''}>Last 6 months</option>
+          <option value="This year" ${currentDashRange === 'This year' ? 'selected' : ''}>This year</option>
+          <option value="Max" ${currentDashRange === 'Max' ? 'selected' : ''}>Max</option>
+        </select>
+        
+        <button class="btn btn-outline" onclick="go('jobs', document.querySelector('[data-page=jobs]'))">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          View Projects
+        </button>
+        <button class="btn btn-outline" onclick="go('quote', document.querySelector('[data-page=quote]'))">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+          Request Quote
+        </button>
+        <button class="btn btn-primary btn-lg btn-bold" onclick="go('place_order', document.querySelector('[data-page=place_order]'))">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Place Order
+        </button>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-card c-navy" style="position: relative; padding: 0; overflow: hidden;">
+        <div style="display: flex; align-items: center; gap: 20px; padding: 20px;">
+          <div style="position: relative; width: 90px; height: 90px; border-radius: 50%; background: conic-gradient(var(--amber) 0% 66.67%, rgba(255,255,255,0.12) 66.67% 100%); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+            <div style="width: 62px; height: 62px; background: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: inset 0 1px 4px rgba(0,0,0,0.03);">
+              <span style="font-family: var(--f-head); font-size: 18px; font-weight: 700; color: #000; line-height: 1;">3</span>
+              <span style="font-size: 8px; font-weight: 700; color: #333; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px;">Active</span>
+            </div>
+          </div>
+          <div style="flex: 1;">
+            <div style="font-size: 12px; color: var(--ink-4); font-weight: 600; text-transform: uppercase; margin-bottom: 10px;">Active Jobs</div>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 8px; height: 8px; border-radius: 2px; background: var(--amber);"></div>
+                <span style="font-size: 12px; color: var(--ink-2); font-weight: 500;">In Production</span>
+                <span style="font-size: 12px; font-weight: 700; color: var(--ink); margin-left: auto;">2</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 8px; height: 8px; border-radius: 2px; background: #3B82F6;"></div>
+                <span style="font-size: 12px; color: var(--ink-2); font-weight: 500;">In QC</span>
+                <span style="font-size: 12px; font-weight: 700; color: var(--ink); margin-left: auto;">1</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stat-card c-green">
+        <div class="stat-label">Delivered</div>
+        <div class="stat-val">${data.del}</div>
+        <div class="stat-delta"><span class="delta-up">${data.delSub}</span></div>
+        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+      </div>
+      <div class="stat-card c-amber">
+        <div class="stat-label">Pending Quotes</div>
+        <div class="stat-val">0</div>
+        <div class="stat-delta">All approved</div>
+        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="sec-divider">
+          <div class="sec-divider-label">Recent Jobs</div>
+          <div class="sec-divider-line"></div>
+          <div class="sec-divider-action" onclick="go('jobs', document.querySelector('[data-page=jobs]'))">View all &rarr;</div>
+        </div>
+        ${jobTable(JOBS.slice(0, 4))}
+      </div>
+      <div class="col-right">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">
+              <div class="card-title-dot" style="background:var(--navy)"></div>
+              Quick Actions
+            </div>
+          </div>
+          <div class="card-body" style="display:flex;flex-direction:column;gap:10px;">
+            <div class="qa-card highlight" onclick="go('place_order', document.querySelector('[data-page=place_order]'))">
+              <div class="qa-icon navy"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+              <div><div class="qa-title">Place New Order</div><div class="qa-sub">Submit artwork, digitizing or print orders</div></div>
+            </div>
+            <div class="qa-card" onclick="goToTracking()">
+              <div class="qa-icon green"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+              <div><div class="qa-title">Download Files</div><div class="qa-sub">Get your delivered project files</div></div>
+            </div>
+            <div class="qa-card" onclick="go('quote', document.querySelector('[data-page=quote]'))">
+              <div class="qa-icon red"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--crimson)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg></div>
+              <div><div class="qa-title">Request Modification</div><div class="qa-sub">Revise a delivered job</div></div>
+            </div>
+            <div class="qa-card" onclick="toast('Draft: Winter Collection Print — resumed','success'); go('quote', document.querySelector('[data-page=quote]'))" style="border:1.5px dashed var(--border-md);background:var(--off);">
+              <div class="qa-icon" style="background:rgba(217,119,6,0.08);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></div>
+              <div>
+                <div class="qa-title" style="color:#92400E;">Continue Draft</div>
+                <div class="qa-sub" style="color:#B45309;">Winter Collection Print · Saved 2 min ago</div>
+              </div>
+              <div style="margin-left:auto;background:#FEF3C7;color:#92400E;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;border:1px solid #FCD34D;white-space:nowrap;">1 Draft</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><div class="card-title-dot" style="background:var(--crimson)"></div>Order Split</div>
+          </div>
+          <div class="card-body">
+            <div style="display: flex; align-items: center; gap: 24px; padding: 4px 0;">
+              <div style="position: relative; width: 110px; height: 110px; border-radius: 50%; background: conic-gradient(#3B82F6 0% ${data.art}%, var(--crimson) ${data.art}% ${data.art + data.dig}%, var(--amber) ${data.art + data.dig}% 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.06);">
+                <div style="width: 74px; height: 74px; background: white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: inset 0 2px 6px rgba(0,0,0,0.04);">
+                  <span style="font-family: var(--f-head); font-size: 22px; font-weight: 700; color: #000; line-height: 1;">${data.orders}</span>
+                  <span style="font-size: 9px; font-weight: 700; color: #333; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 3px;">Orders</span>
+                </div>
+              </div>
+              <div style="flex: 1; display: flex; flex-direction: column; gap: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 10px; height: 10px; border-radius: 3px; background: #3B82F6;"></div>
+                    <span style="font-size: 12.5px; color: var(--ink-2); font-weight: 500;">Artwork</span>
+                  </div>
+                  <div style="text-align: right;">
+                    <span style="font-weight: 700; font-size: 13.5px; color: var(--ink);">${data.art}%</span>
+                    <span style="font-size: 11px; color: var(--ink-4); margin-left: 4px;">(${data.artCount})</span>
+                  </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 10px; height: 10px; border-radius: 3px; background: var(--crimson);"></div>
+                    <span style="font-size: 12.5px; color: var(--ink-2); font-weight: 500;">Digitizing</span>
+                  </div>
+                  <div style="text-align: right;">
+                    <span style="font-weight: 700; font-size: 13.5px; color: var(--ink);">${data.dig}%</span>
+                    <span style="font-size: 11px; color: var(--ink-4); margin-left: 4px;">(${data.digCount})</span>
+                  </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 10px; height: 10px; border-radius: 3px; background: var(--amber);"></div>
+                    <span style="font-size: 12.5px; color: var(--ink-2); font-weight: 500;">Print</span>
+                  </div>
+                  <div style="text-align: right;">
+                    <span style="font-weight: 700; font-size: 13.5px; color: var(--ink);">${data.prt}%</span>
+                    <span style="font-size: 11px; color: var(--ink-4); margin-left: 4px;">(${data.prtCount})</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><div class="card-title-dot" style="background:var(--green)"></div>Activity Trend</div>
+          </div>
+          <div class="card-body">
+            <div style="display: flex; align-items: flex-end; gap: 10px; height: 110px; padding-top: 15px; border-bottom: 1px solid var(--border); margin-bottom: 10px;">
+              <div style="flex: 1; background: rgba(255,255,255,0.14); height: 30%; border-radius: 4px 4px 0 0; position: relative;">
+                <div style="position: absolute; top: -18px; width: 100%; text-align: center; font-size: 10.5px; color: var(--ink-3); font-family: var(--f-mono);">${Math.floor(data.chartAvg * 0.3)}</div>
+              </div>
+              <div style="flex: 1; background: rgba(255,255,255,0.14); height: 50%; border-radius: 4px 4px 0 0; position: relative;">
+                <div style="position: absolute; top: -18px; width: 100%; text-align: center; font-size: 10.5px; color: var(--ink-3); font-family: var(--f-mono);">${Math.floor(data.chartAvg * 0.5)}</div>
+              </div>
+              <div style="flex: 1; background: rgba(255,255,255,0.14); height: 20%; border-radius: 4px 4px 0 0; position: relative;">
+                <div style="position: absolute; top: -18px; width: 100%; text-align: center; font-size: 10.5px; color: var(--ink-3); font-family: var(--f-mono);">${Math.floor(data.chartAvg * 0.2)}</div>
+              </div>
+              <div style="flex: 1; background: #3B82F6; height: 80%; border-radius: 4px 4px 0 0; position: relative; box-shadow: 0 -2px 10px rgba(59,130,246,0.25);">
+                <div style="position: absolute; top: -18px; width: 100%; text-align: center; font-size: 10.5px; color: #3B82F6; font-weight: 700; font-family: var(--f-mono);">${Math.floor(data.chartMax * 0.8)}</div>
+              </div>
+              <div style="flex: 1; background: var(--crimson); height: 100%; border-radius: 4px 4px 0 0; position: relative; box-shadow: 0 -2px 10px rgba(178,34,52,0.15);">
+                <div style="position: absolute; top: -18px; width: 100%; text-align: center; font-size: 10.5px; color: var(--crimson); font-weight: 700; font-family: var(--f-mono);">${data.chartMax}</div>
+              </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 10.5px; color: var(--ink-4); font-weight: 600; text-transform: uppercase;">
+              <span style="flex:1;text-align:center">1</span>
+              <span style="flex:1;text-align:center">2</span>
+              <span style="flex:1;text-align:center">3</span>
+              <span style="flex:1;text-align:center;color:#3B82F6">4</span>
+              <span style="flex:1;text-align:center;color:var(--crimson)">5</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+      },
+      jobs: () => `
+    <div class="filter-row">
+      <div class="filter-pill on" onclick="filterJobs('all',this)">All (${JOBS.length})</div>
+      <div class="filter-pill" onclick="filterJobs('active',this)">Active (2)</div>
+      <div class="filter-pill" onclick="filterJobs('qc',this)">In QC (1)</div>
+      <div class="filter-pill" onclick="filterJobs('delivered',this)">Delivered (2)</div>
+    </div>
+    <div id="jobs-table">${jobTable(JOBS)}</div>`,
+
+      quote: (page) => `
+    <div style="max-width:720px; margin: 0 auto;">
+      <div class="card">
+
+        <!-- Phase stepper -->
+        <div class="form-phase-stepper">
+          <div class="fps-step active" id="fps-1">
+            <div class="fps-num">1</div>
+            <span>Service Type</span>
+          </div>
+          <div class="fps-connector" id="fps-connector"></div>
+          <div class="fps-step" id="fps-2">
+            <div class="fps-num">2</div>
+            <span>Job Details</span>
+          </div>
+          <div style="margin-left:auto;font-size:11.5px;color:var(--ink-4);">All fields marked <span style="color:var(--crimson)">*</span> are required</div>
+        </div>
+
+        <div class="card-body">
+
+          <!-- ── PHASE 1: Service Type ── -->
+          <div class="form-phase active" id="form-phase-1">
+            <div class="form-section" style="border-bottom:none;padding-bottom:0;margin-bottom:0;">
+              <div class="form-section-title">
+                <div class="form-section-num">1</div>
+                ${page === 'place_order' ? 'Place New Order' : 'New Quote Request'} — Select Service Type
+              </div>
+              <div class="order-types">
+                <div class="order-type" data-category="artwork" onclick="selectOrder(this)">
+                  <span class="order-type-icon">🎨</span>
+                  <div class="order-type-name">Artwork</div>
+                  <div class="order-type-desc">Logo, Vector, Illustration</div>
+                </div>
+                <div class="order-type" data-category="digitizing" onclick="selectOrder(this)">
+                  <span class="order-type-icon">🧵</span>
+                  <div class="order-type-name">Digitizing Services</div>
+                  <div class="order-type-desc">Embroidery conversion</div>
+                </div>
+                <div class="order-type" data-category="swatches" onclick="selectOrder(this)">
+                  <span class="order-type-icon">🪡</span>
+                  <div class="order-type-name">Swatches</div>
+                  <div class="order-type-desc">Physical sample review</div>
+                </div>
+                <div class="order-type" data-category="extras" onclick="selectOrder(this)">
+                  <span class="order-type-icon">📦</span>
+                  <div class="order-type-name">Patches & Extras</div>
+                  <div class="order-type-desc">Custom patches, Name drops</div>
+                </div>
+              </div>
+
+              <div id="serviceTypeContainer" style="margin-top:20px;display:none;">
+                <label>Specific Service <span class="req">*</span></label>
+                <select id="serviceType">
+                  <option value="" disabled selected>Select specific service...</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="phase-nav" style="margin-top:28px;">
+              <button class="btn btn-navy" onclick="goToPhase2()">
+                Continue to Job Details
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- ── PHASE 2: Job Details ── -->
+          <div class="form-phase" id="form-phase-2">
+            <div class="form-section">
+              <div class="form-section-title">
+                <div class="form-section-num">2</div>
+                Job Details
+              </div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Design Name <span class="req">*</span></label>
+                  <input type="text" id="design-name-input" placeholder="">
+                </div>
+                <div class="form-group">
+                  <label>Client PO / Reference No.</label>
+                  <input type="text" placeholder="">
+                </div>
+                <div class="form-group" id="field-process-type">
+                  <label>Process Type</label>
+                  <select id="process-type-select" onchange="toggleProcessOthers(this)">
+                    <option value="" disabled selected>Select process type</option>
+                    <option>Screen Printing</option>
+                    <option>Digital Printing</option>
+                    <option>Offset Printing</option>
+                    <option>Sublimation</option>
+                    <option>Flex Printing</option>
+                    <option>Others</option>
+                  </select>
+                  <input type="text" id="process-others-input" placeholder="Please specify" style="display:none;margin-top:8px;">
+                </div>
+                <div class="form-group">
+                  <label>Number of Colors</label>
+                  <input type="number" min="1" max="12" placeholder="">
+                </div>
+                <div class="form-group">
+                  <label>Priority</label>
+                  <select>
+                    <option value="" disabled selected>Select priority</option>
+                    <option>Normal</option>
+                    <option>Rush</option>
+                    <option>Super Rush</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Your Estimated Turnaround (hours) <span class="req">*</span></label>
+                  <input type="number" id="client-eta" min="2" placeholder="">
+                  <div style="font-size:11px;color:var(--ink-4);margin-top:4px;">CS will confirm the final ETA after review.</div>
+                </div>
+
+                <!-- Digitizing-only fields (hidden by default) -->
+                <div id="digitizing-fields" style="display:none;">
+                  <div class="form-group">
+                    <label>Placement <span class="req">*</span></label>
+                    <select id="field-placement"><option value="" disabled selected>Select placement</option><option>Cap</option><option>Front of Cap</option><option>Back of Cap</option><option>Side of Cap</option><option>Visor</option><option>Beanie Cap</option><option>Towel</option><option>Bags</option><option>Left Chest</option><option>Sleeve</option><option>Pocket</option><option>Full Back</option><option>Full Front</option><option>Back Yoke</option><option>Other</option></select>
+                  </div>
+                  <div class="form-group">
+                    <label>Width (inches) <span class="req">*</span></label>
+                    <input type="number" id="field-width" step="0.1" min="0.1" placeholder="">
+                  </div>
+                  <div class="form-group">
+                    <label>Height (inches) <span class="req">*</span></label>
+                    <input type="number" id="field-height" step="0.1" min="0.1" placeholder="">
+                  </div>
+                  <div class="form-group">
+                    <label>Fabric</label>
+                    <input type="text" id="field-fabric" placeholder="">
+                  </div>
+                  <div class="form-group">
+                    <label>Sewout Required</label>
+                    <div style="display:flex;gap:12px;margin-top:4px;">
+                      <label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:400;cursor:pointer;"><input type="radio" name="sewout-required" value="yes"> Yes</label>
+                      <label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:400;cursor:pointer;"><input type="radio" name="sewout-required" value="no"> No</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group full">
+                  <label>Design Brief / Description <span class="req">*</span></label>
+                  <textarea placeholder=""></textarea>
+                </div>
+                <div class="form-group full">
+                  <label>Expected Output File Formats</label>
+                  <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;">
+                    ${['PDF','EPS','AI','CDR'].map(fmt => `<label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:400;cursor:pointer;padding:6px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);"><input type="checkbox" value="${fmt}"> ${fmt}</label>`).join('')}
+                    <label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:400;cursor:pointer;padding:6px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);"><input type="checkbox" value="Others" onchange="toggleFormatOthers(this)"> Others</label>
+                  </div>
+                  <input type="text" id="format-others-input" placeholder="Please specify format" style="display:none;margin-top:10px;width:100%;padding:10px 13px;border:1px solid var(--border);border-radius:var(--r-lg);font-family:var(--f-body);font-size:13px;color:var(--text);background:rgba(255,255,255,0.05);outline:none;"
+                    onfocus="this.style.borderColor='var(--crimson)'" onblur="this.style.borderColor='var(--border)'">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <div class="form-section-title">
+                <div class="form-section-num">3</div>
+                Upload Reference Files
+              </div>
+              <input type="file" id="file-input" style="display:none" multiple onchange="handleFiles(this.files)">
+              <div class="upload-zone" onclick="document.getElementById('file-input').click()">
+                <div class="upload-zone-icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                </div>
+                <div class="upload-title">Drop files here or <span>browse</span></div>
+                <div class="upload-sub">PDF, AI, PSD, PNG, SVG, JPG, DST, EMB — max 500 MB per file</div>
+              </div>
+              <div style="margin-top:10px;">
+                <label style="font-size:11.5px;font-weight:600;color:var(--ink-3);display:block;margin-bottom:5px;">Or link to cloud storage (Google Drive, WeTransfer, Dropbox)</label>
+                <input type="url" placeholder="" style="width:100%;padding:8px 12px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;font-family:var(--f-body);outline:none;box-sizing:border-box;background:var(--off);">
+                <div style="font-size:11px;color:var(--ink-4);margin-top:3px;">Use this if your files are too large to upload directly or you prefer sharing from cloud storage.</div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:10px;justify-content:space-between;padding-top:4px;flex-wrap:wrap;">
+              <button class="btn btn-outline" onclick="goToPhase1()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                Back
+              </button>
+              <div style="display:flex;gap:10px;">
+                <button class="btn btn-outline" onclick="toast('Draft saved successfully','success')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                  Save Draft
+                </button>
+                <button class="btn btn-navy" onclick="submitQuote()">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  ${page === 'place_order' ? 'Submit Order' : 'Submit Quote Request'}
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>`,
+
+      tracking: () => `
+    <div style="margin-bottom:20px;">
+      <div class="sec-divider">
+        <div class="sec-divider-label">Delivered Jobs</div>
+        <div class="sec-divider-line"></div>
+      </div>
+    </div>
+
+    <div id="delivered-section">
+      ${JOBS.filter(j => j.stage === 6).map(j => `
+      <div class="tracking-card">
+        <div class="tc-header">
+          <div class="tc-left">
+            <div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+                <span class="td-mono">${j.id}</span>
+                <span class="badge ${STATUS_MAP[j.status] || 'badge-gray'}">${j.status}</span>
+                <span class="prio-badge ${PRIO_MAP[j.priority]}">${j.priority}</span>
+              </div>
+              <div class="tc-name">${j.design}</div>
+              <div class="tc-client">Order Type: ${j.order} · Assigned: ${j.assignedTo}</div>
+            </div>
+          </div>
+          <div class="tc-right">
+            <div style="text-align:right">
+              <div style="font-size:11.5px;color:var(--ink-4);margin-bottom:2px">Created</div>
+              <div style="font-size:12.5px;font-weight:600;color:var(--ink-2)">${j.created}</div>
+            </div>
+          </div>
+        </div>
+        <div class="tc-body">
+          <div style="display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+            <div style="flex:1;min-width:220px">
+              <div style="font-size:13px;color:var(--ink-3);margin-bottom:8px">${j.summary}</div>
+            </div>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-outline btn-sm" onclick="event.stopPropagation(); downloadFiles('${j.id}')">Download Files</button>
+              <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); requestModification('${j.id}')">Request Modification</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      `).join('')}
+    </div>`,
+
+      profile: () => `
+    <div style="display:flex;justify-content:center;align-items:flex-start;min-height:100%">
+    <div style="max-width:560px;width:100%">
+      <div class="card">
+        <div class="profile-hero">
+          <div class="profile-av-lg">RK</div>
+          <div class="profile-name">Ravi Kumar</div>
+          <div class="profile-company">Ravi Textiles Pvt. Ltd. · Hyderabad, India</div>
+          <div class="profile-since">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Client since April 2024
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="profile-fields">
+            ${[
+          ['Client ID', 'C001', true],
+          ['Full Name', 'Ravi Kumar', false],
+          ['Company', 'Ravi Textiles Pvt. Ltd.', false],
+          ['Contact', 'Ravi Kumar', false],
+          ['Location', 'Hyderabad, Telangana, IN', false],
+          ['Member Since', 'April 12, 2024', false],
+        ].map(([k, v, mono]) => `
+            <div class="pf-row">
+              <div class="pf-key">${k}</div>
+              <div class="pf-val${mono ? ' mono' : ''}">${v}</div>
+            </div>`).join('')}
+          </div>
+          <div class="readonly-notice">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            This profile is read-only. To update your information, please contact your Client Servicing representative.
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <div class="card-header">
+          <div class="card-title"><div class="card-title-dot" style="background:var(--green)"></div>Account Summary</div>
+        </div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+            ${[['Total Jobs', '12'], ['Delivered', '9'], ['Active', '3']].map(([l, v]) => `
+            <div style="text-align:center;padding:14px 10px;background:var(--off);border-radius:var(--r);border:1px solid var(--border)">
+              <div style="font-family:var(--f-head);font-size:28px;font-weight:700;color:var(--ink);letter-spacing:-0.02em">${v}</div>
+              <div style="font-size:11px;color:var(--ink-4);font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-top:4px">${l}</div>
+            </div>`).join('')}
+          </div>
+          <div style="margin-top:14px;" class="mini-bars">
+            <div class="mb-row"><div class="mb-label">Artwork</div><div class="mb-track"><div class="mb-fill" style="width:75%;background:#3B82F6"></div></div><div class="mb-val">9</div></div>
+            <div class="mb-row"><div class="mb-label">Digitizing</div><div class="mb-track"><div class="mb-fill" style="width:17%;background:var(--crimson)"></div></div><div class="mb-val">2</div></div>
+            <div class="mb-row"><div class="mb-label">Print</div><div class="mb-track"><div class="mb-fill" style="width:8%;background:var(--amber)"></div></div><div class="mb-val">1</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>`,
+    };
+
+    PAGES.place_order = PAGES.quote;
+
+    /* ──── JOB TABLE ──── */
+    function jobTable(jobs) {
+      if (!jobs.length) return `<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">No jobs found</div></div>`;
+      return `<div class="jobs-root" data-view="grid">
+    <div class="tbl-ctrl">
+      <div class="search-wrap">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input class="search-inp" placeholder="Search designs, job IDs…" type="text" oninput="searchJobs(this)">
+      </div>
+      <div class="view-toggle" role="tablist" aria-label="Job views">
+        <button class="on" type="button" onclick="setJobView('grid', this)" title="Grid view">Grid</button>
+        <button type="button" onclick="setJobView('list', this)" title="List view">List</button>
+        <button type="button" onclick="setJobView('table', this)" title="Table view">Table</button>
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="toast('Filter panel — Coming in V2','info')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        Filter
+      </button>
+    </div>
+    <div class="table-view">
+      <table>
+      <thead><tr>
+        <th>Job</th><th>Design Name</th><th>Preview</th><th>Order</th><th>Priority</th><th>Status</th><th>Created</th><th>Action</th>
+      </tr></thead>
+      <tbody>
+        ${jobs.map(j => `<tr onclick="openJob('${j.id}')">
+          <td><div class="job-cell"><img class="job-thumb" src="${jobImage(j, 0, 160, 120)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=160 height=120><rect width=160 height=120 fill=%23eef2f7/></svg>'"><div><div class="td-mono">${j.id}</div><div class="td-ref">${j.ref}</div></div></div></td>
+          <td class="td-primary">${j.design}</td>
+          <td><img class="table-preview" src="${jobImage(j, 1, 220, 160)}" alt="${j.design} preview" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=220 height=160><rect width=220 height=160 fill=%23eef2f7/></svg>'"></td>
+          <td><span class="badge ${ORDER_MAP[j.order] || 'badge-gray'}">${j.order}</span></td>
+          <td><span class="prio-badge ${PRIO_MAP[j.priority]}">${j.priority}</span></td>
+          <td><span class="badge ${STATUS_MAP[j.status] || 'badge-gray'}">${j.status}</span></td>
+          <td style="color:var(--ink-4);font-size:12px">${j.created}</td>
+          <td onclick="event.stopPropagation()">
+            ${j.status === 'Delivered'
+          ? `<button class="btn btn-outline btn-sm" onclick="toast('Downloading files for ${j.id}…','success')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download</button>`
+          : `<button class="btn btn-outline btn-sm" onclick="openJob('${j.id}')">View</button>`
+        }
+          </td>
+        </tr>`).join('')}
+      </tbody>
+      </table>
+    </div>
+
+    <div class="grid-view">
+      ${jobs.map(j => {
+          const hasActionRequired = j.status === 'Quote Approved' && j.csPrice;
+          const prioPillClass = j.priority === 'Super Rush' ? 'prio-super-rush' : j.priority === 'Rush' ? 'prio-rush' : '';
+          return `<div class="job-card${hasActionRequired ? ' negotiate' : ''}" onclick="openJob('${j.id}')" style="position:relative;">
+        <div class="jc-img"><img src="${jobImage(j, 2, 800, 520)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=800 height=520><rect width=800 height=520 fill=%23eef2f7/></svg>'"></div>
+        <div style="position:absolute;top:10px;right:10px;z-index:2;"><span class="badge ${STATUS_MAP[j.status] || 'badge-gray'}" style="font-size:10.5px;padding:3px 9px;background:white;box-shadow:0 2px 6px rgba(0,0,0,0.12);">${hasActionRequired ? 'Action Required' : j.status}</span></div>
+        <div class="jc-body">
+          <div class="jc-title">${j.design}</div>
+          <div class="jc-desc">${j.summary}</div>
+          <div class="jc-meta">
+            <span class="jc-pill id">${j.id}</span>
+            <span class="jc-pill order">${j.order}</span>
+            <span class="jc-pill ${prioPillClass}">${j.priority}</span>
+            ${j.eta && j.eta !== '—' ? `<span class="jc-pill" style="background:rgba(99,179,237,0.15);color:#90cdf4;border-color:rgba(99,179,237,0.3);font-family:var(--f-mono);font-weight:600;">⏱ ${j.eta}</span>` : ''}
+          </div>
+        </div>
+        ${hasActionRequired ? `<div class="jc-negotiate-banner" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-top:1px solid #FCD34D;color:#92400E;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Agency price ready — $${j.csPrice} · Tap to confirm &amp; start production</div>` : ''}
+      </div>`;
+        }).join('')}
+    </div>
+
+    <div class="list-view">
+      ${jobs.map(j => `<div class="list-item" onclick="openJob('${j.id}')">
+        <div class="list-thumb"><img src="${jobImage(j, 3, 140, 140)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=140 height=140><rect width=140 height=140 fill=%23eef2f7/></svg>'"></div>
+        <div class="list-body">
+          <div style="font-weight:700">${j.design}</div>
+          <div style="margin-top:4px;color:var(--ink-4);font-size:11.5px;line-height:1.45">${j.summary}</div>
+          <div style="color:var(--ink-4);font-size:12px">${j.id} · ${j.order} · ${j.status}</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-family:var(--f-mono);font-size:11px;color:var(--ink-4)">${j.created}</div>
+          ${j.eta && j.eta !== '—' ? `<div style="font-family:var(--f-mono);font-size:12px;font-weight:700;color:#3B82F6;margin-top:4px;">⏱ ${j.eta}</div>` : ''}
+        </div>
+      </div>`).join('')}
+    </div>
+
+    <div class="empty table-empty" style="display:none;border-top:1px solid var(--border);">
+      <div class="empty-icon">🔎</div>
+      <div class="empty-text">No matching jobs</div>
+    </div>
+  </div>`;
+    }
+
+    /* ──── JOB MODAL ──── */
+    function openJob(id) {
+      _carPage = 0;
+      const j = JOBS.find(x => x.id === id);
+      if (!j) return;
+      const steps = ['CS Review', 'Approved', 'Assigned', 'In Work', 'QC Review', 'CS Delivery'];
+      const images = jobImages(j, 3);
+      const isMobile = window.innerWidth <= 768;
+      document.getElementById('modal-body').innerHTML = `
+    ${isMobile ? '<div class="modal-pull-handle"></div>' : ''}
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-job-id">${j.id} &nbsp;·&nbsp; ${j.ref}</div>
+        <div class="modal-job-name">${j.design}</div>
+        <div class="modal-tags">
+          <span class="badge ${ORDER_MAP[j.order] || 'badge-gray'}">${j.order}</span>
+          <span class="badge ${STATUS_MAP[j.status] || 'badge-gray'}">${j.status}</span>
+          <span class="prio-badge ${PRIO_MAP[j.priority]}">${j.priority}</span>
+          <span class="badge badge-gray">${j.project}</span>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="margin-bottom:20px;display:grid;grid-template-columns:1fr${j.status === 'Quote Approved' && j.csPrice ? ' 1fr' : ''};gap:14px;align-items:stretch;">
+        <div style="display:flex;flex-direction:column;">
+          <div class="modal-section-title">Job Images</div>
+          <div class="modal-gallery-wrap" style="flex:1;min-height:0;">
+            <button class="car-btn prev" id="car-prev" onclick="carNav(-1)" ${images.length <= 2 ? 'disabled' : ''}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="modal-gallery" id="modal-gallery">
+              ${images.map((src, index) => `<img src="${src}" alt="${j.design} image ${index + 1}" loading="lazy" referrerpolicy="no-referrer" class="${index < 2 ? 'car-visible' : ''}" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=900 height=700><rect width=900 height=700 fill=%23eef2f7/></svg>'">`).join('')}
+            </div>
+            <button class="car-btn next" id="car-next" onclick="carNav(1)" ${images.length <= 2 ? 'disabled' : ''}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+        ${j.status === 'Quote Approved' && j.csPrice ? `
+        <div style="display:flex;flex-direction:column;">
+          <div class="modal-section-title">Confirm &amp; Place Job</div>
+          <div style="background:#FFFBEB; border:1.5px solid #FCD34D; border-radius:var(--r); padding:20px; flex:1; display:flex; flex-direction:column; justify-content:center; gap:12px;">
+            <div>
+              <div style="font-size:11px; font-weight:700; color:#92400E; text-transform:uppercase; letter-spacing:0.07em; margin-bottom:4px;">Agency Quoted Price</div>
+              <div style="font-size:28px; font-weight:800; color:#92400E; font-family:var(--f-head); letter-spacing:-0.02em;">$${j.csPrice}</div>
+              <div style="font-size:11.5px; color:#B45309; margin-top:4px;">Reviewed &amp; set by your Client Servicing team</div>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <button class="btn btn-primary" style="background:#D97706; border-color:#D97706; font-weight:700; width:100%;" onclick="confirmPlaceJob('${j.id}', ${j.csPrice})">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Confirm &amp; Start Production
+              </button>
+              <button style="width:100%;padding:10px 16px;border-radius:99px;border:1.5px solid #D97706;background:transparent;color:#92400E;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:0.01em;transition:background 0.15s;" onmouseover="this.style.background='rgba(217,119,6,0.08)'" onmouseout="this.style.background='transparent'" onclick="toast('Your Client Service representative will be notified to discuss pricing.','info'); closeModal();">
+                Discuss with Client Service
+              </button>
+            </div>
+            <div style="padding-top:10px; border-top:1px dashed #FCD34D; font-size:11.5px; color:#B45309; display:flex; align-items:center; gap:6px;">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Confirming starts production immediately.
+            </div>
+          </div>
+        </div>` : ''}
+      </div>
+      <div style="margin-bottom:20px;">
+        <div class="modal-section-title">Job Status Flow</div>
+        <div class="progress-steps">
+          ${steps.map((s, i) => `<div class="ps-step ${i < j.stage ? 'done' : i === j.stage ? 'cur' : ''}"><div class="ps-dot">${i < j.stage ? `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>` : i === j.stage ? `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--crimson)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg>` : ''}</div><div class="ps-lbl">${s}</div></div>`).join('')}
+        </div>
+      </div>
+      ${(() => {
+        const etaRaw = j.eta && j.eta !== '—' ? j.eta : null;
+        const etaNum = etaRaw ? parseFloat(etaRaw) : null;
+        if (!etaNum) return '';
+        const tlH   = Math.round(etaNum * 0.10 * 10) / 10;
+        const dsH   = Math.round(etaNum * 0.65 * 10) / 10;
+        const qcH   = Math.round(etaNum * 0.25 * 10) / 10;
+        const pct = (n) => Math.round(n / etaNum * 100);
+        return `
+      <div style="margin-bottom:20px;">
+        <div class="modal-section-title">Estimated Timeline</div>
+        <div style="background:var(--off);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+            <div>
+              <div style="font-size:10px;font-weight:700;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:4px;">CS Estimated Turnaround</div>
+              <div style="font-size:26px;font-weight:700;color:#3B82F6;font-family:var(--f-mono);line-height:1">${etaRaw}</div>
+            </div>
+            <div style="text-align:right;">
+              <div style="font-size:10px;color:var(--ink-4);margin-bottom:4px;">Current Stage</div>
+              <span class="badge ${STATUS_MAP[j.status] || 'badge-gray'}">${j.status}</span>
+            </div>
+          </div>
+          <div style="font-size:10.5px;font-weight:700;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;">Time Allocation per Stage</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <div style="display:flex;align-items:center;gap:7px;"><div style="width:8px;height:8px;border-radius:2px;background:#3B82F6;"></div><span style="font-size:12px;font-weight:600;color:var(--ink-2);">Team Lead — Review & Assign</span></div>
+                <span style="font-size:12px;font-weight:700;color:#3B82F6;font-family:var(--f-mono);">${tlH}h</span>
+              </div>
+              <div style="height:6px;background:var(--border);border-radius:99px;overflow:hidden;"><div style="width:${pct(tlH)}%;height:100%;background:#3B82F6;border-radius:99px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <div style="display:flex;align-items:center;gap:7px;"><div style="width:8px;height:8px;border-radius:2px;background:var(--crimson);"></div><span style="font-size:12px;font-weight:600;color:var(--ink-2);">Designer / Digitator — Execution</span></div>
+                <span style="font-size:12px;font-weight:700;color:var(--crimson);font-family:var(--f-mono);">${dsH}h</span>
+              </div>
+              <div style="height:6px;background:var(--border);border-radius:99px;overflow:hidden;"><div style="width:${pct(dsH)}%;height:100%;background:var(--crimson);border-radius:99px;"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                <div style="display:flex;align-items:center;gap:7px;"><div style="width:8px;height:8px;border-radius:2px;background:var(--green);"></div><span style="font-size:12px;font-weight:600;color:var(--ink-2);">QC — Quality Check</span></div>
+                <span style="font-size:12px;font-weight:700;color:var(--green);font-family:var(--f-mono);">${qcH}h</span>
+              </div>
+              <div style="height:6px;background:var(--border);border-radius:99px;overflow:hidden;"><div style="width:${pct(qcH)}%;height:100%;background:var(--green);border-radius:99px;"></div></div>
+            </div>
+          </div>
+          <div style="margin-top:14px;padding:8px 12px;background:rgba(0,40,104,0.04);border:1px solid rgba(0,40,104,0.1);border-radius:var(--r);font-size:11.5px;color:var(--ink-3);display:flex;align-items:center;gap:7px;">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Timings are estimates set by your CS team and may vary based on job complexity.
+          </div>
+        </div>
+      </div>`;
+      })()}
+      <div class="modal-grid">
+        <div>
+          <div class="modal-section-title">Job Details</div>
+          ${[['Order Type', j.order], ['Process', j.process || '—'], ['Complexity', j.complexity], ['Colors', j.colors], ['Priority', j.priority], ['Assigned To', j.assignedTo], ['Created', j.created]].map(([k, v]) => `<div class="detail-row"><div class="detail-key">${k}</div><div class="detail-val">${v}</div></div>`).join('')}
+        </div>
+        <div>
+          <div class="modal-section-title">Reference</div>
+          ${[['Job ID', j.id], ['Reference No.', j.ref], ['Project Type', j.project], ['Status', j.status]].map(([k, v], i) => `<div class="detail-row"><div class="detail-key">${k}</div><div class="detail-val${i === 1 ? ' mono' : ''}">${v}</div></div>`).join('')}
+        </div>
+      </div>
+      ${j.status === 'Quote Submitted' ? `
+      <div class="modal-section-title">Pricing</div>
+      <div style="background:var(--off); border:1px solid var(--border); border-radius:var(--r); padding:16px; margin-bottom:20px;">
+        <div style="display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink-4);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Your quote is under review. Our CS team will set the price and notify you shortly.
+        </div>
+      </div>
+      ` : ''}
+      <div class="modal-section-title">Brief / Notes</div>
+      <div style="background:var(--off);border:1px solid var(--border);border-radius:var(--r);padding:14px;font-size:13px;color:var(--ink-3);line-height:1.7;margin-bottom:16px">${j.notes}</div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal()">Close</button>
+      ${j.status === 'Delivered'
+          ? `<button class="btn btn-navy" onclick="toast('Downloading project files…','success');closeModal()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Files</button>
+          <button class="btn btn-primary" onclick="closeModal(); setTimeout(()=>requestModification('${j.id}'),120)">Request Modification</button>`
+          : `<button class="btn btn-primary" onclick="toast('You will be notified when status changes','info');closeModal()">Track This Job</button>`
+        }
+    </div>`;
+      document.getElementById('overlay').classList.add('open');
+      if (window.innerWidth <= 768) {
+        document.body.style.overflow = 'hidden';
+      }
+    }
+    let _carPage = 0;
+    function carNav(dir) {
+      const gallery = document.getElementById('modal-gallery');
+      if (!gallery) return;
+      const imgs = Array.from(gallery.querySelectorAll('img'));
+      const total = imgs.length;
+      if (total <= 2) return;
+      _carPage = Math.max(0, Math.min(_carPage + dir, total - 2));
+      imgs.forEach((img, i) => img.classList.toggle('car-visible', i >= _carPage && i < _carPage + 2));
+      document.getElementById('car-prev').disabled = _carPage === 0;
+      document.getElementById('car-next').disabled = _carPage >= total - 2;
+    }
+
+    function closeModal(e) {
+      if (e && e.target !== document.getElementById('overlay')) return;
+      document.getElementById('overlay').classList.remove('open');
+      document.body.style.overflow = '';
+      _carPage = 0;
+    }
+
+    /* ──── NOTIFICATIONS ──── */
+    function buildNotifs() {
+      document.getElementById('np-list').innerHTML = NOTIFS.map(n => `
+    <div class="np-item ${n.read ? '' : 'unread'}" onclick="this.classList.remove('unread')">
+      <div class="np-icon" style="background:${n.bg};font-size:16px">${n.icon}</div>
+      <div><div class="np-text">${n.text}</div><div class="np-time">${n.time}</div></div>
+    </div>`).join('');
+      syncNotifPip();
+    }
+    function toggleNotif() {
+      notifOpen = !notifOpen;
+      document.getElementById('notif-panel').classList.toggle('open', notifOpen);
+    }
+    function clearNotifs() {
+      document.querySelectorAll('.np-item').forEach(el => el.classList.remove('unread'));
+      syncNotifPip();
+      toast('All notifications marked as read', 'success');
+    }
+    function syncNotifPip() {
+      const pip = document.querySelector('.notif-pip');
+      if (!pip) return;
+      pip.style.display = document.querySelector('.np-item.unread') ? '' : 'none';
+    }
+    document.addEventListener('click', e => {
+      if (notifOpen && !document.getElementById('notif-panel').contains(e.target) && !e.target.closest('.top-icon')) {
+        notifOpen = false;
+        document.getElementById('notif-panel').classList.remove('open');
+      }
+    });
+
+    /* ──── TRACKING TOGGLE ──── */
+    function toggleTC(el) {
+      const body = el.nextElementSibling;
+      const arrow = el.querySelector('svg:last-child');
+      const open = body.style.display === 'block';
+      body.style.display = open ? 'none' : 'block';
+      arrow.style.transform = open ? '' : 'rotate(180deg)';
+    }
+
+    /* ──── FILTER JOBS ──── */
+    function filterJobs(type, el) {
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('on'));
+      el.classList.add('on');
+      const map = {
+        all: JOBS,
+        active: JOBS.filter(j => j.stage === 2 || j.stage === 3),
+        qc: JOBS.filter(j => j.stage === 4),
+        delivered: JOBS.filter(j => j.stage === 6),
+      };
+      document.getElementById('jobs-table').innerHTML = jobTable(map[type] || JOBS);
+      const input = document.querySelector('#jobs-table .search-inp');
+      if (input) {
+        input.value = jobSearchQuery;
+        searchJobs(input);
+      }
+    }
+
+    function setJobView(view, btn) {
+      const root = btn.closest('.jobs-root');
+      if (!root) return;
+      root.setAttribute('data-view', view);
+      root.querySelectorAll('.view-toggle button').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+    }
+
+    /* ──── ORDER TYPE SELECT ──── */
+    function selectOrder(el) {
+      document.querySelectorAll('.order-type').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      const category = el.getAttribute('data-category');
+      updateSubServices(category);
+      toggleDigitizingFields(category);
+    }
+
+    function toggleDigitizingFields(category) {
+      const digitizingFields = document.getElementById('digitizing-fields');
+      const processTypeField = document.getElementById('field-process-type');
+      if (!digitizingFields) return;
+      const isDigitizing = category === 'digitizing';
+      digitizingFields.style.display = isDigitizing ? 'contents' : 'none';
+      if (processTypeField) processTypeField.style.display = isDigitizing ? 'none' : '';
+    }
+
+    function updateSubServices(category) {
+      const serviceTypeContainer = document.getElementById('serviceTypeContainer');
+      const serviceTypeSelect = document.getElementById('serviceType');
+      if (!serviceTypeSelect || !serviceTypeContainer) return;
+
+      const services = serviceMap[category];
+
+      // Reset
+      serviceTypeSelect.innerHTML = '<option value="" disabled selected>Select specific service...</option>';
+
+      if (services && services.length > 0) {
+        services.forEach(s => {
+          const opt = document.createElement('option');
+          opt.value = s;
+          opt.textContent = s;
+          serviceTypeSelect.appendChild(opt);
+        });
+        serviceTypeContainer.style.display = 'block';
+        serviceTypeSelect.required = true;
+      } else {
+        serviceTypeContainer.style.display = 'none';
+        serviceTypeSelect.required = false;
+      }
+    }
+
+    /* ──── FORMAT "OTHERS" REVEAL ──── */
+    function toggleFormatOthers(cb) {
+      const inp = document.getElementById('format-others-input');
+      if (inp) inp.style.display = cb.checked ? '' : 'none';
+    }
+
+    /* ──── PROCESS TYPE "OTHERS" REVEAL ──── */
+    function toggleProcessOthers(sel) {
+      const inp = document.getElementById('process-others-input');
+      if (inp) inp.style.display = sel.value === 'Others' ? '' : 'none';
+    }
+
+    /* ──── FORM PHASE NAVIGATION ──── */
+    function goToPhase2() {
+      const selectedType = document.querySelector('.order-type.selected');
+      if (!selectedType) {
+        toast('Please select a service type to continue.', 'error');
+        return;
+      }
+      const serviceTypeSelect = document.getElementById('serviceType');
+      if (serviceTypeSelect && serviceTypeSelect.offsetParent !== null && serviceTypeSelect.required && !serviceTypeSelect.value) {
+        toast('Please select a specific service to continue.', 'error');
+        serviceTypeSelect.style.borderColor = 'var(--crimson)';
+        setTimeout(() => serviceTypeSelect.style.borderColor = '', 2000);
+        return;
+      }
+      document.getElementById('form-phase-1').classList.remove('active');
+      document.getElementById('form-phase-2').classList.add('active');
+      // Update stepper
+      const s1 = document.getElementById('fps-1');
+      const s2 = document.getElementById('fps-2');
+      const conn = document.getElementById('fps-connector');
+      if (s1) { s1.classList.remove('active'); s1.classList.add('done'); }
+      if (s2) { s2.classList.add('active'); }
+      if (conn) conn.classList.add('done');
+      // Scroll card into view
+      document.querySelector('.card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function goToPhase1() {
+      document.getElementById('form-phase-2').classList.remove('active');
+      document.getElementById('form-phase-1').classList.add('active');
+      // Update stepper
+      const s1 = document.getElementById('fps-1');
+      const s2 = document.getElementById('fps-2');
+      const conn = document.getElementById('fps-connector');
+      if (s1) { s1.classList.add('active'); s1.classList.remove('done'); }
+      if (s2) { s2.classList.remove('active'); }
+      if (conn) conn.classList.remove('done');
+      document.querySelector('.card')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ──── JOB SEARCH ──── */
+    function searchJobs(input) {
+      jobSearchQuery = input.value.trim();
+      const tableWrap = input.closest('.jobs-root');
+      if (!tableWrap) return;
+      const query = jobSearchQuery.toLowerCase();
+      const currentView = tableWrap.getAttribute('data-view') || 'grid';
+      const rows = tableWrap.querySelectorAll('tbody tr');
+      let visibleCount = 0;
+
+      rows.forEach(row => {
+        const matches = row.textContent.toLowerCase().includes(query);
+        row.style.display = matches ? '' : 'none';
+        if (matches) visibleCount += 1;
+      });
+
+      if (currentView === 'table') {
+        const empty = tableWrap.querySelector('.table-empty');
+        const table = tableWrap.querySelector('.table-view table');
+        if (empty && table) {
+          empty.style.display = visibleCount ? 'none' : 'block';
+          table.style.display = visibleCount ? '' : 'none';
+        }
+      }
+
+      tableWrap.querySelectorAll('.grid-view .job-card').forEach(card => {
+        card.style.display = card.textContent.toLowerCase().includes(query) ? '' : 'none';
+      });
+      tableWrap.querySelectorAll('.list-view .list-item').forEach(item => {
+        item.style.display = item.textContent.toLowerCase().includes(query) ? '' : 'none';
+      });
+    }
+
+    function handleFiles(files) {
+      if (files.length > 0) {
+        toast(`${files.length} file(s) selected`, 'success');
+      }
+    }
+
+    /* ──── SUBMIT QUOTE — opens confirmation modal ──── */
+    let _pendingSubmitIsOrder = false;
+
+    function submitQuote() {
+      // Validate dynamic service dropdown first
+      const serviceTypeSelect = document.getElementById('serviceType');
+      if (serviceTypeSelect && serviceTypeSelect.offsetParent !== null && serviceTypeSelect.required && !serviceTypeSelect.value) {
+        toast('Please select a specific service.', 'error');
+        serviceTypeSelect.focus();
+        serviceTypeSelect.style.borderColor = 'var(--crimson)';
+        setTimeout(() => serviceTypeSelect.style.borderColor = '', 2000);
+        return;
+      }
+
+      const isOrder = document.querySelector('.nav-item.active')?.dataset.page === 'place_order';
+      _pendingSubmitIsOrder = isOrder;
+
+      // Populate modal text dynamically for Quote vs Order
+      const typeLabel = isOrder ? 'New Order' : 'Quote Request';
+      document.getElementById('cm-type-label').textContent = typeLabel;
+      document.getElementById('cm-caution-text').innerHTML =
+        `You are about to submit a <strong>${typeLabel}</strong>. Once submitted, it will be sent to our team for review and cannot be recalled.`;
+      document.getElementById('cm-note-text').innerHTML = `<strong>Please note:</strong> Placing an order confirms your intent to proceed. Our team will begin working right away. Ensure your design brief and files are correct before confirming.`;
+      document.getElementById('cm-btn-label').textContent = isOrder ? 'Confirm Order' : 'Confirm Quote';
+
+      // Reset input state
+      const inp = document.getElementById('confirm-type-input');
+      inp.value = '';
+      inp.classList.remove('valid');
+      const btn = document.getElementById('confirm-submit-btn');
+      btn.classList.remove('ready');
+      btn.disabled = true;
+
+      // Open modal
+      document.getElementById('confirm-overlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => inp.focus(), 180);
+    }
+
+    function onConfirmInput(inp) {
+      const ready = inp.value === 'Confirm';
+      inp.classList.toggle('valid', ready);
+      const btn = document.getElementById('confirm-submit-btn');
+      btn.classList.toggle('ready', ready);
+      btn.disabled = !ready;
+    }
+
+    function closeConfirmModal() {
+      document.getElementById('confirm-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function finalizeSubmit() {
+      const btn = document.getElementById('confirm-submit-btn');
+      if (btn.disabled) return;
+      closeConfirmModal();
+      const isOrder = _pendingSubmitIsOrder;
+      const msg = isOrder
+        ? 'Order placed! Ref: 05-05-2025-C001-013-A · We\'ll process it within 2 hours.'
+        : 'Quote submitted! Ref: 05-05-2025-C001-013-A · We\'ll respond within 2 hours.';
+      toast(msg, 'success');
+      setTimeout(() => go('jobs', document.querySelector('[data-page=jobs]')), 1200);
+    }
+
+    /* Navigate directly to tracking/delivered projects */
+    function goToTracking() {
+      const el = document.querySelector('[data-page=tracking]');
+      go('tracking', el);
+    }
+
+    function downloadFiles(id) {
+      toast(`Downloading files for ${id}…`, 'success');
+    }
+
+    function confirmPlaceJob(jobId, price) {
+      closeModal();
+      const job = JOBS.find(j => j.id === jobId);
+      if (job) {
+        job.status = 'In Production';
+        job.project = 'Live';
+        job.stage = 2;
+        job.agreedPrice = price;
+      }
+      toast(`Job confirmed! $${price} agreed — your job is now In Production.`, 'success');
+      setTimeout(() => go('jobs', document.querySelector('[data-page=jobs]')), 1000);
+    }
+
+    function requestModification(id) {
+      const job = JOBS.find(j => j.id === id);
+      if (!job) return;
+      openModificationModal(job);
+    }
+
+    function openModificationModal(job) {
+      const overlay = document.getElementById('overlay');
+      overlay.querySelector('.modal').innerHTML = `
+      <div class="modal-header">
+        <div>
+          <div class="modal-title">Request Modification</div>
+          <div class="modal-sub">${job.design} · ${job.id}</div>
+        </div>
+        <button class="modal-close" onclick="closeModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="background:#EBF0FA;border:1px solid rgba(0,40,104,0.15);border-radius:var(--r);padding:12px 14px;margin-bottom:20px;font-size:12.5px;color:var(--navy);display:flex;align-items:flex-start;gap:8px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Your CS team will receive this request, reopen the job, and route it back through the production workflow. A new delivery will be made once revisions pass QC.
+        </div>
+        <div class="modal-grid">
+          <div><div class="detail-row"><div class="detail-key">Original Job</div><div class="detail-val mono">${job.id}</div></div></div>
+          <div><div class="detail-row"><div class="detail-key">Reference No.</div><div class="detail-val mono">${job.ref}</div></div></div>
+        </div>
+        <div class="modal-section-title" style="margin-top:4px;">What needs to change?</div>
+        <div class="form-group" style="margin-bottom:16px;">
+          <label style="font-size:11.5px;font-weight:600;color:var(--ink-3);display:block;margin-bottom:6px;">Description of Changes Required <span style="color:var(--crimson)">*</span></label>
+          <textarea id="mod-description" style="width:100%;min-height:110px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);font-size:13px;font-family:var(--f-body);resize:vertical;outline:none;box-sizing:border-box;" placeholder="Describe exactly what needs to be modified — color changes, alignment fixes, size adjustments, etc."></textarea>
+        </div>
+        <div class="form-group" style="margin-bottom:4px;">
+          <label style="font-size:11.5px;font-weight:600;color:var(--ink-3);display:block;margin-bottom:6px;">Attach New Reference Files (optional)</label>
+          <div style="border:1.5px dashed var(--border-md);border-radius:var(--r);padding:16px;text-align:center;cursor:pointer;background:var(--off);" onclick="toast('File picker — functional in production build','info')">
+            <div style="font-size:12.5px;color:var(--ink-4);">Drop files or <span style="color:var(--crimson);font-weight:600;text-decoration:underline;">browse</span></div>
+            <div style="font-size:11px;color:var(--ink-5);margin-top:4px;">PDF, AI, PSD, PNG — max 500 MB</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="submitModificationRequest('${job.id}')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Submit Modification Request
+        </button>
+      </div>`;
+      overlay.classList.add('open');
+      if (window.innerWidth <= 768) document.body.style.overflow = 'hidden';
+    }
+
+    function submitModificationRequest(jobId) {
+      const desc = document.getElementById('mod-description');
+      if (!desc || !desc.value.trim()) {
+        toast('Please describe what needs to be changed.', 'error');
+        if (desc) { desc.style.borderColor = 'var(--crimson)'; setTimeout(() => desc.style.borderColor = '', 2000); }
+        return;
+      }
+      const job = JOBS.find(j => j.id === jobId);
+      if (job) { job.status = 'Modification Requested'; job.stage = 7; }
+      closeModal();
+      toast(`Modification request sent for ${jobId}. Your CS team will be in touch shortly.`, 'success');
+      setTimeout(() => go('jobs', document.querySelector('[data-page=jobs]')), 1000);
+    }
+
+    /* ──── TOAST ──── */
+    function toast(msg, type = 'info') {
+      const t = document.getElementById('toast');
+      const icons = { success: '✓', error: '✕', info: 'i' };
+      document.getElementById('t-icon').textContent = icons[type] || 'i';
+      document.getElementById('t-text').textContent = msg;
+      t.className = `show ${type}`;
+      clearTimeout(toastTmr);
+      toastTmr = setTimeout(() => t.className = '', 3500);
+    }
+
+    /* ──── HELPERS ──── */
+    function greeting() {
+      const h = new Date().getHours();
+      return h < 12 ? 'Morning' : h < 17 ? 'Afternoon' : 'Evening';
+    }
+    function fmtDate() {
+      return new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+    }
+    function handleAsk(e) {
+      if (e.key === 'Enter') {
+        const v = e.target.value.trim();
+        if (v) { toast(`AI: "${v}" — This feature launches in V2`, 'info'); e.target.value = ''; }
+      }
+    }
+
+    /* ──── AFTER RENDER ──── */
+    function afterRender(page) {
+      setTimeout(() => {
+        document.querySelectorAll('.mb-fill').forEach(el => {
+          const w = el.style.width;
+          el.style.width = '0';
+          setTimeout(() => el.style.width = w, 60);
+        });
+        if (page === 'tracking') {
+          document.querySelectorAll('.tc-header').forEach(h => {
+            const body = h.nextElementSibling;
+            if (h.closest('.tracking-card') === document.querySelector('.tracking-card')) {
+              body.style.display = 'block';
+              h.querySelector('svg:last-child').style.transform = 'rotate(180deg)';
+            }
+          });
+        }
+        // Form phases reset on each page load (phase 1 is active by default in HTML)
+      }, 80);
+    }
+
+    /* ──── MOBILE SIDEBAR ──── */
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('sidebar-backdrop');
+      const isOpen = sidebar.classList.contains('open');
+      if (isOpen) {
+        closeSidebar();
+      } else {
+        sidebar.classList.add('open');
+        backdrop.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('sidebar-backdrop');
+      sidebar.classList.remove('open');
+      backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* ──── MOBILE BOTTOM NAV ──── */
+    function setMobileNav(el) {
+      // no-op: handled by syncMobileNav inside go()
+    }
+
+    function syncMobileNav(page) {
+      document.querySelectorAll('.mn-item').forEach(item => {
+        item.classList.toggle('active', item.dataset.page === page);
+      });
+    }
+
+    // Wire up mobile bottom nav with touch-first event handling
+    (function initMobileNav() {
+      document.querySelectorAll('#mobile-nav .mn-item').forEach(function (item) {
+        var navPage = item.dataset.page;
+        var fired = false;
+
+        // touchstart: fire immediately, mark as handled
+        item.addEventListener('touchstart', function (e) {
+          fired = true;
+          // Immediate visual feedback
+          item.style.transition = 'transform 0.08s, opacity 0.08s';
+          // Navigate right away on touch
+          var sidebarNavEl = document.querySelector('.nav-item[data-page="' + navPage + '"]');
+          go(navPage, sidebarNavEl);
+        }, { passive: true });
+
+        // touchend: reset flag after a short delay to block the ghost click
+        item.addEventListener('touchend', function (e) {
+          setTimeout(function () { fired = false; }, 350);
+        }, { passive: true });
+
+        // click: only fires on desktop (where touchstart didn't run)
+        item.addEventListener('click', function (e) {
+          if (fired) return; // already handled by touchstart
+          var sidebarNavEl = document.querySelector('.nav-item[data-page="' + navPage + '"]');
+          go(navPage, sidebarNavEl);
+        });
+      });
+    })();
+
+    /* ──── INIT ──── */
+    buildNotifs();
+    go('dashboard', document.querySelector('[data-page=dashboard]'));
+    syncMobileNav('dashboard');
+
+    // Restore scrolling if overlay is closed
+    document.getElementById('overlay').addEventListener('click', function (e) {
+      if (e.target === this) {
+        document.body.style.overflow = '';
+      }
+    });
+  </script>
+</body>
+
+</html>
