@@ -1203,17 +1203,40 @@
       table-layout: fixed;
     }
 
-    .jobs-root .table-view th:nth-child(1) { width: 210px; }
-    .jobs-root .table-view th:nth-child(2) { width: 18%; }
-    .jobs-root .table-view th:nth-child(3) { width: 100px; }
+    .jobs-root .table-view th:nth-child(1) {
+      width: 210px;
+    }
+
+    .jobs-root .table-view th:nth-child(2) {
+      width: 18%;
+    }
+
+    .jobs-root .table-view th:nth-child(3) {
+      width: 100px;
+    }
+
     .jobs-root .table-view th:nth-child(4),
     .jobs-root .table-view th:nth-child(5),
-    .jobs-root .table-view th:nth-child(6) { width: 110px; }
-    .jobs-root .table-view th:nth-child(7) { width: 92px; }
-    .jobs-root .table-view th:nth-child(8) { width: 122px; }
+    .jobs-root .table-view th:nth-child(6) {
+      width: 110px;
+    }
+
+    .jobs-root .table-view th:nth-child(7) {
+      width: 92px;
+    }
+
+    .jobs-root .table-view th:nth-child(8) {
+      width: 122px;
+    }
+
     .jobs-root .table-view td:nth-child(3),
-    .jobs-root .table-view th:nth-child(3) { text-align: center; }
-    .jobs-root .table-view td:nth-child(8) { white-space: nowrap; }
+    .jobs-root .table-view th:nth-child(3) {
+      text-align: center;
+    }
+
+    .jobs-root .table-view td:nth-child(8) {
+      white-space: nowrap;
+    }
 
     .tbl-ctrl {
       padding: 11px 14px;
@@ -1419,13 +1442,27 @@
     }
 
     @keyframes pulse-action {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.3); }
-      50% { box-shadow: 0 0 0 4px rgba(245, 158, 11, 0); }
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.3);
+      }
+
+      50% {
+        box-shadow: 0 0 0 4px rgba(245, 158, 11, 0);
+      }
     }
 
     @keyframes pulse-dot {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.4;
+      }
     }
 
     .prio-badge {
@@ -1455,35 +1492,84 @@
     /* ═══════════════════════════════════════════
    PILLS / FILTER TABS
 ═══════════════════════════════════════════ */
-    .filter-row {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 14px;
+    .filter-tabs-container {
+      position: relative;
+      display: inline-flex;
+      background: rgba(16, 25, 43, 0.4);
+      border: 1px solid var(--glass-border);
+      border-radius: 99px;
+      padding: 4px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      z-index: 10;
+      gap: 4px;
     }
 
-    .filter-pill {
-      padding: 6px 14px;
-      border-radius: 20px;
-      border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.03);
-      font-size: 11.5px;
-      font-weight: 500;
+    html[data-theme="light"] .filter-tabs-container {
+      background: rgba(255, 255, 255, 0.6);
+      border-color: rgba(15, 23, 42, 0.08);
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+    }
+
+    .filter-tab {
+      padding: 8px 18px;
+      border-radius: 99px;
+      font-size: 12.5px;
+      font-weight: 600;
       color: var(--text-muted);
       cursor: pointer;
-      transition: all 0.18s var(--ease);
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
       user-select: none;
-      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid transparent;
+      background: none;
+      outline: none;
+      font-family: var(--f-body);
     }
 
-    .filter-pill:hover {
-      border-color: rgba(196, 30, 58, 0.5);
-      color: var(--crimson);
+    .filter-tab:hover {
+      color: white;
+      border-color: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
     }
 
-    .filter-pill.on {
-      background: rgba(196, 30, 58, 0.18);
-      border-color: rgba(196, 30, 58, 0.4);
+    html[data-theme="light"] .filter-tab:hover {
+      color: var(--navy);
+      background: rgba(15, 23, 42, 0.04);
+      border-color: rgba(15, 23, 42, 0.05);
+    }
+
+    .filter-tab.active {
+      background: linear-gradient(135deg, var(--crimson), var(--crimson-dim));
+      color: white;
+      border-color: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 12px var(--crimson-glow);
+    }
+
+    html[data-theme="light"] .filter-tab.active {
+      background: linear-gradient(135deg, var(--crimson), var(--crimson-dim));
+      color: white;
+    }
+
+    .filter-tab .tab-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 1px 6.5px;
+      border-radius: 20px;
+      transition: all 0.22s;
+    }
+
+    .filter-tab.active .tab-badge {
+      background: rgba(255, 255, 255, 0.2);
       color: white;
     }
 
@@ -1566,8 +1652,15 @@
     }
 
     @keyframes pulseDot {
-      0%, 100% { box-shadow: 0 0 0 4px rgba(196, 30, 58, 0.15); }
-      50% { box-shadow: 0 0 0 8px rgba(196, 30, 58, 0.08); }
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 4px rgba(196, 30, 58, 0.15);
+      }
+
+      50% {
+        box-shadow: 0 0 0 8px rgba(196, 30, 58, 0.08);
+      }
     }
 
     /* ═══════════════════════════════════════════
@@ -1754,6 +1847,16 @@
 
     select {
       cursor: pointer;
+    }
+
+    select option {
+      background-color: #0d1e3a;
+      color: rgba(255, 255, 255, 0.92);
+    }
+
+    html[data-theme="light"] select option {
+      background-color: #ffffff;
+      color: rgba(15, 23, 42, 0.94);
     }
 
     textarea {
@@ -2140,8 +2243,8 @@
       width: 30px;
       height: 30px;
       border-radius: 50%;
-      background: rgba(0,0,0,0.55);
-      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       color: #fff;
       display: flex;
       align-items: center;
@@ -2151,10 +2254,22 @@
       transition: background 0.15s;
     }
 
-    .car-btn:hover { background: rgba(0,0,0,0.8); }
-    .car-btn.prev { left: -14px; }
-    .car-btn.next { right: -14px; }
-    .car-btn:disabled { opacity: 0.25; cursor: default; }
+    .car-btn:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .car-btn.prev {
+      left: -14px;
+    }
+
+    .car-btn.next {
+      right: -14px;
+    }
+
+    .car-btn:disabled {
+      opacity: 0.25;
+      cursor: default;
+    }
 
     .modal-grid {
       display: grid;
@@ -2314,9 +2429,18 @@
       box-shadow: 0 0 18px var(--crimson-glow);
     }
 
-    .lb-prev { left: 18px; }
-    .lb-next { right: 18px; }
-    .lb-nav.lb-hidden { opacity: 0; pointer-events: none; }
+    .lb-prev {
+      left: 18px;
+    }
+
+    .lb-next {
+      right: 18px;
+    }
+
+    .lb-nav.lb-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
 
     .lb-stage {
       width: 100%;
@@ -2691,13 +2815,27 @@
    ANIMATIONS
 ═══════════════════════════════════════════ */
     @keyframes countUp {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.35; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.35;
+      }
     }
 
     /* ═══════════════════════════════════════════
@@ -3025,7 +3163,7 @@
         display: none;
       }
 
-      .topbar > div:last-child {
+      .topbar>div:last-child {
         display: none;
       }
 
@@ -3195,8 +3333,14 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
       }
-      .car-btn.prev { left: -10px; }
-      .car-btn.next { right: -10px; }
+
+      .car-btn.prev {
+        left: -10px;
+      }
+
+      .car-btn.next {
+        right: -10px;
+      }
 
       .modal-grid {
         grid-template-columns: 1fr;
@@ -3405,72 +3549,201 @@
     ═══════════════════════════════════════════ */
 
     /* Topbar */
-    .topbar { height: 64px !important; }
-    .main { padding-top: 64px !important; }
-    .page-title { font-size: 20px !important; }
-    .page-sub { font-size: 12.5px !important; }
-    .ai-bar { width: 250px !important; }
-    .ai-input { font-size: 13px !important; }
-    .ai-bar:focus-within { width: 290px !important; }
+    .topbar {
+      height: 64px !important;
+    }
+
+    .main {
+      padding-top: 64px !important;
+    }
+
+    .page-title {
+      font-size: 20px !important;
+    }
+
+    .page-sub {
+      font-size: 12.5px !important;
+    }
+
+    .ai-bar {
+      width: 250px !important;
+    }
+
+    .ai-input {
+      font-size: 13px !important;
+    }
+
+    .ai-bar:focus-within {
+      width: 290px !important;
+    }
 
     /* Sidebar */
-    .nav-item { font-size: 14px !important; padding: 10px 14px !important; }
-    .nav-label { font-size: 10.5px !important; }
-    .nav-badge { font-size: 11px !important; padding: 2px 8px !important; }
-    .user-name { font-size: 13.5px !important; }
-    .user-company { font-size: 11.5px !important; }
+    .nav-item {
+      font-size: 14px !important;
+      padding: 10px 14px !important;
+    }
+
+    .nav-label {
+      font-size: 10.5px !important;
+    }
+
+    .nav-badge {
+      font-size: 11px !important;
+      padding: 2px 8px !important;
+    }
+
+    .user-name {
+      font-size: 13.5px !important;
+    }
+
+    .user-company {
+      font-size: 11.5px !important;
+    }
 
     /* Buttons */
-    .btn { font-size: 14px !important; padding: 11px 22px !important; }
-    .btn-sm { font-size: 13px !important; padding: 8px 16px !important; }
-    .btn-lg { font-size: 16px !important; padding: 14px 28px !important; }
+    .btn {
+      font-size: 14px !important;
+      padding: 11px 22px !important;
+    }
+
+    .btn-sm {
+      font-size: 13px !important;
+      padding: 8px 16px !important;
+    }
+
+    .btn-lg {
+      font-size: 16px !important;
+      padding: 14px 28px !important;
+    }
 
     /* Greeting hero */
-    .hero-greeting { font-size: 36px !important; }
-    .hero-sub { font-size: 15px !important; }
-    .hero-date { font-size: 12px !important; }
+    .hero-greeting {
+      font-size: 36px !important;
+    }
+
+    .hero-sub {
+      font-size: 15px !important;
+    }
+
+    .hero-date {
+      font-size: 12px !important;
+    }
 
     /* Stat cards */
-    .stat-label { font-size: 12px !important; }
-    .stat-val { font-size: 34px !important; }
-    .stat-val.sm { font-size: 24px !important; }
-    .stat-delta { font-size: 12.5px !important; }
+    .stat-label {
+      font-size: 12px !important;
+    }
+
+    .stat-val {
+      font-size: 34px !important;
+    }
+
+    .stat-val.sm {
+      font-size: 24px !important;
+    }
+
+    .stat-delta {
+      font-size: 12.5px !important;
+    }
 
     /* Cards */
-    .card-title { font-size: 14.5px !important; }
-    .card-link { font-size: 13px !important; }
-    .card-body { padding: 20px !important; }
+    .card-title {
+      font-size: 14.5px !important;
+    }
+
+    .card-link {
+      font-size: 13px !important;
+    }
+
+    .card-body {
+      padding: 20px !important;
+    }
 
     /* Tables */
-    thead th { font-size: 11.5px !important; padding: 11px 18px !important; }
-    tbody td { font-size: 13.5px !important; padding: 13px 18px !important; }
+    thead th {
+      font-size: 11.5px !important;
+      padding: 11px 18px !important;
+    }
+
+    tbody td {
+      font-size: 13.5px !important;
+      padding: 13px 18px !important;
+    }
 
     /* Badges */
-    .badge { font-size: 11.5px !important; padding: 3px 10px !important; }
-    .prio-badge { font-size: 11px !important; padding: 3px 8px !important; }
+    .badge {
+      font-size: 11.5px !important;
+      padding: 3px 10px !important;
+    }
 
-    /* Filter pills */
-    .filter-pill { font-size: 13px !important; padding: 7px 16px !important; }
+    .prio-badge {
+      font-size: 11px !important;
+      padding: 3px 8px !important;
+    }
+
+    /* Filter tabs */
+    .filter-tab {
+      font-size: 13px !important;
+      padding: 8px 18px !important;
+    }
 
     /* Form */
-    .form-section-title { font-size: 16px !important; }
-    .form-section-num { width: 26px !important; height: 26px !important; font-size: 12px !important; }
-    label { font-size: 12px !important; }
-    input[type="text"], input[type="email"], input[type="number"], select, textarea {
-      font-size: 14px !important; padding: 12px 14px !important;
+    .form-section-title {
+      font-size: 16px !important;
     }
-    .order-type-name { font-size: 13.5px !important; }
-    .order-type-desc { font-size: 12px !important; }
-    .order-type { padding: 20px 16px !important; }
-    .order-type-icon { font-size: 26px !important; }
+
+    .form-section-num {
+      width: 26px !important;
+      height: 26px !important;
+      font-size: 12px !important;
+    }
+
+    label {
+      font-size: 12px !important;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    select,
+    textarea {
+      font-size: 14px !important;
+      padding: 12px 14px !important;
+    }
+
+    .order-type-name {
+      font-size: 13.5px !important;
+    }
+
+    .order-type-desc {
+      font-size: 12px !important;
+    }
+
+    .order-type {
+      padding: 20px 16px !important;
+    }
+
+    .order-type-icon {
+      font-size: 26px !important;
+    }
 
     /* Quick actions */
-    .qa-title { font-size: 14px !important; }
-    .qa-sub { font-size: 12px !important; }
+    .qa-title {
+      font-size: 14px !important;
+    }
+
+    .qa-sub {
+      font-size: 12px !important;
+    }
 
     /* Section dividers */
-    .sec-divider-label { font-size: 12px !important; }
-    .sec-divider-action { font-size: 13px !important; }
+    .sec-divider-label {
+      font-size: 12px !important;
+    }
+
+    .sec-divider-action {
+      font-size: 13px !important;
+    }
 
     /* ═══════════════════════════════════════════
        TWO-PHASE FORM
@@ -3481,7 +3754,7 @@
       gap: 0;
       padding: 18px 24px 16px;
       border-bottom: 1px solid var(--glass-border);
-      background: rgba(0,0,0,0.08);
+      background: rgba(0, 0, 0, 0.08);
     }
 
     .fps-step {
@@ -3835,7 +4108,8 @@
             <line x1="12" y1="16" x2="12.01" y2="16" />
           </svg>
           <div class="cm-note-text" id="cm-note-text">
-            <strong>Please note:</strong> Placing an order confirms your intent to proceed. Our team will begin working right away. Ensure your design brief and files are correct before confirming.
+            <strong>Please note:</strong> Placing an order confirms your intent to proceed. Our team will begin working
+            right away. Ensure your design brief and files are correct before confirming.
           </div>
         </div>
       </div>
@@ -3843,8 +4117,8 @@
       <!-- Type to confirm -->
       <div class="cm-body">
         <label class="cm-input-label" for="confirm-type-input">Type to confirm</label>
-        <div class="cm-input-hint">Type <code>Confirm</code> below to enable the confirm button</div>
-        <input type="text" id="confirm-type-input" placeholder="Confirm" autocomplete="off" spellcheck="false"
+        <div class="cm-input-hint">Type <code>CONFIRM</code> below to enable the confirm button</div>
+        <input type="text" id="confirm-type-input" placeholder="CONFIRM" autocomplete="off" spellcheck="false"
           oninput="onConfirmInput(this)" onpaste="event.preventDefault()">
       </div>
 
@@ -3879,11 +4153,11 @@
   <script>
     /* ──── DATA ──── */
     const JOBS = [
-      { id: 'J-2025-0050', ref: '05-06-2025-C001-050', design: 'Winter Collection Print', summary: '4-color CMYK print for winter collection.', order: 'Artwork', project: 'Quote', complexity: 'Medium', process: 'Screen Printing', priority: 'Normal', eta: '8h', status: 'Quote Approved', stage: 1, notes: '4-color CMYK print for winter collection. Primary brand blue #1E3A5F. Avoid white backgrounds on outer panels.', colors: 4, created: 'May 06, 2025', assignedTo: null, aiScore: null, csPrice: 180, agreedPrice: null },
-      { id: 'J-2025-0047', ref: '04-30-2025-C001-047-A', design: 'Corporate Logo Set', summary: 'Logo lockups, export-ready vectors, and brand-safe color checks.', order: 'Artwork', project: 'Live', complexity: 'Complex', process: 'Screen Printing', priority: 'Rush', eta: '8h', status: 'In QC', stage: 4, notes: 'Pantone 286C for navy. All text must be vectorised. Refer to attached brand guide.', colors: 4, created: 'Apr 30, 2025', assignedTo: 'Kavya Reddy', aiScore: { colour: 88, align: 92, res: 85, brief: 90 } },
-      { id: 'J-2025-0044', ref: '04-27-2025-C001-044', design: 'Summer Collection Flyer', summary: 'Promotional flyer layout with warmer product photography tones.', order: 'Artwork', project: 'Amend', complexity: 'Simple', process: 'Digital Printing', priority: 'Normal', eta: '4h', status: 'In Production', stage: 2, notes: 'Color tone adjustment on product images. Client requested warmer tones.', colors: 2, created: 'Apr 27, 2025', assignedTo: 'Rahul Nair', aiScore: null },
-      { id: 'J-2025-0043', ref: '04-26-2025-C001-043', design: 'Winter Jacket Tags', summary: 'Production-ready garment tags with clean print alignment.', order: 'Artwork', project: 'Live', complexity: 'Simple', process: 'Offset Printing', priority: 'Normal', eta: '—', status: 'Delivered', stage: 6, notes: '10,000 units. Standard tag format.', colors: 3, created: 'Apr 26, 2025', assignedTo: 'Kavya Reddy', aiScore: { colour: 95, align: 97, res: 92, brief: 96 } },
-      { id: 'J-2025-0038', ref: '04-18-2025-C001-038', design: 'Brand Style Guide', summary: 'Reference guide covering logos, colors, and typography usage.', order: 'Artwork', project: 'Live', complexity: 'Super Complex', process: 'Digital Printing', priority: 'Normal', eta: '—', status: 'Delivered', stage: 6, notes: 'Complete brand identity including typography, colors, and usage guidelines.', colors: 5, created: 'Apr 18, 2025', assignedTo: 'Kavya Reddy', aiScore: { colour: 91, align: 93, res: 90, brief: 94 } },
+      { id: 'J-2025-0050', ref: '05-06-2025-C001-050', design: 'Winter Collection Print', summary: '4-color CMYK print for winter collection.', order: 'Artwork', project: 'Quote', complexity: 'Medium', process: 'Screen Printing', priority: 'Normal', eta: '8h', status: 'QUOTE APPROVED', stage: 1, notes: '4-color CMYK print for winter collection. Primary brand blue #1E3A5F. Avoid white backgrounds on outer panels.', colors: 4, created: 'May 06, 2025', assignedTo: null, aiScore: null, csPrice: 180, agreedPrice: null },
+      { id: 'J-2025-0047', ref: '04-30-2025-C001-047-A', design: 'Corporate Logo Set', summary: 'Logo lockups, export-ready vectors, and brand-safe color checks.', order: 'Artwork', project: 'Live', complexity: 'Complex', process: 'Screen Printing', priority: 'Rush', eta: '8h', status: 'IN QC', stage: 4, notes: 'Pantone 286C for navy. All text must be vectorised. Refer to attached brand guide.', colors: 4, created: 'Apr 30, 2025', assignedTo: 'Kavya Reddy', aiScore: { colour: 88, align: 92, res: 85, brief: 90 } },
+      { id: 'J-2025-0044', ref: '04-27-2025-C001-044', design: 'Summer Collection Flyer', summary: 'Promotional flyer layout with warmer product photography tones.', order: 'Artwork', project: 'Amend', complexity: 'Simple', process: 'Digital Printing', priority: 'Normal', eta: '4h', status: 'IN PRODUCTION', stage: 2, notes: 'Color tone adjustment on product images. Client requested warmer tones.', colors: 2, created: 'Apr 27, 2025', assignedTo: 'Rahul Nair', aiScore: null },
+      { id: 'J-2025-0043', ref: '04-26-2025-C001-043', design: 'Winter Jacket Tags', summary: 'Production-ready garment tags with clean print alignment.', order: 'Artwork', project: 'Live', complexity: 'Simple', process: 'Offset Printing', priority: 'Normal', eta: '—', status: 'DELIVERED', stage: 6, notes: '10,000 units. Standard tag format.', colors: 3, created: 'Apr 26, 2025', assignedTo: 'Kavya Reddy', aiScore: { colour: 95, align: 97, res: 92, brief: 96 } },
+      { id: 'J-2025-0038', ref: '04-18-2025-C001-038', design: 'Brand Style Guide', summary: 'Reference guide covering logos, colors, and typography usage.', order: 'Artwork', project: 'Live', complexity: 'Super Complex', process: 'Digital Printing', priority: 'Normal', eta: '—', status: 'DELIVERED', stage: 6, notes: 'Complete brand identity including typography, colors, and usage guidelines.', colors: 5, created: 'Apr 18, 2025', assignedTo: 'Kavya Reddy', aiScore: { colour: 91, align: 93, res: 90, brief: 94 } },
     ];
 
     const NOTIFS = [
@@ -3894,13 +4168,13 @@
     ];
 
     const STATUS_MAP = {
-      'In QC': 'badge-navy',
-      'In Production': 'badge-amber',
-      'Delivered': 'badge-green',
-      'Senior Review': 'badge-purple',
-      'Quote Submitted': 'badge-gray',
-      'Quote Approved': 'badge-action',
-      'Modification Requested': 'badge-amber',
+      'IN QC': 'badge-navy',
+      'IN PRODUCTION': 'badge-amber',
+      'DELIVERED': 'badge-green',
+      'SENIOR REVIEW': 'badge-purple',
+      'QUOTE SUBMITTED': 'badge-gray',
+      'QUOTE APPROVED': 'badge-action',
+      'MODIFICATION REQUESTED': 'badge-amber',
     };
     const ORDER_MAP = {
       'Artwork': 'badge-navy',
@@ -3930,6 +4204,17 @@
         "Custom Embroidery Patches", "Name Drops"
       ]
     };
+
+    let PROFILE_DATA = {
+      id: 'C001',
+      name: 'Ravi Kumar',
+      company: 'Ravi Textiles Pvt. Ltd.',
+      contact: 'Ravi Kumar',
+      location: 'Hyderabad, Telangana, IN',
+      since: 'April 12, 2024'
+    };
+    let PENDING_PROFILE_DATA = null;
+    let isEditingProfile = false;
 
     let currentDashRange = 'This Month';
 
@@ -4199,14 +4484,29 @@
       </div>
     </div>`;
       },
-      jobs: () => `
-    <div class="filter-row">
-      <div class="filter-pill on" onclick="filterJobs('all',this)">All (${JOBS.length})</div>
-      <div class="filter-pill" onclick="filterJobs('active',this)">Active (2)</div>
-      <div class="filter-pill" onclick="filterJobs('qc',this)">In QC (1)</div>
-      <div class="filter-pill" onclick="filterJobs('delivered',this)">Delivered (2)</div>
-    </div>
-    <div id="jobs-table">${jobTable(JOBS)}</div>`,
+      jobs: () => {
+        const allCount = JOBS.length;
+        const activeCount = JOBS.filter(j => j.stage >= 1 && j.stage <= 3).length;
+        const qcCount = JOBS.filter(j => j.stage === 4 || j.stage === 5).length;
+        const delCount = JOBS.filter(j => j.stage === 6).length;
+
+        return `
+        <div class="filter-tabs-container">
+          <button class="filter-tab active" onclick="filterJobs('all', this)">
+            All <span class="tab-badge">${allCount}</span>
+          </button>
+          <button class="filter-tab" onclick="filterJobs('active', this)">
+            Active <span class="tab-badge">${activeCount}</span>
+          </button>
+          <button class="filter-tab" onclick="filterJobs('qc', this)">
+            In QC <span class="tab-badge">${qcCount}</span>
+          </button>
+          <button class="filter-tab" onclick="filterJobs('delivered', this)">
+            Delivered <span class="tab-badge">${delCount}</span>
+          </button>
+        </div>
+        <div id="jobs-table">${jobTable(JOBS)}</div>`;
+      },
 
       quote: (page) => `
     <div style="max-width:720px; margin: 0 auto;">
@@ -4260,7 +4560,7 @@
 
               <div id="serviceTypeContainer" style="margin-top:20px;display:none;">
                 <label>Specific Service <span class="req">*</span></label>
-                <select id="serviceType">
+                <select id="serviceType" onchange="setTimeout(goToPhase2, 250)">
                   <option value="" disabled selected>Select specific service...</option>
                 </select>
               </div>
@@ -4291,17 +4591,26 @@
                   <input type="text" placeholder="">
                 </div>
                 <div class="form-group" id="field-process-type">
-                  <label>Process Type</label>
+                  <label>Placement</label>
                   <select id="process-type-select" onchange="toggleProcessOthers(this)">
-                    <option value="" disabled selected>Select process type</option>
-                    <option>Screen Printing</option>
-                    <option>Digital Printing</option>
-                    <option>Offset Printing</option>
-                    <option>Sublimation</option>
-                    <option>Flex Printing</option>
-                    <option>Others</option>
+                    <option value="" disabled selected>Select placement</option>
+                    <option>Cap</option>
+                    <option>Front of Cap</option>
+                    <option>Back of Cap</option>
+                    <option>Side of Cap</option>
+                    <option>Visor</option>
+                    <option>Beanie Cap</option>
+                    <option>Towel</option>
+                    <option>Bags</option>
+                    <option>Left Chest</option>
+                    <option>Sleeve</option>
+                    <option>Pocket</option>
+                    <option>Full Back</option>
+                    <option>Full Front</option>
+                    <option>Back Yoke</option>
+                    <option>Other</option>
                   </select>
-                  <input type="text" id="process-others-input" placeholder="Please specify" style="display:none;margin-top:8px;">
+                  <input type="text" id="process-others-input" placeholder="Please specify placement" style="display:none;margin-top:8px;">
                 </div>
                 <div class="form-group">
                   <label>Number of Colors</label>
@@ -4325,10 +4634,6 @@
                 <!-- Digitizing-only fields (hidden by default) -->
                 <div id="digitizing-fields" style="display:none;">
                   <div class="form-group">
-                    <label>Placement <span class="req">*</span></label>
-                    <select id="field-placement"><option value="" disabled selected>Select placement</option><option>Cap</option><option>Front of Cap</option><option>Back of Cap</option><option>Side of Cap</option><option>Visor</option><option>Beanie Cap</option><option>Towel</option><option>Bags</option><option>Left Chest</option><option>Sleeve</option><option>Pocket</option><option>Full Back</option><option>Full Front</option><option>Back Yoke</option><option>Other</option></select>
-                  </div>
-                  <div class="form-group">
                     <label>Width (inches) <span class="req">*</span></label>
                     <input type="number" id="field-width" step="0.1" min="0.1" placeholder="">
                   </div>
@@ -4349,14 +4654,14 @@
                   </div>
                 </div>
 
-                <div class="form-group full">
-                  <label>Design Brief / Description <span class="req">*</span></label>
+                <div class="form-group full" id="field-design-brief">
+                  <label>Design Brief / Description</label>
                   <textarea placeholder=""></textarea>
                 </div>
                 <div class="form-group full">
                   <label>Expected Output File Formats</label>
                   <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;">
-                    ${['PDF','EPS','AI','CDR'].map(fmt => `<label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:400;cursor:pointer;padding:6px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);"><input type="checkbox" value="${fmt}"> ${fmt}</label>`).join('')}
+                    ${['PDF', 'EPS', 'AI', 'CDR'].map(fmt => `<label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:400;cursor:pointer;padding:6px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);"><input type="checkbox" value="${fmt}"> ${fmt}</label>`).join('')}
                     <label style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:400;cursor:pointer;padding:6px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);"><input type="checkbox" value="Others" onchange="toggleFormatOthers(this)"> Others</label>
                   </div>
                   <input type="text" id="format-others-input" placeholder="Please specify format" style="display:none;margin-top:10px;width:100%;padding:10px 13px;border:1px solid var(--border);border-radius:var(--r-lg);font-family:var(--f-body);font-size:13px;color:var(--text);background:rgba(255,255,255,0.05);outline:none;"
@@ -4452,40 +4757,160 @@
       `).join('')}
     </div>`,
 
-      profile: () => `
+      profile: () => {
+        // Let's get the profile values
+        const name = PROFILE_DATA.name;
+        const company = PROFILE_DATA.company;
+        const contact = PROFILE_DATA.contact;
+        const location = PROFILE_DATA.location;
+        const id = PROFILE_DATA.id;
+        const since = PROFILE_DATA.since;
+
+        // Visual avatar initials
+        const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+
+        // Check if there is pending approval
+        const pendingBadge = (key) => {
+          if (PENDING_PROFILE_DATA && PENDING_PROFILE_DATA[key] !== undefined && PENDING_PROFILE_DATA[key] !== PROFILE_DATA[key]) {
+            return `<div style="font-size:11.5px;color:#D97706;font-weight:500;margin-top:4px;display:flex;align-items:center;gap:4px;">
+              <span style="font-size:9px;background:rgba(217,119,6,0.12);padding:2px 6px;border-radius:4px;font-weight:700;letter-spacing:0.02em;">PENDING APPROVAL</span>
+              <span>Change to: "${PENDING_PROFILE_DATA[key]}"</span>
+            </div>`;
+          }
+          return '';
+        };
+
+        // Render the read-only or edit view
+        let bodyHtml = '';
+        if (isEditingProfile) {
+          bodyHtml = `
+          <div class="profile-fields" style="display:flex;flex-direction:column;gap:14px;">
+            <div class="pf-row" style="display:block;padding:0;">
+              <div class="pf-key" style="margin-bottom:6px;">Client ID (Read-only)</div>
+              <div class="pf-val mono" style="padding:10px 0;">${id}</div>
+            </div>
+            <div class="pf-row" style="display:block;padding:0;">
+              <label style="font-weight:600;font-size:12.5px;color:var(--ink-2);margin-bottom:6px;display:block;">Full Name</label>
+              <input type="text" id="edit-profile-name" value="${PENDING_PROFILE_DATA ? PENDING_PROFILE_DATA.name : name}" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);color:var(--text);font-family:var(--f-body);font-size:13px;outline:none;">
+            </div>
+            <div class="pf-row" style="display:block;padding:0;">
+              <label style="font-weight:600;font-size:12.5px;color:var(--ink-2);margin-bottom:6px;display:block;">Company</label>
+              <input type="text" id="edit-profile-company" value="${PENDING_PROFILE_DATA ? PENDING_PROFILE_DATA.company : company}" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);color:var(--text);font-family:var(--f-body);font-size:13px;outline:none;">
+            </div>
+            <div class="pf-row" style="display:block;padding:0;">
+              <label style="font-weight:600;font-size:12.5px;color:var(--ink-2);margin-bottom:6px;display:block;">Contact Name</label>
+              <input type="text" id="edit-profile-contact" value="${PENDING_PROFILE_DATA ? PENDING_PROFILE_DATA.contact : contact}" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);color:var(--text);font-family:var(--f-body);font-size:13px;outline:none;">
+            </div>
+            <div class="pf-row" style="display:block;padding:0;">
+              <label style="font-weight:600;font-size:12.5px;color:var(--ink-2);margin-bottom:6px;display:block;">Location</label>
+              <input type="text" id="edit-profile-location" value="${PENDING_PROFILE_DATA ? PENDING_PROFILE_DATA.location : location}" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);color:var(--text);font-family:var(--f-body);font-size:13px;outline:none;">
+            </div>
+            <div class="pf-row" style="display:block;padding:0;">
+              <div class="pf-key" style="margin-bottom:6px;">Member Since (Read-only)</div>
+              <div class="pf-val" style="padding:10px 0;">${since}</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:20px;justify-content:flex-end;">
+            <button class="btn btn-outline btn-sm" onclick="cancelProfileEdit()">Cancel</button>
+            <button class="btn btn-primary btn-sm" onclick="saveProfileChanges()">Submit for Approval</button>
+          </div>
+          `;
+        } else {
+          bodyHtml = `
+          <div class="profile-fields">
+            <div class="pf-row">
+              <div class="pf-key">Client ID</div>
+              <div class="pf-val mono">${id}</div>
+            </div>
+            <div class="pf-row">
+              <div class="pf-key">Full Name</div>
+              <div class="pf-val">${name}${pendingBadge('name')}</div>
+            </div>
+            <div class="pf-row">
+              <div class="pf-key">Company</div>
+              <div class="pf-val">${company}${pendingBadge('company')}</div>
+            </div>
+            <div class="pf-row">
+              <div class="pf-key">Contact</div>
+              <div class="pf-val">${contact}${pendingBadge('contact')}</div>
+            </div>
+            <div class="pf-row">
+              <div class="pf-key">Location</div>
+              <div class="pf-val">${location}${pendingBadge('location')}</div>
+            </div>
+            <div class="pf-row">
+              <div class="pf-key">Member Since</div>
+              <div class="pf-val">${since}</div>
+            </div>
+          </div>
+          
+          ${PENDING_PROFILE_DATA ? `
+          <div style="margin-top:16px;background:rgba(217,119,6,0.08);border:1.5px solid rgba(217,119,6,0.25);border-radius:var(--r);padding:14px;color:var(--text);font-size:12.5px;line-height:1.5;">
+            <div style="display:flex;align-items:center;gap:8px;font-weight:700;color:#F59E0B;margin-bottom:4px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Profile Update Pending Admin Approval
+            </div>
+            Your requested profile updates are under review by your Client Servicing representative. Once approved, the changes will take effect immediately.
+            <div style="margin-top:10px;display:flex;gap:8px;">
+              <button class="btn btn-outline btn-sm" style="padding:4px 10px;font-size:11px;background:rgba(0,0,0,0.15);color:var(--text);" onclick="editProfile()">Modify Request</button>
+              <button class="btn btn-outline btn-sm" style="padding:4px 10px;font-size:11px;background:rgba(239,68,68,0.12);color:#FCA5A5;border-color:rgba(239,68,68,0.2);" onclick="cancelPendingProfileRequest()">Cancel Request</button>
+            </div>
+          </div>
+          ` : `
+          <div class="readonly-notice" style="margin-top:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+            <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:200px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span>Profile information requires admin approval to update.</span>
+            </div>
+            <button class="btn btn-primary btn-sm" style="padding:5px 12px;font-size:11.5px;font-weight:600;" onclick="editProfile()">Request Update</button>
+          </div>
+          `}
+          `;
+        }
+
+        // Add the Admin Simulator at the bottom if there are pending changes!
+        let adminSimulatorHtml = '';
+        if (PENDING_PROFILE_DATA) {
+          adminSimulatorHtml = `
+          <div class="card" style="margin-top:14px;border:1.5px dashed rgba(245,158,11,0.4);background:rgba(245,158,11,0.04);box-shadow:0 8px 24px rgba(245,158,11,0.06);">
+            <div class="card-header" style="border-bottom:1px dashed rgba(245,158,11,0.25);">
+              <div class="card-title" style="color:#F59E0B;font-weight:700;">
+                <span style="font-size:14px;margin-right:4px;">👑</span>
+                Admin Simulator Panel (Mockup)
+              </div>
+            </div>
+            <div class="card-body" style="padding:14px 16px;">
+              <div style="font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:12px;">
+                You submitted profile updates. Under the hood, an administrator would review them. Click below to simulate the admin action:
+              </div>
+              <div style="display:flex;gap:10px;">
+                <button class="btn btn-sm" style="background:#10B981;color:white;border:1px solid rgba(255,255,255,0.1);font-weight:700;cursor:pointer;" onclick="simulateAdminApproval(true)">Approve Updates</button>
+                <button class="btn btn-outline btn-sm" style="background:rgba(239,68,68,0.1);color:#EF4444;border-color:rgba(239,68,68,0.25);font-weight:700;cursor:pointer;" onclick="simulateAdminApproval(false)">Reject Updates</button>
+              </div>
+            </div>
+          </div>
+          `;
+        }
+
+        return `
     <div style="display:flex;justify-content:center;align-items:flex-start;min-height:100%">
     <div style="max-width:560px;width:100%">
       <div class="card">
         <div class="profile-hero">
-          <div class="profile-av-lg">RK</div>
-          <div class="profile-name">Ravi Kumar</div>
-          <div class="profile-company">Ravi Textiles Pvt. Ltd. · Hyderabad, India</div>
+          <div class="profile-av-lg">${initials}</div>
+          <div class="profile-name">${name}</div>
+          <div class="profile-company">${company} · ${location}</div>
           <div class="profile-since">
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             Client since April 2024
           </div>
         </div>
         <div class="card-body">
-          <div class="profile-fields">
-            ${[
-          ['Client ID', 'C001', true],
-          ['Full Name', 'Ravi Kumar', false],
-          ['Company', 'Ravi Textiles Pvt. Ltd.', false],
-          ['Contact', 'Ravi Kumar', false],
-          ['Location', 'Hyderabad, Telangana, IN', false],
-          ['Member Since', 'April 12, 2024', false],
-        ].map(([k, v, mono]) => `
-            <div class="pf-row">
-              <div class="pf-key">${k}</div>
-              <div class="pf-val${mono ? ' mono' : ''}">${v}</div>
-            </div>`).join('')}
-          </div>
-          <div class="readonly-notice">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            This profile is read-only. To update your information, please contact your Client Servicing representative.
-          </div>
+          ${bodyHtml}
         </div>
       </div>
+
+      ${adminSimulatorHtml}
 
       <div class="card" style="margin-top:14px;">
         <div class="card-header">
@@ -4507,7 +4932,8 @@
         </div>
       </div>
     </div>
-    </div>`,
+    </div>`;
+      },
     };
 
     PAGES.place_order = PAGES.quote;
@@ -4546,7 +4972,7 @@
           <td><span class="badge ${STATUS_MAP[j.status] || 'badge-gray'}">${j.status}</span></td>
           <td style="color:var(--ink-4);font-size:12px">${j.created}</td>
           <td onclick="event.stopPropagation()">
-            ${j.status === 'Delivered'
+            ${j.status === 'DELIVERED'
           ? `<button class="btn btn-outline btn-sm" onclick="toast('Downloading files for ${j.id}…','success')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download</button>`
           : `<button class="btn btn-outline btn-sm" onclick="openJob('${j.id}')">View</button>`
         }
@@ -4558,11 +4984,11 @@
 
     <div class="grid-view">
       ${jobs.map(j => {
-          const hasActionRequired = j.status === 'Quote Approved' && j.csPrice;
+          const hasActionRequired = j.status === 'QUOTE APPROVED' && j.csPrice;
           const prioPillClass = j.priority === 'Super Rush' ? 'prio-super-rush' : j.priority === 'Rush' ? 'prio-rush' : '';
           return `<div class="job-card${hasActionRequired ? ' negotiate' : ''}" onclick="openJob('${j.id}')" style="position:relative;">
         <div class="jc-img"><img src="${jobImage(j, 2, 800, 520)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=800 height=520><rect width=800 height=520 fill=%23eef2f7/></svg>'"></div>
-        <div style="position:absolute;top:10px;right:10px;z-index:2;"><span class="badge ${STATUS_MAP[j.status] || 'badge-gray'}" style="font-size:10.5px;padding:3px 9px;background:white;box-shadow:0 2px 6px rgba(0,0,0,0.12);">${hasActionRequired ? 'Action Required' : j.status}</span></div>
+        <div style="position:absolute;top:10px;right:10px;z-index:2;"><span class="badge ${STATUS_MAP[j.status] || 'badge-gray'}" style="font-size:10.5px;padding:3px 9px;background:rgba(10,22,40,0.92);box-shadow:0 4px 12px rgba(0,0,0,0.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">${hasActionRequired ? 'ACTION REQUIRED' : j.status}</span></div>
         <div class="jc-body">
           <div class="jc-title">${j.design}</div>
           <div class="jc-desc">${j.summary}</div>
@@ -4605,7 +5031,7 @@
       _carPage = 0;
       const j = JOBS.find(x => x.id === id);
       if (!j) return;
-      const steps = ['CS Review', 'Approved', 'Assigned', 'In Work', 'QC Review', 'CS Delivery'];
+      const steps = ['CS REVIEW', 'APPROVED', 'ASSIGNED', 'IN PROGRESS', 'QC REVIEW', 'CS DELIVERY'];
       const images = jobImages(j, 3);
       const isMobile = window.innerWidth <= 768;
       document.getElementById('modal-body').innerHTML = `
@@ -4624,7 +5050,7 @@
       <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
     <div class="modal-body">
-      <div style="margin-bottom:20px;display:grid;grid-template-columns:1fr${j.status === 'Quote Approved' && j.csPrice ? ' 1fr' : ''};gap:14px;align-items:stretch;">
+      <div style="margin-bottom:20px;display:grid;grid-template-columns:1fr${j.status === 'QUOTE APPROVED' && j.csPrice ? ' 1fr' : ''};gap:14px;align-items:stretch;">
         <div style="display:flex;flex-direction:column;">
           <div class="modal-section-title">Job Images</div>
           <div class="modal-gallery-wrap" style="flex:1;min-height:0;">
@@ -4639,13 +5065,13 @@
             </button>
           </div>
         </div>
-        ${j.status === 'Quote Approved' && j.csPrice ? `
+        ${j.status === 'QUOTE APPROVED' && j.csPrice ? `
         <div style="display:flex;flex-direction:column;">
           <div class="modal-section-title">Confirm &amp; Place Job</div>
           <div style="background:#FFFBEB; border:1.5px solid #FCD34D; border-radius:var(--r); padding:20px; flex:1; display:flex; flex-direction:column; justify-content:center; gap:12px;">
             <div>
               <div style="font-size:11px; font-weight:700; color:#92400E; text-transform:uppercase; letter-spacing:0.07em; margin-bottom:4px;">Agency Quoted Price</div>
-              <div style="font-size:28px; font-weight:800; color:#92400E; font-family:var(--f-head); letter-spacing:-0.02em;">$${j.csPrice}</div>
+              <div style="font-size:28px; font-weight:800; color:#92400E; font-family:var(--f-head); letter-spacing:-0.02em; display:inline-block; background:#FEF3C7; padding:4px 14px; border-radius:var(--r); border:1px solid #FCD34D; box-shadow:inset 0 1px 2px rgba(0,0,0,0.05); margin: 6px 0;">$${j.csPrice}</div>
               <div style="font-size:11.5px; color:#B45309; margin-top:4px;">Reviewed &amp; set by your Client Servicing team</div>
             </div>
             <div style="display:flex; flex-direction:column; gap:8px;">
@@ -4671,18 +5097,14 @@
         </div>
       </div>
       ${(() => {
-        const etaRaw = j.eta && j.eta !== '—' ? j.eta : null;
-        const etaNum = etaRaw ? parseFloat(etaRaw) : null;
-        if (!etaNum) return '';
-        const tlH   = Math.round(etaNum * 0.10 * 10) / 10;
-        const dsH   = Math.round(etaNum * 0.65 * 10) / 10;
-        const qcH   = Math.round(etaNum * 0.25 * 10) / 10;
-        const pct = (n) => Math.round(n / etaNum * 100);
-        return `
+          const etaRaw = j.eta && j.eta !== '—' ? j.eta : null;
+          const etaNum = etaRaw ? parseFloat(etaRaw) : null;
+          if (!etaNum) return '';
+          return `
       <div style="margin-bottom:20px;">
         <div class="modal-section-title">Estimated Timeline</div>
         <div style="background:var(--off);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
             <div>
               <div style="font-size:10px;font-weight:700;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:4px;">CS Estimated Turnaround</div>
               <div style="font-size:26px;font-weight:700;color:#3B82F6;font-family:var(--f-mono);line-height:1">${etaRaw}</div>
@@ -4692,37 +5114,9 @@
               <span class="badge ${STATUS_MAP[j.status] || 'badge-gray'}">${j.status}</span>
             </div>
           </div>
-          <div style="font-size:10.5px;font-weight:700;color:var(--ink-4);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px;">Time Allocation per Stage</div>
-          <div style="display:flex;flex-direction:column;gap:10px;">
-            <div>
-              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-                <div style="display:flex;align-items:center;gap:7px;"><div style="width:8px;height:8px;border-radius:2px;background:#3B82F6;"></div><span style="font-size:12px;font-weight:600;color:var(--ink-2);">Team Lead — Review & Assign</span></div>
-                <span style="font-size:12px;font-weight:700;color:#3B82F6;font-family:var(--f-mono);">${tlH}h</span>
-              </div>
-              <div style="height:6px;background:var(--border);border-radius:99px;overflow:hidden;"><div style="width:${pct(tlH)}%;height:100%;background:#3B82F6;border-radius:99px;"></div></div>
-            </div>
-            <div>
-              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-                <div style="display:flex;align-items:center;gap:7px;"><div style="width:8px;height:8px;border-radius:2px;background:var(--crimson);"></div><span style="font-size:12px;font-weight:600;color:var(--ink-2);">Designer / Digitator — Execution</span></div>
-                <span style="font-size:12px;font-weight:700;color:var(--crimson);font-family:var(--f-mono);">${dsH}h</span>
-              </div>
-              <div style="height:6px;background:var(--border);border-radius:99px;overflow:hidden;"><div style="width:${pct(dsH)}%;height:100%;background:var(--crimson);border-radius:99px;"></div></div>
-            </div>
-            <div>
-              <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-                <div style="display:flex;align-items:center;gap:7px;"><div style="width:8px;height:8px;border-radius:2px;background:var(--green);"></div><span style="font-size:12px;font-weight:600;color:var(--ink-2);">QC — Quality Check</span></div>
-                <span style="font-size:12px;font-weight:700;color:var(--green);font-family:var(--f-mono);">${qcH}h</span>
-              </div>
-              <div style="height:6px;background:var(--border);border-radius:99px;overflow:hidden;"><div style="width:${pct(qcH)}%;height:100%;background:var(--green);border-radius:99px;"></div></div>
-            </div>
-          </div>
-          <div style="margin-top:14px;padding:8px 12px;background:rgba(0,40,104,0.04);border:1px solid rgba(0,40,104,0.1);border-radius:var(--r);font-size:11.5px;color:var(--ink-3);display:flex;align-items:center;gap:7px;">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            Timings are estimates set by your CS team and may vary based on job complexity.
-          </div>
         </div>
       </div>`;
-      })()}
+        })()}
       <div class="modal-grid">
         <div>
           <div class="modal-section-title">Job Details</div>
@@ -4733,7 +5127,7 @@
           ${[['Job ID', j.id], ['Reference No.', j.ref], ['Project Type', j.project], ['Status', j.status]].map(([k, v], i) => `<div class="detail-row"><div class="detail-key">${k}</div><div class="detail-val${i === 1 ? ' mono' : ''}">${v}</div></div>`).join('')}
         </div>
       </div>
-      ${j.status === 'Quote Submitted' ? `
+      ${j.status === 'QUOTE SUBMITTED' ? `
       <div class="modal-section-title">Pricing</div>
       <div style="background:var(--off); border:1px solid var(--border); border-radius:var(--r); padding:16px; margin-bottom:20px;">
         <div style="display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--ink-4);">
@@ -4748,7 +5142,7 @@
     </div>
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeModal()">Close</button>
-      ${j.status === 'Delivered'
+      ${j.status === 'DELIVERED'
           ? `<button class="btn btn-navy" onclick="toast('Downloading project files…','success');closeModal()"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download Files</button>
           <button class="btn btn-primary" onclick="closeModal(); setTimeout(()=>requestModification('${j.id}'),120)">Request Modification</button>`
           : `<button class="btn btn-primary" onclick="toast('You will be notified when status changes','info');closeModal()">Track This Job</button>`
@@ -4777,6 +5171,70 @@
       document.getElementById('overlay').classList.remove('open');
       document.body.style.overflow = '';
       _carPage = 0;
+    }
+
+    /* ──── PROFILE HELPERS ──── */
+    function editProfile() {
+      isEditingProfile = true;
+      document.getElementById('content').innerHTML = PAGES.profile();
+    }
+
+    function cancelProfileEdit() {
+      isEditingProfile = false;
+      document.getElementById('content').innerHTML = PAGES.profile();
+    }
+
+    function saveProfileChanges() {
+      const name = document.getElementById('edit-profile-name').value.trim();
+      const company = document.getElementById('edit-profile-company').value.trim();
+      const contact = document.getElementById('edit-profile-contact').value.trim();
+      const location = document.getElementById('edit-profile-location').value.trim();
+
+      if (!name || !company || !contact || !location) {
+        toast('Please fill out all fields.', 'error');
+        return;
+      }
+
+      PENDING_PROFILE_DATA = { name, company, contact, location };
+      isEditingProfile = false;
+      toast('Profile updates submitted for approval!', 'success');
+      document.getElementById('content').innerHTML = PAGES.profile();
+    }
+
+    function cancelPendingProfileRequest() {
+      PENDING_PROFILE_DATA = null;
+      toast('Profile update request cancelled.', 'info');
+      document.getElementById('content').innerHTML = PAGES.profile();
+    }
+
+    function simulateAdminApproval(approved) {
+      if (approved && PENDING_PROFILE_DATA) {
+        PROFILE_DATA = { ...PROFILE_DATA, ...PENDING_PROFILE_DATA };
+
+        // Update sidebar and topbar elements instantly!
+        const initials = PROFILE_DATA.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+
+        // Sidebar updates
+        const sbAv = document.querySelector('.sidebar .user-av');
+        if (sbAv) sbAv.textContent = initials;
+        const sbName = document.querySelector('.sidebar .user-name');
+        if (sbName) sbName.textContent = PROFILE_DATA.name;
+        const sbCompany = document.querySelector('.sidebar .user-company');
+        if (sbCompany) sbCompany.textContent = PROFILE_DATA.company;
+
+        // Topbar updates
+        const tbAv = document.querySelector('header div[onclick*="profile"] div:first-child');
+        if (tbAv) tbAv.textContent = initials;
+        const tbName = document.querySelector('header div[onclick*="profile"] div:last-child div:first-child');
+        if (tbName) tbName.textContent = PROFILE_DATA.name;
+
+        PENDING_PROFILE_DATA = null;
+        toast('Admin APPROVED updates. Profile updated!', 'success');
+      } else {
+        PENDING_PROFILE_DATA = null;
+        toast('Admin REJECTED updates. Changes discarded.', 'info');
+      }
+      document.getElementById('content').innerHTML = PAGES.profile();
     }
 
     /* ──── NOTIFICATIONS ──── */
@@ -4820,15 +5278,29 @@
 
     /* ──── FILTER JOBS ──── */
     function filterJobs(type, el) {
-      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('on'));
-      el.classList.add('on');
+      document.querySelectorAll('.filter-tab').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+
+      const existingRoot = document.querySelector('.jobs-root');
+      const currentView = existingRoot ? existingRoot.getAttribute('data-view') : 'grid';
+
       const map = {
         all: JOBS,
-        active: JOBS.filter(j => j.stage === 2 || j.stage === 3),
-        qc: JOBS.filter(j => j.stage === 4),
+        active: JOBS.filter(j => j.stage >= 1 && j.stage <= 3),
+        qc: JOBS.filter(j => j.stage === 4 || j.stage === 5),
         delivered: JOBS.filter(j => j.stage === 6),
       };
+
       document.getElementById('jobs-table').innerHTML = jobTable(map[type] || JOBS);
+
+      const newRoot = document.querySelector('.jobs-root');
+      if (newRoot && currentView) {
+        newRoot.setAttribute('data-view', currentView);
+        newRoot.querySelectorAll('.view-toggle button').forEach(b => {
+          b.classList.toggle('on', b.getAttribute('onclick').includes(currentView));
+        });
+      }
+
       const input = document.querySelector('#jobs-table .search-inp');
       if (input) {
         input.value = jobSearchQuery;
@@ -4844,22 +5316,25 @@
       btn.classList.add('on');
     }
 
-    /* ──── ORDER TYPE SELECT ──── */
     function selectOrder(el) {
       document.querySelectorAll('.order-type').forEach(o => o.classList.remove('selected'));
       el.classList.add('selected');
       const category = el.getAttribute('data-category');
       updateSubServices(category);
       toggleDigitizingFields(category);
+
+      // If category has no sub-services (like swatches), auto-advance to Phase 2!
+      const services = serviceMap[category];
+      if (!services || services.length === 0) {
+        setTimeout(goToPhase2, 250);
+      }
     }
 
     function toggleDigitizingFields(category) {
       const digitizingFields = document.getElementById('digitizing-fields');
-      const processTypeField = document.getElementById('field-process-type');
       if (!digitizingFields) return;
       const isDigitizing = category === 'digitizing';
       digitizingFields.style.display = isDigitizing ? 'contents' : 'none';
-      if (processTypeField) processTypeField.style.display = isDigitizing ? 'none' : '';
     }
 
     function updateSubServices(category) {
@@ -4896,7 +5371,7 @@
     /* ──── PROCESS TYPE "OTHERS" REVEAL ──── */
     function toggleProcessOthers(sel) {
       const inp = document.getElementById('process-others-input');
-      if (inp) inp.style.display = sel.value === 'Others' ? '' : 'none';
+      if (inp) inp.style.display = sel.value === 'Other' || sel.value === 'Others' ? '' : 'none';
     }
 
     /* ──── FORM PHASE NAVIGATION ──── */
@@ -5018,7 +5493,7 @@
     }
 
     function onConfirmInput(inp) {
-      const ready = inp.value === 'Confirm';
+      const ready = inp.value.trim().toUpperCase() === 'CONFIRM';
       inp.classList.toggle('valid', ready);
       const btn = document.getElementById('confirm-submit-btn');
       btn.classList.toggle('ready', ready);
@@ -5056,12 +5531,12 @@
       closeModal();
       const job = JOBS.find(j => j.id === jobId);
       if (job) {
-        job.status = 'In Production';
+        job.status = 'IN PRODUCTION';
         job.project = 'Live';
         job.stage = 2;
         job.agreedPrice = price;
       }
-      toast(`Job confirmed! $${price} agreed — your job is now In Production.`, 'success');
+      toast(`Job confirmed! $${price} agreed — your job is now IN PRODUCTION.`, 'success');
       setTimeout(() => go('jobs', document.querySelector('[data-page=jobs]')), 1000);
     }
 
@@ -5124,7 +5599,7 @@
         return;
       }
       const job = JOBS.find(j => j.id === jobId);
-      if (job) { job.status = 'Modification Requested'; job.stage = 7; }
+      if (job) { job.status = 'MODIFICATION REQUESTED'; job.stage = 7; }
       closeModal();
       toast(`Modification request sent for ${jobId}. Your CS team will be in touch shortly.`, 'success');
       setTimeout(() => go('jobs', document.querySelector('[data-page=jobs]')), 1000);
