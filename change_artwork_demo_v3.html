@@ -2023,6 +2023,17 @@
       transform: translateY(0);
     }
 
+    .job-top-layout {
+      margin-bottom: 20px;
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 1fr;
+    }
+
+    .job-top-layout.has-pricing-card {
+      grid-template-columns: 1fr 1fr;
+    }
+
     .modal-top {
       padding: 18px 22px;
       border-bottom: 1px solid var(--glass-border);
@@ -2175,10 +2186,12 @@
       pointer-events: none;
       transition: opacity 0.22s;
     }
+
     .lb-overlay.open {
       opacity: 1;
       pointer-events: all;
     }
+
     .lb-toolbar {
       position: absolute;
       top: 0;
@@ -2189,24 +2202,27 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 20px;
-      background: linear-gradient(180deg, rgba(2,4,12,0.82) 0%, transparent 100%);
+      background: linear-gradient(180deg, rgba(2, 4, 12, 0.82) 0%, transparent 100%);
       z-index: 10;
     }
+
     .lb-counter {
       font-family: var(--font-mono);
       font-size: 12px;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255, 255, 255, 0.55);
       letter-spacing: 0.08em;
     }
+
     .lb-toolbar-actions {
       display: flex;
       align-items: center;
       gap: 6px;
     }
+
     .lb-btn {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      color: rgba(255,255,255,0.75);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.75);
       border-radius: 7px;
       width: 34px;
       height: 34px;
@@ -2219,28 +2235,32 @@
       line-height: 1;
       transition: var(--transition);
     }
+
     .lb-btn:hover {
-      background: rgba(196,30,58,0.22);
+      background: rgba(196, 30, 58, 0.22);
       border-color: var(--crimson);
       color: white;
     }
+
     .lb-zoom-label {
       font-family: var(--font-mono);
       font-size: 11px;
       width: 52px;
     }
+
     .lb-close-btn {
       width: 34px;
       margin-left: 6px;
     }
+
     .lb-nav {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       z-index: 10;
-      background: rgba(10,22,40,0.6);
-      border: 1px solid rgba(255,255,255,0.14);
-      color: rgba(255,255,255,0.8);
+      background: rgba(10, 22, 40, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: rgba(255, 255, 255, 0.8);
       border-radius: 50%;
       width: 48px;
       height: 48px;
@@ -2250,15 +2270,27 @@
       cursor: pointer;
       transition: var(--transition);
     }
+
     .lb-nav:hover {
       background: var(--crimson);
       border-color: var(--crimson);
       color: white;
       box-shadow: 0 0 18px var(--crimson-glow);
     }
-    .lb-prev { left: 18px; }
-    .lb-next { right: 18px; }
-    .lb-nav.lb-hidden { opacity: 0; pointer-events: none; }
+
+    .lb-prev {
+      left: 18px;
+    }
+
+    .lb-next {
+      right: 18px;
+    }
+
+    .lb-nav.lb-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
     .lb-stage {
       width: 100%;
       height: 100%;
@@ -2268,21 +2300,24 @@
       overflow: hidden;
       position: relative;
     }
+
     .lb-img {
       max-width: 88vw;
       max-height: 82vh;
       object-fit: contain;
       border-radius: 10px;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.7);
-      transition: transform 0.18s cubic-bezier(0.4,0,0.2,1), opacity 0.18s;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.7);
+      transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.18s;
       transform-origin: center center;
       user-select: none;
       -webkit-user-drag: none;
     }
+
     .lb-img.lb-fade {
       opacity: 0;
       transform: scale(0.94);
     }
+
     .modal-gallery img {
       cursor: zoom-in;
     }
@@ -3005,6 +3040,10 @@
         gap: 12px;
       }
 
+      .job-top-layout.has-pricing-card {
+        grid-template-columns: 1fr !important;
+      }
+
       .modal-body {
         padding: 14px 16px;
       }
@@ -3150,53 +3189,115 @@
     ════════════════════════════════════════════════════════ */
 
     /* Body & background */
-    body { background: #F8F9FB !important; color: var(--text); }
-    #flag-bg { display: none !important; }
-    .flag-overlay, .flag-grain { display: none !important; }
+    body {
+      background: #F8F9FB !important;
+      color: var(--text);
+    }
+
+    #flag-bg {
+      display: none !important;
+    }
+
+    .flag-overlay,
+    .flag-grain {
+      display: none !important;
+    }
 
     /* Remove backdrop-filter from every element that uses it */
-    .sidebar, .topbar, .panel, .tbl-wrap, .k-col, .form-panel,
-    .g-card, .stat-card, .login-card, .modal, .notif-panel,
-    .mobile-bottom-nav, .k-item, .pill, .callout, .ai-bar,
-    .icon-btn, .topbar-user, .mob-menu-btn, .role-btn,
-    .filter-chip, .reason-chip, #toast, .list-item, .job-card,
-    .ai-report, .reject-sec {
+    .sidebar,
+    .topbar,
+    .panel,
+    .tbl-wrap,
+    .k-col,
+    .form-panel,
+    .g-card,
+    .stat-card,
+    .login-card,
+    .modal,
+    .notif-panel,
+    .mobile-bottom-nav,
+    .k-item,
+    .pill,
+    .callout,
+    .ai-bar,
+    .icon-btn,
+    .topbar-user,
+    .mob-menu-btn,
+    .role-btn,
+    .filter-chip,
+    .reason-chip,
+    #toast,
+    .list-item,
+    .job-card,
+    .ai-report,
+    .reject-sec {
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
     }
 
     /* Login screen */
-    #login-screen { background: linear-gradient(135deg, #EBF0FA 0%, #F8F9FB 100%) !important; }
+    #login-screen {
+      background: linear-gradient(135deg, #EBF0FA 0%, #F8F9FB 100%) !important;
+    }
+
     .login-card {
       background: #FFFFFF !important;
       border: 1px solid #E4E8F0 !important;
       border-top: 1px solid #E4E8F0 !important;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.10) !important;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.10) !important;
     }
-    .login-title { color: #0D1B2A !important; }
-    .login-sub { color: #6B7585 !important; }
-    .lbl { color: #6B7585 !important; }
+
+    .login-title {
+      color: #0D1B2A !important;
+    }
+
+    .login-sub {
+      color: #6B7585 !important;
+    }
+
+    .lbl {
+      color: #6B7585 !important;
+    }
+
     .inp {
       background: #F2F4F8 !important;
       border-color: #E4E8F0 !important;
       color: #0D1B2A !important;
     }
+
     .inp:focus {
       border-color: var(--crimson) !important;
       background: #FFFFFF !important;
-      box-shadow: 0 0 0 3px rgba(178,34,52,0.08) !important;
+      box-shadow: 0 0 0 3px rgba(178, 34, 52, 0.08) !important;
     }
-    .inp::placeholder { color: #9CA3AF !important; }
+
+    .inp::placeholder {
+      color: #9CA3AF !important;
+    }
+
     .role-btn {
       background: #F2F4F8 !important;
       border-color: #E4E8F0 !important;
       color: #374151 !important;
     }
-    .role-btn:hover { border-color: rgba(178,34,52,0.4) !important; color: var(--crimson) !important; background: rgba(178,34,52,0.04) !important; }
-    .role-btn.active { border-color: var(--crimson) !important; background: rgba(178,34,52,0.06) !important; color: var(--crimson) !important; box-shadow: none !important; }
+
+    .role-btn:hover {
+      border-color: rgba(178, 34, 52, 0.4) !important;
+      color: var(--crimson) !important;
+      background: rgba(178, 34, 52, 0.04) !important;
+    }
+
+    .role-btn.active {
+      border-color: var(--crimson) !important;
+      background: rgba(178, 34, 52, 0.06) !important;
+      color: var(--crimson) !important;
+      box-shadow: none !important;
+    }
 
     /* Logo — natural colours on light background */
-    .brand-logo-img { filter: none !important; }
+    .brand-logo-img {
+      filter: none !important;
+    }
 
     /* Sidebar */
     .sidebar {
@@ -3204,233 +3305,858 @@
       border-right: 1px solid #E4E8F0 !important;
       box-shadow: none !important;
     }
-    .sidebar::before, .sidebar::after { display: none !important; }
-    .sidebar-brand { border-bottom-color: #E4E8F0 !important; }
-    .role-pill { background: #EBF0FA !important; border-color: rgba(0,40,104,0.15) !important; }
-    .role-pill-dot { background: var(--navy) !important; animation: none !important; }
-    .role-pill-text { color: var(--navy) !important; }
-    .nav-section-lbl { color: #9CA3AF !important; }
-    .nav-item { color: #374151 !important; border-color: transparent !important; }
-    .nav-item:hover { background: #F2F4F8 !important; color: #0D1B2A !important; border-color: #E4E8F0 !important; }
-    .nav-item.active { background: #EBF0FA !important; color: var(--navy) !important; border-color: rgba(0,40,104,0.18) !important; box-shadow: none !important; font-weight: 600; }
-    .nav-item.active::before { background: var(--navy) !important; }
-    .nav-badge { background: var(--navy) !important; color: #FFFFFF !important; }
-    .sidebar-bottom { background: #F8F9FB !important; border-top-color: #E4E8F0 !important; }
-    .user-name-txt { color: #0D1B2A !important; }
-    .user-role-txt { color: #6B7585 !important; }
-    .exit-btn { background: #F2F4F8 !important; border-color: #E4E8F0 !important; color: #6B7585 !important; }
-    .exit-btn:hover { border-color: var(--crimson) !important; color: var(--crimson) !important; background: #F2F4F8 !important; }
+
+    .sidebar::before,
+    .sidebar::after {
+      display: none !important;
+    }
+
+    .sidebar-brand {
+      border-bottom-color: #E4E8F0 !important;
+    }
+
+    .role-pill {
+      background: #EBF0FA !important;
+      border-color: rgba(0, 40, 104, 0.15) !important;
+    }
+
+    .role-pill-dot {
+      background: var(--navy) !important;
+      animation: none !important;
+    }
+
+    .role-pill-text {
+      color: var(--navy) !important;
+    }
+
+    .nav-section-lbl {
+      color: #9CA3AF !important;
+    }
+
+    .nav-item {
+      color: #374151 !important;
+      border-color: transparent !important;
+    }
+
+    .nav-item:hover {
+      background: #F2F4F8 !important;
+      color: #0D1B2A !important;
+      border-color: #E4E8F0 !important;
+    }
+
+    .nav-item.active {
+      background: #EBF0FA !important;
+      color: var(--navy) !important;
+      border-color: rgba(0, 40, 104, 0.18) !important;
+      box-shadow: none !important;
+      font-weight: 600;
+    }
+
+    .nav-item.active::before {
+      background: var(--navy) !important;
+    }
+
+    .nav-badge {
+      background: var(--navy) !important;
+      color: #FFFFFF !important;
+    }
+
+    .sidebar-bottom {
+      background: #F8F9FB !important;
+      border-top-color: #E4E8F0 !important;
+    }
+
+    .user-name-txt {
+      color: #0D1B2A !important;
+    }
+
+    .user-role-txt {
+      color: #6B7585 !important;
+    }
+
+    .exit-btn {
+      background: #F2F4F8 !important;
+      border-color: #E4E8F0 !important;
+      color: #6B7585 !important;
+    }
+
+    .exit-btn:hover {
+      border-color: var(--crimson) !important;
+      color: var(--crimson) !important;
+      background: #F2F4F8 !important;
+    }
 
     /* Topbar */
-    .topbar { background: #FFFFFF !important; border-bottom: 1px solid #E4E8F0 !important; }
-    .topbar-title { color: #0D1B2A !important; font-size: 17px !important; }
-    .topbar-subtitle { color: #6B7585 !important; }
-    .topbar-username { color: #0D1B2A !important; }
-    .topbar-divider { background: #E4E8F0 !important; }
-    .topbar-user { background: #F2F4F8 !important; border-color: #E4E8F0 !important; }
-    .topbar-user:hover { border-color: var(--navy) !important; }
-    .ai-bar { background: #F2F4F8 !important; border-color: #E4E8F0 !important; }
-    .ai-bar:focus-within { border-color: var(--navy) !important; background: #FFFFFF !important; box-shadow: 0 0 0 3px #EBF0FA !important; }
-    .ai-input { color: #0D1B2A !important; }
-    .ai-input::placeholder { color: #9CA3AF !important; }
-    .icon-btn { background: #F2F4F8 !important; border-color: #E4E8F0 !important; color: #6B7585 !important; }
-    .icon-btn:hover { background: #EBF0FA !important; border-color: var(--navy) !important; color: var(--navy) !important; }
-    .mob-menu-btn { background: #F2F4F8 !important; border-color: #E4E8F0 !important; color: #374151 !important; }
-    .mob-menu-btn:hover { background: #EBF0FA !important; border-color: var(--navy) !important; }
+    .topbar {
+      background: #FFFFFF !important;
+      border-bottom: 1px solid #E4E8F0 !important;
+    }
+
+    .topbar-title {
+      color: #0D1B2A !important;
+      font-size: 17px !important;
+    }
+
+    .topbar-subtitle {
+      color: #6B7585 !important;
+    }
+
+    .topbar-username {
+      color: #0D1B2A !important;
+    }
+
+    .topbar-divider {
+      background: #E4E8F0 !important;
+    }
+
+    .topbar-user {
+      background: #F2F4F8 !important;
+      border-color: #E4E8F0 !important;
+    }
+
+    .topbar-user:hover {
+      border-color: var(--navy) !important;
+    }
+
+    .ai-bar {
+      background: #F2F4F8 !important;
+      border-color: #E4E8F0 !important;
+    }
+
+    .ai-bar:focus-within {
+      border-color: var(--navy) !important;
+      background: #FFFFFF !important;
+      box-shadow: 0 0 0 3px #EBF0FA !important;
+    }
+
+    .ai-input {
+      color: #0D1B2A !important;
+    }
+
+    .ai-input::placeholder {
+      color: #9CA3AF !important;
+    }
+
+    .icon-btn {
+      background: #F2F4F8 !important;
+      border-color: #E4E8F0 !important;
+      color: #6B7585 !important;
+    }
+
+    .icon-btn:hover {
+      background: #EBF0FA !important;
+      border-color: var(--navy) !important;
+      color: var(--navy) !important;
+    }
+
+    .mob-menu-btn {
+      background: #F2F4F8 !important;
+      border-color: #E4E8F0 !important;
+      color: #374151 !important;
+    }
+
+    .mob-menu-btn:hover {
+      background: #EBF0FA !important;
+      border-color: var(--navy) !important;
+    }
 
     /* Greeting */
-    .greeting-title, .sec-title, .fp-title, .modal-title, .k-col-title, .np-title { color: #0D1B2A !important; }
-    .greeting-date, .greeting-sub { color: #6B7585 !important; }
+    .greeting-title,
+    .sec-title,
+    .fp-title,
+    .modal-title,
+    .k-col-title,
+    .np-title {
+      color: #0D1B2A !important;
+    }
+
+    .greeting-date,
+    .greeting-sub {
+      color: #6B7585 !important;
+    }
 
     /* Panels, cards, stat cards */
-    .panel, .tbl-wrap, .k-col, .form-panel, .g-card, .stat-card {
+    .panel,
+    .tbl-wrap,
+    .k-col,
+    .form-panel,
+    .g-card,
+    .stat-card {
       background: #FFFFFF !important;
       border: 1px solid #E4E8F0 !important;
       border-top: 1px solid #E4E8F0 !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
     }
-    .panel:hover, .tbl-wrap:hover, .form-panel:hover, .g-card:hover { border-color: #CDD3E0 !important; }
-    .stat-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.07) !important; border-color: #CDD3E0 !important; transform: translateY(-2px); }
-    .stat-label { color: #9CA3AF !important; }
-    .stat-value { color: #0D1B2A !important; }
-    .stat-delta { color: #6B7585 !important; }
-    .stat-delta.up { color: #059669 !important; }
-    .stat-delta.down { color: var(--crimson) !important; }
-    .stat-ico { opacity: 0.07 !important; color: #0D1B2A !important; }
-    .sec-action { color: var(--crimson) !important; }
+
+    .panel:hover,
+    .tbl-wrap:hover,
+    .form-panel:hover,
+    .g-card:hover {
+      border-color: #CDD3E0 !important;
+    }
+
+    .stat-card:hover {
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07) !important;
+      border-color: #CDD3E0 !important;
+      transform: translateY(-2px);
+    }
+
+    .stat-label {
+      color: #9CA3AF !important;
+    }
+
+    .stat-value {
+      color: #0D1B2A !important;
+    }
+
+    .stat-delta {
+      color: #6B7585 !important;
+    }
+
+    .stat-delta.up {
+      color: #059669 !important;
+    }
+
+    .stat-delta.down {
+      color: var(--crimson) !important;
+    }
+
+    .stat-ico {
+      opacity: 0.07 !important;
+      color: #0D1B2A !important;
+    }
+
+    .sec-action {
+      color: var(--crimson) !important;
+    }
 
     /* Tables */
-    thead th { background: #F8F9FB !important; border-bottom-color: #E4E8F0 !important; color: #9CA3AF !important; }
-    tbody tr { border-bottom-color: #E4E8F0 !important; }
-    tbody tr:hover { background: #F8F9FB !important; }
-    tbody td { color: #374151 !important; }
-    .tbl-top { border-bottom-color: #E4E8F0 !important; background: #FFFFFF !important; }
-    .tbl-search { background: #F2F4F8 !important; border-color: #E4E8F0 !important; color: #0D1B2A !important; }
-    .tbl-search::placeholder { color: #9CA3AF !important; }
-    .tbl-search:focus { border-color: var(--navy) !important; }
+    thead th {
+      background: #F8F9FB !important;
+      border-bottom-color: #E4E8F0 !important;
+      color: #9CA3AF !important;
+    }
+
+    tbody tr {
+      border-bottom-color: #E4E8F0 !important;
+    }
+
+    tbody tr:hover {
+      background: #F8F9FB !important;
+    }
+
+    tbody td {
+      color: #374151 !important;
+    }
+
+    .tbl-top {
+      border-bottom-color: #E4E8F0 !important;
+      background: #FFFFFF !important;
+    }
+
+    .tbl-search {
+      background: #F2F4F8 !important;
+      border-color: #E4E8F0 !important;
+      color: #0D1B2A !important;
+    }
+
+    .tbl-search::placeholder {
+      color: #9CA3AF !important;
+    }
+
+    .tbl-search:focus {
+      border-color: var(--navy) !important;
+    }
 
     /* Job cards */
     .job-card {
       background: #FFFFFF !important;
       border: 1px solid #E4E8F0 !important;
       border-top: 1px solid #E4E8F0 !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04) !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
     }
-    .job-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.07) !important; border-color: #CDD3E0 !important; }
-    .jc-img::after { display: none !important; }
-    .jc-title { color: #0D1B2A !important; }
-    .jc-desc { color: #6B7585 !important; }
-    .job-thumb { border-color: #E4E8F0 !important; background: #F2F4F8 !important; }
-    .table-preview { border-color: #E4E8F0 !important; background: #F2F4F8 !important; }
+
+    .job-card:hover {
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07) !important;
+      border-color: #CDD3E0 !important;
+    }
+
+    .jc-img::after {
+      display: none !important;
+    }
+
+    .jc-title {
+      color: #0D1B2A !important;
+    }
+
+    .jc-desc {
+      color: #6B7585 !important;
+    }
+
+    .job-thumb {
+      border-color: #E4E8F0 !important;
+      background: #F2F4F8 !important;
+    }
+
+    .table-preview {
+      border-color: #E4E8F0 !important;
+      background: #F2F4F8 !important;
+    }
 
     /* List items */
-    .list-item { background: #FFFFFF !important; border-bottom-color: #E4E8F0 !important; }
-    .list-item:hover { background: #F8F9FB !important; }
+    .list-item {
+      background: #FFFFFF !important;
+      border-bottom-color: #E4E8F0 !important;
+    }
+
+    .list-item:hover {
+      background: #F8F9FB !important;
+    }
 
     /* Kanban */
-    .k-item { background: #F8F9FB !important; border-color: #E4E8F0 !important; }
-    .k-item:hover { border-color: var(--crimson) !important; background: #FDF0F2 !important; box-shadow: 0 4px 14px rgba(0,0,0,0.06) !important; transform: translateY(-1px); }
-    .k-item-thumb { background: #F2F4F8 !important; border-color: #E4E8F0 !important; }
-    .k-item-id { color: var(--crimson) !important; }
-    .k-item-title { color: #0D1B2A !important; }
-    .k-item-meta { color: #6B7585 !important; }
+    .k-item {
+      background: #F8F9FB !important;
+      border-color: #E4E8F0 !important;
+    }
+
+    .k-item:hover {
+      border-color: var(--crimson) !important;
+      background: #FDF0F2 !important;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06) !important;
+      transform: translateY(-1px);
+    }
+
+    .k-item-thumb {
+      background: #F2F4F8 !important;
+      border-color: #E4E8F0 !important;
+    }
+
+    .k-item-id {
+      color: var(--crimson) !important;
+    }
+
+    .k-item-title {
+      color: #0D1B2A !important;
+    }
+
+    .k-item-meta {
+      color: #6B7585 !important;
+    }
 
     /* Filter chips & pills */
-    .filter-chip { background: #FFFFFF !important; border-color: #E4E8F0 !important; color: #6B7585 !important; }
-    .filter-chip:hover, .filter-chip.on { border-color: var(--navy) !important; color: var(--navy) !important; background: #EBF0FA !important; }
-    .pill { background: #FFFFFF !important; border-color: #E4E8F0 !important; color: #6B7585 !important; }
-    .pill:hover, .pill.active { border-color: var(--navy) !important; color: var(--navy) !important; background: #EBF0FA !important; }
+    .filter-chip {
+      background: #FFFFFF !important;
+      border-color: #E4E8F0 !important;
+      color: #6B7585 !important;
+    }
+
+    .filter-chip:hover,
+    .filter-chip.on {
+      border-color: var(--navy) !important;
+      color: var(--navy) !important;
+      background: #EBF0FA !important;
+    }
+
+    .pill {
+      background: #FFFFFF !important;
+      border-color: #E4E8F0 !important;
+      color: #6B7585 !important;
+    }
+
+    .pill:hover,
+    .pill.active {
+      border-color: var(--navy) !important;
+      color: var(--navy) !important;
+      background: #EBF0FA !important;
+    }
 
     /* Form elements */
-    .fi { background: #F8F9FB !important; border-color: #E4E8F0 !important; color: #0D1B2A !important; }
-    .fi:focus { border-color: var(--crimson) !important; background: #FFFFFF !important; box-shadow: 0 0 0 3px rgba(178,34,52,0.08) !important; }
-    .fi option { background: #FFFFFF; color: #0D1B2A; }
-    .fl { color: #6B7585 !important; }
-    .fp-title { border-bottom-color: #E4E8F0 !important; }
-    .upload-zone { border-color: #CDD3E0 !important; }
-    .upload-zone:hover { border-color: var(--crimson) !important; background: rgba(178,34,52,0.04) !important; }
-    .upload-txt { color: #6B7585 !important; }
+    .fi {
+      background: #F8F9FB !important;
+      border-color: #E4E8F0 !important;
+      color: #0D1B2A !important;
+    }
+
+    .fi:focus {
+      border-color: var(--crimson) !important;
+      background: #FFFFFF !important;
+      box-shadow: 0 0 0 3px rgba(178, 34, 52, 0.08) !important;
+    }
+
+    .fi option {
+      background: #FFFFFF;
+      color: #0D1B2A;
+    }
+
+    .fl {
+      color: #6B7585 !important;
+    }
+
+    .fp-title {
+      border-bottom-color: #E4E8F0 !important;
+    }
+
+    .upload-zone {
+      border-color: #CDD3E0 !important;
+    }
+
+    .upload-zone:hover {
+      border-color: var(--crimson) !important;
+      background: rgba(178, 34, 52, 0.04) !important;
+    }
+
+    .upload-txt {
+      color: #6B7585 !important;
+    }
 
     /* Badges — solid light versions */
-    .badge.crimson { background: #FDF0F2 !important; color: var(--crimson) !important; border-color: rgba(178,34,52,0.2) !important; }
-    .badge.crimson::before { background: var(--crimson) !important; }
-    .badge.blue { background: #EFF6FF !important; color: #1D4ED8 !important; border-color: rgba(29,78,216,0.2) !important; }
-    .badge.blue::before { background: #1D4ED8 !important; }
-    .badge.teal { background: #F0FDFA !important; color: #0D9488 !important; border-color: rgba(13,148,136,0.2) !important; }
-    .badge.teal::before { background: #0D9488 !important; }
-    .badge.amber { background: #FFFBEB !important; color: #D97706 !important; border-color: rgba(217,119,6,0.2) !important; }
-    .badge.amber::before { background: #D97706 !important; }
-    .badge.green { background: #ECFDF5 !important; color: #059669 !important; border-color: rgba(5,150,105,0.2) !important; }
-    .badge.green::before { background: #059669 !important; }
-    .badge.red { background: #FDF0F2 !important; color: var(--crimson) !important; border-color: rgba(178,34,52,0.2) !important; }
-    .badge.red::before { background: var(--crimson) !important; }
-    .badge.purple { background: #F5F3FF !important; color: #7C3AED !important; border-color: rgba(124,58,237,0.2) !important; }
-    .badge.purple::before { background: #7C3AED !important; }
-    .badge.gray { background: #F2F4F8 !important; color: #6B7585 !important; border-color: #E4E8F0 !important; }
-    .badge.gray::before { background: #9CA3AF !important; }
-    .priority-badge.normal { background: #F2F4F8 !important; color: #9CA3AF !important; }
-    .priority-badge.rush { background: #FFFBEB !important; color: #D97706 !important; }
-    .priority-badge.super-rush { background: #FDF0F2 !important; color: var(--crimson) !important; }
+    .badge.crimson {
+      background: #FDF0F2 !important;
+      color: var(--crimson) !important;
+      border-color: rgba(178, 34, 52, 0.2) !important;
+    }
+
+    .badge.crimson::before {
+      background: var(--crimson) !important;
+    }
+
+    .badge.blue {
+      background: #EFF6FF !important;
+      color: #1D4ED8 !important;
+      border-color: rgba(29, 78, 216, 0.2) !important;
+    }
+
+    .badge.blue::before {
+      background: #1D4ED8 !important;
+    }
+
+    .badge.teal {
+      background: #F0FDFA !important;
+      color: #0D9488 !important;
+      border-color: rgba(13, 148, 136, 0.2) !important;
+    }
+
+    .badge.teal::before {
+      background: #0D9488 !important;
+    }
+
+    .badge.amber {
+      background: #FFFBEB !important;
+      color: #D97706 !important;
+      border-color: rgba(217, 119, 6, 0.2) !important;
+    }
+
+    .badge.amber::before {
+      background: #D97706 !important;
+    }
+
+    .badge.green {
+      background: #ECFDF5 !important;
+      color: #059669 !important;
+      border-color: rgba(5, 150, 105, 0.2) !important;
+    }
+
+    .badge.green::before {
+      background: #059669 !important;
+    }
+
+    .badge.red {
+      background: #FDF0F2 !important;
+      color: var(--crimson) !important;
+      border-color: rgba(178, 34, 52, 0.2) !important;
+    }
+
+    .badge.red::before {
+      background: var(--crimson) !important;
+    }
+
+    .badge.purple {
+      background: #F5F3FF !important;
+      color: #7C3AED !important;
+      border-color: rgba(124, 58, 237, 0.2) !important;
+    }
+
+    .badge.purple::before {
+      background: #7C3AED !important;
+    }
+
+    .badge.gray {
+      background: #F2F4F8 !important;
+      color: #6B7585 !important;
+      border-color: #E4E8F0 !important;
+    }
+
+    .badge.gray::before {
+      background: #9CA3AF !important;
+    }
+
+    .priority-badge.normal {
+      background: #F2F4F8 !important;
+      color: #9CA3AF !important;
+    }
+
+    .priority-badge.rush {
+      background: #FFFBEB !important;
+      color: #D97706 !important;
+    }
+
+    .priority-badge.super-rush {
+      background: #FDF0F2 !important;
+      color: var(--crimson) !important;
+    }
 
     /* Buttons */
-    .btn-crimson { background: var(--crimson) !important; border-color: var(--crimson) !important; box-shadow: 0 4px 12px rgba(178,34,52,0.18) !important; color: #FFFFFF !important; }
-    .btn-crimson:hover { background: var(--crimson-dim) !important; box-shadow: 0 4px 16px rgba(178,34,52,0.28) !important; }
-    .btn-outline { background: #FFFFFF !important; border-color: #CDD3E0 !important; color: #374151 !important; }
-    .btn-outline:hover { border-color: var(--navy) !important; color: var(--navy) !important; background: #EBF0FA !important; }
-    .btn-red { background: #FDF0F2 !important; border-color: rgba(178,34,52,0.2) !important; color: var(--crimson) !important; }
-    .btn-red:hover { background: #FBE0E4 !important; }
-    .btn-green { background: #ECFDF5 !important; border-color: rgba(5,150,105,0.2) !important; color: #059669 !important; }
-    .btn-green:hover { background: #D1FAE5 !important; }
+    .btn-crimson {
+      background: var(--crimson) !important;
+      border-color: var(--crimson) !important;
+      box-shadow: 0 4px 12px rgba(178, 34, 52, 0.18) !important;
+      color: #FFFFFF !important;
+    }
+
+    .btn-crimson:hover {
+      background: var(--crimson-dim) !important;
+      box-shadow: 0 4px 16px rgba(178, 34, 52, 0.28) !important;
+    }
+
+    .btn-outline {
+      background: #FFFFFF !important;
+      border-color: #CDD3E0 !important;
+      color: #374151 !important;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--navy) !important;
+      color: var(--navy) !important;
+      background: #EBF0FA !important;
+    }
+
+    .btn-red {
+      background: #FDF0F2 !important;
+      border-color: rgba(178, 34, 52, 0.2) !important;
+      color: var(--crimson) !important;
+    }
+
+    .btn-red:hover {
+      background: #FBE0E4 !important;
+    }
+
+    .btn-green {
+      background: #ECFDF5 !important;
+      border-color: rgba(5, 150, 105, 0.2) !important;
+      color: #059669 !important;
+    }
+
+    .btn-green:hover {
+      background: #D1FAE5 !important;
+    }
 
     /* Modal */
-    .modal { background: #FFFFFF !important; border: 1px solid #E4E8F0 !important; box-shadow: 0 20px 60px rgba(0,0,0,0.12) !important; }
-    .modal::before { display: none !important; }
-    .modal-overlay { background: rgba(13,27,42,0.45) !important; backdrop-filter: blur(4px) !important; -webkit-backdrop-filter: blur(4px) !important; }
-    .modal-top { background: #F8F9FB !important; border-bottom-color: #E4E8F0 !important; }
-    .modal-title { color: #0D1B2A !important; }
-    .modal-job-id { color: var(--crimson) !important; }
-    .modal-close { background: #F2F4F8 !important; border-color: #E4E8F0 !important; color: #6B7585 !important; }
-    .modal-close:hover { border-color: var(--crimson) !important; color: var(--crimson) !important; }
-    .modal-gallery img { border-color: #E4E8F0 !important; background: #F2F4F8 !important; }
-    .m-sec-title { color: #6B7585 !important; border-bottom-color: #E4E8F0 !important; }
-    .f-row { border-bottom-color: #E4E8F0 !important; }
-    .f-key { color: #6B7585 !important; }
-    .f-val { color: #0D1B2A !important; }
-    .f-val.mono { color: var(--crimson) !important; }
-    .modal-actions { background: #F8F9FB !important; border-top-color: #E4E8F0 !important; }
+    .modal {
+      background: #FFFFFF !important;
+      border: 1px solid #E4E8F0 !important;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12) !important;
+    }
+
+    .modal::before {
+      display: none !important;
+    }
+
+    .modal-overlay {
+      background: rgba(13, 27, 42, 0.45) !important;
+      backdrop-filter: blur(4px) !important;
+      -webkit-backdrop-filter: blur(4px) !important;
+    }
+
+    .modal-top {
+      background: #F8F9FB !important;
+      border-bottom-color: #E4E8F0 !important;
+    }
+
+    .modal-title {
+      color: #0D1B2A !important;
+    }
+
+    .modal-job-id {
+      color: var(--crimson) !important;
+    }
+
+    .modal-close {
+      background: #F2F4F8 !important;
+      border-color: #E4E8F0 !important;
+      color: #6B7585 !important;
+    }
+
+    .modal-close:hover {
+      border-color: var(--crimson) !important;
+      color: var(--crimson) !important;
+    }
+
+    .modal-gallery img {
+      border-color: #E4E8F0 !important;
+      background: #F2F4F8 !important;
+    }
+
+    .m-sec-title {
+      color: #6B7585 !important;
+      border-bottom-color: #E4E8F0 !important;
+    }
+
+    .f-row {
+      border-bottom-color: #E4E8F0 !important;
+    }
+
+    .f-key {
+      color: #6B7585 !important;
+    }
+
+    .f-val {
+      color: #0D1B2A !important;
+    }
+
+    .f-val.mono {
+      color: var(--crimson) !important;
+    }
+
+    .modal-actions {
+      background: #F8F9FB !important;
+      border-top-color: #E4E8F0 !important;
+    }
 
     /* Panel internals */
-    .panel-title { color: #6B7585 !important; border-bottom-color: #E4E8F0 !important; }
-    .mb-label { color: #6B7585 !important; }
-    .mb-track { background: #F2F4F8 !important; }
-    .mb-val { color: #0D1B2A !important; }
-    .act-item { border-bottom-color: #E4E8F0 !important; }
-    .act-text { color: #0D1B2A !important; }
-    .act-time { color: #9CA3AF !important; }
+    .panel-title {
+      color: #6B7585 !important;
+      border-bottom-color: #E4E8F0 !important;
+    }
+
+    .mb-label {
+      color: #6B7585 !important;
+    }
+
+    .mb-track {
+      background: #F2F4F8 !important;
+    }
+
+    .mb-val {
+      color: #0D1B2A !important;
+    }
+
+    .act-item {
+      border-bottom-color: #E4E8F0 !important;
+    }
+
+    .act-text {
+      color: #0D1B2A !important;
+    }
+
+    .act-time {
+      color: #9CA3AF !important;
+    }
 
     /* Workflow steps */
-    .wf-step::before { background: #E4E8F0 !important; }
-    .wf-dot { border-color: #CDD3E0 !important; background: #FFFFFF !important; color: #6B7585 !important; }
-    .wf-step.done .wf-dot { background: var(--crimson) !important; border-color: var(--crimson) !important; box-shadow: 0 0 0 4px rgba(178,34,52,0.1) !important; }
-    .wf-step.done::before { background: var(--crimson) !important; }
-    .wf-step.cur .wf-dot { border-color: var(--navy) !important; background: #EBF0FA !important; animation: none !important; }
-    .wf-lbl { color: #6B7585 !important; }
-    .wf-step.done .wf-lbl, .wf-step.cur .wf-lbl { color: #0D1B2A !important; }
+    .wf-step::before {
+      background: #E4E8F0 !important;
+    }
+
+    .wf-dot {
+      border-color: #CDD3E0 !important;
+      background: #FFFFFF !important;
+      color: #6B7585 !important;
+    }
+
+    .wf-step.done .wf-dot {
+      background: var(--crimson) !important;
+      border-color: var(--crimson) !important;
+      box-shadow: 0 0 0 4px rgba(178, 34, 52, 0.1) !important;
+    }
+
+    .wf-step.done::before {
+      background: var(--crimson) !important;
+    }
+
+    .wf-step.cur .wf-dot {
+      border-color: var(--navy) !important;
+      background: #EBF0FA !important;
+      animation: none !important;
+    }
+
+    .wf-lbl {
+      color: #6B7585 !important;
+    }
+
+    .wf-step.done .wf-lbl,
+    .wf-step.cur .wf-lbl {
+      color: #0D1B2A !important;
+    }
 
     /* AI report */
-    .ai-report { background: #F8F9FB !important; border-color: #E4E8F0 !important; }
-    .ai-sc-lbl { color: #6B7585 !important; }
-    .ai-sc-bar { background: #E4E8F0 !important; }
-    .ai-sc-val { color: #0D1B2A !important; }
-    .ai-verdict.pass { background: #ECFDF5 !important; border-color: rgba(5,150,105,0.2) !important; color: #059669 !important; }
-    .ai-verdict.flag { background: #FFFBEB !important; border-color: rgba(217,119,6,0.2) !important; color: #D97706 !important; }
+    .ai-report {
+      background: #F8F9FB !important;
+      border-color: #E4E8F0 !important;
+    }
+
+    .ai-sc-lbl {
+      color: #6B7585 !important;
+    }
+
+    .ai-sc-bar {
+      background: #E4E8F0 !important;
+    }
+
+    .ai-sc-val {
+      color: #0D1B2A !important;
+    }
+
+    .ai-verdict.pass {
+      background: #ECFDF5 !important;
+      border-color: rgba(5, 150, 105, 0.2) !important;
+      color: #059669 !important;
+    }
+
+    .ai-verdict.flag {
+      background: #FFFBEB !important;
+      border-color: rgba(217, 119, 6, 0.2) !important;
+      color: #D97706 !important;
+    }
 
     /* Notification panel */
-    .notif-panel { background: #FFFFFF !important; border-color: #E4E8F0 !important; box-shadow: -4px 8px 24px rgba(0,0,0,0.08) !important; }
-    .np-header { border-bottom-color: #E4E8F0 !important; }
-    .np-title { color: #0D1B2A !important; }
-    .n-item { border-bottom-color: #E4E8F0 !important; }
-    .n-item:hover { background: #F8F9FB !important; }
-    .n-item.unread { background: rgba(178,34,52,0.04) !important; }
-    .n-text { color: #0D1B2A !important; }
-    .n-time { color: #9CA3AF !important; }
+    .notif-panel {
+      background: #FFFFFF !important;
+      border-color: #E4E8F0 !important;
+      box-shadow: -4px 8px 24px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    .np-header {
+      border-bottom-color: #E4E8F0 !important;
+    }
+
+    .np-title {
+      color: #0D1B2A !important;
+    }
+
+    .n-item {
+      border-bottom-color: #E4E8F0 !important;
+    }
+
+    .n-item:hover {
+      background: #F8F9FB !important;
+    }
+
+    .n-item.unread {
+      background: rgba(178, 34, 52, 0.04) !important;
+    }
+
+    .n-text {
+      color: #0D1B2A !important;
+    }
+
+    .n-time {
+      color: #9CA3AF !important;
+    }
 
     /* Toast */
-    #toast { background: #FFFFFF !important; border-color: #E4E8F0 !important; box-shadow: 0 10px 30px rgba(0,0,0,0.10) !important; }
-    .toast-txt { color: #0D1B2A !important; }
+    #toast {
+      background: #FFFFFF !important;
+      border-color: #E4E8F0 !important;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10) !important;
+    }
+
+    .toast-txt {
+      color: #0D1B2A !important;
+    }
 
     /* Callouts */
-    .callout.info { background: #EFF6FF !important; border-color: rgba(29,78,216,0.2) !important; color: #1D4ED8 !important; }
-    .callout.amber { background: #FFFBEB !important; border-color: rgba(217,119,6,0.2) !important; color: #D97706 !important; }
-    .callout.success { background: #ECFDF5 !important; border-color: rgba(5,150,105,0.2) !important; color: #059669 !important; }
+    .callout.info {
+      background: #EFF6FF !important;
+      border-color: rgba(29, 78, 216, 0.2) !important;
+      color: #1D4ED8 !important;
+    }
+
+    .callout.amber {
+      background: #FFFBEB !important;
+      border-color: rgba(217, 119, 6, 0.2) !important;
+      color: #D97706 !important;
+    }
+
+    .callout.success {
+      background: #ECFDF5 !important;
+      border-color: rgba(5, 150, 105, 0.2) !important;
+      color: #059669 !important;
+    }
 
     /* Rejection */
-    .reject-sec { background: #FDF0F2 !important; border-color: rgba(178,34,52,0.15) !important; }
-    .reason-chip { background: #FFFFFF !important; border-color: #E4E8F0 !important; color: #374151 !important; }
-    .reason-chip:hover, .reason-chip.on { border-color: var(--crimson) !important; color: var(--crimson) !important; background: #FDF0F2 !important; }
+    .reject-sec {
+      background: #FDF0F2 !important;
+      border-color: rgba(178, 34, 52, 0.15) !important;
+    }
+
+    .reason-chip {
+      background: #FFFFFF !important;
+      border-color: #E4E8F0 !important;
+      color: #374151 !important;
+    }
+
+    .reason-chip:hover,
+    .reason-chip.on {
+      border-color: var(--crimson) !important;
+      color: var(--crimson) !important;
+      background: #FDF0F2 !important;
+    }
 
     /* Misc */
-    .ref-code { background: #FDF0F2 !important; border-color: rgba(178,34,52,0.15) !important; color: var(--crimson) !important; }
+    .ref-code {
+      background: #FDF0F2 !important;
+      border-color: rgba(178, 34, 52, 0.15) !important;
+      color: var(--crimson) !important;
+    }
 
     /* Mobile bottom nav */
-    .mobile-bottom-nav { background: #FFFFFF !important; border-top-color: #E4E8F0 !important; box-shadow: 0 -2px 12px rgba(0,0,0,0.06) !important; }
-    .mob-nav-item { color: #9CA3AF !important; }
-    .mob-nav-item.active { color: var(--navy) !important; }
-    .mob-nav-item.active::before { background: var(--navy) !important; }
+    .mobile-bottom-nav {
+      background: #FFFFFF !important;
+      border-top-color: #E4E8F0 !important;
+      box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06) !important;
+    }
+
+    .mob-nav-item {
+      color: #9CA3AF !important;
+    }
+
+    .mob-nav-item.active {
+      color: var(--navy) !important;
+    }
+
+    .mob-nav-item.active::before {
+      background: var(--navy) !important;
+    }
 
     /* Mobile sidebar shadow */
     @media (max-width: 768px) {
-      .sidebar { box-shadow: 4px 0 24px rgba(0,0,0,0.12) !important; }
+      .sidebar {
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.12) !important;
+      }
     }
 
     /* Animations updated for light glow */
     @keyframes cardGlow {
-      0% { border-color: #E4E8F0; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-      100% { border-color: rgba(217,119,6,0.5); box-shadow: 0 4px 18px rgba(217,119,6,0.14); }
+      0% {
+        border-color: #E4E8F0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      }
+
+      100% {
+        border-color: rgba(217, 119, 6, 0.5);
+        box-shadow: 0 4px 18px rgba(217, 119, 6, 0.14);
+      }
     }
+
     @keyframes rowGlow {
-      0% { background: transparent; }
-      100% { background: rgba(217,119,6,0.05); box-shadow: inset 3px 0 0 rgba(217,119,6,0.4); }
+      0% {
+        background: transparent;
+      }
+
+      100% {
+        background: rgba(217, 119, 6, 0.05);
+        box-shadow: inset 3px 0 0 rgba(217, 119, 6, 0.4);
+      }
     }
   </style>
 </head>
@@ -3449,51 +4175,40 @@
 
   <!-- ═══════════════ LOGIN ═══════════════ -->
   <div id="login-screen">
-    <div class="login-card">
-      <div class="brand-mark">
+    <div class="login-card" style="padding: 38px 34px;">
+      <div class="brand-mark" style="margin-bottom: 24px;">
         <div>
           <img class="brand-logo-img" src="https://changeartwork.com/images/logo/site-logo/ch-logo.png" alt="CHANGE!">
         </div>
       </div>
-      <div class="login-title">Welcome Back</div>
-      <div class="login-sub">Select your role to access the platform</div>
-      <label class="lbl">Email Address</label>
-      <input class="inp" type="email" value="demo@changeartwork.com" readonly>
-      <label class="lbl" style="margin-bottom:8px;">Select Your Role</label>
-      <div class="role-grid">
-        <button class="role-btn active" data-role="cs" onclick="selectRole(this,'cs')"><span class="role-icon"><svg
-              viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="7"></circle>
-              <circle cx="12" cy="12" r="2.2"></circle>
-              <path d="M12 3v3M21 12h-3M12 21v-3M3 12h3"></path>
-            </svg></span><span>Client Servicing</span></button>
-        <button class="role-btn" data-role="teamlead" onclick="selectRole(this,'teamlead')"><span class="role-icon"><svg
-              viewBox="0 0 24 24">
-              <path d="M5 20h14"></path>
-              <path d="M6 17l2-8 4 5 4-5 2 8"></path>
-              <path d="M7 9l5-5 5 5"></path>
-            </svg></span><span>Team Lead</span></button>
-        <button class="role-btn" data-role="designer" onclick="selectRole(this,'designer')"><span class="role-icon"><svg
-              viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="8"></circle>
-              <path d="M12 4c2.4 1.9 3.8 4.5 3.8 7.3S14.4 18 12 20c-2.4-2-3.8-4.8-3.8-8.7S9.6 5.9 12 4Z"></path>
-            </svg></span><span>Senior Designer</span></button>
-        <button class="role-btn" data-role="jr_designer" onclick="selectRole(this,'jr_designer')"><span
-            class="role-icon"><svg viewBox="0 0 24 24">
-              <path d="M12 20h9"></path>
-              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-            </svg></span><span>Junior Designer</span></button>
-        <button class="role-btn" data-role="qc" onclick="selectRole(this,'qc')"><span class="role-icon"><svg
-              viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="8"></circle>
-              <path d="m8 12 2.4 2.4L16 8"></path>
-            </svg></span><span>QC Reviewer</span></button>
-        <button class="role-btn" data-role="admin" onclick="selectRole(this,'admin')"><span class="role-icon"><svg
-              viewBox="0 0 24 24">
-              <path d="M12 3l2.1 4.3 4.7.7-3.4 3.3.8 4.7-4.2-2.2-4.2 2.2.8-4.7-3.4-3.3 4.7-.7z"></path>
-            </svg></span><span>Admin</span></button>
+      <div class="login-title" style="font-size: 19px; font-weight: 700; margin-bottom: 4px;">Welcome Back</div>
+      <div class="login-sub" style="font-size: 12.5px; margin-bottom: 20px;">Sign in to access your platform dashboard
       </div>
-      <button class="btn-login" onclick="login()">ENTER PLATFORM →</button>
+
+      <!-- DEMO AUTO-FILL SELECTOR -->
+      <div
+        style="background: rgba(196, 30, 58, 0.05); border: 1px solid rgba(196, 30, 58, 0.15); border-radius: 9px; padding: 10px 14px; margin-bottom: 18px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);">
+        <label class="lbl"
+          style="font-size: 9.5px; color: var(--crimson); letter-spacing: 0.05em; display: block; margin-bottom: 4px; font-weight: 700;">Demo
+          Profile Auto-fill</label>
+        <select class="inp" id="login-user-select" onchange="onLoginUserChange(this.value)"
+          style="background: transparent; color: var(--text); border: none; padding: 0; width: 100%; font-size: 13px; font-family: var(--font-body); outline: none; margin-bottom: 0; cursor: pointer; height: auto;">
+          <!-- Populated dynamically -->
+        </select>
+      </div>
+
+      <label class="lbl">Email Address</label>
+      <input class="inp" type="email" id="login-email" placeholder="name@changeartwork.com" style="margin-bottom: 16px;"
+        oninput="onLoginEmailInput(this.value)">
+
+      <label class="lbl">Password</label>
+      <input class="inp" type="password" id="login-password" value="••••••••" style="margin-bottom: 18px;">
+
+      <label class="lbl" style="margin-bottom:8px;">Assigned Role (Fixed from Profile)</label>
+      <div id="fixed-role-container">
+        <!-- Rendered dynamically -->
+      </div>
+      <button class="btn-login" onclick="login()" style="margin-top: 4px;">ENTER PLATFORM →</button>
     </div>
   </div>
 
@@ -3574,7 +4289,7 @@
         <div class="topbar-divider"></div>
         <div class="topbar-user" onclick="showRoleSwitch()">
           <div class="topbar-av" id="topbar-av">PS</div>
-          <span class="topbar-username" id="topbar-username">Jason Ranji</span>
+          <span class="topbar-username" id="topbar-username">Priya Sharma</span>
         </div>
       </div>
       <div class="content-area" id="content-area"></div>
@@ -3598,6 +4313,13 @@
     <div class="modal" id="modal-content"></div>
   </div>
 
+  <!-- CONFIRMATION OVERLAY -->
+  <div class="modal-overlay" id="confirm-overlay" style="z-index: 600;" onclick="closeConfirmModal(event)">
+    <div class="modal" id="confirm-content"
+      style="max-width: 420px; background: rgba(8, 14, 30, 0.96); box-shadow: 0 24px 64px rgba(0, 0, 0, 0.85); border: 1px solid var(--glass-border-bright);">
+    </div>
+  </div>
+
   <!-- Image Lightbox -->
   <div class="lb-overlay" id="lb-overlay" onclick="lbBgClick(event)">
     <div class="lb-toolbar">
@@ -3610,10 +4332,16 @@
       </div>
     </div>
     <button class="lb-nav lb-prev" id="lb-prev" onclick="lbNav(-1)">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5"
+        stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
     </button>
     <button class="lb-nav lb-next" id="lb-next" onclick="lbNav(1)">
-      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5"
+        stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
     </button>
     <div class="lb-stage" id="lb-stage">
       <img class="lb-img" id="lb-img" src="" alt="Preview" draggable="false">
@@ -3650,7 +4378,7 @@
       { id: 'J-2025-0042', ref: '04-25-2025-C005-042-A', client: 'Urban Threads', clientId: 'C005', design: 'Brand Identity Pack', summary: 'Full brand package covering stationery and packaging.', order: 'Artwork', project: 'Quote', complexity: 'Super Complex', process: 'Offset Printing', priority: 'Normal', eta: '16h', status: 'Quote Submitted', stage: 'quote', assignedTo: null, subType: null, notes: 'Full brand package including stationery and packaging design.', colors: 5, created: '2025-04-25 16:00', aiScore: null, clientPrice: 150, adminPrice: null, agreedPrice: null },
       { id: 'J-2025-0041', ref: '04-24-2025-C002-041', client: 'Star Garments', clientId: 'C002', design: 'School Uniform Badge', summary: 'Uniform badge digitizing with QC-approved stitch counts.', order: 'Digitizing + Sewout', project: 'Live', complexity: 'Medium', process: null, priority: 'Normal', eta: '10h', status: 'Delivered', stage: 'delivered', assignedTo: 'Meena Das', subType: 'Senior', notes: '450 pieces batch. Uniform quality required.', placement: 'Left Chest', width: 3.5, height: 3.5, fabric: 'Polyester', colors: 4, created: '2025-04-24 09:00', stitchCount: 12480, aiScore: { colour: 91, align: 93, res: 89, brief: 94 }, negotiation: { status: 'pending_agency', clientOffer: 12000, agencyOffer: null, finalPrice: null } },
       // ── Dummy Jobs (Stage Variety) ──
-      { id: 'J-2025-0040', ref: '04-23-2025-C003-040', client: 'Heritage Caps', clientId: 'C003', design: 'Winter Jacket Back Print', summary: 'Large back print artwork for winter jacket line with gradient treatment.', order: 'Artwork', project: 'Quote', complexity: 'Complex', process: 'Screen Printing', priority: 'Rush', eta: '10h', status: 'Quote Submitted', stage: 'quote', assignedTo: null, subType: null, notes: 'Client wants a dark gradient background with gold foil effect. Provide vector and print-ready files.', colors: 4, created: '2025-04-23 08:30', aiScore: null, clientPrice: 220, adminPrice: null, agreedPrice: null },
+      { id: 'J-2025-0040', ref: '04-23-2025-C003-040', client: 'Heritage Caps', clientId: 'C003', design: 'Winter Jacket Back Print', summary: 'Large back print artwork for winter jacket line with gradient treatment.', order: 'Artwork', project: 'Quote', complexity: 'Complex', process: 'Screen Printing', priority: 'Rush', eta: '10h', status: 'Quote Submitted', stage: 'quote', assignedTo: null, subType: null, notes: 'Client wants a dark gradient background with gold foil effect. Provide vector and print-ready files.', colors: 4, created: '2025-04-23 08:30', aiScore: null, clientPrice: null, adminPrice: null, agreedPrice: null },
       { id: 'J-2025-0039', ref: '04-22-2025-C004-039', client: 'Blue Label Co.', clientId: 'C004', design: 'Retail Swing Tag Set', summary: 'Swing tag artwork for 3 SKUs — price, care, and brand tags.', order: 'Artwork', project: 'Quote', complexity: 'Simple', process: 'Digital Printing', priority: 'Normal', eta: '6h', status: 'Quote Submitted', stage: 'quote', assignedTo: null, subType: null, notes: 'Three separate tag designs. Brand logo placement on all. Font must match existing brand guidelines PDF attached.', colors: 2, created: '2025-04-22 11:00', aiScore: null, clientPrice: 80, adminPrice: null, agreedPrice: null },
       { id: 'J-2025-0038', ref: '04-21-2025-C001-038', client: 'Ravi Textiles', clientId: 'C001', design: 'Hoodie Chest Embroidery', summary: 'Small chest embroidery logo for premium hoodie range.', order: 'Digitizing', project: 'Live', complexity: 'Simple', process: null, priority: 'Normal', eta: '5h', status: 'In Production', stage: 'junior', assignedTo: 'Rahul Nair', subType: 'Junior', notes: 'Keep stitch count below 5000. Use running stitch for fine details. Delivery for 200 units.', placement: 'Left Chest', width: 2.5, height: 2.5, fabric: 'Fleece', colors: 3, created: '2025-04-21 09:45', aiScore: null },
       { id: 'J-2025-0037', ref: '04-20-2025-C002-037', client: 'Star Garments', clientId: 'C002', design: 'Marathon Event T-Shirt', summary: 'Event T-shirt with sponsor logos and runner number placement.', order: 'Artwork', project: 'Live', complexity: 'Medium', process: 'Screen Printing', priority: 'Super Rush', eta: '4h', status: 'In Production', stage: 'junior', assignedTo: 'Rahul Nair', subType: 'Junior', notes: 'Event date is next Friday. Sponsor logos must be white on navy. Use sponsor artwork from shared folder.', colors: 3, created: '2025-04-20 14:00', aiScore: null },
@@ -3688,44 +4416,55 @@
 
     const TEAM = [
       // Client Servicing (3)
-      { id: 'U001', name: 'Priya Sharma',    initials: 'PS', role: 'cs',              roleLabel: 'Client Servicing',  status: 'available',   jobs: 2 },
-      { id: 'U002', name: 'Rohan Mehta',     initials: 'RM', role: 'cs',              roleLabel: 'Client Servicing',  status: 'busy',        jobs: 4 },
-      { id: 'U010', name: 'Nisha Kapoor',    initials: 'NK', role: 'cs',              roleLabel: 'Client Servicing',  status: 'available',   jobs: 3 },
+      { id: 'U001', name: 'Priya Sharma', initials: 'PS', role: 'cs', roleLabel: 'Client Servicing', status: 'available', jobs: 2 },
+      { id: 'U002', name: 'Rohan Mehta', initials: 'RM', role: 'cs', roleLabel: 'Client Servicing', status: 'busy', jobs: 4 },
+      { id: 'U010', name: 'Nisha Kapoor', initials: 'NK', role: 'cs', roleLabel: 'Client Servicing', status: 'available', jobs: 3 },
       // Team Lead (1)
-      { id: 'U003', name: 'Ankit Verma',     initials: 'AV', role: 'tl',              roleLabel: 'Team Lead',         status: 'available',   jobs: 0 },
+      { id: 'U003', name: 'Ankit Verma', initials: 'AV', role: 'tl', roleLabel: 'Team Lead', status: 'available', jobs: 0 },
       // Senior Designers (6)
-      { id: 'U004', name: 'Kavya Reddy',     initials: 'KR', role: 'senior_designer', roleLabel: 'Senior Designer',   status: 'busy',        jobs: 2 },
-      { id: 'U005', name: 'Arjun Patel',     initials: 'AP', role: 'senior_designer', roleLabel: 'Senior Designer',   status: 'available',   jobs: 1 },
-      { id: 'U011', name: 'Sneha Joshi',     initials: 'SJ', role: 'senior_designer', roleLabel: 'Senior Designer',   status: 'in_progress', jobs: 3 },
-      { id: 'U012', name: 'Vikram Singh',    initials: 'VS', role: 'senior_designer', roleLabel: 'Senior Designer',   status: 'available',   jobs: 1 },
-      { id: 'U013', name: 'Pooja Iyer',      initials: 'PI', role: 'senior_designer', roleLabel: 'Senior Designer',   status: 'busy',        jobs: 2 },
-      { id: 'U014', name: 'Karthik Balan',   initials: 'KB', role: 'senior_designer', roleLabel: 'Senior Designer',   status: 'available',   jobs: 0 },
+      { id: 'U004', name: 'Kavya Reddy', initials: 'KR', role: 'senior_designer', roleLabel: 'Senior Designer', status: 'busy', jobs: 2 },
+      { id: 'U005', name: 'Arjun Patel', initials: 'AP', role: 'senior_designer', roleLabel: 'Senior Designer', status: 'available', jobs: 1 },
+      { id: 'U011', name: 'Sneha Joshi', initials: 'SJ', role: 'senior_designer', roleLabel: 'Senior Designer', status: 'in_progress', jobs: 3 },
+      { id: 'U012', name: 'Vikram Singh', initials: 'VS', role: 'senior_designer', roleLabel: 'Senior Designer', status: 'available', jobs: 1 },
+      { id: 'U013', name: 'Pooja Iyer', initials: 'PI', role: 'senior_designer', roleLabel: 'Senior Designer', status: 'busy', jobs: 2 },
+      { id: 'U014', name: 'Karthik Balan', initials: 'KB', role: 'senior_designer', roleLabel: 'Senior Designer', status: 'available', jobs: 0 },
       // Junior Designers (11)
-      { id: 'U006', name: 'Rahul Nair',      initials: 'RN', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'in_progress', jobs: 1 },
-      { id: 'U007', name: 'Meena Das',       initials: 'MD', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'available',   jobs: 0 },
-      { id: 'U015', name: 'Aisha Khan',      initials: 'AK', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'in_progress', jobs: 2 },
-      { id: 'U016', name: 'Dev Sharma',      initials: 'DS', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'available',   jobs: 1 },
-      { id: 'U017', name: 'Tanvi Rao',       initials: 'TR', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'busy',        jobs: 3 },
-      { id: 'U018', name: 'Faisal Ahmed',    initials: 'FA', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'available',   jobs: 0 },
-      { id: 'U019', name: 'Ritika Gupta',    initials: 'RG', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'in_progress', jobs: 1 },
-      { id: 'U020', name: 'Siddharth Rao',   initials: 'SR', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'available',   jobs: 2 },
-      { id: 'U021', name: 'Lakshmi Pillai',  initials: 'LP', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'busy',        jobs: 1 },
-      { id: 'U022', name: 'Nitin Chandra',   initials: 'NC', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'available',   jobs: 0 },
-      { id: 'U023', name: 'Bhavna Tiwari',   initials: 'BT', role: 'jr_designer',     roleLabel: 'Junior Designer',   status: 'in_progress', jobs: 2 },
+      { id: 'U006', name: 'Rahul Nair', initials: 'RN', role: 'jr_designer', roleLabel: 'Junior Designer', status: 'in_progress', jobs: 1 },
+      { id: 'U007', name: 'Meena Das', initials: 'MD', role: 'jr_designer', roleLabel: 'Junior Designer', status: 'available', jobs: 0 },
+      { id: 'U015', name: 'Aisha Khan', initials: 'AK', role: 'jr_designer', roleLabel: 'Junior Designer', status: 'in_progress', jobs: 2 },
+      { id: 'U016', name: 'Dev Sharma', initials: 'DS', role: 'jr_designer', roleLabel: 'Junior Designer', status: 'available', jobs: 1 },
+      { id: 'U017', name: 'Tanvi Rao', initials: 'TR', role: 'jr_designer', roleLabel: 'Junior Designer', status: 'busy', jobs: 3 },
+      { id: 'U018', name: 'Faisal Ahmed', initials: 'FA', role: 'jr_designer', roleLabel: 'Junior Designer', status: 'available', jobs: 0 },
+      { id: 'U019', name: 'Ritika Gupta', initials: 'RG', role: 'jr_designer', roleLabel: 'Junior Designer', status: 'in_progress', jobs: 1 },
+      { id: 'U020', name: 'Siddharth Rao', initials: 'SR', role: 'jr_designer', roleLabel: 'Junior Designer', status: 'available', jobs: 2 },
+      { id: 'U021', name: 'Lakshmi Pillai', initials: 'LP', role: 'jr_designer', roleLabel: 'Junior Designer', status: 'busy', jobs: 1 },
+      { id: 'U022', name: 'Nitin Chandra', initials: 'NC', role: 'jr_designer', roleLabel: 'Junior Designer', status: 'available', jobs: 0 },
+      { id: 'U023', name: 'Bhavna Tiwari', initials: 'BT', role: 'jr_designer', roleLabel: 'Junior Designer', status: 'in_progress', jobs: 2 },
       // QC Reviewers (3)
-      { id: 'U008', name: 'Suresh Kumar',    initials: 'SK', role: 'qc',              roleLabel: 'QC Reviewer',       status: 'available',   jobs: 3 },
-      { id: 'U024', name: 'Divya Menon',     initials: 'DM', role: 'qc',              roleLabel: 'QC Reviewer',       status: 'busy',        jobs: 2 },
-      { id: 'U025', name: 'Harish Babu',     initials: 'HB', role: 'qc',              roleLabel: 'QC Reviewer',       status: 'available',   jobs: 1 },
+      { id: 'U008', name: 'Suresh Kumar', initials: 'SK', role: 'qc', roleLabel: 'QC Reviewer', status: 'available', jobs: 3 },
+      { id: 'U024', name: 'Divya Menon', initials: 'DM', role: 'qc', roleLabel: 'QC Reviewer', status: 'busy', jobs: 2 },
+      { id: 'U025', name: 'Harish Babu', initials: 'HB', role: 'qc', roleLabel: 'QC Reviewer', status: 'available', jobs: 1 },
       // Admin (1)
-      { id: 'U009', name: 'Deepa Nair',      initials: 'DN', role: 'admin',           roleLabel: 'Admin',             status: 'available',   jobs: 0 },
+      { id: 'U009', name: 'Deepa Nair', initials: 'DN', role: 'admin', roleLabel: 'Admin', status: 'available', jobs: 0 },
     ];
 
     const CLIENTS = [
-      { id: 'C001', name: 'Ravi Kumar',    company: 'Ravi Textiles',  contact: '+91 98765 43210' },
-      { id: 'C002', name: 'Sunita Patel',  company: 'Star Garments',  contact: '+91 87654 32109' },
-      { id: 'C003', name: 'Mohammed Ali',  company: 'Heritage Caps',  contact: '+91 76543 21098' },
-      { id: 'C004', name: 'Preet Singh',   company: 'Blue Label Co.', contact: '+91 65432 10987' },
-      { id: 'C005', name: 'Meena Iyer',    company: 'Urban Threads',  contact: '+91 54321 09876' },
+      { id: 'C001', name: 'Ravi Kumar', company: 'Ravi Textiles', contact: '+91 98765 43210' },
+      { id: 'C002', name: 'Sunita Patel', company: 'Star Garments', contact: '+91 87654 32109' },
+      { id: 'C003', name: 'Mohammed Ali', company: 'Heritage Caps', contact: '+91 76543 21098' },
+      { id: 'C004', name: 'Preet Singh', company: 'Blue Label Co.', contact: '+91 65432 10987' },
+      { id: 'C005', name: 'Meena Iyer', company: 'Urban Threads', contact: '+91 54321 09876' },
+    ];
+
+    let USERS_LIST = [
+      { n: 'Priya Sharma', i: 'PS', r: 'Client Servicing', roleKey: 'cs', t: null, e: 'priya@changeartwork.com', status: 'Active' },
+      { n: 'Ankit Mehta', i: 'AM', r: 'Team Lead', roleKey: 'teamlead', t: null, e: 'ankit@changeartwork.com', status: 'Active' },
+      { n: 'Kavya Reddy', i: 'KR', r: 'Designer', roleKey: 'designer', t: 'Senior', e: 'kavya@changeartwork.com', status: 'Active' },
+      { n: 'Rahul Nair', i: 'RN', r: 'Designer', roleKey: 'jr_designer', t: 'Junior', e: 'rahul@changeartwork.com', status: 'Active' },
+      { n: 'Arjun Patel', i: 'AP', r: 'Digitator', roleKey: 'designer', t: 'Senior', e: 'arjun@changeartwork.com', status: 'Active' },
+      { n: 'Meena Das', i: 'MD', r: 'Digitator', roleKey: 'designer', t: 'Senior', e: 'meena@changeartwork.com', status: 'Active' },
+      { n: 'Suresh Kumar', i: 'SK', r: 'QC', roleKey: 'qc', t: null, e: 'suresh@changeartwork.com', status: 'Active' },
+      { n: 'Deepa Nair', i: 'DN', r: 'Admin', roleKey: 'admin', t: null, e: 'deepa@changeartwork.com', status: 'Active' }
     ];
 
     let currentDashRange = 'This Month';
@@ -3785,7 +4524,7 @@
 
     const ROLE_CFG = {
       cs: {
-        label: 'Client Servicing', user: 'Jason Ranji', initials: 'JR',
+        label: 'Client Servicing', user: 'Priya Sharma', initials: 'PS',
         nav: [{ s: 'Main', items: [{ ico: 'chart', lbl: 'Dashboard', pg: 'cs-dash', b: null }, { ico: 'inbox', lbl: 'New Quotes', pg: 'cs-new-quotes', b: '3' }, { ico: 'briefcase', lbl: 'New Jobs', pg: 'cs-new-jobs', b: '2' }, { ico: 'folder', lbl: 'All Projects', pg: 'cs-projects', b: null }, { ico: 'clipboard', lbl: 'Job Queue', pg: 'cs-queue', b: null }, { ico: 'package', lbl: 'Ready to Deliver', pg: 'cs-deliver', b: '1' }, { ico: 'refresh', lbl: 'Amendments', pg: 'cs-amend', b: '1' }] }, { s: 'Create', items: [{ ico: 'plus', lbl: 'New Quote', pg: 'cs-create-quote', b: null }, { ico: 'send', lbl: 'Place Order', pg: 'cs-place-order', b: null }] }, { s: 'Clients', items: [{ ico: 'users', lbl: 'Client Records', pg: 'cs-clients', b: null }] }]
       },
       teamlead: {
@@ -3998,14 +4737,127 @@
     initTheme();
 
     /* ──────────── ROLE SELECT & LOGIN ──────────── */
-    function selectRole(el, role) {
-      document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
-      el.classList.add('active'); currentRole = role;
+    function updateLoginDropdown() {
+      const select = document.getElementById('login-user-select');
+      if (!select) return;
+      const prevVal = select.value;
+
+      let html = `<option value="" disabled style="background: var(--glass-bg); color: var(--text-muted);">-- Select Demo Profile (Autofill) --</option>`;
+      html += USERS_LIST.map(u => `<option value="${u.e}" style="background: var(--glass-bg); color: var(--text);">${u.n} (${u.r})</option>`).join('');
+      select.innerHTML = html;
+
+      if (prevVal && USERS_LIST.some(u => u.e === prevVal)) {
+        select.value = prevVal;
+      } else {
+        const defaultUser = USERS_LIST.find(u => u.roleKey === 'cs') || USERS_LIST[0];
+        if (defaultUser) {
+          select.value = defaultUser.e;
+        } else {
+          select.value = '';
+        }
+      }
+      onLoginUserChange(select.value);
     }
+
+    function onLoginUserChange(email) {
+      if (!email) return;
+      const u = USERS_LIST.find(x => x.e === email);
+      if (u) {
+        currentRole = u.roleKey;
+        document.getElementById('login-email').value = u.e;
+        document.getElementById('login-password').value = '••••••••';
+        renderFixedRoleBox(u.roleKey);
+      }
+    }
+
+    function onLoginEmailInput(val) {
+      const u = USERS_LIST.find(x => x.e.toLowerCase() === val.trim().toLowerCase());
+      const select = document.getElementById('login-user-select');
+      if (u) {
+        if (select) select.value = u.e;
+        currentRole = u.roleKey;
+        document.getElementById('login-password').value = '••••••••';
+        renderFixedRoleBox(u.roleKey);
+      } else {
+        if (select) select.value = '';
+        renderFixedRoleBox(null);
+      }
+    }
+
+    function renderFixedRoleBox(roleKey) {
+      const container = document.getElementById('fixed-role-container');
+      if (!container) return;
+
+      if (!roleKey) {
+        container.innerHTML = `
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(107, 117, 133, 0.08);border:1px solid rgba(107, 117, 133, 0.25);border-radius:9px;margin-bottom:16px;animation:fadeIn 0.25s ease;">
+            <span class="role-icon" style="color:var(--text-muted);width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="M12 16v-4M12 8h.01"></path></svg>
+            </span>
+            <span style="font-size:12.5px;font-weight:500;color:var(--text-muted);">Enter registered email to resolve role</span>
+          </div>
+        `;
+        return;
+      }
+
+      const roleCfg = ROLE_CFG[roleKey];
+      const roleLabel = roleCfg ? roleCfg.label : 'User';
+      const icons = {
+        cs: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"></circle><circle cx="12" cy="12" r="2.2"></circle><path d="M12 3v3M21 12h-3M12 21v-3M3 12h3"></path></svg>`,
+        teamlead: `<svg viewBox="0 0 24 24"><path d="M5 20h14"></path><path d="M6 17l2-8 4 5 4-5 2 8"></path><path d="M7 9l5-5 5 5"></path></svg>`,
+        designer: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="M12 4c2.4 1.9 3.8 4.5 3.8 7.3S14.4 18 12 20c-2.4-2-3.8-4.8-3.8-8.7S9.6 5.9 12 4Z"></path></svg>`,
+        jr_designer: `<svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>`,
+        qc: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle><path d="m8 12 2.4 2.4L16 8"></path></svg>`,
+        admin: `<svg viewBox="0 0 24 24"><path d="M12 3l2.1 4.3 4.7.7-3.4 3.3.8 4.7-4.2-2.2-4.2 2.2.8-4.7-3.4-3.3 4.7-.7z"></path></svg>`
+      };
+      const svg = icons[roleKey] || `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"></circle></svg>`;
+      container.innerHTML = `
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(196, 30, 58, 0.08);border:1px solid rgba(196, 30, 58, 0.25);border-radius:9px;margin-bottom:16px;animation:fadeIn 0.25s ease;">
+          <span class="role-icon" style="color:var(--crimson);width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;">${svg}</span>
+          <span style="font-size:13px;font-weight:600;color:var(--text);">${roleLabel}</span>
+          <span class="badge crimson" style="margin-left:auto;font-size:9.5px;padding:2px 8px;border-radius:6px;gap:2px;display:inline-flex;align-items:center;font-weight:600;letter-spacing:0.04em;">
+            <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="3" style="width:10px;height:10px;margin-right:2px;stroke-width:3px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Locked
+          </span>
+        </div>
+      `;
+    }
+
+    updateLoginDropdown();
     function login() {
+      const emailVal = document.getElementById('login-email').value.trim();
+      const passwordVal = document.getElementById('login-password').value.trim();
+
+      if (!emailVal) {
+        showToast('Please enter your email address.', 'error');
+        return;
+      }
+      if (!passwordVal) {
+        showToast('Please enter your password.', 'error');
+        return;
+      }
+
+      const u = USERS_LIST.find(x => x.e.toLowerCase() === emailVal.toLowerCase());
+      if (!u) {
+        showToast('Invalid email address. Please use a registered profile (e.g. priya@changeartwork.com).', 'error');
+        return;
+      }
+
+      currentRole = u.roleKey;
+
+      if (ROLE_CFG[u.roleKey]) {
+        ROLE_CFG[u.roleKey].user = u.n;
+        ROLE_CFG[u.roleKey].initials = u.i;
+      }
+
       const ls = document.getElementById('login-screen');
       ls.style.cssText = 'opacity:0;transform:scale(0.95);transition:all 0.4s ease;';
-      setTimeout(() => { ls.style.display = 'none'; const a = document.getElementById('app'); a.style.display = 'flex'; a.classList.add('visible'); initApp(); }, 380);
+      setTimeout(() => {
+        ls.style.display = 'none';
+        const a = document.getElementById('app');
+        a.style.display = 'flex';
+        a.classList.add('visible');
+        initApp();
+      }, 380);
     }
     function logout() {
       document.getElementById('app').style.display = 'none';
@@ -4167,8 +5019,8 @@
               <div style="font-size:13.5px;font-weight:700;color:var(--text);letter-spacing:0.04em;text-transform:uppercase;">Select Order Type</div>
             </div>
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px;">
-              ${[['🎨','Artwork','Logo, Vector, Illustration','artwork'],['🧵','Digitizing','Embroidery conversion','digitizing'],['🪡','Swatches','Physical sample review','swatches'],['📦','Patches & Extras','Custom patches, Name drops','extras']].map(([emoji,name,desc,cat],i)=>`
-              <div class="cs-order-type${i===0?' selected':''}" data-cat="${cat}" onclick="csSelectOrderType(this)" style="border:1px solid ${i===0?'var(--crimson)':'var(--glass-border)'};border-radius:10px;padding:14px 10px;text-align:center;cursor:pointer;transition:var(--transition);background:${i===0?'rgba(196,30,58,0.08)':'rgba(255,255,255,0.02)'};">
+              ${[['🎨', 'Artwork', 'Logo, Vector, Illustration', 'artwork'], ['🧵', 'Digitizing', 'Embroidery conversion', 'digitizing'], ['🪡', 'Swatches', 'Physical sample review', 'swatches'], ['📦', 'Patches & Extras', 'Custom patches, Name drops', 'extras']].map(([emoji, name, desc, cat], i) => `
+              <div class="cs-order-type${i === 0 ? ' selected' : ''}" data-cat="${cat}" onclick="csSelectOrderType(this)" style="border:1px solid ${i === 0 ? 'var(--crimson)' : 'var(--glass-border)'};border-radius:10px;padding:14px 10px;text-align:center;cursor:pointer;transition:var(--transition);background:${i === 0 ? 'rgba(196,30,58,0.08)' : 'rgba(255,255,255,0.02)'};">
                 <div style="font-size:22px;margin-bottom:6px;">${emoji}</div>
                 <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px;">${name}</div>
                 <div style="font-size:10.5px;color:var(--text-muted);">${desc}</div>
@@ -4203,7 +5055,7 @@
               <div><label class="fl">Priority</label><select class="fi" id="cs-priority"><option selected>Normal</option><option>Rush</option><option>Super Rush</option></select></div>
               <div><label class="fl">Number of Colors</label><input class="fi" type="number" id="cs-colors" value="4" min="1" max="12"></div>
               <div><label class="fl">Expected Delivery (hours)</label><input class="fi" type="number" id="cs-eta" value="8" min="2"></div>
-              <div><label class="fl">${isOrder ? 'Agreed Price ($)' : 'Client Budget ($)'} <span style="color:var(--crimson)">*</span></label><input class="fi" type="number" id="cs-budget" placeholder="e.g. 150"></div>
+              <div><label class="fl">${isOrder ? 'Agreed Price ($) <span style="color:var(--crimson)">*</span>' : 'Client Budget ($)'}</label><input class="fi" type="number" id="cs-budget" placeholder="e.g. 150"></div>
               <div><label class="fl">${isOrder ? 'Invoice Number' : 'Internal Reference Note'}</label><input class="fi" id="cs-ref-note" placeholder="${isOrder ? 'e.g. INV-2025-001' : 'Optional internal note'}"></div>
               <div style="grid-column:1/-1;"><label class="fl">Design Brief / Description <span style="color:var(--crimson)">*</span></label><textarea class="fi fi-ta" id="cs-brief" style="min-height:90px;" placeholder="Describe the design requirements, color codes, reference links, and any specific instructions…"></textarea></div>
             </div>
@@ -4217,9 +5069,9 @@
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
               ${TEAM.filter(m => m.role === 'senior_designer' || m.role === 'jr_designer').map(m => {
-                const statusColor = m.status === 'available' ? 'var(--green)' : m.status === 'busy' ? 'var(--crimson)' : 'var(--amber)';
-                const statusLabel = m.status === 'available' ? 'Available' : m.status === 'busy' ? 'Busy' : 'In Progress';
-                return `<label style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--glass-border);border-radius:8px;cursor:pointer;transition:var(--transition);" onmouseover="this.style.borderColor='rgba(196,30,58,0.4)'" onmouseout="this.style.borderColor='var(--glass-border)'">
+        const statusColor = m.status === 'available' ? 'var(--green)' : m.status === 'busy' ? 'var(--crimson)' : 'var(--amber)';
+        const statusLabel = m.status === 'available' ? 'Available' : m.status === 'busy' ? 'Busy' : 'In Progress';
+        return `<label style="display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--glass-border);border-radius:8px;cursor:pointer;transition:var(--transition);" onmouseover="this.style.borderColor='rgba(196,30,58,0.4)'" onmouseout="this.style.borderColor='var(--glass-border)'">
                   <input type="radio" name="cs-assign" value="${m.id}" style="accent-color:var(--crimson);">
                   <div style="width:30px;height:30px;border-radius:50%;background:rgba(196,30,58,0.15);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--crimson);flex-shrink:0;">${m.initials}</div>
                   <div style="flex:1;">
@@ -4231,7 +5083,7 @@
                     <span style="font-size:10.5px;color:${statusColor};">${statusLabel}</span>
                   </div>
                 </label>`;
-              }).join('')}
+      }).join('')}
             </div>
           </div>
 
@@ -4278,13 +5130,59 @@
       const designName = document.getElementById('cs-design-name');
       const budget = document.getElementById('cs-budget');
       const brief = document.getElementById('cs-brief');
+      const isOrder = mode === 'order';
       if (!clientSelect?.value) { showToast('Please select or enter a client', 'error'); return; }
       if (!designName?.value) { showToast('Design name is required', 'error'); return; }
-      if (!budget?.value) { showToast('Budget is required', 'error'); return; }
+      if (isOrder && !budget?.value) { showToast('Agreed price is required for orders', 'error'); return; }
       if (!brief?.value) { showToast('Design brief is required', 'error'); return; }
+
       const newId = 'J-2025-00' + (50 + Math.floor(Math.random() * 10));
-      showToast(`${mode === 'order' ? 'Order' : 'Quote'} ${newId} created successfully!`, 'success');
-      setTimeout(() => navigateTo(mode === 'order' ? 'cs-new-jobs' : 'cs-new-quotes'), 900);
+
+      let clientName = 'Ravi Textiles';
+      let clientId = 'C001';
+      if (clientSelect.value === 'new') {
+        clientName = document.getElementById('new-client-company')?.value || document.getElementById('new-client-name')?.value || 'New Client';
+        clientId = 'C00' + (CLIENTS.length + 1);
+        CLIENTS.push({ id: clientId, name: document.getElementById('new-client-name')?.value || 'New Client', company: clientName, contact: document.getElementById('new-client-contact')?.value || '' });
+      } else {
+        const selectedClient = CLIENTS.find(c => c.id === clientSelect.value);
+        if (selectedClient) {
+          clientName = selectedClient.company;
+          clientId = selectedClient.id;
+        }
+      }
+
+      const newJob = {
+        id: newId,
+        ref: '05-27-2026-' + clientId + '-' + newId.substring(7),
+        client: clientName,
+        clientId: clientId,
+        design: designName.value,
+        summary: brief.value.substring(0, 60) + (brief.value.length > 60 ? '...' : ''),
+        order: document.querySelector('.cs-order-type.selected')?.textContent.trim().split('\n')[1]?.trim() || 'Artwork',
+        project: isOrder ? 'Live' : 'Quote',
+        complexity: document.getElementById('cs-complexity')?.value || 'Medium',
+        process: document.getElementById('cs-process')?.value || null,
+        priority: document.getElementById('cs-priority')?.value || 'Normal',
+        eta: (document.getElementById('cs-eta')?.value || '8') + 'h',
+        status: isOrder ? 'In Production' : 'Quote Submitted',
+        stage: isOrder ? 'junior' : 'quote',
+        assignedTo: null,
+        subType: null,
+        notes: brief.value,
+        colors: parseInt(document.getElementById('cs-colors')?.value || '4'),
+        created: new Date().toISOString().substring(0, 10) + ' ' + new Date().toTimeString().substring(0, 5),
+        aiScore: null,
+        clientPrice: budget.value ? parseFloat(budget.value) : null,
+        adminPrice: null,
+        agreedPrice: isOrder && budget.value ? parseFloat(budget.value) : null,
+        images: ['images/J-2025-0047-1.jpg']
+      };
+
+      JOBS.unshift(newJob);
+
+      showToast(`${isOrder ? 'Order' : 'Quote'} ${newId} created successfully!`, 'success');
+      setTimeout(() => navigateTo(isOrder ? 'cs-new-jobs' : 'cs-new-quotes'), 900);
     }
 
     /* ──────────── PAGES ──────────── */
@@ -4460,14 +5358,15 @@
       </div>
       ${jobTable(awaitingClient)}
       ` : ''}
-      `;})(),
+      `;
+        })(),
 
         'cs-new-jobs': (() => {
           const allJobs = JOBS.filter(j => j.stage !== 'quote' && j.stage !== 'delivered');
-          const inProd   = allJobs.filter(j => j.stage === 'junior');
-          const srRev    = allJobs.filter(j => j.stage === 'senior');
-          const inQc     = allJobs.filter(j => j.stage === 'qc');
-          const sewout   = allJobs.filter(j => j.stage === 'sewout');
+          const inProd = allJobs.filter(j => j.stage === 'junior');
+          const srRev = allJobs.filter(j => j.stage === 'senior');
+          const inQc = allJobs.filter(j => j.stage === 'qc');
+          const sewout = allJobs.filter(j => j.stage === 'sewout');
           return `
       <div class="greeting-hero">
         <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
@@ -4961,10 +5860,10 @@
 
         'admin-new-jobs': (() => {
           const allJobs = JOBS.filter(j => j.stage !== 'quote' && j.stage !== 'delivered');
-          const inProd  = allJobs.filter(j => j.stage === 'junior');
-          const srRev   = allJobs.filter(j => j.stage === 'senior');
-          const inQc    = allJobs.filter(j => j.stage === 'qc');
-          const sewout  = allJobs.filter(j => j.stage === 'sewout');
+          const inProd = allJobs.filter(j => j.stage === 'junior');
+          const srRev = allJobs.filter(j => j.stage === 'senior');
+          const inQc = allJobs.filter(j => j.stage === 'qc');
+          const sewout = allJobs.filter(j => j.stage === 'sewout');
           return `
       <div class="greeting-hero">
         <div class="greeting-date">${new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
@@ -5036,16 +5935,16 @@
       </tbody></table></div>`,
 
         'admin-users': `
-      <div class="sec-header"><div class="sec-title">User Management</div><button class="btn btn-crimson" onclick="showToast('Create user (demo)','info')">+ New User</button></div>
+      <div class="sec-header"><div class="sec-title">User Management</div><button class="btn btn-crimson" onclick="openCreateUserModal()">+ New User</button></div>
       <div class="tbl-wrap"><table><thead><tr><th>User</th><th>Role</th><th>Sub-Type</th><th>Email</th><th>Status</th><th></th></tr></thead>
       <tbody>
-        ${[{ n: 'Priya Sharma', i: 'PS', r: 'Client Servicing', t: null, e: 'priya@spotmies.com' }, { n: 'Ankit Mehta', i: 'AM', r: 'Team Lead', t: null, e: 'ankit@spotmies.com' }, { n: 'Kavya Reddy', i: 'KR', r: 'Designer', t: 'Senior', e: 'kavya@spotmies.com' }, { n: 'Rahul Nair', i: 'RN', r: 'Designer', t: 'Junior', e: 'rahul@spotmies.com' }, { n: 'Arjun Patel', i: 'AP', r: 'Digitator', t: 'Senior', e: 'arjun@spotmies.com' }, { n: 'Meena Das', i: 'MD', r: 'Digitator', t: 'Senior', e: 'meena@spotmies.com' }, { n: 'Suresh Kumar', i: 'SK', r: 'QC', t: null, e: 'suresh@spotmies.com' }, { n: 'Deepa Nair', i: 'DN', r: 'Admin', t: null, e: 'deepa@spotmies.com' }].map(u => `
-        <tr onclick="showToast('Edit ${u.n} (demo)','info')">
+        ${USERS_LIST.map(u => `
+        <tr onclick="openEditUserModal('${u.e}')">
           <td><div class="prof-row"><div class="prof-av">${u.i}</div><span style="font-size:12.5px;font-weight:600">${u.n}</span></div></td>
           <td>${u.r}</td><td>${u.t ? `<span class="badge ${u.t === 'Senior' ? 'crimson' : 'blue'}">${u.t}</span>` : '—'}</td>
           <td style="font-family:var(--font-mono);font-size:11px">${u.e}</td>
-          <td><span class="badge green">Active</span></td>
-          <td><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="event.stopPropagation();showToast('Edit user','info')">Edit</button></td>
+          <td><span class="badge ${u.status === 'Active' ? 'green' : 'gray'}">${u.status}</span></td>
+          <td><button class="btn btn-outline" style="padding:4px 10px;font-size:11px;" onclick="event.stopPropagation();openEditUserModal('${u.e}')">Edit</button></td>
         </tr>`).join('')}
       </tbody></table></div>`,
 
@@ -5110,11 +6009,12 @@
       <tbody>${jobs.map(j => {
         const isLive = (currentRole === 'cs' || currentRole === 'admin') && j.stage === 'quote';
         const glowClass = isLive ? ' live-glow' : '';
+        const projectBadge = `<span class="badge ${j.project === 'Live' ? 'green' : j.project === 'Quote' ? 'blue' : 'amber'}" style="font-size:9px;padding:1px 5px;display:inline-block;line-height:1;margin-top:2px;">${j.project}</span>`;
         return `<tr class="${glowClass.trim()}" onclick="openJob('${j.id}')">
-        <td><div class="job-cell"><img class="job-thumb" src="${jobImage(j, 0, 160, 120)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=160 height=120><rect width=160 height=120 fill=%23f3f4f6/></svg>'"><div><div class="ref-code" style="margin-bottom:2px">${j.id}</div><div style="font-size:9.5px;color:var(--text-faint)">${j.ref}</div></div></div></td>
+        <td><div class="job-cell"><img class="job-thumb" src="${jobImage(j, 0, 160, 120)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=160 height=120><rect width=160 height=120 fill=%23f3f4f6/></svg>'"><div><div class="ref-code" style="margin-bottom:2px">${j.id}</div><div style="font-size:9.5px;color:var(--text-faint);margin-bottom:2px;">${j.ref}</div>${projectBadge}</div></div></td>
         <td style="font-weight:600">${j.design}</td>
         <td><img class="table-preview" src="${jobImage(j, 1, 220, 160)}" alt="${j.design} preview" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=220 height=160><rect width=220 height=160 fill=%23f3f4f6/></svg>'"></td>
-        <td style="color:var(--text-muted)">${j.client}</td>
+        <td style="color:var(--text-muted)"><div>${j.client}</div><div style="font-size:10px;color:var(--text-faint);margin-top:2px;">ID: ${j.clientId}</div></td>
         <td>${oBadge(j.order)}</td>
         <td>${pBadge(j.priority)}</td>
         <td>${sBadge(j.status)}</td>
@@ -5128,9 +6028,22 @@
       ${jobs.map(j => {
         const isLive = (currentRole === 'cs' || currentRole === 'admin') && j.stage === 'quote';
         const glowClass = isLive ? ' live-glow' : '';
+        const projectBadgeClass = j.project === 'Live' ? 'green' : j.project === 'Quote' ? 'blue' : 'amber';
         return `<div class="job-card${glowClass}" onclick="openJob('${j.id}')">
         <div class="jc-img"><img src="${jobImage(j, 2, 400, 300)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=400 height=300><rect width=400 height=300 fill=%23f3f4f6/></svg>'"></div>
-        <div class="jc-body"><div class="jc-title">${j.design}</div><div class="jc-desc">${j.summary}</div><div class="jc-meta">${j.client} · ${oBadge(j.order)} · ${pBadge(j.priority)}</div>${jobActions(j.id)}</div>
+        <div class="jc-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span class="ref-code" style="font-size:9.5px;padding:1px 5px;">${j.id}</span>
+            <div style="display:flex;gap:4px;align-items:center;">
+              <span class="badge gray" style="font-size:9px;padding:1px 6px;margin:0;">ID: ${j.clientId}</span>
+              <span class="badge ${projectBadgeClass}" style="font-size:9px;padding:1px 6px;margin:0;">${j.project}</span>
+            </div>
+          </div>
+          <div class="jc-title">${j.design}</div>
+          <div class="jc-desc">${j.summary}</div>
+          <div class="jc-meta">${j.client} · ${oBadge(j.order)} · ${pBadge(j.priority)}</div>
+          ${jobActions(j.id)}
+        </div>
       </div>`;
       }).join('')}
     </div>
@@ -5139,9 +6052,22 @@
       ${jobs.map(j => {
         const isLive = (currentRole === 'cs' || currentRole === 'admin') && j.stage === 'quote';
         const glowClass = isLive ? ' live-glow' : '';
+        const projectBadgeClass = j.project === 'Live' ? 'green' : j.project === 'Quote' ? 'blue' : 'amber';
         return `<div class="list-item${glowClass}" onclick="openJob('${j.id}')">
         <div class="list-thumb"><img src="${jobImage(j, 3, 120, 120)}" alt="thumb" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=72 height=72><rect width=72 height=72 fill=%23f3f4f6/></svg>'"></div>
-        <div class="list-body"><div style="font-weight:700">${j.design}</div><div style="margin-top:4px;color:var(--text-muted);font-size:11.5px;line-height:1.45">${j.summary}</div><div style="color:var(--text-muted);font-size:12px">${j.client} · ${oBadge(j.order)} · ${sBadge(j.status)}</div>${jobActions(j.id)}</div>
+        <div class="list-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+            <div style="font-weight:700">${j.design}</div>
+            <div style="display:flex;gap:4px;align-items:center;">
+              <span class="ref-code" style="font-size:9.5px;padding:1px 5px;">${j.id}</span>
+              <span class="badge gray" style="font-size:9px;padding:1px 6px;">ID: ${j.clientId}</span>
+              <span class="badge ${projectBadgeClass}" style="font-size:9px;padding:1px 6px;">${j.project}</span>
+            </div>
+          </div>
+          <div style="margin-top:4px;color:var(--text-muted);font-size:11.5px;line-height:1.45">${j.summary}</div>
+          <div style="color:var(--text-muted);font-size:12px">${j.client} · ${oBadge(j.order)} · ${sBadge(j.status)}</div>
+          ${jobActions(j.id)}
+        </div>
         <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-faint)">${j.eta}</div>
       </div>`;
       }).join('')}
@@ -5208,9 +6134,55 @@
       <button class="modal-close" onclick="closeModal()">${icon('close', 'btn-ico')}</button>
     </div>
     <div class="modal-body">
-      <div class="m-sec-title">Job Images</div>
-      <div class="modal-gallery">
-        ${images.map((src, index) => `<img src="${src}" alt="${j.design} image ${index + 1}" loading="lazy" referrerpolicy="no-referrer" onclick="openLightbox(${index})" title="Click to preview" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=900 height=700><rect width=900 height=700 fill=%23f3f4f6/></svg>'">`).join('')}
+      <div class="job-top-layout${(currentRole === 'admin' || isCS) && j.stage === 'quote' && !j.clientPrice ? ' has-pricing-card' : ''}">
+        <div style="display:flex; flex-direction:column;">
+          <div class="m-sec-title">Job Images</div>
+          <div class="modal-gallery" style="margin-bottom:0; flex:1; display:grid; grid-template-columns:repeat(${images.length > 2 ? 3 : images.length || 1}, minmax(0,1fr)); gap:10px;">
+            ${images.map((src, index) => `<img src="${src}" alt="${j.design} image ${index + 1}" loading="lazy" referrerpolicy="no-referrer" onclick="openLightbox(${index})" title="Click to preview" style="height:100%; min-height:150px; max-height:240px; object-fit:cover;" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=900 height=700><rect width=900 height=700 fill=%23f3f4f6/></svg>'">`).join('')}
+          </div>
+        </div>
+        ${(currentRole === 'admin' || isCS) && j.stage === 'quote' && !j.clientPrice ? `
+        <div style="display:flex; flex-direction:column;">
+          <div class="m-sec-title" style="color:#fcd34d;">Review &amp; Set Price</div>
+          <div style="background:rgba(245,158,11,0.06); border:1.5px solid rgba(245,158,11,0.25); border-radius:10px; padding:20px; flex:1; display:flex; flex-direction:column; justify-content:center; gap:12px;">
+            <div>
+              <div style="font-size:10px; font-weight:700; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px;">Client's Suggested Budget</div>
+              <div style="font-size:22px; font-weight:800; color:var(--text-faint); font-family:var(--font-head); letter-spacing:-0.02em; display:inline-block; background:rgba(255,255,255,0.04); padding:4px 14px; border-radius:6px; border:1px solid rgba(255,255,255,0.08); margin:6px 0;">Not provided</div>
+              <div style="font-size:11px; color:rgba(255,255,255,0.35); margin-top:2px;">The client did not suggest any price. Set our agency pricing below.</div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <div style="display:flex; gap:10px; align-items:center;">
+                <div style="flex:1;">
+                  <label class="fl" style="color:rgba(255,255,255,0.7); margin-bottom:2px; font-size:11px;">Agency Price ($) <span style="color:var(--crimson)">*</span></label>
+                  <input type="number" class="fi" placeholder="e.g. 250" id="cs-set-price" min="1" style="font-size:15px; font-weight:700; border-color:rgba(245,158,11,0.4); padding:6px 10px;" oninput="validatePriceInput()">
+                </div>
+                <div style="flex:1;">
+                  <label class="fl" style="color:rgba(255,255,255,0.7); margin-bottom:2px; font-size:11px;">Confirmed ETA (hrs) <span style="color:var(--crimson)">*</span></label>
+                  <input type="number" class="fi" placeholder="e.g. 8" id="cs-set-eta" min="1" value="${j.eta ? j.eta.replace('h', '') : ''}" style="padding:6px 10px;">
+                </div>
+              </div>
+              
+              <div>
+                <label class="fl" style="color:rgba(255,255,255,0.7); margin-bottom:2px; font-size:11px;">Note to Client</label>
+                <textarea class="fi fi-ta" id="cs-price-note" placeholder="e.g. Standard turnaround. High-quality vector delivery." style="min-height:45px; padding:6px 10px; font-size:12px;"></textarea>
+              </div>
+            </div>
+
+            <div id="cs-price-error" style="display:none; color:#fca5a5; font-size:11.5px; padding:6px 10px; background:rgba(239,68,68,0.1); border-radius:6px; margin-top:2px;">Please enter a valid agency price before sending.</div>
+
+            <div style="display:flex; gap:10px; justify-content:flex-end;">
+              <button class="btn btn-red btn-sm" style="padding:6px 10px; font-size:11.5px;" onclick="csRejectQuote('${j.id}')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                Reject Quote
+              </button>
+              <button class="btn btn-green" id="cs-send-price-btn" style="padding:6px 12px; font-size:11.5px; font-weight:700;" onclick="csApproveWithPrice('${j.id}')">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                <span>Send Price</span>
+              </button>
+            </div>
+          </div>
+        </div>` : ''}
       </div>
       <div class="wf-steps" style="margin-bottom:16px">
         ${steps.map(([r, l], i) => `<div class="wf-step ${i < cur ? 'done' : i === cur ? 'cur' : ''}"><div class="wf-dot">${i < cur ? icon('check-circle', 'btn-ico') : i === cur ? icon('refresh', 'btn-ico') : ''}</div><div class="wf-lbl">${r}<br><span style="font-size:9px;color:var(--text-faint)">${l}</span></div></div>`).join('')}
@@ -5225,7 +6197,7 @@
           ${[['ETA', j.eta], ['Created', j.created], ['Reference', j.ref], ...(j.placement ? [['Placement', j.placement], ['Width', j.width + '"'], ['Height', j.height + '"'], ['Fabric', j.fabric]] : []), ...(j.stitchCount ? [['Stitch Count', j.stitchCount.toLocaleString()]] : []), ...(isCS || currentRole === 'admin' ? [['Client Budget', j.clientPrice ? `$${j.clientPrice}` : 'Not provided'], ['Admin Counter', j.adminPrice ? `$${j.adminPrice}` : 'None'], ['Agreed Price', j.agreedPrice ? `$${j.agreedPrice}` : 'Pending']] : []), ...(j.aiScore ? [['AI QC Score', '89/100 — Pass']] : [])].map(([k, v]) => `<div class="f-row"><div class="f-key">${k}</div><div class="f-val ${k === 'Reference' ? 'mono' : ''}">${v}</div></div>`).join('')}
         </div>
       </div>
-      ${(currentRole === 'admin' || isCS) && j.stage === 'quote' ? `
+      ${(currentRole === 'admin' || isCS) && j.stage === 'quote' && j.clientPrice ? `
       <div class="m-sec-title" style="color: #fcd34d; margin-top: 4px;">Review &amp; Set Price</div>
       <div style="background: rgba(245,158,11,0.06); border: 1.5px solid rgba(245,158,11,0.25); border-radius: 10px; padding: 18px; margin-bottom: 18px;">
 
@@ -5244,7 +6216,7 @@
 
         <div style="margin-bottom:12px;">
           <label class="fl" style="color:rgba(255,255,255,0.7);">Confirmed ETA (hours) <span style="color:var(--crimson)">*</span></label>
-          <input type="number" class="fi" placeholder="e.g. 8" id="cs-set-eta" min="1" value="${j.eta ? j.eta.replace('h','') : ''}" style="max-width:160px;">
+          <input type="number" class="fi" placeholder="e.g. 8" id="cs-set-eta" min="1" value="${j.eta ? j.eta.replace('h', '') : ''}" style="max-width:160px;">
         </div>
 
         <div style="margin-bottom:14px;">
@@ -5321,11 +6293,11 @@
       const overlay = document.getElementById('modal-overlay');
       const content = document.getElementById('modal-content');
       const isAdmin = currentRole === 'admin';
-      const pOpts = ['Normal','Rush','Super Rush'].map(p => `<option${j.priority===p?' selected':''}>${p}</option>`).join('');
-      const sOpts = ['Quote Submitted','In Production','Senior Review','Sewout','In QC','Delivered'].map(s => `<option${j.status===s?' selected':''}>${s}</option>`).join('');
-      const cOpts = ['Simple','Medium','Super Medium','Complex','Super Complex'].map(c => `<option${j.complexity===c?' selected':''}>${c}</option>`).join('');
-      const prOpts = ['Screen Printing','Digital Printing','Offset Printing','Sublimation','Flex Printing','Others'].map(p => `<option${j.process===p?' selected':''}>${p}</option>`).join('');
-      const oOpts = ['Artwork','Digitizing','Digitizing + Sewout','Sewout'].map(o => `<option${j.order===o?' selected':''}>${o}</option>`).join('');
+      const pOpts = ['Normal', 'Rush', 'Super Rush'].map(p => `<option${j.priority === p ? ' selected' : ''}>${p}</option>`).join('');
+      const sOpts = ['Quote Submitted', 'In Production', 'Senior Review', 'Sewout', 'In QC', 'Delivered'].map(s => `<option${j.status === s ? ' selected' : ''}>${s}</option>`).join('');
+      const cOpts = ['Simple', 'Medium', 'Super Medium', 'Complex', 'Super Complex'].map(c => `<option${j.complexity === c ? ' selected' : ''}>${c}</option>`).join('');
+      const prOpts = ['Screen Printing', 'Digital Printing', 'Offset Printing', 'Sublimation', 'Flex Printing', 'Others'].map(p => `<option${j.process === p ? ' selected' : ''}>${p}</option>`).join('');
+      const oOpts = ['Artwork', 'Digitizing', 'Digitizing + Sewout', 'Sewout'].map(o => `<option${j.order === o ? ' selected' : ''}>${o}</option>`).join('');
       content.innerHTML = `
     <div class="modal-top">
       <div style="flex:1">
@@ -5347,7 +6319,7 @@
             <div><label class="fl">Complexity</label><select class="fi" id="edit-complexity">${cOpts}</select></div>
             <div><label class="fl">Priority</label><select class="fi" id="edit-priority">${pOpts}</select></div>
             <div><label class="fl">Status</label><select class="fi" id="edit-status">${sOpts}</select></div>
-            <div><label class="fl">ETA (hours)</label><input class="fi" type="number" value="${j.eta ? j.eta.replace('h','') : ''}" id="edit-eta" min="1"></div>
+            <div><label class="fl">ETA (hours)</label><input class="fi" type="number" value="${j.eta ? j.eta.replace('h', '') : ''}" id="edit-eta" min="1"></div>
             <div><label class="fl">Number of Colors</label><input class="fi" type="number" value="${j.colors || ''}" id="edit-colors" min="1" max="12"></div>
           </div>
         </div>
@@ -5380,6 +6352,8 @@
       inp.style.borderColor = valid ? 'rgba(34,197,94,0.5)' : 'rgba(245,158,11,0.4)';
     }
 
+    let pendingQuoteApproval = null;
+
     function csApproveWithPrice(jobId) {
       const priceEl = document.getElementById('cs-set-price');
       const etaEl = document.getElementById('cs-set-eta');
@@ -5396,18 +6370,109 @@
       const j = JOBS.find(x => x.id === jobId);
       if (!j) return;
 
+      pendingQuoteApproval = {
+        jobId: jobId,
+        price: price,
+        eta: etaEl && etaEl.value ? etaEl.value + 'h' : (j.eta || '8h'),
+        notes: noteEl ? noteEl.value : ''
+      };
+
+      openConfirmationModal();
+    }
+
+    function openConfirmationModal() {
+      if (!pendingQuoteApproval) return;
+      const j = JOBS.find(x => x.id === pendingQuoteApproval.jobId);
+      if (!j) return;
+
+      const overlay = document.getElementById('confirm-overlay');
+      const content = document.getElementById('confirm-content');
+      if (!overlay || !content) return;
+
+      content.innerHTML = `
+    <div class="modal-top" style="border-bottom:1px solid rgba(255,255,255,0.06); padding:16px 20px; background:linear-gradient(135deg, rgba(245,158,11,0.08), rgba(10,26,58,0.3));">
+      <div style="flex:1">
+        <div class="modal-job-id" style="color:var(--amber); margin-bottom:2px; font-weight:700;">⚠️ 2-STEP VERIFICATION</div>
+        <div class="modal-title" style="font-size:16px; font-weight:700; color:white; letter-spacing:0.02em;">Confirm Quote Dispatch</div>
+      </div>
+      <button class="modal-close" onclick="closeConfirmModal()">✕</button>
+    </div>
+    <div class="modal-body" style="padding:20px; display:flex; flex-direction:column; gap:14px;">
+      <div style="font-size:13px; color:rgba(255,255,255,0.85); line-height:1.55;">
+        You are dispatching an Agency Price of <strong style="color:#86efac; font-size:15px; font-weight:800;">$${pendingQuoteApproval.price}</strong> for <span style="font-weight:600; color:white;">"${j.design}"</span> (ETA: <span style="font-family:var(--font-mono); color:#93c5fd; font-weight:600;">${pendingQuoteApproval.eta}</span>).
+      </div>
+      
+      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:12px; font-size:11.5px; color:rgba(255,255,255,0.5); line-height:1.45;">
+        Sending this quote will lock the status as <b style="color:#fcd34d; font-weight:600;">Quote Approved</b>. The client will be notified to authorize the price and commence production.
+      </div>
+
+      <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
+        <label style="font-size:11px; font-weight:700; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.05em;">Security Verification</label>
+        <input type="text" class="fi" placeholder="Type CONFIRM to authorize" id="confirm-verification-input" oninput="handleVerificationInput()" style="text-align:center; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; border-color:rgba(245,158,11,0.25); background:rgba(255,255,255,0.03); color:white;">
+      </div>
+    </div>
+    <div class="modal-actions" style="padding:12px 20px; background:rgba(0,0,0,0.15); display:flex; gap:10px; justify-content:flex-end; border-top:1px solid rgba(255,255,255,0.06);">
+      <button class="btn btn-outline btn-sm" onclick="closeConfirmModal()">Cancel</button>
+      <button class="btn btn-green btn-sm" id="confirm-submit-btn" disabled onclick="submitQuoteConfirmation()" style="opacity:0.4; cursor:not-allowed; font-weight:700; transition:all 0.2s;">
+        Send Quote Proposal
+      </button>
+    </div>`;
+
+      overlay.classList.add('open');
+      setTimeout(() => {
+        document.getElementById('confirm-verification-input')?.focus();
+      }, 100);
+    }
+
+    function handleVerificationInput() {
+      const val = document.getElementById('confirm-verification-input')?.value.trim();
+      const btn = document.getElementById('confirm-submit-btn');
+      if (!btn) return;
+      if (val === 'CONFIRM') {
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+        btn.style.background = '#22c55e'; // green glow
+        btn.style.borderColor = '#22c55e';
+        btn.style.boxShadow = '0 0 12px rgba(34,197,94,0.4)';
+      } else {
+        btn.disabled = true;
+        btn.style.opacity = '0.4';
+        btn.style.cursor = 'not-allowed';
+        btn.style.background = '';
+        btn.style.borderColor = '';
+        btn.style.boxShadow = '';
+      }
+    }
+
+    function submitQuoteConfirmation() {
+      if (!pendingQuoteApproval) return;
+      const { jobId, price, eta, notes } = pendingQuoteApproval;
+      const j = JOBS.find(x => x.id === jobId);
+      if (!j) return;
+
       j.csPrice = price;
       j.status = 'Quote Approved';
-      if (etaEl && etaEl.value) j.eta = etaEl.value + 'h';
+      j.eta = eta;
+      if (notes) j.notes = notes;
 
+      closeConfirmModal();
       closeModal();
       showToast(`Price $${price} sent to ${j.client} — awaiting client confirmation.`, 'success');
+
+      pendingQuoteApproval = null;
 
       /* Re-render the current page so the job disappears from quote queue */
       setTimeout(() => {
         const activePage = document.querySelector('.nav-item.active')?.dataset.pg;
         if (activePage) navigateTo(activePage);
       }, 800);
+    }
+
+    function closeConfirmModal(e) {
+      if (e && e.target !== document.getElementById('confirm-overlay')) return;
+      document.getElementById('confirm-overlay').classList.remove('open');
+      pendingQuoteApproval = null;
     }
 
     function csRejectQuote(jobId) {
@@ -5426,14 +6491,14 @@
     function saveEditJob(id) {
       const j = JOBS.find(x => x.id === id);
       if (!j) return;
-      j.design    = document.getElementById('edit-design')?.value || j.design;
-      j.client    = document.getElementById('edit-client')?.value || j.client;
-      j.order     = document.getElementById('edit-order')?.value || j.order;
-      j.process   = document.getElementById('edit-process')?.value || j.process;
-      j.complexity= document.getElementById('edit-complexity')?.value || j.complexity;
-      j.priority  = document.getElementById('edit-priority')?.value || j.priority;
-      j.status    = document.getElementById('edit-status')?.value || j.status;
-      const etaVal= document.getElementById('edit-eta')?.value;
+      j.design = document.getElementById('edit-design')?.value || j.design;
+      j.client = document.getElementById('edit-client')?.value || j.client;
+      j.order = document.getElementById('edit-order')?.value || j.order;
+      j.process = document.getElementById('edit-process')?.value || j.process;
+      j.complexity = document.getElementById('edit-complexity')?.value || j.complexity;
+      j.priority = document.getElementById('edit-priority')?.value || j.priority;
+      j.status = document.getElementById('edit-status')?.value || j.status;
+      const etaVal = document.getElementById('edit-eta')?.value;
       if (etaVal) j.eta = etaVal + 'h';
       const colorsVal = document.getElementById('edit-colors')?.value;
       if (colorsVal) j.colors = parseInt(colorsVal);
@@ -5572,6 +6637,260 @@
     function closeModal(e) {
       if (e && e.target !== document.getElementById('modal-overlay')) return;
       document.getElementById('modal-overlay').classList.remove('open');
+      const content = document.getElementById('modal-content');
+      if (content) content.style.maxWidth = '';
+    }
+
+    /* ──────────── ADMIN USER MANAGEMENT MODALS ──────────── */
+    function openCreateUserModal() {
+      const overlay = document.getElementById('modal-overlay');
+      const content = document.getElementById('modal-content');
+
+      content.style.maxWidth = '640px';
+
+      content.innerHTML = `
+        <div class="modal-top">
+          <div style="background:var(--crimson-glow);color:var(--crimson);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid rgba(196,30,58,0.25);flex-shrink:0;">
+            <svg viewBox="0 0 24 24" style="width:18px;height:18px;" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg>
+          </div>
+          <div style="flex:1;">
+            <div class="modal-job-id" style="text-transform:uppercase;letter-spacing:0.06em;font-size:10px;font-weight:700;color:var(--crimson) !important;">Add Team Member</div>
+            <div class="modal-title" style="margin-top:2px;font-size:19px;font-weight:700;color:#0D1B2A !important;">Create New User Profile</div>
+          </div>
+          <button class="modal-close" onclick="closeModal()">${icon('close', 'btn-ico')}</button>
+        </div>
+        
+        <div class="modal-body" style="padding:24px 22px;">
+          <div style="background:rgba(196,30,58,0.04);border:1px solid rgba(196,30,58,0.15);border-radius:8px;padding:12px 14px;font-size:12.5px;color:var(--text-muted);display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+            <span style="color:var(--crimson);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </span>
+            <span>Assigning a platform role locks it to the profile. They will bypass role selection at login.</span>
+          </div>
+          
+          <div class="modal-grid" style="display:grid;grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="fl">Full Name</label>
+              <input class="fi" type="text" id="new-user-name" placeholder="e.g. Sarah Jenkins">
+            </div>
+            <div>
+              <label class="fl">Email Address</label>
+              <input class="fi" type="email" id="new-user-email" placeholder="e.g. sarah@changeartwork.com">
+            </div>
+          </div>
+          
+          <div class="modal-grid" style="display:grid;grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="fl">Platform Role (Locked)</label>
+              <select class="fi" id="new-user-role" style="cursor:pointer;appearance:auto;background-color:rgba(255,255,255,0.03);">
+                <option value="cs">Client Servicing</option>
+                <option value="teamlead">Team Lead</option>
+                <option value="designer">Senior Designer</option>
+                <option value="jr_designer">Junior Designer</option>
+                <option value="qc">QC Reviewer</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+            <div>
+              <label class="fl">Role Sub-Type</label>
+              <select class="fi" id="new-user-type" style="cursor:pointer;appearance:auto;background-color:rgba(255,255,255,0.03);">
+                <option value="">None (Standard)</option>
+                <option value="Senior">Senior</option>
+                <option value="Junior">Junior</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="modal-grid" style="display:grid;grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 0;">
+            <div>
+              <label class="fl">Account Status</label>
+              <select class="fi" id="new-user-status" style="cursor:pointer;appearance:auto;background-color:rgba(255,255,255,0.03);">
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+            <div>
+              <label class="fl">Workspace Access</label>
+              <select class="fi" style="cursor:not-allowed;background-color:rgba(255,255,255,0.02);opacity:0.8;" disabled>
+                <option value="All">All Projects (Default)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal-actions" style="background:#F8F9FB;border-top:1px solid #E4E8F0;padding:14px 22px;display:flex;gap:8px;justify-content:flex-end;">
+          <button class="btn btn-outline" onclick="closeModal()">${icon('close', 'btn-ico')}<span>Cancel</span></button>
+          <button class="btn btn-crimson" onclick="saveNewUser()">${icon('check-circle', 'btn-ico')}<span>Create Profile</span></button>
+        </div>
+      `;
+      overlay.classList.add('open');
+    }
+
+    function openEditUserModal(email) {
+      const u = USERS_LIST.find(x => x.e === email);
+      if (!u) return;
+      const overlay = document.getElementById('modal-overlay');
+      const content = document.getElementById('modal-content');
+
+      content.style.maxWidth = '640px';
+
+      content.innerHTML = `
+        <div class="modal-top">
+          <div style="background:var(--crimson-glow);color:var(--crimson);width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:1px solid rgba(196,30,58,0.25);flex-shrink:0;">
+            <svg viewBox="0 0 24 24" style="width:18px;height:18px;" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+          </div>
+          <div style="flex:1;">
+            <div class="modal-job-id" style="text-transform:uppercase;letter-spacing:0.06em;font-size:10px;font-weight:700;color:var(--crimson) !important;">Edit Profile</div>
+            <div class="modal-title" style="margin-top:2px;font-size:19px;font-weight:700;color:#0D1B2A !important;">Edit User Profile</div>
+          </div>
+          <button class="modal-close" onclick="closeModal()">${icon('close', 'btn-ico')}</button>
+        </div>
+        
+        <div class="modal-body" style="padding:24px 22px;">
+          <div style="background:rgba(196,30,58,0.04);border:1px solid rgba(196,30,58,0.15);border-radius:8px;padding:12px 14px;font-size:12.5px;color:var(--text-muted);display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+            <span style="color:var(--crimson);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </span>
+            <span>Modifying this profile's role will update their default locked role at login.</span>
+          </div>
+          
+          <div class="modal-grid" style="display:grid;grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="fl">Full Name</label>
+              <input class="fi" type="text" id="edit-user-name" value="${u.n}">
+            </div>
+            <div>
+              <label class="fl">Email Address</label>
+              <input class="fi" type="email" id="edit-user-email" value="${u.e}" readonly style="opacity: 0.8; cursor: not-allowed; background-color: rgba(255,255,255,0.01);">
+            </div>
+          </div>
+          
+          <div class="modal-grid" style="display:grid;grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+            <div>
+              <label class="fl">Platform Role (Locked)</label>
+              <select class="fi" id="edit-user-role" style="cursor:pointer;appearance:auto;background-color:rgba(255,255,255,0.03);">
+                <option value="cs" ${u.roleKey === 'cs' ? 'selected' : ''}>Client Servicing</option>
+                <option value="teamlead" ${u.roleKey === 'teamlead' ? 'selected' : ''}>Team Lead</option>
+                <option value="designer" ${u.roleKey === 'designer' ? 'selected' : ''}>Senior Designer</option>
+                <option value="jr_designer" ${u.roleKey === 'jr_designer' ? 'selected' : ''}>Junior Designer</option>
+                <option value="qc" ${u.roleKey === 'qc' ? 'selected' : ''}>QC Reviewer</option>
+                <option value="admin" ${u.roleKey === 'admin' ? 'selected' : ''}>Admin</option>
+              </select>
+            </div>
+            <div>
+              <label class="fl">Role Sub-Type</label>
+              <select class="fi" id="edit-user-type" style="cursor:pointer;appearance:auto;background-color:rgba(255,255,255,0.03);">
+                <option value="" ${u.t === null || u.t === '' ? 'selected' : ''}>None (Standard)</option>
+                <option value="Senior" ${u.t === 'Senior' ? 'selected' : ''}>Senior</option>
+                <option value="Junior" ${u.t === 'Junior' ? 'selected' : ''}>Junior</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="modal-grid" style="display:grid;grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 0;">
+            <div>
+              <label class="fl">Account Status</label>
+              <select class="fi" id="edit-user-status" style="cursor:pointer;appearance:auto;background-color:rgba(255,255,255,0.03);">
+                <option value="Active" ${u.status === 'Active' ? 'selected' : ''}>Active</option>
+                <option value="Inactive" ${u.status === 'Inactive' ? 'selected' : ''}>Inactive</option>
+              </select>
+            </div>
+            <div>
+              <label class="fl">Workspace Access</label>
+              <select class="fi" style="cursor:not-allowed;background-color:rgba(255,255,255,0.02);opacity:0.8;" disabled>
+                <option value="All">All Projects (Default)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal-actions" style="background:#F8F9FB;border-top:1px solid #E4E8F0;padding:14px 22px;display:flex;gap:8px;justify-content:flex-end;">
+          <button class="btn btn-outline" onclick="closeModal()">${icon('close', 'btn-ico')}<span>Cancel</span></button>
+          <button class="btn btn-crimson" onclick="updateExistingUser('${u.e}')">${icon('check-circle', 'btn-ico')}<span>Save Changes</span></button>
+        </div>
+      `;
+      overlay.classList.add('open');
+    }
+
+    function saveNewUser() {
+      const name = document.getElementById('new-user-name').value.trim();
+      const email = document.getElementById('new-user-email').value.trim();
+      const roleKey = document.getElementById('new-user-role').value;
+      const type = document.getElementById('new-user-type').value;
+      const status = document.getElementById('new-user-status').value;
+      if (!name || !email) {
+        showToast('Please fill in both Name and Email.', 'error');
+        return;
+      }
+      if (USERS_LIST.some(x => x.e.toLowerCase() === email.toLowerCase())) {
+        showToast('A user with this email address already exists.', 'error');
+        return;
+      }
+      const parts = name.split(' ');
+      const initials = parts.map(p => p[0]).join('').substring(0, 2).toUpperCase();
+      const roleLabels = {
+        cs: 'Client Servicing',
+        teamlead: 'Team Lead',
+        designer: 'Designer',
+        jr_designer: 'Designer',
+        qc: 'QC',
+        admin: 'Admin'
+      };
+      const subType = roleKey === 'jr_designer' ? 'Junior' : type || null;
+      const roleDisplay = roleKey === 'designer' && subType === 'Senior' ? 'Designer (Senior)' : roleLabels[roleKey];
+      const newUser = {
+        n: name,
+        i: initials || 'US',
+        r: roleDisplay,
+        roleKey: roleKey,
+        t: subType,
+        e: email,
+        status: status
+      };
+      USERS_LIST.push(newUser);
+      updateLoginDropdown();
+      showToast(`User profile for ${name} created with locked role!`, 'success');
+      closeModal();
+      setTimeout(() => navigateTo('admin-users'), 300);
+    }
+
+    function updateExistingUser(email) {
+      const name = document.getElementById('edit-user-name').value.trim();
+      const roleKey = document.getElementById('edit-user-role').value;
+      const type = document.getElementById('edit-user-type').value;
+      const status = document.getElementById('edit-user-status').value;
+      if (!name) {
+        showToast('Please enter a Name.', 'error');
+        return;
+      }
+      const u = USERS_LIST.find(x => x.e === email);
+      if (u) {
+        u.n = name;
+        u.roleKey = roleKey;
+        const roleLabels = {
+          cs: 'Client Servicing',
+          teamlead: 'Team Lead',
+          designer: 'Designer',
+          jr_designer: 'Designer',
+          qc: 'QC',
+          admin: 'Admin'
+        };
+        const subType = roleKey === 'jr_designer' ? 'Junior' : type || null;
+        const roleDisplay = roleKey === 'designer' && subType === 'Senior' ? 'Designer (Senior)' : roleLabels[roleKey];
+        u.r = roleDisplay;
+        u.t = subType;
+        u.status = status;
+        const parts = name.split(' ');
+        u.i = parts.map(p => p[0]).join('').substring(0, 2).toUpperCase();
+        if (ROLE_CFG[roleKey]) {
+          ROLE_CFG[roleKey].user = name;
+          ROLE_CFG[roleKey].initials = u.i;
+        }
+        updateLoginDropdown();
+        showToast('User profile updated successfully!', 'success');
+        closeModal();
+        setTimeout(() => navigateTo('admin-users'), 300);
+      }
     }
 
     /* ──────────── LIGHTBOX ──────────── */

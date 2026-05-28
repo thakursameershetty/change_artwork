@@ -2023,17 +2023,6 @@
       transform: translateY(0);
     }
 
-    .job-top-layout {
-      margin-bottom: 20px;
-      display: grid;
-      gap: 18px;
-      grid-template-columns: 1fr;
-    }
-
-    .job-top-layout.has-pricing-card {
-      grid-template-columns: 1fr 1fr;
-    }
-
     .modal-top {
       padding: 18px 22px;
       border-bottom: 1px solid var(--glass-border);
@@ -3038,10 +3027,6 @@
       .modal-grid {
         grid-template-columns: 1fr;
         gap: 12px;
-      }
-
-      .job-top-layout.has-pricing-card {
-        grid-template-columns: 1fr !important;
       }
 
       .modal-body {
@@ -4202,7 +4187,8 @@
         <button class="role-btn" data-role="designer" onclick="selectRole(this,'designer')"><span class="role-icon"><svg
               viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="8"></circle>
-              <path d="M12 4c2.4 1.9 3.8 4.5 3.8 7.3S14.4 18 12 20c-2.4-2-3.8-4.8-3.8-8.7S9.6 5.9 12 4Z"></path>
+              <path d="M12 4c2.4 1.9 3.8 4.5 3.8 7.3S14.4 18 12 20c-2.4-2-3.8-4.8-3.8-8.7S9.6 5.9 12 4Z">
+              </path>
             </svg></span><span>Senior Designer</span></button>
         <button class="role-btn" data-role="jr_designer" onclick="selectRole(this,'jr_designer')"><span
             class="role-icon"><svg viewBox="0 0 24 24">
@@ -4324,13 +4310,6 @@
     <div class="modal" id="modal-content"></div>
   </div>
 
-  <!-- CONFIRMATION OVERLAY -->
-  <div class="modal-overlay" id="confirm-overlay" style="z-index: 600;" onclick="closeConfirmModal(event)">
-    <div class="modal" id="confirm-content"
-      style="max-width: 420px; background: rgba(8, 14, 30, 0.96); box-shadow: 0 24px 64px rgba(0, 0, 0, 0.85); border: 1px solid var(--glass-border-bright);">
-    </div>
-  </div>
-
   <!-- Image Lightbox -->
   <div class="lb-overlay" id="lb-overlay" onclick="lbBgClick(event)">
     <div class="lb-toolbar">
@@ -4389,7 +4368,7 @@
       { id: 'J-2025-0042', ref: '04-25-2025-C005-042-A', client: 'Urban Threads', clientId: 'C005', design: 'Brand Identity Pack', summary: 'Full brand package covering stationery and packaging.', order: 'Artwork', project: 'Quote', complexity: 'Super Complex', process: 'Offset Printing', priority: 'Normal', eta: '16h', status: 'Quote Submitted', stage: 'quote', assignedTo: null, subType: null, notes: 'Full brand package including stationery and packaging design.', colors: 5, created: '2025-04-25 16:00', aiScore: null, clientPrice: 150, adminPrice: null, agreedPrice: null },
       { id: 'J-2025-0041', ref: '04-24-2025-C002-041', client: 'Star Garments', clientId: 'C002', design: 'School Uniform Badge', summary: 'Uniform badge digitizing with QC-approved stitch counts.', order: 'Digitizing + Sewout', project: 'Live', complexity: 'Medium', process: null, priority: 'Normal', eta: '10h', status: 'Delivered', stage: 'delivered', assignedTo: 'Meena Das', subType: 'Senior', notes: '450 pieces batch. Uniform quality required.', placement: 'Left Chest', width: 3.5, height: 3.5, fabric: 'Polyester', colors: 4, created: '2025-04-24 09:00', stitchCount: 12480, aiScore: { colour: 91, align: 93, res: 89, brief: 94 }, negotiation: { status: 'pending_agency', clientOffer: 12000, agencyOffer: null, finalPrice: null } },
       // ── Dummy Jobs (Stage Variety) ──
-      { id: 'J-2025-0040', ref: '04-23-2025-C003-040', client: 'Heritage Caps', clientId: 'C003', design: 'Winter Jacket Back Print', summary: 'Large back print artwork for winter jacket line with gradient treatment.', order: 'Artwork', project: 'Quote', complexity: 'Complex', process: 'Screen Printing', priority: 'Rush', eta: '10h', status: 'Quote Submitted', stage: 'quote', assignedTo: null, subType: null, notes: 'Client wants a dark gradient background with gold foil effect. Provide vector and print-ready files.', colors: 4, created: '2025-04-23 08:30', aiScore: null, clientPrice: null, adminPrice: null, agreedPrice: null },
+      { id: 'J-2025-0040', ref: '04-23-2025-C003-040', client: 'Heritage Caps', clientId: 'C003', design: 'Winter Jacket Back Print', summary: 'Large back print artwork for winter jacket line with gradient treatment.', order: 'Artwork', project: 'Quote', complexity: 'Complex', process: 'Screen Printing', priority: 'Rush', eta: '10h', status: 'Quote Submitted', stage: 'quote', assignedTo: null, subType: null, notes: 'Client wants a dark gradient background with gold foil effect. Provide vector and print-ready files.', colors: 4, created: '2025-04-23 08:30', aiScore: null, clientPrice: 220, adminPrice: null, agreedPrice: null },
       { id: 'J-2025-0039', ref: '04-22-2025-C004-039', client: 'Blue Label Co.', clientId: 'C004', design: 'Retail Swing Tag Set', summary: 'Swing tag artwork for 3 SKUs — price, care, and brand tags.', order: 'Artwork', project: 'Quote', complexity: 'Simple', process: 'Digital Printing', priority: 'Normal', eta: '6h', status: 'Quote Submitted', stage: 'quote', assignedTo: null, subType: null, notes: 'Three separate tag designs. Brand logo placement on all. Font must match existing brand guidelines PDF attached.', colors: 2, created: '2025-04-22 11:00', aiScore: null, clientPrice: 80, adminPrice: null, agreedPrice: null },
       { id: 'J-2025-0038', ref: '04-21-2025-C001-038', client: 'Ravi Textiles', clientId: 'C001', design: 'Hoodie Chest Embroidery', summary: 'Small chest embroidery logo for premium hoodie range.', order: 'Digitizing', project: 'Live', complexity: 'Simple', process: null, priority: 'Normal', eta: '5h', status: 'In Production', stage: 'junior', assignedTo: 'Rahul Nair', subType: 'Junior', notes: 'Keep stitch count below 5000. Use running stitch for fine details. Delivery for 200 units.', placement: 'Left Chest', width: 2.5, height: 2.5, fabric: 'Fleece', colors: 3, created: '2025-04-21 09:45', aiScore: null },
       { id: 'J-2025-0037', ref: '04-20-2025-C002-037', client: 'Star Garments', clientId: 'C002', design: 'Marathon Event T-Shirt', summary: 'Event T-shirt with sponsor logos and runner number placement.', order: 'Artwork', project: 'Live', complexity: 'Medium', process: 'Screen Printing', priority: 'Super Rush', eta: '4h', status: 'In Production', stage: 'junior', assignedTo: 'Rahul Nair', subType: 'Junior', notes: 'Event date is next Friday. Sponsor logos must be white on navy. Use sponsor artwork from shared folder.', colors: 3, created: '2025-04-20 14:00', aiScore: null },
@@ -4942,7 +4921,7 @@
               <div><label class="fl">Priority</label><select class="fi" id="cs-priority"><option selected>Normal</option><option>Rush</option><option>Super Rush</option></select></div>
               <div><label class="fl">Number of Colors</label><input class="fi" type="number" id="cs-colors" value="4" min="1" max="12"></div>
               <div><label class="fl">Expected Delivery (hours)</label><input class="fi" type="number" id="cs-eta" value="8" min="2"></div>
-              <div><label class="fl">${isOrder ? 'Agreed Price ($) <span style="color:var(--crimson)">*</span>' : 'Client Budget ($)'}</label><input class="fi" type="number" id="cs-budget" placeholder="e.g. 150"></div>
+              <div><label class="fl">${isOrder ? 'Agreed Price ($)' : 'Client Budget ($)'} <span style="color:var(--crimson)">*</span></label><input class="fi" type="number" id="cs-budget" placeholder="e.g. 150"></div>
               <div><label class="fl">${isOrder ? 'Invoice Number' : 'Internal Reference Note'}</label><input class="fi" id="cs-ref-note" placeholder="${isOrder ? 'e.g. INV-2025-001' : 'Optional internal note'}"></div>
               <div style="grid-column:1/-1;"><label class="fl">Design Brief / Description <span style="color:var(--crimson)">*</span></label><textarea class="fi fi-ta" id="cs-brief" style="min-height:90px;" placeholder="Describe the design requirements, color codes, reference links, and any specific instructions…"></textarea></div>
             </div>
@@ -5017,59 +4996,13 @@
       const designName = document.getElementById('cs-design-name');
       const budget = document.getElementById('cs-budget');
       const brief = document.getElementById('cs-brief');
-      const isOrder = mode === 'order';
       if (!clientSelect?.value) { showToast('Please select or enter a client', 'error'); return; }
       if (!designName?.value) { showToast('Design name is required', 'error'); return; }
-      if (isOrder && !budget?.value) { showToast('Agreed price is required for orders', 'error'); return; }
+      if (!budget?.value) { showToast('Budget is required', 'error'); return; }
       if (!brief?.value) { showToast('Design brief is required', 'error'); return; }
-
       const newId = 'J-2025-00' + (50 + Math.floor(Math.random() * 10));
-
-      let clientName = 'Ravi Textiles';
-      let clientId = 'C001';
-      if (clientSelect.value === 'new') {
-        clientName = document.getElementById('new-client-company')?.value || document.getElementById('new-client-name')?.value || 'New Client';
-        clientId = 'C00' + (CLIENTS.length + 1);
-        CLIENTS.push({ id: clientId, name: document.getElementById('new-client-name')?.value || 'New Client', company: clientName, contact: document.getElementById('new-client-contact')?.value || '' });
-      } else {
-        const selectedClient = CLIENTS.find(c => c.id === clientSelect.value);
-        if (selectedClient) {
-          clientName = selectedClient.company;
-          clientId = selectedClient.id;
-        }
-      }
-
-      const newJob = {
-        id: newId,
-        ref: '05-27-2026-' + clientId + '-' + newId.substring(7),
-        client: clientName,
-        clientId: clientId,
-        design: designName.value,
-        summary: brief.value.substring(0, 60) + (brief.value.length > 60 ? '...' : ''),
-        order: document.querySelector('.cs-order-type.selected')?.textContent.trim().split('\n')[1]?.trim() || 'Artwork',
-        project: isOrder ? 'Live' : 'Quote',
-        complexity: document.getElementById('cs-complexity')?.value || 'Medium',
-        process: document.getElementById('cs-process')?.value || null,
-        priority: document.getElementById('cs-priority')?.value || 'Normal',
-        eta: (document.getElementById('cs-eta')?.value || '8') + 'h',
-        status: isOrder ? 'In Production' : 'Quote Submitted',
-        stage: isOrder ? 'junior' : 'quote',
-        assignedTo: null,
-        subType: null,
-        notes: brief.value,
-        colors: parseInt(document.getElementById('cs-colors')?.value || '4'),
-        created: new Date().toISOString().substring(0, 10) + ' ' + new Date().toTimeString().substring(0, 5),
-        aiScore: null,
-        clientPrice: budget.value ? parseFloat(budget.value) : null,
-        adminPrice: null,
-        agreedPrice: isOrder && budget.value ? parseFloat(budget.value) : null,
-        images: ['images/J-2025-0047-1.jpg']
-      };
-
-      JOBS.unshift(newJob);
-
-      showToast(`${isOrder ? 'Order' : 'Quote'} ${newId} created successfully!`, 'success');
-      setTimeout(() => navigateTo(isOrder ? 'cs-new-jobs' : 'cs-new-quotes'), 900);
+      showToast(`${mode === 'order' ? 'Order' : 'Quote'} ${newId} created successfully!`, 'success');
+      setTimeout(() => navigateTo(mode === 'order' ? 'cs-new-jobs' : 'cs-new-quotes'), 900);
     }
 
     /* ──────────── PAGES ──────────── */
@@ -5994,55 +5927,9 @@
       <button class="modal-close" onclick="closeModal()">${icon('close', 'btn-ico')}</button>
     </div>
     <div class="modal-body">
-      <div class="job-top-layout${(currentRole === 'admin' || isCS) && j.stage === 'quote' && !j.clientPrice ? ' has-pricing-card' : ''}">
-        <div style="display:flex; flex-direction:column;">
-          <div class="m-sec-title">Job Images</div>
-          <div class="modal-gallery" style="margin-bottom:0; flex:1; display:grid; grid-template-columns:repeat(${images.length > 2 ? 3 : images.length || 1}, minmax(0,1fr)); gap:10px;">
-            ${images.map((src, index) => `<img src="${src}" alt="${j.design} image ${index + 1}" loading="lazy" referrerpolicy="no-referrer" onclick="openLightbox(${index})" title="Click to preview" style="height:100%; min-height:150px; max-height:240px; object-fit:cover;" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=900 height=700><rect width=900 height=700 fill=%23f3f4f6/></svg>'">`).join('')}
-          </div>
-        </div>
-        ${(currentRole === 'admin' || isCS) && j.stage === 'quote' && !j.clientPrice ? `
-        <div style="display:flex; flex-direction:column;">
-          <div class="m-sec-title" style="color:#fcd34d;">Review &amp; Set Price</div>
-          <div style="background:rgba(245,158,11,0.06); border:1.5px solid rgba(245,158,11,0.25); border-radius:10px; padding:20px; flex:1; display:flex; flex-direction:column; justify-content:center; gap:12px;">
-            <div>
-              <div style="font-size:10px; font-weight:700; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px;">Client's Suggested Budget</div>
-              <div style="font-size:22px; font-weight:800; color:var(--text-faint); font-family:var(--font-head); letter-spacing:-0.02em; display:inline-block; background:rgba(255,255,255,0.04); padding:4px 14px; border-radius:6px; border:1px solid rgba(255,255,255,0.08); margin:6px 0;">Not provided</div>
-              <div style="font-size:11px; color:rgba(255,255,255,0.35); margin-top:2px;">The client did not suggest any price. Set our agency pricing below.</div>
-            </div>
-
-            <div style="display:flex; flex-direction:column; gap:6px;">
-              <div style="display:flex; gap:10px; align-items:center;">
-                <div style="flex:1;">
-                  <label class="fl" style="color:rgba(255,255,255,0.7); margin-bottom:2px; font-size:11px;">Agency Price ($) <span style="color:var(--crimson)">*</span></label>
-                  <input type="number" class="fi" placeholder="e.g. 250" id="cs-set-price" min="1" style="font-size:15px; font-weight:700; border-color:rgba(245,158,11,0.4); padding:6px 10px;" oninput="validatePriceInput()">
-                </div>
-                <div style="flex:1;">
-                  <label class="fl" style="color:rgba(255,255,255,0.7); margin-bottom:2px; font-size:11px;">Confirmed ETA (hrs) <span style="color:var(--crimson)">*</span></label>
-                  <input type="number" class="fi" placeholder="e.g. 8" id="cs-set-eta" min="1" value="${j.eta ? j.eta.replace('h', '') : ''}" style="padding:6px 10px;">
-                </div>
-              </div>
-              
-              <div>
-                <label class="fl" style="color:rgba(255,255,255,0.7); margin-bottom:2px; font-size:11px;">Note to Client</label>
-                <textarea class="fi fi-ta" id="cs-price-note" placeholder="e.g. Standard turnaround. High-quality vector delivery." style="min-height:45px; padding:6px 10px; font-size:12px;"></textarea>
-              </div>
-            </div>
-
-            <div id="cs-price-error" style="display:none; color:#fca5a5; font-size:11.5px; padding:6px 10px; background:rgba(239,68,68,0.1); border-radius:6px; margin-top:2px;">Please enter a valid agency price before sending.</div>
-
-            <div style="display:flex; gap:10px; justify-content:flex-end;">
-              <button class="btn btn-red btn-sm" style="padding:6px 10px; font-size:11.5px;" onclick="csRejectQuote('${j.id}')">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                Reject Quote
-              </button>
-              <button class="btn btn-green" id="cs-send-price-btn" style="padding:6px 12px; font-size:11.5px; font-weight:700;" onclick="csApproveWithPrice('${j.id}')">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                <span>Send Price</span>
-              </button>
-            </div>
-          </div>
-        </div>` : ''}
+      <div class="m-sec-title">Job Images</div>
+      <div class="modal-gallery">
+        ${images.map((src, index) => `<img src="${src}" alt="${j.design} image ${index + 1}" loading="lazy" referrerpolicy="no-referrer" onclick="openLightbox(${index})" title="Click to preview" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=900 height=700><rect width=900 height=700 fill=%23f3f4f6/></svg>'">`).join('')}
       </div>
       <div class="wf-steps" style="margin-bottom:16px">
         ${steps.map(([r, l], i) => `<div class="wf-step ${i < cur ? 'done' : i === cur ? 'cur' : ''}"><div class="wf-dot">${i < cur ? icon('check-circle', 'btn-ico') : i === cur ? icon('refresh', 'btn-ico') : ''}</div><div class="wf-lbl">${r}<br><span style="font-size:9px;color:var(--text-faint)">${l}</span></div></div>`).join('')}
@@ -6057,7 +5944,7 @@
           ${[['ETA', j.eta], ['Created', j.created], ['Reference', j.ref], ...(j.placement ? [['Placement', j.placement], ['Width', j.width + '"'], ['Height', j.height + '"'], ['Fabric', j.fabric]] : []), ...(j.stitchCount ? [['Stitch Count', j.stitchCount.toLocaleString()]] : []), ...(isCS || currentRole === 'admin' ? [['Client Budget', j.clientPrice ? `$${j.clientPrice}` : 'Not provided'], ['Admin Counter', j.adminPrice ? `$${j.adminPrice}` : 'None'], ['Agreed Price', j.agreedPrice ? `$${j.agreedPrice}` : 'Pending']] : []), ...(j.aiScore ? [['AI QC Score', '89/100 — Pass']] : [])].map(([k, v]) => `<div class="f-row"><div class="f-key">${k}</div><div class="f-val ${k === 'Reference' ? 'mono' : ''}">${v}</div></div>`).join('')}
         </div>
       </div>
-      ${(currentRole === 'admin' || isCS) && j.stage === 'quote' && j.clientPrice ? `
+      ${(currentRole === 'admin' || isCS) && j.stage === 'quote' ? `
       <div class="m-sec-title" style="color: #fcd34d; margin-top: 4px;">Review &amp; Set Price</div>
       <div style="background: rgba(245,158,11,0.06); border: 1.5px solid rgba(245,158,11,0.25); border-radius: 10px; padding: 18px; margin-bottom: 18px;">
 
@@ -6212,8 +6099,6 @@
       inp.style.borderColor = valid ? 'rgba(34,197,94,0.5)' : 'rgba(245,158,11,0.4)';
     }
 
-    let pendingQuoteApproval = null;
-
     function csApproveWithPrice(jobId) {
       const priceEl = document.getElementById('cs-set-price');
       const etaEl = document.getElementById('cs-set-eta');
@@ -6230,109 +6115,18 @@
       const j = JOBS.find(x => x.id === jobId);
       if (!j) return;
 
-      pendingQuoteApproval = {
-        jobId: jobId,
-        price: price,
-        eta: etaEl && etaEl.value ? etaEl.value + 'h' : (j.eta || '8h'),
-        notes: noteEl ? noteEl.value : ''
-      };
-
-      openConfirmationModal();
-    }
-
-    function openConfirmationModal() {
-      if (!pendingQuoteApproval) return;
-      const j = JOBS.find(x => x.id === pendingQuoteApproval.jobId);
-      if (!j) return;
-
-      const overlay = document.getElementById('confirm-overlay');
-      const content = document.getElementById('confirm-content');
-      if (!overlay || !content) return;
-
-      content.innerHTML = `
-    <div class="modal-top" style="border-bottom:1px solid rgba(255,255,255,0.06); padding:16px 20px; background:linear-gradient(135deg, rgba(245,158,11,0.08), rgba(10,26,58,0.3));">
-      <div style="flex:1">
-        <div class="modal-job-id" style="color:var(--amber); margin-bottom:2px; font-weight:700;">⚠️ 2-STEP VERIFICATION</div>
-        <div class="modal-title" style="font-size:16px; font-weight:700; color:white; letter-spacing:0.02em;">Confirm Quote Dispatch</div>
-      </div>
-      <button class="modal-close" onclick="closeConfirmModal()">✕</button>
-    </div>
-    <div class="modal-body" style="padding:20px; display:flex; flex-direction:column; gap:14px;">
-      <div style="font-size:13px; color:rgba(255,255,255,0.85); line-height:1.55;">
-        You are dispatching an Agency Price of <strong style="color:#86efac; font-size:15px; font-weight:800;">$${pendingQuoteApproval.price}</strong> for <span style="font-weight:600; color:white;">"${j.design}"</span> (ETA: <span style="font-family:var(--font-mono); color:#93c5fd; font-weight:600;">${pendingQuoteApproval.eta}</span>).
-      </div>
-      
-      <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:12px; font-size:11.5px; color:rgba(255,255,255,0.5); line-height:1.45;">
-        Sending this quote will lock the status as <b style="color:#fcd34d; font-weight:600;">Quote Approved</b>. The client will be notified to authorize the price and commence production.
-      </div>
-
-      <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
-        <label style="font-size:11px; font-weight:700; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:0.05em;">Security Verification</label>
-        <input type="text" class="fi" placeholder="Type CONFIRM to authorize" id="confirm-verification-input" oninput="handleVerificationInput()" style="text-align:center; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; border-color:rgba(245,158,11,0.25); background:rgba(255,255,255,0.03); color:white;">
-      </div>
-    </div>
-    <div class="modal-actions" style="padding:12px 20px; background:rgba(0,0,0,0.15); display:flex; gap:10px; justify-content:flex-end; border-top:1px solid rgba(255,255,255,0.06);">
-      <button class="btn btn-outline btn-sm" onclick="closeConfirmModal()">Cancel</button>
-      <button class="btn btn-green btn-sm" id="confirm-submit-btn" disabled onclick="submitQuoteConfirmation()" style="opacity:0.4; cursor:not-allowed; font-weight:700; transition:all 0.2s;">
-        Send Quote Proposal
-      </button>
-    </div>`;
-
-      overlay.classList.add('open');
-      setTimeout(() => {
-        document.getElementById('confirm-verification-input')?.focus();
-      }, 100);
-    }
-
-    function handleVerificationInput() {
-      const val = document.getElementById('confirm-verification-input')?.value.trim();
-      const btn = document.getElementById('confirm-submit-btn');
-      if (!btn) return;
-      if (val === 'CONFIRM') {
-        btn.disabled = false;
-        btn.style.opacity = '1';
-        btn.style.cursor = 'pointer';
-        btn.style.background = '#22c55e'; // green glow
-        btn.style.borderColor = '#22c55e';
-        btn.style.boxShadow = '0 0 12px rgba(34,197,94,0.4)';
-      } else {
-        btn.disabled = true;
-        btn.style.opacity = '0.4';
-        btn.style.cursor = 'not-allowed';
-        btn.style.background = '';
-        btn.style.borderColor = '';
-        btn.style.boxShadow = '';
-      }
-    }
-
-    function submitQuoteConfirmation() {
-      if (!pendingQuoteApproval) return;
-      const { jobId, price, eta, notes } = pendingQuoteApproval;
-      const j = JOBS.find(x => x.id === jobId);
-      if (!j) return;
-
       j.csPrice = price;
       j.status = 'Quote Approved';
-      j.eta = eta;
-      if (notes) j.notes = notes;
+      if (etaEl && etaEl.value) j.eta = etaEl.value + 'h';
 
-      closeConfirmModal();
       closeModal();
       showToast(`Price $${price} sent to ${j.client} — awaiting client confirmation.`, 'success');
-
-      pendingQuoteApproval = null;
 
       /* Re-render the current page so the job disappears from quote queue */
       setTimeout(() => {
         const activePage = document.querySelector('.nav-item.active')?.dataset.pg;
         if (activePage) navigateTo(activePage);
       }, 800);
-    }
-
-    function closeConfirmModal(e) {
-      if (e && e.target !== document.getElementById('confirm-overlay')) return;
-      document.getElementById('confirm-overlay').classList.remove('open');
-      pendingQuoteApproval = null;
     }
 
     function csRejectQuote(jobId) {
