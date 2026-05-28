@@ -685,6 +685,7 @@
     .btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       padding: 10px 20px;
       border-radius: var(--r-xl);
@@ -4197,7 +4198,7 @@
         "Black & White To Color"
       ],
       digitizing: [
-        "Embroidery Digitizing", "Embroidery Digitizing Swatches"
+        "Embroidery Digitizing", "Embroidery digitizing with Sewout swatches"
       ],
       swatches: [], // Empty means no sub-selection
       extras: [
@@ -4211,6 +4212,9 @@
       company: 'Ravi Textiles Pvt. Ltd.',
       contact: 'Ravi Kumar',
       location: 'Hyderabad, Telangana, IN',
+      phone: '+91 98765 43210',
+      address: 'Plot No. 42, Phase II, Hitech City, Hyderabad, Telangana 500081, India',
+      card: 'Visa ending in 4321 (Exp 12/28)',
       since: 'April 12, 2024'
     };
     let PENDING_PROFILE_DATA = null;
@@ -4509,7 +4513,7 @@
       },
 
       quote: (page) => `
-    <div style="max-width:720px; margin: 0 auto;">
+    <div style="max-width:840px; margin: 0 auto;">
       <div class="card">
 
         <!-- Phase stepper -->
@@ -4548,8 +4552,8 @@
                 </div>
                 <div class="order-type" data-category="swatches" onclick="selectOrder(this)">
                   <span class="order-type-icon">🪡</span>
-                  <div class="order-type-name">Swatches</div>
-                  <div class="order-type-desc">Physical sample review</div>
+                  <div class="order-type-name">Embroidery Digitizing Swatches Only</div>
+                  <div class="order-type-desc">Physical sample swatches</div>
                 </div>
                 <div class="order-type" data-category="extras" onclick="selectOrder(this)">
                   <span class="order-type-icon">📦</span>
@@ -4608,7 +4612,7 @@
                     <option>Full Back</option>
                     <option>Full Front</option>
                     <option>Back Yoke</option>
-                    <option>Other</option>
+                    <option>Others</option>
                   </select>
                   <input type="text" id="process-others-input" placeholder="Please specify placement" style="display:none;margin-top:8px;">
                 </div>
@@ -4763,6 +4767,9 @@
         const company = PROFILE_DATA.company;
         const contact = PROFILE_DATA.contact;
         const location = PROFILE_DATA.location;
+        const phone = PROFILE_DATA.phone || '+91 98765 43210';
+        const address = PROFILE_DATA.address || 'Plot No. 42, Phase II, Hitech City, Hyderabad, Telangana 500081, India';
+        const card = PROFILE_DATA.card || 'Visa ending in 4321 (Exp 12/28)';
         const id = PROFILE_DATA.id;
         const since = PROFILE_DATA.since;
 
@@ -4802,8 +4809,16 @@
               <input type="text" id="edit-profile-contact" value="${PENDING_PROFILE_DATA ? PENDING_PROFILE_DATA.contact : contact}" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);color:var(--text);font-family:var(--f-body);font-size:13px;outline:none;">
             </div>
             <div class="pf-row" style="display:block;padding:0;">
+              <label style="font-weight:600;font-size:12.5px;color:var(--ink-2);margin-bottom:6px;display:block;">Contact No.</label>
+              <input type="text" id="edit-profile-phone" value="${PENDING_PROFILE_DATA ? PENDING_PROFILE_DATA.phone : phone}" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);color:var(--text);font-family:var(--f-body);font-size:13px;outline:none;">
+            </div>
+            <div class="pf-row" style="display:block;padding:0;">
               <label style="font-weight:600;font-size:12.5px;color:var(--ink-2);margin-bottom:6px;display:block;">Location</label>
               <input type="text" id="edit-profile-location" value="${PENDING_PROFILE_DATA ? PENDING_PROFILE_DATA.location : location}" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);color:var(--text);font-family:var(--f-body);font-size:13px;outline:none;">
+            </div>
+            <div class="pf-row" style="display:block;padding:0;">
+              <label style="font-weight:600;font-size:12.5px;color:var(--ink-2);margin-bottom:6px;display:block;">Address</label>
+              <input type="text" id="edit-profile-address" value="${PENDING_PROFILE_DATA ? PENDING_PROFILE_DATA.address : address}" style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);color:var(--text);font-family:var(--f-body);font-size:13px;outline:none;">
             </div>
             <div class="pf-row" style="display:block;padding:0;">
               <div class="pf-key" style="margin-bottom:6px;">Member Since (Read-only)</div>
@@ -4835,8 +4850,23 @@
               <div class="pf-val">${contact}${pendingBadge('contact')}</div>
             </div>
             <div class="pf-row">
+              <div class="pf-key">Contact No.</div>
+              <div class="pf-val">${phone}${pendingBadge('phone')}</div>
+            </div>
+            <div class="pf-row">
               <div class="pf-key">Location</div>
               <div class="pf-val">${location}${pendingBadge('location')}</div>
+            </div>
+            <div class="pf-row">
+              <div class="pf-key">Address</div>
+              <div class="pf-val">${address}${pendingBadge('address')}</div>
+            </div>
+            <div class="pf-row">
+              <div class="pf-key">Credit Card</div>
+              <div class="pf-val" style="display:flex;align-items:center;gap:12px;">
+                <span>💳 ${card}</span>
+                <button class="btn btn-outline btn-sm" style="padding:4px 10px;font-size:11.5px;font-weight:600;background:rgba(255,255,255,0.05);border-color:var(--border);" onclick="openCardUpdateModal()">Update Card</button>
+              </div>
             </div>
             <div class="pf-row">
               <div class="pf-key">Member Since</div>
@@ -4999,7 +5029,7 @@
             ${j.eta && j.eta !== '—' ? `<span class="jc-pill" style="background:rgba(99,179,237,0.15);color:#90cdf4;border-color:rgba(99,179,237,0.3);font-family:var(--f-mono);font-weight:600;">⏱ ${j.eta}</span>` : ''}
           </div>
         </div>
-        ${hasActionRequired ? `<div class="jc-negotiate-banner" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-top:1px solid #FCD34D;color:#92400E;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Agency price ready — $${j.csPrice} · Tap to confirm &amp; start production</div>` : ''}
+        ${hasActionRequired ? `<div class="jc-negotiate-banner" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-top:1px solid #FCD34D;color:#92400E;"><div style="background:rgba(217,119,6,0.12); width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>QUOTED price ready — $${j.csPrice} · Tap to confirm &amp; start production</div>` : ''}
       </div>`;
         }).join('')}
     </div>
@@ -5070,7 +5100,7 @@
           <div class="modal-section-title">Confirm &amp; Place Job</div>
           <div style="background:#FFFBEB; border:1.5px solid #FCD34D; border-radius:var(--r); padding:20px; flex:1; display:flex; flex-direction:column; justify-content:center; gap:12px;">
             <div>
-              <div style="font-size:11px; font-weight:700; color:#92400E; text-transform:uppercase; letter-spacing:0.07em; margin-bottom:4px;">Agency Quoted Price</div>
+              <div style="font-size:11px; font-weight:700; color:#92400E; text-transform:uppercase; letter-spacing:0.07em; margin-bottom:4px;">QUOTED Price</div>
               <div style="font-size:28px; font-weight:800; color:#92400E; font-family:var(--f-head); letter-spacing:-0.02em; display:inline-block; background:#FEF3C7; padding:4px 14px; border-radius:var(--r); border:1px solid #FCD34D; box-shadow:inset 0 1px 2px rgba(0,0,0,0.05); margin: 6px 0;">$${j.csPrice}</div>
               <div style="font-size:11.5px; color:#B45309; margin-top:4px;">Reviewed &amp; set by your Client Servicing team</div>
             </div>
@@ -5079,7 +5109,7 @@
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 Confirm &amp; Start Production
               </button>
-              <button style="width:100%;padding:10px 16px;border-radius:99px;border:1.5px solid #D97706;background:transparent;color:#92400E;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:0.01em;transition:background 0.15s;" onmouseover="this.style.background='rgba(217,119,6,0.08)'" onmouseout="this.style.background='transparent'" onclick="toast('Your Client Service representative will be notified to discuss pricing.','info'); closeModal();">
+              <button style="width:100%;padding:10px 16px;border-radius:99px;border:1.5px solid #D97706;background:transparent;color:#92400E;font-size:12px;font-weight:600;cursor:pointer;letter-spacing:0.01em;transition:background 0.15s;display:flex;align-items:center;justify-content:center;" onmouseover="this.style.background='rgba(217,119,6,0.08)'" onmouseout="this.style.background='transparent'" onclick="toast('Your Client Service representative will be notified to discuss pricing.','info'); closeModal();">
                 Discuss with Client Service
               </button>
             </div>
@@ -5189,13 +5219,15 @@
       const company = document.getElementById('edit-profile-company').value.trim();
       const contact = document.getElementById('edit-profile-contact').value.trim();
       const location = document.getElementById('edit-profile-location').value.trim();
+      const phone = document.getElementById('edit-profile-phone').value.trim();
+      const address = document.getElementById('edit-profile-address').value.trim();
 
-      if (!name || !company || !contact || !location) {
+      if (!name || !company || !contact || !location || !phone || !address) {
         toast('Please fill out all fields.', 'error');
         return;
       }
 
-      PENDING_PROFILE_DATA = { name, company, contact, location };
+      PENDING_PROFILE_DATA = { name, company, contact, location, phone, address };
       isEditingProfile = false;
       toast('Profile updates submitted for approval!', 'success');
       document.getElementById('content').innerHTML = PAGES.profile();
@@ -5234,6 +5266,115 @@
         PENDING_PROFILE_DATA = null;
         toast('Admin REJECTED updates. Changes discarded.', 'info');
       }
+      document.getElementById('content').innerHTML = PAGES.profile();
+    }
+
+    /* ──── CREDIT CARD UPDATE MODAL & ACTION ──── */
+    function openCardUpdateModal() {
+      document.getElementById('modal-body').innerHTML = `
+        <div class="modal-header">
+          <div class="modal-header-left">
+            <div class="modal-job-id" style="color:var(--green);font-weight:700;">🛡️ SECURE PAYMENT</div>
+            <div class="modal-job-name" style="font-size:22px;">Update Credit Card</div>
+          </div>
+          <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-body" style="padding-top:10px;">
+          <div style="background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:var(--r);padding:14px;margin-bottom:20px;font-size:12.5px;line-height:1.5;color:var(--text-muted);display:flex;align-items:center;gap:12px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>Your payment details are encrypted and stored securely. We support all major international and domestic credit cards.</span>
+          </div>
+          <form id="cc-update-form" onsubmit="saveCreditCard(event)">
+            <div style="display:flex;flex-direction:column;gap:14px;">
+              <div class="form-group" style="margin-bottom:0;display:flex;flex-direction:column;gap:6px;">
+                <label style="font-weight:600;font-size:12.5px;color:var(--ink-2);">Cardholder Name</label>
+                <input type="text" id="cc-name" value="${PROFILE_DATA.name}" required style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);color:var(--text);font-family:var(--f-body);font-size:13px;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--crimson)'" onblur="this.style.borderColor=''">
+              </div>
+              <div class="form-group" style="margin-bottom:0;display:flex;flex-direction:column;gap:6px;">
+                <label style="font-weight:600;font-size:12.5px;color:var(--ink-2);">Card Number</label>
+                <div style="position:relative;display:flex;align-items:center;">
+                  <span style="position:absolute;left:12px;font-size:16px;">💳</span>
+                  <input type="text" id="cc-number" placeholder="•••• •••• •••• 4321" required style="width:100%;padding:10px 12px 10px 38px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);color:var(--text);font-family:var(--f-body);font-size:13px;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--crimson)'" onblur="this.style.borderColor=''">
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+                <div class="form-group" style="margin-bottom:0;display:flex;flex-direction:column;gap:6px;">
+                  <label style="font-weight:600;font-size:12.5px;color:var(--ink-2);">Expiry Date</label>
+                  <input type="text" id="cc-expiry" placeholder="MM/YY" maxlength="5" required style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);color:var(--text);font-family:var(--f-body);font-size:13px;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--crimson)'" onblur="this.style.borderColor=''">
+                </div>
+                <div class="form-group" style="margin-bottom:0;display:flex;flex-direction:column;gap:6px;">
+                  <label style="font-weight:600;font-size:12.5px;color:var(--ink-2);">CVV</label>
+                  <input type="password" id="cc-cvv" placeholder="•••" maxlength="4" required style="width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:var(--r);background:var(--off);color:var(--text);font-family:var(--f-body);font-size:13px;outline:none;transition:border-color 0.15s;" onfocus="this.style.borderColor='var(--crimson)'" onblur="this.style.borderColor=''">
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:24px;justify-content:flex-end;border-top:1px solid var(--border);padding-top:16px;">
+              <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
+              <button type="submit" class="btn btn-primary">Save Credit Card</button>
+            </div>
+          </form>
+        </div>
+      `;
+
+      // Auto formatting helper for Card Number (groups digits in sets of 4)
+      const cardNumInput = document.getElementById('cc-number');
+      if (cardNumInput) {
+        cardNumInput.addEventListener('input', function (e) {
+          let value = e.target.value.replace(/\D/g, '');
+          let formattedValue = '';
+          for (let i = 0; i < value.length && i < 16; i++) {
+            if (i > 0 && i % 4 === 0) {
+              formattedValue += ' ';
+            }
+            formattedValue += value[i];
+          }
+          e.target.value = formattedValue;
+        });
+      }
+
+      // Auto formatting helper for Expiry Date (inserts / after month)
+      const cardExpInput = document.getElementById('cc-expiry');
+      if (cardExpInput) {
+        cardExpInput.addEventListener('input', function (e) {
+          let value = e.target.value.replace(/\D/g, '');
+          if (value.length > 2) {
+            e.target.value = value.substring(0, 2) + '/' + value.substring(2, 4);
+          } else {
+            e.target.value = value;
+          }
+        });
+      }
+
+      document.getElementById('overlay').classList.add('open');
+    }
+
+    function saveCreditCard(event) {
+      event.preventDefault();
+      const num = document.getElementById('cc-number').value.trim();
+      const expiry = document.getElementById('cc-expiry').value.trim();
+      const name = document.getElementById('cc-name').value.trim();
+
+      if (!num || !expiry || !name) {
+        toast('Please fill out all fields.', 'error');
+        return;
+      }
+
+      const last4 = num.replace(/\s/g, '').slice(-4);
+      if (last4.length < 4) {
+        toast('Please enter a valid card number.', 'error');
+        return;
+      }
+
+      // Get Card Type Brand
+      let brand = 'Visa';
+      const cleanNum = num.replace(/\s/g, '');
+      if (cleanNum.startsWith('5')) brand = 'Mastercard';
+      else if (cleanNum.startsWith('3')) brand = 'American Express';
+      else if (cleanNum.startsWith('6')) brand = 'Discover';
+
+      PROFILE_DATA.card = `${brand} ending in ${last4} (Exp ${expiry})`;
+      toast('Credit card information updated successfully!', 'success');
+      closeModal();
       document.getElementById('content').innerHTML = PAGES.profile();
     }
 
@@ -5371,7 +5512,7 @@
     /* ──── PROCESS TYPE "OTHERS" REVEAL ──── */
     function toggleProcessOthers(sel) {
       const inp = document.getElementById('process-others-input');
-      if (inp) inp.style.display = sel.value === 'Other' || sel.value === 'Others' ? '' : 'none';
+      if (inp) inp.style.display = sel.value.toLowerCase() === 'other' || sel.value.toLowerCase() === 'others' ? '' : 'none';
     }
 
     /* ──── FORM PHASE NAVIGATION ──── */
