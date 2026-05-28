@@ -1241,11 +1241,17 @@
 
     .tbl-ctrl {
       padding: 11px 14px;
-      border-bottom: 1px solid var(--glass-border);
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-top-color: var(--glass-border-bright);
+      border-radius: var(--r);
+      box-shadow: var(--glass-shadow);
       display: flex;
       align-items: center;
       gap: 10px;
-      background: rgba(0, 0, 0, 0.1);
+      margin-bottom: 12px;
     }
 
     .search-wrap {
@@ -1271,19 +1277,136 @@
       flex-shrink: 0;
     }
 
-    .search-inp {
-      background: none;
-      border: none;
-      outline: none;
-      padding: 8px 0;
+    .search-wrap .search-inp {
+      background: none !important;
+      border: none !important;
+      outline: none !important;
+      padding: 8px 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
       font-family: var(--f-body);
       font-size: 12.5px;
       color: var(--text);
       width: 100%;
     }
 
+    .search-wrap .search-inp:focus {
+      background: none !important;
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
     .search-inp::placeholder {
       color: var(--text-faint);
+    }
+
+    .filter-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease, margin 0.3s ease;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid transparent;
+      border-radius: var(--r);
+      padding: 0 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin: 0;
+    }
+
+    .filter-panel.open {
+      max-height: 400px;
+      padding: 12px 14px;
+      margin-top: 10px;
+      margin-bottom: 12px;
+      border-color: var(--glass-border);
+      box-shadow: var(--glass-shadow);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 140px;
+      flex: 1;
+    }
+
+    .filter-group label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .filter-select {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--r);
+      color: var(--text);
+      font-family: var(--f-body);
+      font-size: 12px;
+      padding: 7px 10px;
+      outline: none;
+      cursor: pointer;
+      appearance: auto;
+      transition: border-color 0.15s;
+    }
+
+    .filter-select:focus {
+      border-color: var(--crimson);
+      background: rgba(196, 30, 58, 0.05);
+    }
+
+    html[data-theme="light"] .filter-panel {
+      background: rgba(255, 255, 255, 0.74);
+    }
+
+    html[data-theme="light"] .filter-select {
+      background: #FFFFFF;
+      border: 1px solid var(--glass-border);
+      color: rgba(15, 23, 42, 0.94);
+    }
+
+    html[data-theme="light"] .filter-panel .btn-reset {
+      background: #FFFFFF;
+      border: 1px solid var(--glass-border);
+      color: rgba(15, 23, 42, 0.72);
+    }
+
+    .filter-panel .btn-reset {
+      margin-top: 14px;
+      height: 32px;
+      padding: 0 14px;
+      border-radius: var(--r);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      transition: all 0.18s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .filter-panel .btn-reset:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      border-color: var(--glass-border-bright);
+    }
+
+    .jobs-root .tbl-ctrl .btn.active {
+      background: rgba(196, 30, 58, 0.15);
+      border-color: rgba(196, 30, 58, 0.4);
+      color: white;
+      box-shadow: 0 0 0 2px var(--crimson-glow);
     }
 
     table {
@@ -2683,7 +2806,7 @@
     }
 
     .tc-body {
-      padding: 0 20px 20px;
+      padding: 14px 20px 20px;
       border-top: 1px solid var(--glass-border);
     }
 
@@ -4975,25 +5098,64 @@
     <div class="tbl-ctrl">
       <div class="search-wrap">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input class="search-inp" placeholder="Search designs, job IDs…" type="text" oninput="searchJobs(this)">
+        <input class="search-inp" placeholder="Search designs, job IDs…" type="text" oninput="applyJobFilters(this.closest('.jobs-root'))">
       </div>
       <div class="view-toggle" role="tablist" aria-label="Job views">
         <button class="on" type="button" onclick="setJobView('grid', this)" title="Grid view">Grid</button>
         <button type="button" onclick="setJobView('list', this)" title="List view">List</button>
         <button type="button" onclick="setJobView('table', this)" title="Table view">Table</button>
       </div>
-      <button class="btn btn-outline btn-sm" onclick="toast('Filter panel — Coming in V2','info')">
+      <button class="btn btn-outline btn-sm filter-btn" onclick="toggleFilterPanel(this)">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
         Filter
       </button>
     </div>
+    
+    <div class="filter-panel">
+      <div class="filter-group">
+        <label>Status</label>
+        <select class="filter-select filter-status" onchange="applyJobFilters(this.closest('.jobs-root'))">
+          <option value="all">All Statuses</option>
+          <option value="IN PRODUCTION">In Production</option>
+          <option value="IN QC">In QC</option>
+          <option value="DELIVERED">Delivered</option>
+          <option value="QUOTE SUBMITTED">Quote Submitted</option>
+          <option value="QUOTE APPROVED">Quote Approved</option>
+          <option value="MODIFICATION REQUESTED">Modification Requested</option>
+          <option value="SENIOR REVIEW">Senior Review</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Order Type</label>
+        <select class="filter-select filter-order" onchange="applyJobFilters(this.closest('.jobs-root'))">
+          <option value="all">All Orders</option>
+          <option value="Artwork">Artwork</option>
+          <option value="Digitizing">Digitizing</option>
+          <option value="Digitizing + Sewout">Digitizing + Sewout</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Priority</label>
+        <select class="filter-select filter-priority" onchange="applyJobFilters(this.closest('.jobs-root'))">
+          <option value="all">All Priorities</option>
+          <option value="Normal">Normal</option>
+          <option value="Rush">Rush</option>
+          <option value="Super Rush">Super Rush</option>
+        </select>
+      </div>
+      <button class="btn-reset" onclick="resetJobFilters(this)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        Reset
+      </button>
+    </div>
+
     <div class="table-view">
       <table>
       <thead><tr>
         <th>Job</th><th>Design Name</th><th>Preview</th><th>Order</th><th>Priority</th><th>Status</th><th>Created</th><th>Action</th>
       </tr></thead>
       <tbody>
-        ${jobs.map(j => `<tr onclick="openJob('${j.id}')">
+        ${jobs.map(j => `<tr onclick="openJob('${j.id}')" data-status="${j.status}" data-order="${j.order}" data-priority="${j.priority}">
           <td><div class="job-cell"><img class="job-thumb" src="${jobImage(j, 0, 160, 120)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=160 height=120><rect width=160 height=120 fill=%23eef2f7/></svg>'"><div><div class="td-mono">${j.id}</div><div class="td-ref">${j.ref}</div></div></div></td>
           <td class="td-primary">${j.design}</td>
           <td><img class="table-preview" src="${jobImage(j, 1, 220, 160)}" alt="${j.design} preview" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=220 height=160><rect width=220 height=160 fill=%23eef2f7/></svg>'"></td>
@@ -5016,7 +5178,7 @@
       ${jobs.map(j => {
           const hasActionRequired = j.status === 'QUOTE APPROVED' && j.csPrice;
           const prioPillClass = j.priority === 'Super Rush' ? 'prio-super-rush' : j.priority === 'Rush' ? 'prio-rush' : '';
-          return `<div class="job-card${hasActionRequired ? ' negotiate' : ''}" onclick="openJob('${j.id}')" style="position:relative;">
+          return `<div class="job-card${hasActionRequired ? ' negotiate' : ''}" onclick="openJob('${j.id}')" style="position:relative;" data-status="${j.status}" data-order="${j.order}" data-priority="${j.priority}">
         <div class="jc-img"><img src="${jobImage(j, 2, 800, 520)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=800 height=520><rect width=800 height=520 fill=%23eef2f7/></svg>'"></div>
         <div style="position:absolute;top:10px;right:10px;z-index:2;"><span class="badge ${STATUS_MAP[j.status] || 'badge-gray'}" style="font-size:10.5px;padding:3px 9px;background:rgba(10,22,40,0.92);box-shadow:0 4px 12px rgba(0,0,0,0.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">${hasActionRequired ? 'ACTION REQUIRED' : j.status}</span></div>
         <div class="jc-body">
@@ -5035,7 +5197,7 @@
     </div>
 
     <div class="list-view">
-      ${jobs.map(j => `<div class="list-item" onclick="openJob('${j.id}')">
+      ${jobs.map(j => `<div class="list-item" onclick="openJob('${j.id}')" data-status="${j.status}" data-order="${j.order}" data-priority="${j.priority}">
         <div class="list-thumb"><img src="${jobImage(j, 3, 140, 140)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=140 height=140><rect width=140 height=140 fill=%23eef2f7/></svg>'"></div>
         <div class="list-body">
           <div style="font-weight:700">${j.design}</div>
@@ -5445,8 +5607,118 @@
       const input = document.querySelector('#jobs-table .search-inp');
       if (input) {
         input.value = jobSearchQuery;
-        searchJobs(input);
+        applyJobFilters(input.closest('.jobs-root'));
       }
+    }
+
+    function toggleFilterPanel(btn) {
+      const root = btn.closest('.jobs-root');
+      if (!root) return;
+      const panel = root.querySelector('.filter-panel');
+      if (!panel) return;
+      const isOpen = panel.classList.toggle('open');
+      btn.classList.toggle('active', isOpen);
+    }
+
+    function applyJobFilters(root) {
+      if (!root) return;
+      const searchVal = (root.querySelector('.search-inp')?.value || '').trim().toLowerCase();
+      const statusVal = root.querySelector('.filter-status')?.value || 'all';
+      const orderVal = root.querySelector('.filter-order')?.value || 'all';
+      const priorityVal = root.querySelector('.filter-priority')?.value || 'all';
+
+      const currentView = root.getAttribute('data-view') || 'grid';
+
+      // Filter table rows
+      const tableRows = root.querySelectorAll('.table-view tbody tr');
+      let visibleTableCount = 0;
+      tableRows.forEach(row => {
+        const status = row.getAttribute('data-status');
+        const order = row.getAttribute('data-order');
+        const priority = row.getAttribute('data-priority');
+        const text = row.textContent.toLowerCase();
+
+        const searchMatch = text.includes(searchVal);
+        const statusMatch = statusVal === 'all' || status === statusVal;
+        const orderMatch = orderVal === 'all' || order === orderVal;
+        const priorityMatch = priorityVal === 'all' || priority === priorityVal;
+
+        const show = searchMatch && statusMatch && orderMatch && priorityMatch;
+        row.style.display = show ? '' : 'none';
+        if (show) visibleTableCount++;
+      });
+
+      // Filter grid cards
+      const gridCards = root.querySelectorAll('.grid-view .job-card');
+      let visibleGridCount = 0;
+      gridCards.forEach(card => {
+        const status = card.getAttribute('data-status');
+        const order = card.getAttribute('data-order');
+        const priority = card.getAttribute('data-priority');
+        const text = card.textContent.toLowerCase();
+
+        const searchMatch = text.includes(searchVal);
+        const statusMatch = statusVal === 'all' || status === statusVal;
+        const orderMatch = orderVal === 'all' || order === orderVal;
+        const priorityMatch = priorityVal === 'all' || priority === priorityVal;
+
+        const show = searchMatch && statusMatch && orderMatch && priorityMatch;
+        card.style.display = show ? '' : 'none';
+        if (show) visibleGridCount++;
+      });
+
+      // Filter list items
+      const listItems = root.querySelectorAll('.list-view .list-item');
+      let visibleListCount = 0;
+      listItems.forEach(item => {
+        const status = item.getAttribute('data-status');
+        const order = item.getAttribute('data-order');
+        const priority = item.getAttribute('data-priority');
+        const text = item.textContent.toLowerCase();
+
+        const searchMatch = text.includes(searchVal);
+        const statusMatch = statusVal === 'all' || status === statusVal;
+        const orderMatch = orderVal === 'all' || order === orderVal;
+        const priorityMatch = priorityVal === 'all' || priority === priorityVal;
+
+        const show = searchMatch && statusMatch && orderMatch && priorityMatch;
+        item.style.display = show ? '' : 'none';
+        if (show) visibleListCount++;
+      });
+
+      // Show/Hide Empty States for each view
+      const visibleCount = currentView === 'table' ? visibleTableCount : (currentView === 'grid' ? visibleGridCount : visibleListCount);
+      const emptyState = root.querySelector('.table-empty');
+      if (emptyState) {
+        emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+
+      const tableView = root.querySelector('.table-view table');
+      if (tableView) {
+        tableView.style.display = (currentView === 'table' && visibleTableCount === 0) ? 'none' : '';
+      }
+    }
+
+    function resetJobFilters(btn) {
+      const root = btn.closest('.jobs-root');
+      if (!root) return;
+
+      const statusSelect = root.querySelector('.filter-status');
+      const orderSelect = root.querySelector('.filter-order');
+      const prioritySelect = root.querySelector('.filter-priority');
+      const searchInp = root.querySelector('.search-inp');
+
+      if (statusSelect) statusSelect.value = 'all';
+      if (orderSelect) orderSelect.value = 'all';
+      if (prioritySelect) prioritySelect.value = 'all';
+      if (searchInp) searchInp.value = '';
+
+      applyJobFilters(root);
+      toast('Filters reset successfully', 'success');
+    }
+
+    function searchJobs(input) {
+      applyJobFilters(input.closest('.jobs-root'));
     }
 
     function setJobView(view, btn) {
@@ -5557,35 +5829,7 @@
 
     /* ──── JOB SEARCH ──── */
     function searchJobs(input) {
-      jobSearchQuery = input.value.trim();
-      const tableWrap = input.closest('.jobs-root');
-      if (!tableWrap) return;
-      const query = jobSearchQuery.toLowerCase();
-      const currentView = tableWrap.getAttribute('data-view') || 'grid';
-      const rows = tableWrap.querySelectorAll('tbody tr');
-      let visibleCount = 0;
-
-      rows.forEach(row => {
-        const matches = row.textContent.toLowerCase().includes(query);
-        row.style.display = matches ? '' : 'none';
-        if (matches) visibleCount += 1;
-      });
-
-      if (currentView === 'table') {
-        const empty = tableWrap.querySelector('.table-empty');
-        const table = tableWrap.querySelector('.table-view table');
-        if (empty && table) {
-          empty.style.display = visibleCount ? 'none' : 'block';
-          table.style.display = visibleCount ? '' : 'none';
-        }
-      }
-
-      tableWrap.querySelectorAll('.grid-view .job-card').forEach(card => {
-        card.style.display = card.textContent.toLowerCase().includes(query) ? '' : 'none';
-      });
-      tableWrap.querySelectorAll('.list-view .list-item').forEach(item => {
-        item.style.display = item.textContent.toLowerCase().includes(query) ? '' : 'none';
-      });
+      applyJobFilters(input.closest('.jobs-root'));
     }
 
     function handleFiles(files) {

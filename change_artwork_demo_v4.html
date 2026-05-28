@@ -1069,6 +1069,17 @@
       gap: 8px;
     }
 
+    .jobs-root .tbl-top {
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
+      border: 1px solid var(--glass-border);
+      border-top: 1px solid var(--glass-border-bright);
+      border-radius: var(--radius);
+      box-shadow: var(--glass-shadow);
+      margin-bottom: 12px;
+    }
+
     .tbl-search {
       flex: 1;
       background: rgba(255, 255, 255, 0.04);
@@ -1087,6 +1098,96 @@
 
     .tbl-search::placeholder {
       color: var(--text-faint);
+    }
+
+    .filter-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease, margin 0.3s ease;
+      background: #FFFFFF;
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      padding: 0 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin: 0;
+    }
+    
+    .filter-panel.open {
+      max-height: 400px;
+      padding: 12px 14px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      border-color: var(--glass-border);
+      box-shadow: var(--glass-shadow);
+    }
+    
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 140px;
+      flex: 1;
+    }
+    
+    .filter-group label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    
+    .filter-select {
+      background: #FFFFFF;
+      border: 1px solid var(--glass-border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 12px;
+      padding: 7px 10px;
+      outline: none;
+      cursor: pointer;
+      appearance: auto;
+      transition: border-color 0.15s;
+    }
+    
+    .filter-select:focus {
+      border-color: var(--crimson);
+      background: rgba(196, 30, 58, 0.03);
+    }
+    
+    .filter-panel .btn-reset {
+      margin-top: 14px;
+      height: 32px;
+      padding: 0 14px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: #FFFFFF;
+      border: 1px solid var(--glass-border);
+      cursor: pointer;
+      transition: all 0.18s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    
+    .filter-panel .btn-reset:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      border-color: var(--glass-border-bright);
+    }
+
+    .jobs-root .tbl-top .btn.active {
+      background: rgba(196, 30, 58, 0.15);
+      border-color: rgba(196, 30, 58, 0.4);
+      color: white;
+      box-shadow: 0 0 0 2px var(--crimson-glow);
     }
 
     /* Jobs view controls: grid / list / table */
@@ -3539,6 +3640,14 @@
       background: #FFFFFF !important;
     }
 
+    .jobs-root .tbl-top {
+      background: #FFFFFF !important;
+      border: 1px solid #E4E8F0 !important;
+      border-radius: var(--radius) !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+      margin-bottom: 12px !important;
+    }
+
     .tbl-search {
       background: #F2F4F8 !important;
       border-color: #E4E8F0 !important;
@@ -5816,12 +5925,58 @@
       if (!jobs || !jobs.length) return `<div style="text-align:center;padding:40px;color:var(--text-faint)">${icon('inbox', 'empty-ico')}<span style="margin-left:8px;">No jobs found</span></div>`;
       return `<div class="jobs-root" data-view="grid">
     <div class="tbl-top">
-      <input class="tbl-search" placeholder="Search jobs, clients, designs..." type="text" oninput="searchJobs(this)">
+      <input class="tbl-search search-inp" placeholder="Search jobs, clients, designs..." type="text" oninput="applyJobFilters(this.closest('.jobs-root'))">
       <div class="view-toggle" role="tablist" aria-label="Job views">
         <button class="on" type="button" onclick="setJobView('grid', this)" title="Grid view">Grid</button>
         <button type="button" onclick="setJobView('list', this)" title="List view">List</button>
         <button type="button" onclick="setJobView('table', this)" title="Table view">Table</button>
       </div>
+      <button class="btn btn-outline btn-sm filter-btn" style="padding: 6px 12px; margin-left: 4px; font-size:12px; display: inline-flex; align-items: center; justify-content: center;" onclick="toggleFilterPanel(this)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        Filter
+      </button>
+    </div>
+    
+    <div class="filter-panel">
+      <div class="filter-group">
+        <label>Status</label>
+        <select class="filter-select filter-status" onchange="applyJobFilters(this.closest('.jobs-root'))">
+          <option value="all">All Statuses</option>
+          <option value="In Production">In Production</option>
+          <option value="In QC">In QC</option>
+          <option value="Delivered">Delivered</option>
+          <option value="Senior Review">Senior Review</option>
+          <option value="Quote Submitted">Quote Submitted</option>
+          <option value="Quote Approved">Quote Approved</option>
+          <option value="Pending Client Confirm">Pending Client Confirm</option>
+          <option value="Cancelled">Cancelled</option>
+          <option value="Amend">Amend</option>
+          <option value="In Review">In Review</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Order Type</label>
+        <select class="filter-select filter-order" onchange="applyJobFilters(this.closest('.jobs-root'))">
+          <option value="all">All Orders</option>
+          <option value="Artwork">Artwork</option>
+          <option value="Digitizing">Digitizing</option>
+          <option value="Digitizing + Sewout">Digitizing + Sewout</option>
+          <option value="Sewout">Sewout</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Priority</label>
+        <select class="filter-select filter-priority" onchange="applyJobFilters(this.closest('.jobs-root'))">
+          <option value="all">All Priorities</option>
+          <option value="Normal">Normal</option>
+          <option value="Rush">Rush</option>
+          <option value="Super Rush">Super Rush</option>
+        </select>
+      </div>
+      <button class="btn-reset" onclick="resetJobFilters(this)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right:4px;"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        Reset
+      </button>
     </div>
 
     <div class="table-view">
@@ -5830,7 +5985,7 @@
         const isLive = (currentRole === 'cs' || currentRole === 'admin') && j.stage === 'quote';
         const glowClass = isLive ? ' live-glow' : '';
         const projectBadge = `<span class="badge ${j.project === 'Live' ? 'green' : j.project === 'Quote' ? 'blue' : 'amber'}" style="font-size:9px;padding:1px 5px;display:inline-block;line-height:1;margin-top:2px;">${j.project}</span>`;
-        return `<tr class="${glowClass.trim()}" onclick="openJob('${j.id}')">
+        return `<tr class="${glowClass.trim()}" onclick="openJob('${j.id}')" data-status="${j.status}" data-order="${j.order}" data-priority="${j.priority}">
         <td><div class="job-cell"><img class="job-thumb" src="${jobImage(j, 0, 160, 120)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=160 height=120><rect width=160 height=120 fill=%23f3f4f6/></svg>'"><div><div class="ref-code" style="margin-bottom:2px">${j.id}</div><div style="font-size:9.5px;color:var(--text-faint);margin-bottom:2px;">${j.ref}</div>${projectBadge}</div></div></td>
         <td style="font-weight:600">${j.design}</td>
         <td><img class="table-preview" src="${jobImage(j, 1, 220, 160)}" alt="${j.design} preview" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=220 height=160><rect width=220 height=160 fill=%23f3f4f6/></svg>'"></td>
@@ -5849,7 +6004,7 @@
         const isLive = (currentRole === 'cs' || currentRole === 'admin') && j.stage === 'quote';
         const glowClass = isLive ? ' live-glow' : '';
         const projectBadgeClass = j.project === 'Live' ? 'green' : j.project === 'Quote' ? 'blue' : 'amber';
-        return `<div class="job-card${glowClass}" onclick="openJob('${j.id}')">
+        return `<div class="job-card${glowClass}" onclick="openJob('${j.id}')" data-status="${j.status}" data-order="${j.order}" data-priority="${j.priority}">
         <div class="jc-img" style="position:relative;">
           <img src="${jobImage(j, 2, 400, 300)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=400 height=300><rect width=400 height=300 fill=%23f3f4f6/></svg>'">
           <div style="position:absolute; top:8px; left:8px; z-index:2;">
@@ -5877,7 +6032,7 @@
         const isLive = (currentRole === 'cs' || currentRole === 'admin') && j.stage === 'quote';
         const glowClass = isLive ? ' live-glow' : '';
         const projectBadgeClass = j.project === 'Live' ? 'green' : j.project === 'Quote' ? 'blue' : 'amber';
-        return `<div class="list-item${glowClass}" onclick="openJob('${j.id}')">
+        return `<div class="list-item${glowClass}" onclick="openJob('${j.id}')" data-status="${j.status}" data-order="${j.order}" data-priority="${j.priority}">
         <div class="list-thumb"><img src="${jobImage(j, 3, 120, 120)}" alt="thumb" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=72 height=72><rect width=72 height=72 fill=%23f3f4f6/></svg>'"></div>
         <div class="list-body">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
@@ -5895,6 +6050,11 @@
         <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-faint)">${j.eta}</div>
       </div>`;
       }).join('')}
+    </div>
+    
+    <div class="empty table-empty" style="display:none;border-top:1px solid var(--border);padding:20px;text-align:center;color:var(--text-muted);">
+      <div class="empty-icon" style="font-size:24px;margin-bottom:6px;">🔎</div>
+      <div class="empty-text" style="font-size:13px;">No matching jobs</div>
     </div>
 
   </div>`;
@@ -5920,16 +6080,114 @@
       btn.classList.add('on');
     }
 
-    function searchJobs(input) {
-      const q = input.value.trim().toLowerCase();
-      const root = input.closest('.jobs-root');
+    function toggleFilterPanel(btn) {
+      const root = btn.closest('.jobs-root');
       if (!root) return;
-      const rows = root.querySelectorAll('.table-view tbody tr');
-      rows.forEach(r => { r.style.display = q ? (r.textContent.toLowerCase().includes(q) ? '' : 'none') : ''; });
-      const cards = root.querySelectorAll('.grid-view .job-card');
-      cards.forEach(c => { c.style.display = q ? (c.textContent.toLowerCase().includes(q) ? '' : 'none') : ''; });
-      const items = root.querySelectorAll('.list-view .list-item');
-      items.forEach(i => { i.style.display = q ? (i.textContent.toLowerCase().includes(q) ? '' : 'none') : ''; });
+      const panel = root.querySelector('.filter-panel');
+      if (!panel) return;
+      const isOpen = panel.classList.toggle('open');
+      btn.classList.toggle('active', isOpen);
+    }
+
+    function applyJobFilters(root) {
+      if (!root) return;
+      const searchVal = (root.querySelector('.search-inp')?.value || '').trim().toLowerCase();
+      const statusVal = root.querySelector('.filter-status')?.value || 'all';
+      const orderVal = root.querySelector('.filter-order')?.value || 'all';
+      const priorityVal = root.querySelector('.filter-priority')?.value || 'all';
+
+      const currentView = root.getAttribute('data-view') || 'grid';
+      
+      // Filter table rows
+      const tableRows = root.querySelectorAll('.table-view tbody tr');
+      let visibleTableCount = 0;
+      tableRows.forEach(row => {
+        const status = row.getAttribute('data-status');
+        const order = row.getAttribute('data-order');
+        const priority = row.getAttribute('data-priority');
+        const text = row.textContent.toLowerCase();
+
+        const searchMatch = text.includes(searchVal);
+        const statusMatch = statusVal === 'all' || status === statusVal;
+        const orderMatch = orderVal === 'all' || order === orderVal;
+        const priorityMatch = priorityVal === 'all' || priority === priorityVal;
+
+        const show = searchMatch && statusMatch && orderMatch && priorityMatch;
+        row.style.display = show ? '' : 'none';
+        if (show) visibleTableCount++;
+      });
+
+      // Filter grid cards
+      const gridCards = root.querySelectorAll('.grid-view .job-card');
+      let visibleGridCount = 0;
+      gridCards.forEach(card => {
+        const status = card.getAttribute('data-status');
+        const order = card.getAttribute('data-order');
+        const priority = card.getAttribute('data-priority');
+        const text = card.textContent.toLowerCase();
+
+        const searchMatch = text.includes(searchVal);
+        const statusMatch = statusVal === 'all' || status === statusVal;
+        const orderMatch = orderVal === 'all' || order === orderVal;
+        const priorityMatch = priorityVal === 'all' || priority === priorityVal;
+
+        const show = searchMatch && statusMatch && orderMatch && priorityMatch;
+        card.style.display = show ? '' : 'none';
+        if (show) visibleGridCount++;
+      });
+
+      // Filter list items
+      const listItems = root.querySelectorAll('.list-view .list-item');
+      let visibleListCount = 0;
+      listItems.forEach(item => {
+        const status = item.getAttribute('data-status');
+        const order = item.getAttribute('data-order');
+        const priority = item.getAttribute('data-priority');
+        const text = item.textContent.toLowerCase();
+
+        const searchMatch = text.includes(searchVal);
+        const statusMatch = statusVal === 'all' || status === statusVal;
+        const orderMatch = orderVal === 'all' || order === orderVal;
+        const priorityMatch = priorityVal === 'all' || priority === priorityVal;
+
+        const show = searchMatch && statusMatch && orderMatch && priorityMatch;
+        item.style.display = show ? '' : 'none';
+        if (show) visibleListCount++;
+      });
+
+      // Show/Hide Empty States for each view
+      const visibleCount = currentView === 'table' ? visibleTableCount : (currentView === 'grid' ? visibleGridCount : visibleListCount);
+      const emptyState = root.querySelector('.table-empty');
+      if (emptyState) {
+        emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+      }
+      
+      const tableView = root.querySelector('.table-view table');
+      if (tableView) {
+        tableView.style.display = (currentView === 'table' && visibleTableCount === 0) ? 'none' : '';
+      }
+    }
+
+    function resetJobFilters(btn) {
+      const root = btn.closest('.jobs-root');
+      if (!root) return;
+      
+      const statusSelect = root.querySelector('.filter-status');
+      const orderSelect = root.querySelector('.filter-order');
+      const prioritySelect = root.querySelector('.filter-priority');
+      const searchInp = root.querySelector('.search-inp');
+      
+      if (statusSelect) statusSelect.value = 'all';
+      if (orderSelect) orderSelect.value = 'all';
+      if (prioritySelect) prioritySelect.value = 'all';
+      if (searchInp) searchInp.value = '';
+      
+      applyJobFilters(root);
+      showToast('Filters reset successfully', 'success');
+    }
+
+    function searchJobs(input) {
+      applyJobFilters(input.closest('.jobs-root'));
     }
 
     /* ──────────── MODAL ──────────── */
