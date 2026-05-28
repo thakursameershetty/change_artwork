@@ -6030,14 +6030,18 @@
         const glowClass = isLive ? ' live-glow' : '';
         const projectBadgeClass = j.project === 'Live' ? 'green' : j.project === 'Quote' ? 'blue' : 'amber';
         return `<div class="job-card${glowClass}" onclick="openJob('${j.id}')">
-        <div class="jc-img"><img src="${jobImage(j, 2, 400, 300)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=400 height=300><rect width=400 height=300 fill=%23f3f4f6/></svg>'"></div>
+        <div class="jc-img" style="position:relative;">
+          <img src="${jobImage(j, 2, 400, 300)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=400 height=300><rect width=400 height=300 fill=%23f3f4f6/></svg>'">
+          <div style="position:absolute; top:8px; left:8px; z-index:2;">
+            <span class="badge gray" style="font-size:9px; padding:2px 7px; background:rgba(10,22,40,0.82); color:#fff; border:1px solid rgba(255,255,255,0.15); box-shadow:0 4px 10px rgba(0,0,0,0.3); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); border-radius:4px; font-weight:600;">ID: ${j.clientId}</span>
+          </div>
+          <div style="position:absolute; top:8px; right:8px; z-index:2;">
+            <span class="badge ${projectBadgeClass}" style="font-size:9.5px; padding:2px 7px; box-shadow:0 4px 10px rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.1); border-radius:4px; font-weight:700;">${j.project}</span>
+          </div>
+        </div>
         <div class="jc-body">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
             <span class="ref-code" style="font-size:9.5px;padding:1px 5px;">${j.id}</span>
-            <div style="display:flex;gap:4px;align-items:center;">
-              <span class="badge gray" style="font-size:9px;padding:1px 6px;margin:0;">ID: ${j.clientId}</span>
-              <span class="badge ${projectBadgeClass}" style="font-size:9px;padding:1px 6px;margin:0;">${j.project}</span>
-            </div>
           </div>
           <div class="jc-title">${j.design}</div>
           <div class="jc-desc">${j.summary}</div>

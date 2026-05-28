@@ -5829,11 +5829,12 @@
       <tbody>${jobs.map(j => {
         const isLive = (currentRole === 'cs' || currentRole === 'admin') && j.stage === 'quote';
         const glowClass = isLive ? ' live-glow' : '';
+        const projectBadge = `<span class="badge ${j.project === 'Live' ? 'green' : j.project === 'Quote' ? 'blue' : 'amber'}" style="font-size:9px;padding:1px 5px;display:inline-block;line-height:1;margin-top:2px;">${j.project}</span>`;
         return `<tr class="${glowClass.trim()}" onclick="openJob('${j.id}')">
-        <td><div class="job-cell"><img class="job-thumb" src="${jobImage(j, 0, 160, 120)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=160 height=120><rect width=160 height=120 fill=%23f3f4f6/></svg>'"><div><div class="ref-code" style="margin-bottom:2px">${j.id}</div><div style="font-size:9.5px;color:var(--text-faint)">${j.ref}</div></div></div></td>
+        <td><div class="job-cell"><img class="job-thumb" src="${jobImage(j, 0, 160, 120)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=160 height=120><rect width=160 height=120 fill=%23f3f4f6/></svg>'"><div><div class="ref-code" style="margin-bottom:2px">${j.id}</div><div style="font-size:9.5px;color:var(--text-faint);margin-bottom:2px;">${j.ref}</div>${projectBadge}</div></div></td>
         <td style="font-weight:600">${j.design}</td>
         <td><img class="table-preview" src="${jobImage(j, 1, 220, 160)}" alt="${j.design} preview" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=220 height=160><rect width=220 height=160 fill=%23f3f4f6/></svg>'"></td>
-        <td style="color:var(--text-muted)">${j.client}</td>
+        <td style="color:var(--text-muted)"><div>${j.client}</div><div style="font-size:10px;color:var(--text-faint);margin-top:2px;">ID: ${j.clientId}</div></td>
         <td>${oBadge(j.order)}</td>
         <td>${pBadge(j.priority)}</td>
         <td>${sBadge(j.status)}</td>
@@ -5847,9 +5848,26 @@
       ${jobs.map(j => {
         const isLive = (currentRole === 'cs' || currentRole === 'admin') && j.stage === 'quote';
         const glowClass = isLive ? ' live-glow' : '';
+        const projectBadgeClass = j.project === 'Live' ? 'green' : j.project === 'Quote' ? 'blue' : 'amber';
         return `<div class="job-card${glowClass}" onclick="openJob('${j.id}')">
-        <div class="jc-img"><img src="${jobImage(j, 2, 400, 300)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=400 height=300><rect width=400 height=300 fill=%23f3f4f6/></svg>'"></div>
-        <div class="jc-body"><div class="jc-title">${j.design}</div><div class="jc-desc">${j.summary}</div><div class="jc-meta">${j.client} · ${oBadge(j.order)} · ${pBadge(j.priority)}</div>${jobActions(j.id)}</div>
+        <div class="jc-img" style="position:relative;">
+          <img src="${jobImage(j, 2, 400, 300)}" alt="${j.design}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=400 height=300><rect width=400 height=300 fill=%23f3f4f6/></svg>'">
+          <div style="position:absolute; top:8px; left:8px; z-index:2;">
+            <span class="badge gray" style="font-size:9px; padding:2px 7px; background:rgba(10,22,40,0.82); color:#fff; border:1px solid rgba(255,255,255,0.15); box-shadow:0 4px 10px rgba(0,0,0,0.3); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); border-radius:4px; font-weight:600;">ID: ${j.clientId}</span>
+          </div>
+          <div style="position:absolute; top:8px; right:8px; z-index:2;">
+            <span class="badge ${projectBadgeClass}" style="font-size:9.5px; padding:2px 7px; box-shadow:0 4px 10px rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.1); border-radius:4px; font-weight:700;">${j.project}</span>
+          </div>
+        </div>
+        <div class="jc-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <span class="ref-code" style="font-size:9.5px;padding:1px 5px;">${j.id}</span>
+          </div>
+          <div class="jc-title">${j.design}</div>
+          <div class="jc-desc">${j.summary}</div>
+          <div class="jc-meta">${j.client} · ${oBadge(j.order)} · ${pBadge(j.priority)}</div>
+          ${jobActions(j.id)}
+        </div>
       </div>`;
       }).join('')}
     </div>
@@ -5858,9 +5876,22 @@
       ${jobs.map(j => {
         const isLive = (currentRole === 'cs' || currentRole === 'admin') && j.stage === 'quote';
         const glowClass = isLive ? ' live-glow' : '';
+        const projectBadgeClass = j.project === 'Live' ? 'green' : j.project === 'Quote' ? 'blue' : 'amber';
         return `<div class="list-item${glowClass}" onclick="openJob('${j.id}')">
         <div class="list-thumb"><img src="${jobImage(j, 3, 120, 120)}" alt="thumb" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=72 height=72><rect width=72 height=72 fill=%23f3f4f6/></svg>'"></div>
-        <div class="list-body"><div style="font-weight:700">${j.design}</div><div style="margin-top:4px;color:var(--text-muted);font-size:11.5px;line-height:1.45">${j.summary}</div><div style="color:var(--text-muted);font-size:12px">${j.client} · ${oBadge(j.order)} · ${sBadge(j.status)}</div>${jobActions(j.id)}</div>
+        <div class="list-body">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+            <div style="font-weight:700">${j.design}</div>
+            <div style="display:flex;gap:4px;align-items:center;">
+              <span class="ref-code" style="font-size:9.5px;padding:1px 5px;">${j.id}</span>
+              <span class="badge gray" style="font-size:9px;padding:1px 6px;margin:0;">ID: ${j.clientId}</span>
+              <span class="badge ${projectBadgeClass}" style="font-size:9px;padding:1px 6px;margin:0;">${j.project}</span>
+            </div>
+          </div>
+          <div style="margin-top:4px;color:var(--text-muted);font-size:11.5px;line-height:1.45">${j.summary}</div>
+          <div style="color:var(--text-muted);font-size:12px">${j.client} · ${oBadge(j.order)} · ${sBadge(j.status)}</div>
+          ${jobActions(j.id)}
+        </div>
         <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-faint)">${j.eta}</div>
       </div>`;
       }).join('')}
