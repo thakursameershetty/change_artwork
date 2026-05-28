@@ -5029,7 +5029,7 @@
             ${j.eta && j.eta !== '—' ? `<span class="jc-pill" style="background:rgba(99,179,237,0.15);color:#90cdf4;border-color:rgba(99,179,237,0.3);font-family:var(--f-mono);font-weight:600;">⏱ ${j.eta}</span>` : ''}
           </div>
         </div>
-        ${hasActionRequired ? `<div class="jc-negotiate-banner" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-top:1px solid #FCD34D;color:#92400E;"><div style="background:rgba(217,119,6,0.12); width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>QUOTED price ready — $${j.csPrice} · Tap to confirm &amp; start production</div>` : ''}
+        ${hasActionRequired ? `<div class="jc-negotiate-banner" style="background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border-top:1px solid #FCD34D;color:#92400E;font-size:11px;line-height:1.35;"><div style="background:rgba(217,119,6,0.12); width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>QUOTED price ready — $${j.csPrice} · Tap to confirm &amp; start production</div>` : ''}
       </div>`;
         }).join('')}
     </div>
