@@ -1114,7 +1114,7 @@
       align-items: center;
       margin: 0;
     }
-    
+
     .filter-panel.open {
       max-height: 400px;
       padding: 12px 14px;
@@ -1123,7 +1123,7 @@
       border-color: var(--glass-border);
       box-shadow: var(--glass-shadow);
     }
-    
+
     .filter-group {
       display: flex;
       flex-direction: column;
@@ -1131,7 +1131,7 @@
       min-width: 140px;
       flex: 1;
     }
-    
+
     .filter-group label {
       font-size: 10px;
       font-weight: 700;
@@ -1139,7 +1139,7 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
-    
+
     .filter-select {
       background: #FFFFFF;
       border: 1px solid var(--glass-border);
@@ -1153,12 +1153,12 @@
       appearance: auto;
       transition: border-color 0.15s;
     }
-    
+
     .filter-select:focus {
       border-color: var(--crimson);
       background: rgba(196, 30, 58, 0.03);
     }
-    
+
     .filter-panel .btn-reset {
       margin-top: 14px;
       height: 32px;
@@ -1176,7 +1176,7 @@
       justify-content: center;
       gap: 6px;
     }
-    
+
     .filter-panel .btn-reset:hover {
       background: rgba(255, 255, 255, 0.1);
       color: var(--text);
@@ -2193,21 +2193,180 @@
       padding: 20px 22px;
     }
 
+    .modal-gallery-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-height: 0;
+      height: 100% !important;
+    }
+
     .modal-gallery {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 10px;
-      margin-bottom: 18px;
+      overflow: hidden;
+      flex: 1;
+      min-height: 0;
+      height: 100% !important;
     }
 
     .modal-gallery img {
       width: 100%;
-      height: 150px;
+      height: 100%;
+      min-height: 150px;
+      max-height: none !important;
       object-fit: cover;
-      display: block;
+      display: none;
       border-radius: 10px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       background: rgba(0, 0, 0, 0.06);
+      cursor: zoom-in;
+    }
+
+    .modal-gallery img.car-visible {
+      display: block;
+    }
+
+    .car-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+      transition: background 0.15s;
+    }
+
+    .car-btn:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .car-btn.prev {
+      left: -14px;
+    }
+
+    .car-btn.next {
+      right: -14px;
+    }
+
+    .car-btn:disabled {
+      opacity: 0.25;
+      cursor: default;
+    }
+
+    .quote-pricing-card {
+      background: linear-gradient(135deg, #FFFBEB, #FEF3C7) !important;
+      border: 1.5px solid #FCD34D !important;
+      border-radius: 12px;
+      padding: 16px !important;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px !important;
+      color: #92400E !important;
+      box-shadow: 0 8px 30px rgba(217, 119, 6, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    }
+
+    .quote-pricing-card label.fl {
+      color: #92400E !important;
+      font-size: 11px !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 4px !important;
+    }
+
+    .quote-pricing-card .fi {
+      background: #FFFFFF !important;
+      border: 1.5px solid #FCD34D !important;
+      color: #92400E !important;
+      font-size: 13.5px !important;
+      font-weight: 700 !important;
+      border-radius: 8px !important;
+      padding: 8px 12px !important;
+      width: 100% !important;
+      outline: none !important;
+      box-shadow: inset 0 1px 2px rgba(217, 119, 6, 0.05) !important;
+      transition: all 0.15s ease !important;
+    }
+
+    .quote-pricing-card .fi:focus {
+      border-color: #D97706 !important;
+      background: #FFFFFF !important;
+      box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15), inset 0 1px 2px rgba(217, 119, 6, 0.05) !important;
+    }
+
+    .quote-pricing-card .info-banner {
+      background: rgba(217, 119, 6, 0.04) !important;
+      border: 1px dashed #FCD34D !important;
+      border-radius: 8px;
+      padding: 8px 10px !important;
+      font-size: 10.5px !important;
+      color: #B45309 !important;
+      line-height: 1.45;
+      display: flex;
+      align-items: center;
+      gap: 6px !important;
+    }
+
+    /* Light Theme overrides for pricing card (maintain gold design) */
+    html[data-theme="light"] .quote-pricing-card {
+      background: linear-gradient(135deg, #FFFBEB, #FEF3C7) !important;
+      border: 1.5px solid #FCD34D !important;
+      color: #92400E !important;
+      box-shadow: 0 8px 30px rgba(217, 119, 6, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+    }
+
+    html[data-theme="light"] .quote-pricing-card label.fl {
+      color: #92400E !important;
+    }
+
+    html[data-theme="light"] .quote-pricing-card .fi {
+      background: #FFFFFF !important;
+      border: 1.5px solid #FCD34D !important;
+      color: #92400E !important;
+    }
+
+    html[data-theme="light"] .quote-pricing-card .fi:focus {
+      border-color: #D97706 !important;
+      background: #FFFFFF !important;
+      box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15), inset 0 1px 2px rgba(217, 119, 6, 0.05) !important;
+    }
+
+    html[data-theme="light"] .quote-pricing-card .info-banner {
+      background: rgba(217, 119, 6, 0.04) !important;
+      border: 1px dashed #FCD34D !important;
+      color: #B45309 !important;
+    }
+
+    /* Match carousel height to pricing card */
+    .job-top-layout.has-pricing-card {
+      align-items: stretch !important;
+    }
+
+    .job-top-layout.has-pricing-card .modal-gallery-wrap {
+      height: 100% !important;
+    }
+
+    .job-top-layout.has-pricing-card .modal-gallery {
+      height: 100% !important;
+    }
+
+    .job-top-layout.has-pricing-card .modal-gallery img {
+      max-height: none !important;
+      height: 100% !important;
     }
 
     .modal-grid {
@@ -6277,7 +6436,7 @@
       const priorityVal = root.querySelector('.filter-priority')?.value || 'all';
 
       const currentView = root.getAttribute('data-view') || 'grid';
-      
+
       // Filter table rows
       const tableRows = root.querySelectorAll('.table-view tbody tr');
       let visibleTableCount = 0;
@@ -6341,7 +6500,7 @@
       if (emptyState) {
         emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
       }
-      
+
       const tableView = root.querySelector('.table-view table');
       if (tableView) {
         tableView.style.display = (currentView === 'table' && visibleTableCount === 0) ? 'none' : '';
@@ -6351,17 +6510,17 @@
     function resetJobFilters(btn) {
       const root = btn.closest('.jobs-root');
       if (!root) return;
-      
+
       const statusSelect = root.querySelector('.filter-status');
       const orderSelect = root.querySelector('.filter-order');
       const prioritySelect = root.querySelector('.filter-priority');
       const searchInp = root.querySelector('.search-inp');
-      
+
       if (statusSelect) statusSelect.value = 'all';
       if (orderSelect) orderSelect.value = 'all';
       if (prioritySelect) prioritySelect.value = 'all';
       if (searchInp) searchInp.value = '';
-      
+
       applyJobFilters(root);
       showToast('Filters reset successfully', 'success');
     }
@@ -6396,51 +6555,62 @@
       <button class="modal-close" onclick="closeModal()">${icon('close', 'btn-ico')}</button>
     </div>
     <div class="modal-body">
-      <div class="job-top-layout${(currentRole === 'admin' || isCS) && j.stage === 'quote' && !j.clientPrice ? ' has-pricing-card' : ''}">
-        <div style="display:flex; flex-direction:column;">
+      <div class="job-top-layout${(currentRole === 'admin' || isCS) && j.stage === 'quote' ? ' has-pricing-card' : ''}">
+        <div style="display:flex; flex-direction:column; min-width: 0; flex: 1;">
           <div class="m-sec-title">Job Images</div>
-          <div class="modal-gallery" style="margin-bottom:0; flex:1; display:grid; grid-template-columns:repeat(${images.length > 2 ? 3 : images.length || 1}, minmax(0,1fr)); gap:10px;">
-            ${images.map((src, index) => `<img src="${src}" alt="${j.design} image ${index + 1}" loading="lazy" referrerpolicy="no-referrer" onclick="openLightbox(${index})" title="Click to preview" style="height:100%; min-height:150px; max-height:240px; object-fit:cover;" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=900 height=700><rect width=900 height=700 fill=%23f3f4f6/></svg>'">`).join('')}
+          <div class="modal-gallery-wrap" style="flex:1; min-height:0; position:relative;">
+            <button class="car-btn prev" id="car-prev" onclick="carNav(-1)" ${images.length <= 2 ? 'disabled' : ''}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="modal-gallery" id="modal-gallery" style="margin-bottom:0;">
+              ${images.map((src, index) => `<img src="${src}" alt="${j.design} image ${index + 1}" loading="lazy" referrerpolicy="no-referrer" class="${index < 2 ? 'car-visible' : ''}" onclick="openLightbox(${index})" title="Click to preview" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=900 height=700><rect width=900 height=700 fill=%23f3f4f6/></svg>'">`).join('')}
+            </div>
+            <button class="car-btn next" id="car-next" onclick="carNav(1)" ${images.length <= 2 ? 'disabled' : ''}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
           </div>
         </div>
-        ${(currentRole === 'admin' || isCS) && j.stage === 'quote' && !j.clientPrice ? `
-        <div style="display:flex; flex-direction:column;">
-          <div class="m-sec-title" style="color:#fcd34d;">Review &amp; Set Price</div>
-          <div style="background:rgba(245,158,11,0.06); border:1.5px solid rgba(245,158,11,0.25); border-radius:10px; padding:20px; flex:1; display:flex; flex-direction:column; justify-content:center; gap:12px;">
-            <div>
-              <div style="font-size:10px; font-weight:700; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px;">Client's Suggested Budget</div>
-              <div style="font-size:22px; font-weight:800; color:var(--text-faint); font-family:var(--font-head); letter-spacing:-0.02em; display:inline-block; background:rgba(255,255,255,0.04); padding:4px 14px; border-radius:6px; border:1px solid rgba(255,255,255,0.08); margin:6px 0;">Not provided</div>
-              <div style="font-size:11px; color:rgba(255,255,255,0.35); margin-top:2px;">The client did not suggest any price. Set our agency pricing below.</div>
-            </div>
-
-            <div style="display:flex; flex-direction:column; gap:6px;">
+        ${(currentRole === 'admin' || isCS) && j.stage === 'quote' ? `
+        <div style="display:flex; flex-direction:column; min-width: 0; flex: 1;">
+          <div class="m-sec-title" style="color:#FCD34D;">Review &amp; Set Price</div>
+          <div class="quote-pricing-card">
+            
+            <div style="display:flex; flex-direction:column; gap:10px;">
               <div style="display:flex; gap:10px; align-items:center;">
-                <div style="flex:1;">
-                  <label class="fl" style="color:rgba(255,255,255,0.7); margin-bottom:2px; font-size:11px;">Agency Price ($) <span style="color:var(--crimson)">*</span></label>
-                  <input type="number" class="fi" placeholder="e.g. 250" id="cs-set-price" min="1" style="font-size:15px; font-weight:700; border-color:rgba(245,158,11,0.4); padding:6px 10px;" oninput="validatePriceInput()">
+                <div style="flex:1.25;">
+                  <label class="fl" style="margin-bottom:4px;">Agency Price ($) <span style="color:var(--crimson)">*</span></label>
+                  <div style="position: relative; display: flex; align-items: center; width: 100%;">
+                    <span style="position: absolute; left: 12px; font-size: 20px; font-weight: 800; color: #D97706; pointer-events: none;">$</span>
+                    <input type="number" class="fi" id="cs-set-price" min="1" oninput="validatePriceInput()" style="font-size: 20px !important; font-weight: 800 !important; padding: 8px 12px 8px 28px !important; line-height: 1 !important; height: 42px !important;">
+                  </div>
                 </div>
                 <div style="flex:1;">
-                  <label class="fl" style="color:rgba(255,255,255,0.7); margin-bottom:2px; font-size:11px;">Confirmed ETA (hrs) <span style="color:var(--crimson)">*</span></label>
-                  <input type="number" class="fi" placeholder="e.g. 8" id="cs-set-eta" min="1" value="${j.eta ? j.eta.replace('h', '') : ''}" style="padding:6px 10px;">
+                  <label class="fl" style="margin-bottom:4px;">Confirmed ETA (hrs) <span style="color:var(--crimson)">*</span></label>
+                  <input type="number" class="fi" id="cs-set-eta" min="1" style="font-size: 18px !important; font-weight: 800 !important; padding: 8px 12px !important; height: 42px !important; text-align: center !important; line-height: 1 !important;">
                 </div>
               </div>
               
               <div>
-                <label class="fl" style="color:rgba(255,255,255,0.7); margin-bottom:2px; font-size:11px;">Note to Client</label>
-                <textarea class="fi fi-ta" id="cs-price-note" placeholder="e.g. Standard turnaround. High-quality vector delivery." style="min-height:45px; padding:6px 10px; font-size:12px;"></textarea>
+                <label class="fl" style="margin-bottom:4px;">Note to Client <span style="font-weight:400; text-transform:none; font-size:9.5px; opacity:0.65;">(optional)</span></label>
+                <textarea class="fi fi-ta" id="cs-price-note" style="min-height:48px; font-size:12.5px !important; font-weight:600 !important; padding: 8px 12px !important; line-height:1.4 !important;"></textarea>
               </div>
             </div>
 
-            <div id="cs-price-error" style="display:none; color:#fca5a5; font-size:11.5px; padding:6px 10px; background:rgba(239,68,68,0.1); border-radius:6px; margin-top:2px;">Please enter a valid agency price before sending.</div>
+            <div class="info-banner">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span>Sending price updates status to <b>Quote Approved</b> and requests client confirmation.</span>
+            </div>
 
-            <div style="display:flex; gap:10px; justify-content:flex-end;">
-              <button class="btn btn-red btn-sm" style="padding:6px 10px; font-size:11.5px;" onclick="csRejectQuote('${j.id}')">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <div id="cs-price-error" style="display:none; color:#DC2626; font-size:11px; padding:6px 10px; background:rgba(220,38,38,0.08); border:1px solid rgba(220,38,38,0.2); border-radius:6px; margin-top:2px; font-weight:600;">Please enter a valid agency price before sending.</div>
+
+            <div style="display:flex; gap:8px; justify-content:flex-end; align-items:center;">
+              <button class="btn" style="background:transparent !important; border:1.5px solid #D97706 !important; color:#92400E !important; padding:8px 14px !important; font-size:11.5px !important; font-weight:700 !important; border-radius:99px !important; cursor:pointer !important; transition:all 0.15s ease !important; display:inline-flex; align-items:center;" onmouseover="this.style.background='rgba(217,119,6,0.08)';" onmouseout="this.style.background='transparent';" onclick="csRejectQuote('${j.id}')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 Reject Quote
               </button>
-              <button class="btn btn-green" id="cs-send-price-btn" style="padding:6px 12px; font-size:11.5px; font-weight:700;" onclick="csApproveWithPrice('${j.id}')">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                <span>Send Price</span>
+              <button class="btn" id="cs-send-price-btn" style="background:#D97706 !important; border:1.5px solid #D97706 !important; color:#FFFFFF !important; padding:8px 16px !important; font-size:11.5px !important; font-weight:700 !important; border-radius:99px !important; cursor:pointer !important; transition:all 0.15s ease !important; display:inline-flex; align-items:center;" onmouseover="this.style.background='#B45309'; this.style.borderColor='#B45309';" onmouseout="this.style.background='#D97706'; this.style.borderColor='#D97706';" onclick="csApproveWithPrice('${j.id}')">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><polyline points="20 6 9 17 4 12"/></svg>
+                Send Price
               </button>
             </div>
           </div>
@@ -6459,52 +6629,6 @@
           ${[['ETA', j.eta], ['Created', j.created], ['Reference', j.ref], ...(j.placement ? [['Placement', j.placement], ['Width', j.width + '"'], ['Height', j.height + '"'], ['Fabric', j.fabric]] : []), ...(j.stitchCount ? [['Stitch Count', j.stitchCount.toLocaleString()]] : []), ...(isCS || currentRole === 'admin' ? [['Client Budget', j.clientPrice ? `$${j.clientPrice}` : 'Not provided'], ['Admin Counter', j.adminPrice ? `$${j.adminPrice}` : 'None'], ['Agreed Price', j.agreedPrice ? `$${j.agreedPrice}` : 'Pending']] : []), ...(j.aiScore ? [['AI QC Score', '89/100 — Pass']] : [])].map(([k, v]) => `<div class="f-row"><div class="f-key">${k}</div><div class="f-val ${k === 'Reference' ? 'mono' : ''}">${v}</div></div>`).join('')}
         </div>
       </div>
-      ${(currentRole === 'admin' || isCS) && j.stage === 'quote' && j.clientPrice ? `
-      <div class="m-sec-title" style="color: #fcd34d; margin-top: 4px;">Review &amp; Set Price</div>
-      <div style="background: rgba(245,158,11,0.06); border: 1.5px solid rgba(245,158,11,0.25); border-radius: 10px; padding: 18px; margin-bottom: 18px;">
-
-        <div style="display:flex; gap:16px; align-items:flex-start; flex-wrap:wrap; margin-bottom:14px;">
-          <div style="flex:1; min-width:200px;">
-            <div style="font-size:10px; font-weight:700; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px;">Client's Suggested Budget</div>
-            <div style="font-size:22px; font-weight:800; color: ${j.clientPrice ? '#86efac' : 'var(--text-faint)'}; font-family:var(--font-head); letter-spacing:-0.02em;">${j.clientPrice ? '$' + j.clientPrice : 'Not provided'}</div>
-            <div style="font-size:11px; color: rgba(255,255,255,0.35); margin-top:2px;">This is a reference only — you set the final price.</div>
-          </div>
-          <div style="display:flex; flex-direction:column; gap:5px; min-width:220px; flex:1;">
-            <label class="fl" style="color:rgba(255,255,255,0.7);">Agency Price <span style="color:var(--crimson)">*</span></label>
-            <input type="number" class="fi" placeholder="e.g. 250" id="cs-set-price" min="1" style="font-size:16px; font-weight:700; border-color:rgba(245,158,11,0.4);" oninput="validatePriceInput()">
-            <div style="font-size:10.5px; color:rgba(255,255,255,0.35); margin-top:2px;">This price will be shown to the client for confirmation.</div>
-          </div>
-        </div>
-
-        <div style="margin-bottom:12px;">
-          <label class="fl" style="color:rgba(255,255,255,0.7);">Confirmed ETA (hours) <span style="color:var(--crimson)">*</span></label>
-          <input type="number" class="fi" placeholder="e.g. 8" id="cs-set-eta" min="1" value="${j.eta ? j.eta.replace('h', '') : ''}" style="max-width:160px;">
-        </div>
-
-        <div style="margin-bottom:14px;">
-          <label class="fl" style="color:rgba(255,255,255,0.7);">Note to Client <span style="font-weight:400; text-transform:none; font-size:10px;">(optional)</span></label>
-          <textarea class="fi fi-ta" id="cs-price-note" placeholder="e.g. Price includes 3 revisions. Delivery in DST + PDF formats. Rush surcharge applied." style="min-height:60px;"></textarea>
-        </div>
-
-        <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.07); border-radius:7px; padding:10px 12px; font-size:11.5px; color:rgba(255,255,255,0.45); display:flex; align-items:flex-start; gap:7px; margin-bottom:14px; line-height:1.6;">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(245,158,11,0.6)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <span>Once you click <b style="color:rgba(255,255,255,0.75);font-weight:600;">Send Price to Client</b>, the job status changes to <b style="color:#fcd34d;font-weight:600;">Quote Approved</b> and the client receives an in-app notification to confirm and start production.</span>
-        </div>
-
-        <div id="cs-price-error" style="display:none; color:#fca5a5; font-size:12px; margin-bottom:8px; padding:6px 10px; background:rgba(239,68,68,0.1); border-radius:6px;">Please enter a valid agency price before sending.</div>
-
-        <div style="display:flex; gap:10px; justify-content:flex-end;">
-          <button class="btn btn-red btn-sm" onclick="csRejectQuote('${j.id}')">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            Reject Quote
-          </button>
-          <button class="btn btn-green" id="cs-send-price-btn" onclick="csApproveWithPrice('${j.id}')">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            <span>Send Price to Client</span>
-          </button>
-        </div>
-      </div>
-      ` : ''}
       <div class="m-sec-title">Notes / Brief</div>
       <div style="background:rgba(255,255,255,0.04);border:1px solid var(--glass-border);border-radius:8px;padding:12px;font-size:12.5px;color:var(--text-muted);margin-bottom:15px;line-height:1.7">${j.notes}</div>
       ${j.aiScore ? `
@@ -6526,7 +6650,7 @@
       <button class="btn btn-outline" onclick="closeModal()">${icon('close', 'btn-ico')}<span>Close</span></button>
       ${(currentRole === 'cs' || currentRole === 'admin') ? `<button class="btn btn-outline" onclick="openEditJob('${j.id}')">${icon('edit', 'btn-ico')}<span>Edit Job</span></button>` : ''}
       ${(currentRole === 'cs' || currentRole === 'admin') ? `<button class="btn btn-crimson" onclick="closeModal();setTimeout(()=>openAssignModal('${j.id}'),100)">${icon('user', 'btn-ico')}<span>Assign Job</span></button>` : ''}
-      ${isCS && j.stage === 'qc' ? `<button class="btn btn-crimson" onclick="showToast('Files delivered to client!','success');closeModal()">${icon('package', 'btn-ico')}<span>Dispatch to Client</span></button>` : ''}
+      ${isCS && j.stage === 'qc' ? `<button class="btn btn-crimson" onclick="closeModal();setTimeout(()=>openDispatchModal('${j.id}'),150)">${icon('package', 'btn-ico')}<span>Dispatch to Client</span></button>` : ''}
       ${isQC && j.stage === 'qc' ? `<button class="btn btn-red" onclick="toggleReject()">Reject</button><button class="btn btn-green" onclick="showToast('Job approved! Routed to CS for dispatch.','success');closeModal()">${icon('check-circle', 'btn-ico')}<span>Approve</span></button>` : ''}
       ${currentRole === 'teamlead' ? `<button class="btn btn-crimson" onclick="closeModal();setTimeout(()=>openAssignModal('${j.id}'),100)">${icon('user', 'btn-ico')}<span>Assign Job</span></button>` : ''}
       ${currentRole === 'teamlead' && j.subType === 'Junior' && j.stage === 'junior' ? `
@@ -6896,11 +7020,25 @@
       setTimeout(() => closeModal(), 400);
     }
 
+    let _carPage = 0;
+    function carNav(dir) {
+      const gallery = document.getElementById('modal-gallery');
+      if (!gallery) return;
+      const imgs = Array.from(gallery.querySelectorAll('img'));
+      const total = imgs.length;
+      if (total <= 2) return;
+      _carPage = Math.max(0, Math.min(_carPage + dir, total - 2));
+      imgs.forEach((img, i) => img.classList.toggle('car-visible', i >= _carPage && i < _carPage + 2));
+      document.getElementById('car-prev').disabled = _carPage === 0;
+      document.getElementById('car-next').disabled = _carPage >= total - 2;
+    }
+
     function closeModal(e) {
       if (e && e.target !== document.getElementById('modal-overlay')) return;
       document.getElementById('modal-overlay').classList.remove('open');
       const content = document.getElementById('modal-content');
       if (content) content.style.maxWidth = '';
+      _carPage = 0;
     }
 
     /* ──────────── ADMIN USER MANAGEMENT MODALS ──────────── */
@@ -7284,6 +7422,140 @@
         document.querySelectorAll('.ai-sc-fill').forEach(el => { const w = el.style.width; el.style.width = '0'; setTimeout(() => el.style.width = w, 200); });
         if (pgId === 'client-dash') renderPricingChart(pricingRange);
       }, 60);
+    }
+
+    /* ──────────── DISPATCH TO CLIENT MODAL ──────────── */
+    function openDispatchModal(jobId) {
+      const j = JOBS.find(x => x.id === jobId);
+      if (!j) return;
+      const overlay = document.getElementById('modal-overlay');
+      const content = document.getElementById('modal-content');
+      content.style.maxWidth = '560px';
+      const hasColors = j.colors != null;
+      const hasDims = !!(j.width && j.height);
+      const hasStitch = j.stitchCount != null;
+      const fmtExpected = (j.order === 'Digitizing' || j.order === 'Digitizing + Sewout') ? 'DST, PDF' : 'AI, PDF, PNG';
+      content.innerHTML = `
+    <div class="modal-top">
+      <div style="flex:1">
+        <div class="modal-job-id">${j.id} &nbsp;·&nbsp; Dispatch to Client</div>
+        <div class="modal-title">${j.design}</div>
+        <div class="modal-tags"><span class="badge gray">${j.client}</span> ${oBadge(j.order)} ${pBadge(j.priority)}</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">${icon('close', 'btn-ico')}</button>
+    </div>
+    <div class="modal-body">
+      <div style="margin-bottom:14px;padding:10px 14px;background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.2);border-radius:8px;font-size:12px;color:var(--text-muted);display:flex;gap:8px;align-items:flex-start;">
+        ${icon('info', 'callout-ico')}<span>Review the original brief against what's being delivered. Log any variances — the client will be notified before they download files.</span>
+      </div>
+      <div class="m-sec-title">Brief vs. Delivery Checklist</div>
+      <div style="background:rgba(255,255,255,0.03);border:1px solid var(--glass-border);border-radius:8px;overflow:hidden;margin-bottom:14px;">
+        <table style="width:100%;border-collapse:collapse;font-size:12.5px;">
+          <thead><tr style="background:rgba(255,255,255,0.04);">
+            <th style="padding:8px 12px;text-align:left;color:var(--text-faint);font-weight:600;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid var(--glass-border);">Spec</th>
+            <th style="padding:8px 12px;text-align:left;color:var(--text-faint);font-weight:600;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid var(--glass-border);">Requested</th>
+            <th style="padding:8px 12px;text-align:left;color:var(--text-faint);font-weight:600;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid var(--glass-border);">Delivering</th>
+            <th style="padding:8px 12px;text-align:center;color:var(--text-faint);font-weight:600;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid var(--glass-border);">Status</th>
+          </tr></thead>
+          <tbody>
+            ${hasColors ? `<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+              <td style="padding:9px 12px;color:var(--text-muted);">Colors</td>
+              <td style="padding:9px 12px;color:var(--text);font-weight:600;">${j.colors}</td>
+              <td style="padding:9px 12px;"><input id="del-colors" type="number" min="1" data-original="${j.colors}" value="${j.colors}" style="width:64px;padding:4px 8px;border:1px solid var(--glass-border);border-radius:5px;background:rgba(255,255,255,0.05);color:var(--text);font-family:var(--font-mono);font-size:12px;outline:none;" oninput="checkDispatchVariance()"></td>
+              <td style="padding:9px 12px;text-align:center;" id="var-colors">—</td>
+            </tr>` : ''}
+            ${hasDims ? `<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+              <td style="padding:9px 12px;color:var(--text-muted);">Dimensions</td>
+              <td style="padding:9px 12px;color:var(--text);font-weight:600;">${j.width}" × ${j.height}"</td>
+              <td style="padding:9px 12px;color:var(--text-muted);font-size:12px;">As specified</td>
+              <td style="padding:9px 12px;text-align:center;"><span style="color:#86efac;font-size:11px;">✓ Match</span></td>
+            </tr>` : ''}
+            ${hasStitch ? `<tr style="border-bottom:1px solid rgba(255,255,255,0.04);">
+              <td style="padding:9px 12px;color:var(--text-muted);">Stitch Count</td>
+              <td style="padding:9px 12px;color:var(--text);font-weight:600;">${j.stitchCount.toLocaleString()}</td>
+              <td style="padding:9px 12px;"><input id="del-stitch" type="number" data-original="${j.stitchCount}" value="${j.stitchCount}" style="width:88px;padding:4px 8px;border:1px solid var(--glass-border);border-radius:5px;background:rgba(255,255,255,0.05);color:var(--text);font-family:var(--font-mono);font-size:12px;outline:none;" oninput="checkDispatchVariance()"></td>
+              <td style="padding:9px 12px;text-align:center;" id="var-stitch">—</td>
+            </tr>` : ''}
+            <tr>
+              <td style="padding:9px 12px;color:var(--text-muted);">File Format</td>
+              <td style="padding:9px 12px;color:var(--text);font-weight:600;">${fmtExpected}</td>
+              <td style="padding:9px 12px;color:var(--text-muted);font-size:12px;">As requested</td>
+              <td style="padding:9px 12px;text-align:center;"><span style="color:#86efac;font-size:11px;">✓ Match</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="variance-alert" style="display:none;margin-bottom:14px;padding:10px 14px;background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.25);border-radius:8px;font-size:12px;color:#fcd34d;gap:8px;align-items:flex-start;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <span>Variances detected. Add delivery notes below to explain — the client will see these alongside their files.</span>
+      </div>
+      <div class="m-sec-title">Delivery Notes to Client</div>
+      <textarea id="dispatch-notes" class="fi fi-ta" rows="3" placeholder="Explain any variances or add delivery context (e.g. 'Pantone 286C unavailable — 3 colors delivered instead of 4, closest match substituted')..." style="resize:vertical;min-height:72px;"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="closeModal()">${icon('close', 'btn-ico')}<span>Cancel</span></button>
+      <button class="btn btn-crimson" onclick="confirmDispatch('${j.id}')">${icon('package', 'btn-ico')}<span>Confirm Dispatch</span></button>
+    </div>`;
+      overlay.classList.add('open');
+      setTimeout(checkDispatchVariance, 50);
+    }
+
+    function checkDispatchVariance() {
+      let hasVariance = false;
+      const colInput = document.getElementById('del-colors');
+      if (colInput) {
+        const orig = parseInt(colInput.dataset.original);
+        const val = parseInt(colInput.value);
+        const cell = document.getElementById('var-colors');
+        if (cell) {
+          if (!isNaN(val) && val !== orig) {
+            cell.innerHTML = '<span style="color:#fbbf24;font-weight:600;font-size:11px;">⚠ Variance</span>';
+            hasVariance = true;
+          } else {
+            cell.innerHTML = '<span style="color:#86efac;font-size:11px;">✓ Match</span>';
+          }
+        }
+      }
+      const stitchInput = document.getElementById('del-stitch');
+      if (stitchInput) {
+        const orig = parseInt(stitchInput.dataset.original);
+        const val = parseInt(stitchInput.value);
+        const cell = document.getElementById('var-stitch');
+        if (cell) {
+          if (!isNaN(val) && !isNaN(orig) && val !== orig) {
+            cell.innerHTML = '<span style="color:#fbbf24;font-weight:600;font-size:11px;">⚠ Variance</span>';
+            hasVariance = true;
+          } else {
+            cell.innerHTML = '<span style="color:#86efac;font-size:11px;">✓ Match</span>';
+          }
+        }
+      }
+      const alert = document.getElementById('variance-alert');
+      if (alert) alert.style.display = hasVariance ? 'flex' : 'none';
+    }
+
+    function confirmDispatch(jobId) {
+      const j = JOBS.find(x => x.id === jobId);
+      if (!j) return;
+      const variances = [];
+      const colInput = document.getElementById('del-colors');
+      if (colInput) {
+        const orig = parseInt(colInput.dataset.original);
+        const val = parseInt(colInput.value);
+        if (!isNaN(val) && val !== orig) variances.push({ spec: 'Colors', requested: orig, delivered: val });
+      }
+      const stitchInput = document.getElementById('del-stitch');
+      if (stitchInput) {
+        const orig = parseInt(stitchInput.dataset.original);
+        const val = parseInt(stitchInput.value);
+        if (!isNaN(val) && !isNaN(orig) && val !== orig) variances.push({ spec: 'Stitch Count', requested: orig, delivered: val });
+      }
+      const notes = (document.getElementById('dispatch-notes') || {}).value || '';
+      if (variances.length > 0 || notes) j.deliveryNotes = { variances, csNotes: notes };
+      j.stage = 'delivered';
+      j.status = 'Delivered';
+      closeModal();
+      showToast('Files dispatched to ' + j.client + '!', 'success');
     }
 
     /* ──────────── MISC ──────────── */
